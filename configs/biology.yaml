@@ -1,0 +1,9 @@
+# Frozen biology constants (soil_respiration_prompt.md §3).
+# Shared by ALL soils. The search loop must NEVER edit this file.
+r_max: 1.00     # max growth rate
+Ks:    0.20     # half-saturation substrate
+Y:     0.40     # yield (biomass per substrate)
+m0:    0.02     # constant maintenance death
+m_s:   0.10     # max starvation death
+k_dis: 0.05     # OM dissolution rate (solid OM -> mobile S)
+dt:    0.05     # time step

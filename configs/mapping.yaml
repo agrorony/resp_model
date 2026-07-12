@@ -1,0 +1,29 @@
+# Fixed pore -> parameter mapping constants (soil_respiration_prompt_v2.md
+# SB) plus the shared totals/rule exponents (SC). Shared by ALL soils and ALL
+# stages. NEVER edited by the search loop -- only the per-soil pore params
+# (mu, sigma, lambda, aggregate) in configs/soil_*.yaml may change.
+
+# K(r): hump peaking at r_opt (mid-size pores best)
+r_opt: 5.0      # pore radius (arb. units) at which K peaks
+w_K:   0.45     # width of the hump in log-radius space (narrow enough that
+                # habitat is genuinely selective, so biomass concentrates
+                # instead of spreading thinly over every cell)
+K_max: 1.0      # carrying capacity at the peak
+k_min: 0.005    # floor for extreme (too small / too big) pores
+
+# D(r): rises with pore size
+D_min: 0.02     # diffusion rate at r -> 0
+D_max: 3.0      # diffusion rate at r >= r_ref
+r_ref: 5.0      # reference pore radius for the D(r) power law
+p:     2.0      # power-law exponent
+
+# Stage 3 retention rule: fixed physical pore-radius threshold standing in
+# for a shared matric potential. theta then emerges per soil as the fraction
+# of THAT soil's own pore field with r <= matric_r_cut.
+matric_r_cut: 5.0
+
+# Shared totals / rule exponents (not biology, but invariant across soils
+# exactly like the biology constants -- only the pore field varies).
+OM_total: 800.0
+B0_total: 20.0
+om_fine_bias: 2.5   # OM weight = r^-om_fine_bias (higher weight in fine pores)

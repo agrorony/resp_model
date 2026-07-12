@@ -1,0 +1,16 @@
+# Soil B -- coarse-textured, short correlation length (salt-and-pepper).
+# Reached via the Stage-1 emergent-distinctness search.
+grid:
+  n: 40
+  dx: 1.0
+T: 600
+
+pore:
+  mu: 2.3
+  sigma: 0.4
+  lambda: 2.0
+  aggregate: false
+  seed: 2
+
+saturation:
+  mode: fully_wet   # Stage 1: all pores conduct
