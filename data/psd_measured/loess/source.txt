@@ -1,0 +1,47 @@
+Stage 13 (soil_respiration_prompt_stage13_real_data.md) real-data source.
+
+soil: loess (Mishmar HaNegev)
+sample: mishmar_hanegev_maoz_3_5p85um ("mishmar_native"), native 5.85 um voxels
+run: psd_diag_20260803T010446_mishmar_hanegev_maoz_3_5p85um_scratch_i2
+copied from (2026-09-14): "resarch exercise" companion project folder,
+  Topology_Metrics_Aug2026/raw/psd_diag_20260803T010446_mishmar_hanegev_maoz_3_5p85um_scratch_i2/psd_table.csv
+run date: 2026-08-03 (per PROJECT_STATUS.md / DATA_CATALOG.md, full pipeline confirmed)
+status per DATA_CATALOG.md (2026-08-25 sweep): VALID -- canonical reference for Mishmar
+voxel size: 5.85 um (native, highest-resolution of the two Mishmar specimens)
+shape: 1000^3
+
+Why this resolution (per Stage 13 prompt SS0, "prefer whichever resolution the
+project itself uses for cross-soil comparison, see A2"): A2's actual
+cross-soil PRACTICE is to restrict cross-soil INFERENCE to >=31um functional
+classes / matched ~15um resolution when comparing magnitudes across soils,
+but the native 5.85um scan remains the soil's own best, full, real measured
+PSD shape (not resolution-degraded) and is what psd_data-style bin-table
+loading is built to consume directly. Connectivity SCALARS used for the
+Stage 13 SS2 comparison instead use the matched ~15um numbers where available
+(see configs/psd_measured.yaml) precisely to avoid the A2 resolution
+confound; only the PSD *shape* driving pore_field's diameter map uses the
+native-resolution table.
+
+Bin edges: this run's raw output only ships bin CENTERS (Diameter_um) plus
+per-bin volume/cumulative/differential columns, no separate bin_edges_um.csv
+(unlike the Stage-3 data/psd/* copies). psd_measured.py reconstructs the n+1
+edges from the n log-spaced centers by inverting psd_parametric's own
+edge->center convention (center = sqrt(edge_lo*edge_hi)), which recovers the
+edges essentially exactly for a genuinely log-spaced grid (verified: this
+run's centers are log-spaced from ~2.23 to ~906.45 um in 32 bins, matching
+its own summary.json "range" min/max exactly).
+
+Connectivity metrics for this exact volume/run (native 5.85um, from
+connectivity_validation_summary.md Part E + crossover_radius_summary.md,
+both dated 2026-08-25/26): porosity 0.2704, Euler chi -65,340, connectivity
+density 326.37 mm^-3, Gamma 0.9273, DA 0.1227, tortuosity all 3 axes NaN
+(confirmed solver non-convergence bug, not "no percolating path" -- see
+connectivity_validation_summary.md Part B), PSD 30-150um volume fraction
+0.7321 (differs from this table's own re-derived value only by roundoff),
+r* = 67.0 um (crossover_radius_summary.md).
+
+Matched-~15um n=3 physical-replicate mean +/- SE (track_e_correction_
+summary.md, 2026-09-02/03; NOT the same voxel array as this PSD table, kept
+separate/labelled in Stage 13's provenance table): connectivity density
+151.2 +/- 110.7 mm^-3, Gamma 0.9324 +/- 0.0018, DA 0.148 +/- 0.023,
+r* 133.3 +/- 42.4 um.

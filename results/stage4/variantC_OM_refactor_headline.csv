@@ -1,0 +1,4 @@
+variant,soil,theta,grid_n,outcome,R_peak,mean_S_habitat_final,wet_habitat_fraction,curve_shape,om_fraction_init,om_total_init
+C,Loess,0.6,128,declining,0.4,0.0009278552722979701,0.14508056640625,falling,0.035,252.66500000000002
+C,Sand,0.6,128,declining,0.39999999999999997,0.0010081278055773992,0.42626953125,falling,0.02,39.06
+C,Vertisol,0.6,128,declining,0.4,0.0014604059712844473,0.138427734375,falling,0.05,360.75

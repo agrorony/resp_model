@@ -1,0 +1,32 @@
+Stage 13 (soil_respiration_prompt_stage13_real_data.md) real-data source.
+
+soil: sand (Rehovot)
+PSD SHAPE: reused, UNCHANGED, from data/psd/rehovot/{psd_table.csv,
+bin_edges_um.csv} (copied there at Stage 3; run "rehovot_150z", original
+input \\HIVE3065\...\10.5\rehovot_150z.npy, dated 2026-05-24).
+
+LIMITATION, stated plainly per Stage 13 prompt SS0.3: this is an OLDER,
+resolution-truncated (30 um minimum resolvable diameter, per psd_parametric.
+py's own Stage-3.5 docstring) run, not the current full-volume 650^3
+`Rehovot_samp2_highkV_Cu0.11_15um` run that the companion project's current
+Track E numbers (below) come from. The bin-level psd_table.csv for THAT
+current run (`psd_diag_20260824T135738_rehovot_samp_2_full_volume`) lives
+only under the companion project's network share
+(Topology_Metrics_Aug2026\raw\ on Z:\, per DATA_CATALOG.md's "Key data
+files" section) -- unreachable in this environment (Z:\ not mounted; the
+local "resarch exercise" project-folder mirror is explicitly flagged stale/
+missing this run by PROJECT_STATUS.md's "Key data files" note). No better
+local real Rehovot PSD table exists, so this is the nearest documented
+substitute per the prompt's own fallback instruction, not a silent
+invention. rehovot_150z is real measured data (an actual Rehovot volume, not
+fabricated), just an earlier/limited-resolution processing pass.
+
+Connectivity SCALARS used for Stage 13's comparison come from the CURRENT,
+full-volume samp_2 run instead of this table (connectivity_validation_
+summary.md Part C, crossover_radius_summary.md; run
+psd_diag_20260824T135738_rehovot_samp_2_full_volume, dated 2026-08-24/25,
+15.0 um voxels, 650^3, status VALID per DATA_CATALOG.md):
+porosity 0.3050 (matches the companion project's own Table 2 value),
+Euler chi -53,704, connectivity density 57.94 mm^-3, Gamma 0.9889,
+DA 0.1956, tortuosity axis0/1/2 = 3.666/3.398/3.148 (all converged, no NaN),
+PSD 30-150um volume fraction 0.7030, r* = 100.8 um.

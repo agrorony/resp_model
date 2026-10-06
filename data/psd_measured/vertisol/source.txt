@@ -1,0 +1,50 @@
+Stage 13 (soil_respiration_prompt_stage13_real_data.md) real-data source.
+
+soil: vertisol (Bnei Re'em)
+sample: "canonical" (bnei_reem_fresh_bnei_reem_i4), ~June/July 2026 reconstruction
+run: psd_diag_20260802T104738_nlm_volume_fresh_bnei_reem_i4
+copied from (2026-09-14): "resarch exercise" companion project folder,
+  Topology_Metrics_Aug2026/raw/psd_diag_20260802T104738_nlm_volume_fresh_bnei_reem_i4/psd_table.csv
+run date: 2026-08-02
+voxel size: 15.000149 um, shape 650x650x652
+
+IMPORTANT PROVENANCE CAVEAT (per DATA_CATALOG.md, 2026-09-07 entry, "Bnei
+Re'em rebuilt from raw"): as of 2026-09-07 the companion project's Track E
+connectivity numbers for Bnei Re'em were REBUILT through a new "unified
+pipeline" producing two genuine physical specimens (Specimen A, Specimen B),
+because an EARLIER candidate second-specimen run (`bnei_reem_samp_2_0*`) was
+found to have consumed raw rotational X-ray projections instead of
+reconstructed slices and is VOID. This "canonical" volume (used here for its
+PSD table) is NOT one of the two 2026-09-07 unified-pipeline runs -- it
+predates them. Its own scalar connectivity numbers (chi=+10,318,
+connectivity density -11.0977 mm^-3, Gamma=0.859357, DA=0.098259, embedded
+in this csv's repeated columns) match Specimen B's 2026-09-07 unified numbers
+(chi=+9,771, Gamma=0.859338, DA=0.0967) closely but not exactly, and
+DATA_CATALOG.md's own open item states the "canonical" volume's identity as
+Specimen A vs Specimen B is UNRESOLVED (a labelling question, not a validity
+one -- canonical is a real, valid Bnei Re'em Vertisol scan either way).
+
+Stage 13 uses this csv for its PSD SHAPE (the only full-volume, bin-level,
+real measured Vertisol pore-diameter table available in this environment --
+the network share holding the 2026-09-07 unified-pipeline runs' own psd_table
+outputs was not reachable, Z:\ drive unmounted) while explicitly using
+Specimen B's 2026-09-07 unified connectivity SCALARS (chi=+9,771, connectivity
+density -10.4699 mm^-3, Gamma=0.859338, DA=0.096700, PSD 30-150um fraction
+0.391276, r*=920.48 um -- the closer numerical match, DATA_CATALOG.md) for
+the Stage 13 SS2/SS3 comparison, flagged here and in
+docs/stage_results/STAGE13_RESULTS.md rather than silently treating
+"canonical" as either specimen.
+
+n=2 mean +/- SE across both real unified-pipeline specimens (DATA_CATALOG.md,
+2026-09-07 -- kept for the fuller picture, not used as the primary scalar
+comparison since this PSD table itself is a single volume, not an average):
+pore fraction 18.40 +/- 3.24%, POM 0.529 +/- 0.288%, Gamma 0.807 +/- 0.052,
+DA 0.143 +/- 0.046, connectivity density -19.44 +/- 8.97 mm^-3, chi
++18,051 +/- 8,280, PSD 30-150um fraction 0.545 +/- 0.154. Specimen A has NO
+r* crossover in range 2-1000um (fragment-dominated at every scale, like the
+pre-2026-09-07 "canonical" story); Specimen B crosses at r*=920.48 um (a much
+larger radius than any other soil's crossover -- reported, not averaged).
+
+Bin edges: reconstructed from log-spaced centers exactly as for the Loess
+table above (psd_measured.py); this run's own centers span ~2.23-906.45 um
+in 32 bins, matching its summary.json range exactly.

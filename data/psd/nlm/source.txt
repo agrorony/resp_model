@@ -1,0 +1,4 @@
+run_name: nlm_150z
+source_dir: psd_diag_20260525T133036_nlm_150z
+original input: \\HIVE3065\Yael_Mishael\Rony\remote_computer backup\10.5\nlm_150z.npy
+voxel_spacing_um: [15.0, 15.0, 15.0]

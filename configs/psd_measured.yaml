@@ -1,0 +1,83 @@
+# Real MEASURED pore-size distributions + Track E connectivity data (Stage 13,
+# soil_respiration_prompt_stage13_real_data.md), replacing configs/
+# psd_literature.yaml's literature-mixture PSDs for the `pore.mode:
+# psd_measured` path. Source: the companion "resarch exercise" project
+# (CT scans + nnU-Net segmentation + porespy topology metrics), NOT this
+# model's own literature. Every number here has a dated source recorded in
+# each soil's data/psd_measured/<soil>/source.txt -- read those before
+# trusting/changing anything here; this file is the pointer + scalar-summary
+# layer, the source.txt files carry the full provenance narrative.
+#
+# `psd_csv` is the bin-level real PSD table (feeds pore_field's diameter
+# map, same empirical-quantile pipeline as configs/psd_literature.yaml).
+# `porosity`/`connectivity` are SCALAR summary numbers used only for Stage
+# 13's SS2/SS3 reporting/comparison -- they are not fed back into the
+# simulation mechanics (dual_porosity.py never reads this key, exactly like
+# psd_parametric.yaml's `total_porosity`, which the model also never
+# consumes -- see pore_field.py's descriptive-only use).
+
+soils:
+
+  sand:
+    psd_csv: data/psd_measured/sand/psd_table.csv
+    # rehovot_150z (2026-05-24), resolution-truncated (30um min diameter) --
+    # see data/psd_measured/sand/source.txt for why this, not the current
+    # full-volume run, is the PSD shape used.
+    porosity: 0.3050
+    connectivity:
+      run: psd_diag_20260824T135738_rehovot_samp_2_full_volume
+      sample: Rehovot_samp2_highkV_Cu0.11_15um
+      date: "2026-08-24/25"
+      voxel_um: 15.0
+      euler_number: -53704
+      connectivity_density_mm3: 57.94
+      gamma: 0.9889
+      degree_of_anisotropy: 0.1956
+      tortuosity_axis0: 3.666
+      tortuosity_axis1: 3.398
+      tortuosity_axis2: 3.148
+      r_star_um: 100.8
+      psd_30_150um_fraction: 0.7030
+      note: "no POM channel (binary pore/solid soil); no crossover ambiguity, single clean negative-to-positive crossing"
+
+  loess:
+    psd_csv: data/psd_measured/loess/psd_table.csv
+    # native 5.85um mishmar_hanegev_maoz_3_5p85um -- see source.txt.
+    porosity: 0.2704
+    connectivity:
+      run: psd_diag_20260803T010446_mishmar_hanegev_maoz_3_5p85um_scratch_i2
+      sample: mishmar_hanegev_maoz_3_5p85um (mishmar_native)
+      date: "2026-08-03 (validated 2026-08-25)"
+      voxel_um: 5.85
+      euler_number: -65340
+      connectivity_density_mm3: 326.37
+      gamma: 0.9273
+      degree_of_anisotropy: 0.1227
+      tortuosity_axis0: .nan   # confirmed porespy finite-difference solver
+      tortuosity_axis1: .nan   # non-convergence bug (all 3 axes), NOT "no
+      tortuosity_axis2: .nan   # percolating path" -- see source.txt
+      r_star_um: 67.0
+      psd_30_150um_fraction: 0.7321
+      note: "matched-~15um n=3 physical-replicate mean+/-SE (different volumes, not this one): conn.density 151.2+/-110.7 mm^-3, Gamma 0.9324+/-0.0018, DA 0.148+/-0.023, r*=133.3+/-42.4um -- see source.txt"
+
+  vertisol:
+    psd_csv: data/psd_measured/vertisol/psd_table.csv
+    # "canonical" bnei_reem_fresh_bnei_reem_i4 -- specimen identity (A vs B)
+    # unresolved per DATA_CATALOG.md 2026-09-07; numerically closer to
+    # Specimen B -- see source.txt for the full caveat.
+    porosity: 0.21636
+    connectivity:
+      run: bnei_reem_specB_unified (2026-09-07 unified pipeline, closest numeric match to this PSD table's own "canonical" run)
+      sample: bnei_reem_specB_unified (Specimen B, raw core 18.12.25 bnei_reem_samp_2.0)
+      date: "2026-09-07"
+      voxel_um: 15.034357
+      euler_number: 9771
+      connectivity_density_mm3: -10.4699
+      gamma: 0.859338
+      degree_of_anisotropy: 0.096700
+      tortuosity_axis0: .nan   # non-percolating along axis0 (genuine, not solver failure)
+      tortuosity_axis1: 5.9585
+      tortuosity_axis2: 2.7848
+      r_star_um: 920.48
+      psd_30_150um_fraction: 0.391276
+      note: "n=2 specimen mean+/-SE: pore 18.40+/-3.24%, Gamma 0.807+/-0.052, DA 0.143+/-0.046, conn.density -19.44+/-8.97mm^-3, chi +18051+/-8280. Specimen A has NO r* crossover in 2-1000um (fragment-dominated at every scale); Specimen B crosses at r*=920.48um -- see source.txt"

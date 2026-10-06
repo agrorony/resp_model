@@ -1,0 +1,3 @@
+probe,soil,om_total,coating_fraction,D_scale,T,note,OM_total_placed,R_peak,porous_matrix_fraction,all_checks_pass
+1,Sand,40000.0,0.97,80.0,3000,"10x om_total, everything else frozen",0.0,0.4000000000000002,0.0,False
+2,Sand,4000.0,1.0,80.0,3000,"2x coating_fraction (capped at 1.0), everything else frozen -- CONFIRMS: OM_total_placed=0 regardless of knob values (porous_matrix_mask is empty; structural, not a tuning problem) -- stopping search early per Stage 15 precedent",0.0,0.4000000000000002,0.0,False

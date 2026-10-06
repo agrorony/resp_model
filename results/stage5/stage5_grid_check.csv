@@ -1,0 +1,4 @@
+soil,grid_n,emergent_theta,wet_habitat_fraction,outcome,period_shape_model,period_shape_experiment,n_regions,n_regions_wet,n_regions_dry,mean_region_diam_um,median_region_diam_um,max_region_diam_um,min_region_diam_um
+Loess,40,0.7325,0.145625,declining,falling,erratic,11,8,3,50.90909090909091,40.0,160.0,20.0
+Sand,40,0.183125,0.13875,declining,falling,falling,1,0,1,240.0,240.0,240.0,240.0
+Vertisol,40,0.711875,0.18625,declining,falling,rising,9,4,5,60.0,60.0,120.0,20.0

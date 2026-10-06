@@ -19,11 +19,409 @@ p:     2.0      # power-law exponent
 
 # Stage 3 retention rule: fixed physical pore-radius threshold standing in
 # for a shared matric potential. theta then emerges per soil as the fraction
-# of THAT soil's own pore field with r <= matric_r_cut.
+# of THAT soil's own pore field with r <= matric_r_cut. (Not used in Stage 3
+# itself -- Stage 3 keeps the Stage-2 global_theta sweep, soil_respiration_
+# prompt_stage3.md SS6 -- kept here for a possible future per-soil-suction stage.)
 matric_r_cut: 5.0
+
+# Stage 3 physiological K(d), d = pore diameter in microns
+# (soil_respiration_prompt_stage3.md SS4): hard zero below K_d_low, plateau
+# at K_max (reused from above) across [K_d_low, K_d_high], Gaussian decay of
+# width K_w_decay above K_d_high, no floor. Fixed and shared across soils.
+K_d_low:   30.0
+K_d_high:  150.0
+K_w_decay: 100.0
+
+# Stage 3 D(d): reuses D_min/D_max/p above; D_d_ref is a diameter-based
+# reference (microns), replacing the radius-based r_ref used by the Stage 1/2
+# lognormal mapping. max(D)*dt/dx^2 < 0.2 still holds because D(d) saturates
+# at the same D_max regardless of the diameter scale.
+#
+# Stage 3.5 D(d) FUSION FIX (soil_respiration_prompt_stage3_5.md SS3): this was
+# 90.0 in Stage 3, which put the saturating knee of D(d) right inside the
+# 30-150 um habitat window -- D was already ~2/3 of D_max by 150 um, so every
+# large pore looked alike to transport and the two coarse soils collapsed onto
+# the same respiration curve. Raising the reference to 250 um moves the knee
+# above the real diameter range, so D keeps rising appreciably from 30 to
+# ~300 um (D(30)=0.05, D(120)=0.33, D(300)=0.91 -- an ~17x spread, vs ~1.8x at
+# D_d_ref=90) and coarse-but-different soils no longer fuse. Fixed and shared
+# across soils; stage35_run.py re-checks both the separation and the
+# max(D)*dt/dx^2 < 0.2 stability bound.
+D_d_ref: 250.0
+
+# Stage 3.5 shared-suction diagnostic (model.water_mask_and_theta "matric_d"):
+# the air-entry DIAMETER in microns that stands in for a shared matric
+# potential -- pores finer than this are water-filled, so each soil's theta
+# emerges from its own PSD instead of being imposed. Only used by the
+# secondary diagnostic run, never by the headline constant-theta run.
+matric_d_cut: 60.0
 
 # Shared totals / rule exponents (not biology, but invariant across soils
 # exactly like the biology constants -- only the pore field varies).
 OM_total: 800.0
 B0_total: 20.0
 om_fine_bias: 2.5   # OM weight = r^-om_fine_bias (higher weight in fine pores)
+
+# Stage 4 (prompts/soil_respiration_prompt_stage4_exploratory.md) -- two
+# head-to-head fixes for "OM never reaches the habitat" (Stage 3.5's
+# diagnosis). Fixed and shared across soils; the PSD is still the only
+# per-soil difference.
+#
+# Variant A ("truncate + relocate OM"):
+stage4_psd_truncate_floor_um: 10.0   # drop all pore volume below this (SS2.1):
+                                      # sub-10 um clay is simply not on the grid
+stage4_variantA_wet_diffusion_scale: 1.25   # multiply D in water-filled cells
+                                             # for Variant A only (helps
+                                             # transport keep pace with
+                                             # substrate loss under distributed
+                                             # OM after truncation)
+
+# Variant C (dual-porosity matrix/macropore, SS3): the macro/matrix split
+# reuses K_d_low (30 um) above as the physiological threshold -- no separate
+# constant needed. Matrix "internal fine porosity" is represented by the
+# existing fine-pore-biased OM field itself (om_fine_bias above), not a
+# separate scalar -- see dual_porosity.py's docstring.
+k_leak: 0.10   # matrix -> adjacent-macropore dissolved-substrate exchange
+               # rate (mobile-immobile / dual-permeability term); same order
+               # as k_dis so leaked substrate arrives on a comparable
+               # timescale to dissolution, not instantly or never
+k_wick: 0.20   # additional matrix->macro dissolved-substrate transfer used by
+               # the hydro-substrate wicking mechanism (only on wet
+               # matrix-macro interfaces)
+
+# Stage 4 Variant C structural + networked-transport upgrade
+stage4_variantC_wicking_radius: 2         # Manhattan radius for macro suction from wet porous matrix
+stage4_variantC_matrix_diffusion: 0.03    # low-rate internal diffusion inside porous matrix patches
+stage4_variantC_solid_fraction: 0.35      # fraction of matrix cells assigned as solid inert phase
+stage4_variantC_solid_patch_sigma: 2.0    # smoothing scale for contiguous solid aggregate patches
+# stage4_variantC_macro_diameter_um: 80.0  -- RETIRED (Stage 5, prompts/
+# soil_respiration_prompt_stage5_matric_inscribed.md Change 2): every macropore
+# region used to be forced to this one diameter, flattening a 40 um
+# water-holding pore and a 500 um drained channel into the same K(d)/D(d).
+# Replaced by dual_porosity.macropore_region_inscribed_diameter, which sizes
+# each connected macropore REGION by its own maximum inscribed circle
+# (2 * erosion-depth-in-cells * voxel_um below).
+voxel_um: 10.0   # Stage 5: physical size of one grid cell, in microns -- the
+                 # grid now has a real physical scale ("reduce the macropore
+                 # cell" means many small voxels per macropore region, not one
+                 # 80 um cell).
+matric_d_cut_um: 50.0   # Stage 5 (dual_porosity.py "matric_regions" saturation
+                        # mode): the SHARED air-entry diameter (um) for ALL
+                        # three soils -- a pore is wet if its size < this, dry
+                        # if >= (matrix: its own PSD diameter d; macropore: its
+                        # REGION's inscribed diameter, not the per-cell PSD
+                        # label). theta then EMERGES per soil instead of being
+                        # imposed. NOT the same constant as `matric_d_cut`
+                        # above (Stage 3.5's single-continuum model.py
+                        # "matric_d" diagnostic, d_cut=60 -- different
+                        # mechanism, different value, kept separate).
+stage4_variantC_cluster_D_scale: 0.75     # macro-cluster size scaling for effective diffusion
+stage4_variantC_cluster_K_scale: 0.75     # macro-cluster size scaling for carrying capacity
+# stage4_variantC_cluster_S_scale: 0.75 -- RETIRED (Stage 6, prompts/
+# soil_respiration_prompt_stage6_portback.md Change 4)
+# stage4_variantC_S_capacity_base: 0.05 -- RETIRED (Stage 6, same change):
+# this substrate-holding ceiling capped every macropore cell's USABLE
+# substrate near 0.05-0.09 regardless of how much actually arrived --
+# verified (Stage 5 writeup, and directly before Stage 6) to be THE
+# compounding blocker keeping growth pinned at m0*B0_total no matter how wet
+# the habitat was. The pde_sandbox reaction-transport formulation that
+# proved implicit diffusion + coating/trapped OM works had no such cap, so
+# it is removed entirely rather than tuned.
+
+# stage4_variantC_om_fraction_{sand,loess,vertisol} = 0.020/0.035/0.050 --
+# RETIRED (Stage 7, prompts/soil_respiration_prompt_stage7_calibration.md
+# Change 1): per-soil OM fractions gave each soil an order of magnitude less
+# total carbon than the historical shared OM_total=800 (39/253/361 units at
+# n=128), one of Stage 6's two identified reasons growth never turned on
+# anywhere. Replaced by a single SHARED stage7_om_fraction below.
+
+# Stage 6 (prompts/soil_respiration_prompt_stage6_portback.md) -- port the
+# pde_sandbox/ recipe into Variant C: implicit backward-Euler transport +
+# coating/trapped OM split with a slow trapped release.
+stage6_implicit_iterations: 90     # Jacobi iterations for the local implicit
+                                    # backward-Euler substrate solve (ported
+                                    # from pde_sandbox.sandbox.local_implicit_
+                                    # step's `implicit_iterations`)
+stage6_implicit_relaxation: 0.85   # Jacobi relaxation factor (ported, same
+                                    # name/value as the sandbox)
+k_dis_slow: 0.005   # RETIRED as an active parameter (Stage 16, prompts/
+                    # soil_respiration_prompt_stage16_shared_om_rule.md SS1)
+                    # -- kept, not deleted, because `om_mode: coating_
+                    # trapped` still reads it and every Stage 6-15 runner
+                    # pins that mode. Under the new default `om_mode:
+                    # shared_fine_pore` dissolution is spatially UNIFORM
+                    # (one `k_dis` everywhere): the slow pool is identically
+                    # zero AND `simulate_dual_porosity` ties `k_dis_slow` to
+                    # `k_dis` under that mode, so a second, spatially-
+                    # distinct decomposition rate cannot re-enter through
+                    # this key. Original Stage 6 meaning: trapped-OM
+                    # dissolution rate, << k_dis=0.05 (SS4) -- a slow tail
+                    # of substrate release through the run, so trapped OM
+                    # is delayed, not permanently undeliverable.
+
+# Coating/trapped OM split (SS3), ported from pde_sandbox.sandbox.
+# build_down_source's geodesic construction: COATING = porous-matrix cells
+# within `stage6_coating_thickness` geodesic steps of a wet macropore cell,
+# along a wet connected matrix path (fast, guaranteed finite habitat<-source
+# path, dissolves at k_dis); TRAPPED = everything else in the porous matrix
+# (interior cells far from habitat / behind dry or solid barriers, dissolves
+# at k_dis_slow). The coating FRACTION is per-soil and is the one
+# hypothesis-motivated, deliberately tuned input (SS9) -- not a search
+# result: Sand's organic matter is believed to sit mostly as a coating next
+# to its (few, large) macropores -- fast flush, sharp rise then fall; loess is
+# intermediate; Vertisol's is believed to be distributed through the bulk
+# matrix at varied distances -- progressive recruitment, a slower rise.
+stage6_coating_thickness: 2               # geodesic steps (cells); ported
+                                            # from the sandbox's
+                                            # `down_coating_thickness`
+# ALL `*_coating_fraction_*` keys below are RETIRED as active parameters
+# (Stage 16, SS1) -- retained, not deleted, so `om_mode: coating_trapped`
+# reproduces Stages 6-15 exactly. See the Stage 16 block at the end of this
+# file for why the per-soil coating fraction had to go: it was a hand-set
+# per-soil CARBON knob, and it was also the direct cause of the
+# near-instant, simultaneous habitat activation Stage 14 wrongly blamed on
+# the implicit solver.
+stage6_coating_fraction_sand: 0.80        # RETIRED (Stage 16). coating-dominated: fast flush
+stage6_coating_fraction_loess: 0.50       # RETIRED (Stage 16). intermediate
+stage6_coating_fraction_vertisol: 0.30    # RETIRED (Stage 16). distributed: progressive recruitment
+
+# Stage 7 (prompts/soil_respiration_prompt_stage7_calibration.md) -- close
+# the substrate-budget + reach gap Stage 6 diagnosed (fed-habitat substrate
+# ~25x too low for growth to beat maintenance: with r_max=1, m0=0.02,
+# m_s=0.1, Ks=0.2, growth needs f_S > ~0.11, i.e. habitat S >~ 0.025).
+# Every value here is SHARED across all three soils by construction --
+# structure (the pore field / macropore geometry) stays the only per-soil
+# difference; these are calibration constants, not per-soil knobs. Values
+# below are the winning shared candidate from stage7_run.py's budget-capped
+# search (MAX_ITERATIONS=15); see docs/stage_results/STAGE7_RESULTS.md.
+# stage7_om_fraction: 2.4516 -- RETIRED (Stage 8, prompts/soil_respiration_
+# prompt_stage8_depletion.md Change 1): a shared FRACTION still gave unequal
+# absolute totals across soils (Sand's small porous matrix got far less
+# carbon than Loess/Vertisol's large one even at the identical fraction),
+# which let Stage 7 close the growth gap but never let any soil's fuel pool
+# meaningfully deplete. Replaced below by a single absolute `stage8_om_total`,
+# byte-for-byte IDENTICAL for every soil. dual_porosity._variantc_om_total
+# still falls back to this fraction rule if stage8_om_total is ever absent
+# from a config, so Stage 7 remains independently reproducible.
+stage7_D_scale: 12.2582        # Change 2: shared post-scale multiplier on
+                               # D_macro_base / matrix internal diffusion /
+                               # D_film -- raises transport's absolute
+                               # magnitude (sqrt(D*T) reach) without
+                               # touching D_d_ref (Stage 3.5's soil-
+                               # discriminating SHAPE of D(d), left alone).
+D_film: 0.3831                # Change 3: water-film diffusivity for DRAINED
+                               # (dry) macropore cells -- previously D=0
+                               # there (fully cut off); a thin wall water
+                               # film at constant high humidity gives a
+                               # small but nonzero transport pathway.
+                               # Shared, applied to every soil's dry
+                               # macropores; scaled by stage7_D_scale too.
+stage7_film_K_scale: 0.45     # reduced-capacity scale on K for those same
+                               # dry/film cells -- a water film hosts less
+                               # biomass than a fully wet macropore
+                               # (fast-but-low-capacity, not full habitat).
+                               # These four values are stage7_run.py's actual
+                               # budget-capped-search winner (its own
+                               # geometric escalation from a deliberately low
+                               # starting dose, MAX_ITERATIONS=15, iteration 8
+                               # cleared growth, iterations 9-15 probed D_film
+                               # for distinctness without success): growth
+                               # clears robustly (min fed-habitat S=0.028 over
+                               # n=40 soils; 0.050-0.176 at the n=128
+                               # headline) but distinctness does NOT
+                               # (min_distance~0.03-0.06 throughout, all three
+                               # soils "rising" from iteration 5 on) -- see
+                               # docs/stage_results/STAGE7_RESULTS.md for the
+                               # full honest verdict on this tradeoff.
+
+# Stage 8 (prompts/soil_respiration_prompt_stage8_depletion.md) -- a DEFINED
+# configuration, not a search: Stage 7 closed the growth gap but, with
+# carbon abundant and never depleting, every soil bloomed into the same
+# rising curve. Change 1 replaces Stage 7's shared FRACTION with a single
+# absolute `stage8_om_total`, byte-identical across all three soils, so the
+# same total carbon is concentrated on Sand's small coating vs. spread over
+# Vertisol's many habitats -- letting the model's existing finite-fuel +
+# Monod-limitation physics actually produce different depletion timing.
+# `stage8_T` is the shared observation window (all three soils, same value)
+# -- long enough for Sand's concentrated pool to peak and drain, short
+# enough that Vertisol is still recruiting new habitat regions. Both were
+# set by <=3 directed diagnostic probes (SS3), not a scan; see
+# docs/stage_results/STAGE8_RESULTS.md for the full probe log and result.
+# stage8_om_total: 600.0 -- RETIRED (Stage 9, prompts/soil_respiration_
+# prompt_stage9_ranked_om.md Change 1): an EQUAL total for all three soils
+# could not give Sand-fall AND Vertisol-rise together (opposite regimes).
+# Replaced below by a shared BASE scale x a per-soil RANKED multiplier.
+# dual_porosity._variantc_om_total still falls back to this key if
+# stage9_om_base is ever absent, so Stage 8 remains independently
+# reproducible (stage8_run.py explicitly clears stage9_om_base itself too).
+# stage8_T: 1500 -- superseded by stage9_T below (same value carried over;
+# Stage 9's own probes confirmed 1500 still works for the new OM scheme).
+
+# Stage 9 (prompts/soil_respiration_prompt_stage9_ranked_om.md) -- ranked
+# per-soil OM + placement, a DEFINED configuration with verification, not a
+# search. The ranking Vertisol > Loess > Sand is a REAL-WORLD QUALITATIVE
+# input (more organic matter in a heavy, high-porosity Vertisol than a
+# coarse, low-porosity Sand) -- fixed and never fitted to the measured
+# respiration values; only the shared base scale and per-soil coating
+# fractions (within the fixed directions: Vertisol's UP, Sand's DOWN) were
+# set by <=3 directed diagnostic probes. See
+# docs/stage_results/STAGE9_RESULTS.md for the full probe log and the
+# honest verdict (in particular: the AC/Loess-vs-Vertisol pairwise distance
+# got WORSE, not better, when Vertisol's total/coating were pushed further
+# at the n=128 headline grid than at the n=40 probe grid -- probe 1's more
+# modest values, not the most aggressive probe tried, turned out to be the
+# best n=128 candidate, so that is what is frozen here).
+stage9_om_base: 600.0                  # shared base OM scale
+stage9_om_multiplier_vertisol: 1.5     # ranked: V > L > S (fixed ordering)
+stage9_om_multiplier_loess: 1.0
+stage9_om_multiplier_sand: 0.6
+stage9_coating_fraction_vertisol: 0.60   # RETIRED (Stage 16). UP from Stage 6-8's 0.30 (Change 2:
+                                          # more of Vertisol's now-larger
+                                          # carbon reaches its many habitat
+                                          # regions)
+stage9_coating_fraction_sand: 0.50   # RETIRED (Stage 16). DOWN from Stage 6-8's 0.80 (Change
+                                          # 3: smaller fast burst + a slow
+                                          # trapped tail; the SS3 "burst
+                                          # wins" exception was checked and
+                                          # NOT triggered -- Sand's
+                                          # rise-then-fall stayed intact at
+                                          # this value, so it was not backed
+                                          # off further)
+# stage9_coating_fraction_loess not set -- Loess stays at its Stage 6-8
+# value (0.50, `stage6_coating_fraction_loess`) via _variantc_coating_
+# fraction's fallback, per SS3's "Loess stays intermediate" instruction.
+stage9_T: 1500   # shared observation window (all three soils; steps,
+                 # dt=0.05 from biology.yaml) -- unchanged from Stage 8.
+
+# Stage 10 (FINAL, prompts/soil_respiration_prompt_stage10_final.md) -- two
+# soils only (Vertisol, Sand; Loess dropped). Stage 9 never produced a
+# genuine growth burst for Sand (R_peak sat AT the trivial maintenance
+# floor m0*B0=0.4) or a genuine slow rise for Vertisol (its "rise" was
+# really an early spike that then dipped), because the shared, fast
+# D_scale recruits a soil's whole habitat almost at once. Stage 10
+# explicitly sets aside the shared/ranked-scalar purity of Stages 7-9 and
+# tunes PER-SOIL physical parameters directly (never arbitrary
+# curve-drawing -- see docs/stage_results/STAGE10_RESULTS.md for the full
+# tuning trace and every §3 pass/fail number).
+#
+# Sand -- concentrated, fast, finite (a real burst then a crash): a large
+# total, mostly on the fast coating, with a raised per-soil D_scale so the
+# burst actually arrives early despite Sand's huge (~13,000-cell at n=128)
+# single macropore region; see STAGE10_RESULTS.md for why plain om_total
+# escalation at the SHARED D_scale only made the burst LATER and broader,
+# not sharper -- D_scale had to move too.
+stage10_om_total_sand: 4000.0
+stage10_coating_fraction_sand: 0.97   # RETIRED (Stage 16)
+stage10_D_scale_sand: 80.0
+stage10_T_sand: 3000    # Sand's own window -- see STAGE10_RESULTS.md SS1:
+                         # at n=128 the crash needs materially longer than
+                         # T=1500 to fully register in R(t) (the SAME
+                         # candidate crashes cleanly by t=1500 at n=40,
+                         # confirming this is a grid-scale timescale effect,
+                         # not a parameter-choice artifact).
+#
+# Vertisol -- distributed, slow, sustained (a genuine slow rise, not an
+# early spike + dip): a large total, MOSTLY in the slow trapped pool (low
+# coating fraction), and its own per-soil D_scale SLOWED well below the
+# shared Stage 7-9 value (12.2582) so its ~70 dispersed macropore regions
+# recruit gradually across the whole window instead of together.
+stage10_om_total_vertisol: 2000.0
+stage10_coating_fraction_vertisol: 0.30   # RETIRED (Stage 16)
+stage10_D_scale_vertisol: 1.5
+stage10_T_vertisol: 1500   # kept at Stage 8/9's value -- lengthening it to
+                            # match Sand's window makes Vertisol's own
+                            # (slow, but not infinite) rise complete and
+                            # start to dip before t=T too; see
+                            # STAGE10_RESULTS.md SS1 for the direct check.
+
+# Stage 11 (prompts/soil_respiration_prompt_stage11_vertisol.md) -- Sand
+# stays FROZEN exactly as Stage 10 (no stage11_*_sand key exists anywhere
+# in this file; `_variantc_om_total`/`_variantc_coating_fraction`/
+# `_variantc_D_scale` all fall through to the stage10_*_sand values above
+# unchanged -- confirmed bit-for-bit identical R(t), see
+# docs/stage_results/STAGE11_RESULTS.md). Only Vertisol's own total,
+# coating fraction, and transport magnitude are raised/slowed further, so
+# its biomass clearly grows above its initial total (Stage 10's Vertisol
+# only ever touched B_peak/B0=1.000 -- parity, not growth) while the rise
+# stays genuinely gradual (still peaks very late, no dip).
+stage11_om_total_vertisol: 10000.0        # up from Stage 10's 2000.0
+stage11_coating_fraction_vertisol: 0.30   # RETIRED (Stage 16). unchanged from Stage 10 (kept
+                                           # low/distributed on purpose --
+                                           # raising the TOTAL, not the
+                                           # coating share, is what let
+                                           # biomass clear B0)
+stage11_D_scale_vertisol: 0.7             # down from Stage 10's 1.5 (an
+                                           # even slower per-soil reach)
+# T is unchanged for both soils this stage (stage10_T_sand/vertisol above
+# still apply) -- Stage 11 only asked for the OM/coating/D_scale levers.
+
+# Stage 11 SS2: the implicit Jacobi solve's `stage6_implicit_iterations=90`
+# was a conservative, fixed safety budget, not a requirement -- most steps
+# converge far sooner. `stage11_implicit_tol` turns `stage6_implicit_
+# iterations` into a safety CAP: the solve now stops as soon as consecutive
+# iterates change by less than this, without altering the converged answer
+# (verified directly: Sand's R(t) before vs after this fix differs by
+# <0.1% at tol=1e-7, well within "numerical noise"; see
+# docs/stage_results/STAGE11_RESULTS.md for the exact before/after numbers
+# and why a LOWER fixed iteration cap, e.g. 20-30, was tried and rejected
+# -- it changed results by several percent, failing the stage's own "must
+# not alter results" requirement).
+stage11_implicit_tol: 1.0e-7
+
+# ---------------------------------------------------------------------------
+# Stage 16 (prompts/soil_respiration_prompt_stage16_shared_om_rule.md) -- a
+# MODEL-WIDE STRUCTURAL change, not a calibration stage and not a search.
+# The per-soil coating/trapped OM split introduced in Stage 6 is retired and
+# ONE shared, structure-blind organic-matter placement rule takes its place,
+# with spatially UNIFORM dissolution. Both soils run under it, so every
+# difference -- between soils, and between macropore regions within a soil --
+# must emerge from the pore field rather than from a hand-set per-soil
+# carbon parameter.
+#
+# Why the coating had to go, beyond purity: it was also the actual cause of
+# the near-instant, simultaneous habitat activation that Stage 14 wrongly
+# attributed to the implicit solver. Defining the coating as every
+# porous-matrix cell within `stage6_coating_thickness` geodesic steps of ANY
+# macropore cell builds an identical fuel shell around all ~70 of Vertisol's
+# regions at once; with `B0 ~ K` seeding biomass everywhere at t=0, every
+# region is self-fuelled from t=0 and needs no transport at all to activate.
+# Direct test (Vertisol, n=128, T=1500): with transport switched off
+# (`D_scale=1e-9`) regions still activate within 2-4 timesteps and
+# recruitment reaches its final count SOONER (0.27% of window) than with
+# transport on (1.33%) -- so the solver is exonerated. See the dated
+# correction appended to docs/stage_results/STAGE14_RESULTS.md.
+om_mode: shared_fine_pore
+# ^ THE NEW ACTIVE DEFAULT. `shared_fine_pore`: all OM placed by the one
+#   shared fine-pore rule `OM ~ d^-om_fine_bias` within the porous matrix
+#   (MODEL_SPEC.md SS4), normalized to that soil's total, dissolving at a
+#   single uniform `k_dis`. No coating pool, no trapped pool, no per-soil
+#   `coating_fraction`, and -- the invariant this stage enforces -- no term
+#   anywhere in the model whose RATE depends on distance to habitat.
+#   Distance may enter ONLY through diffusion of the dissolved substrate,
+#   which the model already does.
+#
+#   `coating_trapped` selects the Stage 6-15 path instead. It is PRESERVED,
+#   not deleted, exactly as Stage 13 preserved `psd_parametric` alongside
+#   `psd_measured`: every Stage 6-15 runner pins `om_mode: coating_trapped`
+#   explicitly right after loading this file, so each earlier stage stays
+#   independently reproducible even though the default here has moved on
+#   (verified byte-for-byte, not assumed -- see STAGE16_RESULTS.md).
+
+# The SS3 dose ladder. Rungs are tried highest-purity first and the FIRST
+# one that passes SS4 is adopted; `_variantc_om_total`/`_variantc_D_scale`
+# read whichever keys are present, per-soil first, so a rung is adopted
+# simply by setting its keys. See STAGE16_RESULTS.md for the probe trace
+# and for which rung was actually adopted.
+#
+#   rung 1  stage16_om_total_shared / stage16_D_scale_shared
+#             ONE shared absolute total and ONE shared transport magnitude
+#             for both soils -- maximum purity.
+#   rung 2  stage16_om_rho_shared   (+ stage16_D_scale_shared)
+#             ONE shared OM concentration per unit matrix volume;
+#             `om_total = rho * porous_matrix_cells`, so the per-soil total
+#             is DERIVED FROM STRUCTURE rather than set. Measured matrix
+#             fractions are 0.6775 (Vertisol) and 0.1834 (Sand) -- a 3.69x
+#             ratio.
+#   rung 3  stage16_om_total_<soil> / stage16_D_scale_<soil>
+#             per-soil, as Stage 10 established -- the fallback, not the
+#             goal.

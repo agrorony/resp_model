@@ -1,0 +1,2 @@
+Sand_vs_Vertisol_distance,threshold,distinct,note
+2.169820686517247,0.3,True,"computed on time-normalized (fraction-of-own-window) resampled curves, since Sand and Vertisol use different observation windows T"

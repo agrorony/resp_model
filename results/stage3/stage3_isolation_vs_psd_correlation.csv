@@ -1,0 +1,7 @@
+outcome,predictor,pearson_r,n_points
+cum_co2,isolation_ratio,0.2560304358915536,30
+cum_co2,psd_habitable_frac,-0.2353769844322862,30
+cum_co2,psd_median_diameter,0.2294396980699029,30
+R_peak,isolation_ratio,0.33077988111823775,30
+R_peak,psd_habitable_frac,-0.15043378114031658,30
+R_peak,psd_median_diameter,0.1377034552428474,30

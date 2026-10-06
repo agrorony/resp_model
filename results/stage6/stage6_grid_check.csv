@@ -1,0 +1,4 @@
+soil,grid_n,emergent_theta,wet_habitat_fraction,mean_S_habitat_final,outcome,period_shape_model,period_shape_experiment
+Loess,40,0.7325,0.039375,0.0006788622778135805,declining,falling,erratic
+Sand,40,0.183125,0.0,0.00023694901214205296,declining,falling,falling
+Vertisol,40,0.711875,0.031875,0.0006804743781092394,declining,falling,rising

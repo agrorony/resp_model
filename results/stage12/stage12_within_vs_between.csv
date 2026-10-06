@@ -1,0 +1,2 @@
+within_sand_mean,within_sand_n,within_vertisol_mean,within_vertisol_n,between_mean,between_n,gap_mean_boot,gap_ci_lo_2.5pct,gap_ci_hi_97.5pct,gap_excludes_zero
+0.15775329700479523,780,0.016253282708396932,780,2.0633199692155504,1600,1.9762704416337673,1.962996004977538,1.988915631035944,True

@@ -1,0 +1,4 @@
+soil,grid_n,om_total_init,emergent_theta,mean_S_habitat_final,growth_cleared,fuel_remaining_final,R_end_over_peak,outcome,period_shape_model,period_shape_experiment
+Loess,40,600.0,0.7325,0.019277473844333128,False,0.35544758075664296,0.34574284250894316,declining,erratic,erratic
+Sand,40,600.0,0.183125,0.01413608015490152,False,0.15625878037888502,0.14805722233004256,declining,erratic,falling
+Vertisol,40,600.0,0.711875,0.02032379058464063,False,0.4882401143418151,0.6511831161918655,thriving,erratic,rising

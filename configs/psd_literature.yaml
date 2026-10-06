@@ -1,0 +1,58 @@
+# Literature-informed parametric pore-size distributions (Stage 3.5,
+# soil_respiration_prompt_stage3_5.md SS2).
+#
+# Each soil's PSD is a MIXTURE OF LOGNORMAL MODES over pore DIAMETER (um):
+#   mode_um = the peak diameter of that mode on the usual log-diameter PSD
+#             plot (i.e. the median / geometric mean exp(mu) of the component)
+#   gsd     = geometric standard deviation exp(sigma_ln)
+#   weight  = that mode's share of PORE VOLUME (weights are renormalized to 1)
+#
+# These are literature-informed REPRESENTATIVE distributions for the three
+# soil TYPES in the experiment -- they are NOT measurements of the specific
+# samples. They replace the Stage-3 image-derived PSDs, which were limited by
+# a 30 um minimum resolvable diameter, imperfect Otsu segmentation, and (for
+# the Vertisol, the highest-porosity sample) whole missing pore modes.
+#
+# Edit the numbers here to change the soils; nothing else needs to change.
+
+# Diameter grid the mixture is evaluated on. It has to reach well below the
+# Vertisol's clay mode (0.01 um, GSD 2.5) and well above the Sand's macropore
+# tail, or the truncated tails would distort the renormalized CDF.
+grid:
+  d_min_um: 1.0e-4
+  d_max_um: 5000.0
+  n_bins: 400
+
+soils:
+
+  sand:
+    total_porosity: 0.38
+    # Macropore-dominated (>50 um), narrow, well-connected, with very little
+    # fine pore volume -- hence low water retention. A small residual
+    # fine/matrix mode stands for the intra-grain and grain-contact porosity.
+    modes:
+      - {name: matrix,     mode_um: 3.0,   gsd: 2.0, weight: 0.15}
+      - {name: macropore,  mode_um: 120.0, gsd: 2.2, weight: 0.85}
+
+  loess:
+    total_porosity: 0.47
+    # Bimodal: a silt-matrix micropore mode (~10-20 um) plus a
+    # macropore/channel mode (wormholes, fissures, collapse structures,
+    # >100 um). Meso + macropores together are ~65-70% of pore volume.
+    modes:
+      - {name: clay,       mode_um: 0.5,  gsd: 2.2, weight: 0.20}
+      - {name: silt_matrix, mode_um: 12.0, gsd: 2.0, weight: 0.50}
+      - {name: macropore,  mode_um: 90.0, gsd: 2.2, weight: 0.30}
+
+  vertisol:
+    total_porosity: 0.55
+    # Multimodal: a clay micropore mode (~0.009-0.012 um), an intra-aggregate
+    # mode (~0.3-0.4 um), and an inter-aggregate / shrink-swell-crack
+    # macropore mode (~60-100 um). Highest total porosity and highest water
+    # retention (most volume sits in the fine pores), but the macropore mode
+    # lands INSIDE the 30-150 um microbial habitat window -- that macropore
+    # mode is where its microbial habitat is.
+    modes:
+      - {name: clay,             mode_um: 0.01, gsd: 2.5, weight: 0.35}
+      - {name: intra_aggregate,  mode_um: 0.35, gsd: 2.2, weight: 0.30}
+      - {name: crack_macropore,  mode_um: 80.0, gsd: 2.0, weight: 0.35}

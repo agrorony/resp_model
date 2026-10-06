@@ -1,0 +1,2 @@
+n_regions,n_regions_ever_active,n_regions_active_by_t0,n_regions_active_by_t2,n_regions_active_by_2pct_window,window_2pct_t,reconstructed_matches_habitats_recruited_t_exactly,median_first_active_t,median_first_half_max_t,median_first_half_max_frac_of_window
+70,55,0,34,55,30,True,2.0,659.0,0.43962641761174115

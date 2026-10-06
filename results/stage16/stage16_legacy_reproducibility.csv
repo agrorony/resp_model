@@ -1,0 +1,3 @@
+soil,R_peak,R_peak_stage11_ref,R_peak_dev_pct,B_peak_over_B0,B_peak_over_B0_stage11_ref,reproduces_stage11,observational_outputs_identity_ok
+Sand,15.789854790999666,15.79,0.0009196263478994551,10.70073770003218,10.7007,True,True
+Vertisol,3.7561399861379976,3.756,0.0037270004791750857,2.3372611216671735,2.337,True,True

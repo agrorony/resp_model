@@ -1,0 +1,3 @@
+soil,grid_n,all_checks_pass,check: R_peak >= 2x maintenance_floor,check: growth term is MAJORITY of R at peak,check: B_peak/B0 > 1 (biomass grows),check: fuel visibly depletes (<0.5),check: R_end/R_peak < 0.3 (crash),check: peak in the first third,check: late-third mean > early-third mean,check: peaks in the LATE part of the window (>0.6),check: not an early spike + dip (R_end/R_peak > 0.7),check: R_peak clears maintenance floor (R_peak > floor),check: biomass genuinely grows (B_peak/B0 > 1)
+Sand,128,True,True,True,True,True,True,True,,,,,
+Vertisol,128,True,,,,,,,True,True,True,True,True

@@ -1,16 +1,19 @@
-# Soil C -- intermediate texture, aggregated, short correlation length.
-# Reached via the Stage-1 emergent-distinctness search.
+# Soil C -- Stage 3: real measured PSD "mishmar_150z" (intermediate of the
+# three real samples: median diameter ~211 um, 31% of pore volume in the
+# 30-150 um habitable window -- see STAGE3_RESULTS.md SS1). Kept as "C" to
+# match Stage 1/2's intermediate-texture label.
 grid:
   n: 40
   dx: 1.0
 T: 600
 
 pore:
-  mu: 1.2
-  sigma: 0.9
-  lambda: 1.0
-  aggregate: true
-  seed: 3
+  mode: psd
+  psd_dir: data/psd/mishmar
+  lambda: 2.0        # SAME for all three soils (stage3 invariant 1: the
+  aggregate: false   # only systematic difference is the PSD itself)
+  seed: 3            # different per soil (realization noise only)
 
 saturation:
-  mode: fully_wet   # Stage 1: all pores conduct
+  mode: global_theta   # Stage 2/3: theta swept by stage2_run.py/stage3_run.py;
+  theta: 1.0            # this value is the standalone/default (run.py) saturation

@@ -1,0 +1,3 @@
+soil,grid_n,om_mode,om_total,D_scale,R_peak,R_end,R_end_over_peak,peak_frac,B_peak_over_B0,fuel_remaining_final,n_regions,outcome,shape,all_checks_pass
+Sand,128,shared_fine_pore,3000.0,80.0,13.994318611508863,0.11233534094317835,0.008027210474598905,0.2344114704901634,9.075679372854838,0.0005492880767369964,3,declining,falling,True
+Vertisol,128,shared_fine_pore,50000.0,0.7,9.129064639020088,9.129064639020088,1.0,1.0,5.755571509228856,0.02346624679371321,70,thriving,rising,True

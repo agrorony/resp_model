@@ -1,0 +1,6 @@
+probe,om_total,coating_fraction,D_scale,T,note,R_peak_n40,R_peak_n128,n_peaks_n40,n_peaks_n128,min_pairwise_dist_n40,min_pairwise_dist_n128,distinct_both_grids,loess_low_and_alive_n128,loess_erratic_n128
+1,500,0.3,3.0,1500,probe 1: scaled-down guess modeled on Sand/Vertisol's own magnitude range,0.7824745549986508,0.40000000000000013,1,1,0.4378287869942855,1.4809687270411043,True,False,False
+2,1200,0.6,15.0,1500,probe 2: raise om_total/D_scale to force clearly-alive growth,6.891346990271596,3.2558186206238933,1,1,0.5098920482610761,0.2192211695155737,False,True,False
+3,900,0.5,6.0,1500,probe 3: scale back from probe 2's Vertisol-mimicking blowup,3.169052765063128,1.2339691080729418,1,1,0.9622014550853474,0.04572370103998402,False,True,False
+4,800,0.55,9.5,1100,"probe 4: narrow further toward a lower, still-alive candidate",3.6543975349954074,1.078293707506785,1,1,0.9436263516952832,0.21515984666287807,False,True,False
+5,750,0.5,9.0,1000,probe 5: adopted candidate -- lowest R_peak with genuine growth share and distinctness clearing 0.3 at BOTH grids,3.085844595249358,0.6881875440134677,1,1,0.6589929210916879,0.4421101319525953,True,True,False

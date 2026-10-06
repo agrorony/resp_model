@@ -1,0 +1,4 @@
+run,Loess_vs_Sand,Loess_vs_Vertisol,Sand_vs_Vertisol,min_distance,threshold,success,outcome_Loess,outcome_Sand,outcome_Vertisol
+headline_constant_theta_0.6,0.020004026172360176,1.7435095610150805e-06,0.020005467061981197,1.7435095610150805e-06,0.3,False,declining,declining,declining
+headline_constant_theta_0.6_n40,1.3259698181359876,8.466619027388846e-06,1.3259540096413711,8.466619027388846e-06,0.3,False,declining,thriving,declining
+diagnostic_matric_d_cut_60um,0.04298394962631248,1.4535025369042844e-05,0.04301608791473021,1.4535025369042844e-05,0.3,False,declining,declining,declining

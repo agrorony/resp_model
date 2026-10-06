@@ -1,0 +1,21 @@
+# Sand -- Stage 3.5 (soil_respiration_prompt_stage3_5.md SS2, SS5).
+# Literature-informed parametric PSD (configs/psd_literature.yaml -> sand):
+# macropore-dominated, 85% of pore volume in a narrow ~120 um mode, little
+# fine volume -> low water retention. Replaces the Stage-3 "coarse" soil B.
+grid:
+  n: 128
+  dx: 1.0
+T: 600
+
+pore:
+  mode: psd_parametric       # Stage 3.5: lognormal-mixture PSD from the
+  psd_soil: sand             # literature, fed through the SAME empirical-
+  psd_config: configs/psd_literature.yaml   # quantile pipeline as Stage 3.
+  lambda: 2.0        # SAME for all three soils (invariant: the only
+  aggregate: false   # systematic difference between soils is the PSD)
+  seed: 2            # different per soil (realization noise only)
+
+saturation:
+  mode: global_theta   # Stage 3.5 runs at a single CONSTANT theta held for the
+  theta: 0.6           # whole simulation (the closed-jar experiment did not dry
+                       # out); stage35_run.py overrides this with THETA_CONST.

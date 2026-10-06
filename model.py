@@ -31,6 +31,9 @@ Water saturation gates which cells conduct at all (percolation, stage 2/3):
   - retention    : same physical r_cut (configs/mapping.yaml matric_r_cut)
                     for every soil; theta emerges from each soil's own pore
                     distribution (stage 3).
+  - matric_d     : same air-entry DIAMETER d_cut in microns for every soil
+                    (a shared matric potential); theta emerges per soil from
+                    its own PSD (stage 3.5 diagnostic).
 
 No soil-specific values are hard-coded here: everything that differs between
 soils comes from the pore field built from the soil config; everything
@@ -42,7 +45,13 @@ from __future__ import annotations
 import numpy as np
 import yaml
 
-from pore_field import generate_pore_field, K_of_r, D_of_r, om_field, b0_field
+from pore_field import (
+    generate_pore_field, K_of_r, D_of_r,
+    generate_diameter_field_from_psd, K_window, D_of_d,
+    om_field, b0_field, truncate_psd_floor,
+)
+import psd_data
+import psd_parametric
 
 
 def load_yaml(path):
@@ -96,28 +105,78 @@ def water_mask_and_theta(r, sat_cfg, mapping_cfg):
         mask = r <= r_cut
         return mask, float(mask.mean())
 
+    if mode == "matric_d":
+        # Stage 3.5 diagnostic: a shared MATRIC POTENTIAL rather than a shared
+        # theta. All soils sit at the same air-entry diameter `d_cut` (microns)
+        # -- every pore finer than d_cut is water-filled -- and each soil's
+        # theta then EMERGES from its own PSD. This, not a shared theta, is what
+        # a closed humid jar actually imposes on three different soils; it is
+        # reported alongside the shared-theta headline run, never instead of it.
+        d_cut = float(sat_cfg.get("d_cut", mapping_cfg["matric_d_cut"]))
+        mask = r <= d_cut
+        return mask, float(mask.mean())
+
     raise ValueError(f"unknown saturation mode: {mode}")
 
 
 def build_grids(structure_cfg, mapping_cfg):
     """Build the pore field and all derived fields (K, D, OM, B0, S0) for one
-    soil. This is the ONLY place per-soil freedom enters the model."""
+    soil. This is the ONLY place per-soil freedom enters the model.
+
+    `pore.mode` selects the pore-field generator: "lognormal" (Stage 1/2,
+    default -- `pore.mu`/`pore.sigma`), "psd" (Stage 3 -- `pore.psd_dir`
+    points at a soil's real measured PSD, see psd_data.load_soil_psd), or
+    "psd_parametric" (Stage 3.5 -- `pore.psd_soil` names a soil in
+    `pore.psd_config` = configs/psd_literature.yaml, a literature-informed
+    lognormal mixture, see psd_parametric.build_soil_psd). Both PSD modes put
+    pore DIAMETER in microns on the field (not radius) and share the same
+    empirical-quantile mapping and the same K/D maps (K_window/D_of_d); the
+    lognormal mode uses K_of_r/D_of_r.
+
+    Stage 4 Variant A (soil_respiration_prompt_stage4_exploratory.md SS2) adds
+    OPTIONAL `pore` keys in PSD modes: `psd_truncate_floor_um` (drop pore
+    volume below this floor and renormalize, pore_field.truncate_psd_floor)
+    and `wet_diffusion_scale` (multiply D only in water-filled cells). Neither
+    key is set by Stage 1-3.5 configs, so this is a no-op for them."""
     n = structure_cfg["grid"]["n"]
     dx = structure_cfg["grid"]["dx"]
-    assert n <= 50, "grid must stay <= 50x50 (v2 invariant 3)"
+    assert n <= 200, "grid must stay <= 200x200 (stage 3 invariant, soil_respiration_prompt_stage3.md SS7)"
     pore_cfg = structure_cfg["pore"]
+    mode = pore_cfg.get("mode", "lognormal")
 
-    r = generate_pore_field(
-        n, pore_cfg["mu"], pore_cfg["sigma"], pore_cfg["lambda"],
-        pore_cfg["seed"], pore_cfg.get("aggregate", False),
-    )
-
-    K = K_of_r(r, mapping_cfg)
-    D_full = D_of_r(r, mapping_cfg)
+    psd_truncation = None
+    if mode in ("psd", "psd_parametric"):
+        if mode == "psd":
+            psd = psd_data.load_soil_psd(pore_cfg["psd_dir"])
+        else:
+            psd = psd_parametric.build_soil_psd(
+                pore_cfg["psd_soil"],
+                pore_cfg.get("psd_config", "configs/psd_literature.yaml"),
+            )
+        floor_um = pore_cfg.get("psd_truncate_floor_um")
+        if floor_um is not None:
+            psd, psd_truncation = truncate_psd_floor(psd, float(floor_um))
+        r = generate_diameter_field_from_psd(
+            n, pore_cfg["lambda"], pore_cfg["seed"],
+            psd["bin_edges_um"], psd["cdf_edges"],
+            pore_cfg.get("aggregate", False),
+        )
+        K = K_window(r, mapping_cfg)
+        D_full = D_of_d(r, mapping_cfg)
+    elif mode == "lognormal":
+        r = generate_pore_field(
+            n, pore_cfg["mu"], pore_cfg["sigma"], pore_cfg["lambda"],
+            pore_cfg["seed"], pore_cfg.get("aggregate", False),
+        )
+        K = K_of_r(r, mapping_cfg)
+        D_full = D_of_r(r, mapping_cfg)
+    else:
+        raise ValueError(f"unknown pore.mode: {mode}")
 
     sat_cfg = structure_cfg.get("saturation", {"mode": "fully_wet"})
     water_mask, theta = water_mask_and_theta(r, sat_cfg, mapping_cfg)
-    D = np.where(water_mask, D_full, 0.0)
+    wet_diffusion_scale = float(pore_cfg.get("wet_diffusion_scale", 1.0))
+    D = np.where(water_mask, D_full * wet_diffusion_scale, 0.0)
 
     OM = om_field(r, mapping_cfg["OM_total"], mapping_cfg["om_fine_bias"])
     B0 = b0_field(K, mapping_cfg["B0_total"])
@@ -126,7 +185,7 @@ def build_grids(structure_cfg, mapping_cfg):
     return {
         "n": n, "dx": dx, "r": r, "K": K, "D_full": D_full, "D": D,
         "water_mask": water_mask, "theta": theta,
-        "OM": OM, "B0": B0, "S0": S0,
+        "OM": OM, "B0": B0, "S0": S0, "psd_truncation": psd_truncation,
     }
 
 
@@ -147,23 +206,39 @@ def simulate(biology_cfg, structure_cfg, mapping_cfg):
 
     assert D.max() * dt / dx ** 2 < 0.2, "diffusion stability violated: reduce D, dt, or increase dx"
 
+    # The Stage-3 physiological K(d) is a HARD zero below K_d_low (30 um): those
+    # cells are non-habitat -- they hold water and conduct, but nothing lives
+    # there. The logistic term 1 - B/K is then 0/0 there, so it must be masked,
+    # not divided. (Stage 3's measured PSDs bottomed out at 30 um, so K was
+    # never exactly 0 and this never fired; the Stage-3.5 literature PSDs go
+    # down to clay micropores, so most of the Vertisol's grid is K == 0.)
+    # K is fixed in time, so the mask is built once.
+    habitable = K > 0
+    K_safe = np.where(habitable, K, 1.0)
+
     B = grids["B0"].copy()
     S = grids["S0"].copy()
     OM = grids["OM"].copy()
 
     R_t = np.zeros(T)
     cum_co2 = np.zeros(T)
+    S_habitat_mean_t = np.zeros(T)
     running = 0.0
 
     for t in range(T):
         f_S = S / (S + Ks)
-        growth = r_max * f_S * B * (1.0 - B / K)
+        logistic = np.where(habitable, 1.0 - B / K_safe, 0.0)
+        growth = r_max * f_S * B * logistic
         uptake = (1.0 / Y) * growth
 
         R_field = (1.0 - Y) * growth + m0 * B
         R_t[t] = R_field.sum()
         running += R_t[t] * dt
         cum_co2[t] = running
+        # Stage-4 mechanism diagnostic (soil_respiration_prompt_stage4_
+        # exploratory.md SS4): mean substrate concentration reaching the
+        # habitat, not just whether it is wet -- the Stage-3.5 killer metric.
+        S_habitat_mean_t[t] = float(S[habitable].mean()) if habitable.any() else 0.0
 
         dB = growth - m0 * B - m_s * (1.0 - f_S) * B
         dS = conservative_divergence(S, D, dx) + k_dis * OM - uptake
@@ -176,6 +251,7 @@ def simulate(biology_cfg, structure_cfg, mapping_cfg):
     return {
         "R_t": R_t,
         "cum_co2": cum_co2,
+        "S_habitat_mean_t": S_habitat_mean_t,
         "B_final": B,
         "S_final": S,
         "OM_final": OM,

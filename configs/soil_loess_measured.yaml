@@ -1,0 +1,23 @@
+# Loess -- Stage 13 (soil_respiration_prompt_stage13_real_data.md).
+# Real MEASURED PSD (configs/psd_measured.yaml -> loess, native 5.85um
+# mishmar_hanegev_maoz_3_5p85um), replacing Stage 3.5-12's literature
+# mixture (configs/soil_loess.yaml). Same downstream pipeline, spatial
+# recipe (lambda/aggregate/seed) and T placeholder as the literature
+# config -- ONLY the PSD source differs, per the prompt's "frozen physics,
+# new inputs" framing.
+grid:
+  n: 128
+  dx: 1.0
+T: 600
+
+pore:
+  mode: psd_measured        # Stage 13: real measured PSD, same empirical-
+  psd_soil: loess            # quantile pipeline as psd_parametric/psd_data.
+  psd_config: configs/psd_measured.yaml
+  lambda: 2.0
+  aggregate: false
+  seed: 1
+
+saturation:
+  mode: global_theta
+  theta: 0.6

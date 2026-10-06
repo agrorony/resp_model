@@ -1,0 +1,2 @@
+grid_n,Sand_vs_Vertisol,Sand_vs_Loess,Vertisol_vs_Loess,min_pairwise,threshold,all_pairs_distinct
+40,2.216845210090375,1.5824554636556822,0.6589929210916879,0.6589929210916879,0.3,True

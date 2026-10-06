@@ -23,7 +23,7 @@ SOILS = ["A", "B", "C"]
 COLORS = {"A": "#1f77b4", "B": "#d62728", "C": "#2ca02c"}
 
 
-def run_soil(soil, biology_cfg, mapping_cfg, results_dir="results"):
+def run_soil(soil, biology_cfg, mapping_cfg, results_dir="results/baseline"):
     structure_cfg = load_yaml(f"configs/soil_{soil}.yaml")
     out = simulate(biology_cfg, structure_cfg, mapping_cfg)
 
@@ -96,7 +96,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--soil", choices=SOILS, default=None,
                          help="run a single soil instead of all three")
-    parser.add_argument("--results-dir", default="results")
+    parser.add_argument("--results-dir", default="results/baseline")
     args = parser.parse_args()
 
     biology_cfg = load_yaml("configs/biology.yaml")

@@ -1,0 +1,22 @@
+# Sand -- Stage 13 (soil_respiration_prompt_stage13_real_data.md).
+# Real MEASURED PSD (configs/psd_measured.yaml -> sand, rehovot_150z --
+# see data/psd_measured/sand/source.txt for the resolution-truncation
+# caveat), replacing Stage 3.5-12's literature mixture
+# (configs/soil_sand.yaml). Same spatial recipe/seed as the literature
+# config -- ONLY the PSD source differs.
+grid:
+  n: 128
+  dx: 1.0
+T: 600
+
+pore:
+  mode: psd_measured
+  psd_soil: sand
+  psd_config: configs/psd_measured.yaml
+  lambda: 2.0
+  aggregate: false
+  seed: 2
+
+saturation:
+  mode: global_theta
+  theta: 0.6

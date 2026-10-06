@@ -1,0 +1,2 @@
+R_peak_stage10_reference,R_peak_stage11,R_peak_relative_diff,R_end_stage10_reference,R_end_stage11,R_end_relative_diff,elapsed_seconds_stage11,identical_within_numerical_noise
+15.794899991768297,15.789854790999666,0.00031941960830776943,0.29810401858904995,0.2957433626001884,0.007918900255134802,18.57558512687683,True
