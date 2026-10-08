@@ -1,0 +1,17 @@
+# Soil A -- fine-textured, moderately correlated. Reached via the Stage-1
+# emergent-distinctness search (soil_respiration_prompt_v2.md): only pore
+# params differ between soils; K, D, OM, B0 are all derived from this field.
+grid:
+  n: 40
+  dx: 1.0
+T: 600
+
+pore:
+  mu: 0.6
+  sigma: 0.5
+  lambda: 4.0
+  aggregate: false
+  seed: 1
+
+saturation:
+  mode: fully_wet   # Stage 1: all pores conduct

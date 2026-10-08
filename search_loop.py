@@ -8,6 +8,13 @@ LOGBOOK.md entry, and stop on success or when MAX_ITERATIONS is spent. If not
 successful, nudge ONLY the pore-distribution params (mu, sigma, lambda,
 aggregate) of whichever soil pair is least distinct, never biology or
 mapping.yaml, and never hand-place OM/biomass.
+
+v3 (MODEL_SPEC.md SS13): success is the full S1-S5 criterion, not S2 alone --
+equal totals (asserted in model.build_grids), no OM hoarding (R3), min pairwise
+distance > 0.3 for the configs' own seeds (S2), for two further seed sets
+(S3a) with seed noise < half the between-soil distance (S3b), and a
+measurable arrangement contribution (S4: shuffling the pore fields removes
+>= 0.1 of at least one pairwise distance).
 """
 from __future__ import annotations
 
@@ -16,8 +23,9 @@ import os
 
 import yaml
 
-from model import load_yaml, simulate
+from model import load_yaml, simulate, check_biology_frozen
 import metrics
+import scan
 
 MAX_ITERATIONS = 12
 DISTINCTNESS_THRESHOLD = 0.3
@@ -40,6 +48,7 @@ def summarize_structure(st):
         "mu": p["mu"], "sigma": p["sigma"], "lambda": p["lambda"],
         "aggregate": p.get("aggregate", False),
         "saturation_mode": st.get("saturation", {}).get("mode", "fully_wet"),
+        "structure": p.get("structure", "gaussian"), "aniso": p.get("aniso", 1.0),
         "T": st["T"],
     }
 
@@ -103,17 +112,42 @@ def append_logbook(iteration, results, sts, detail, success_flag, stage_label):
         struct = summarize_structure(st)
         shape = detail["shapes"][soil]
         lines.append(f"**Soil {soil}**\n")
-        lines.append(f"- pore params: mu={struct['mu']:.3f}, sigma={struct['sigma']:.3f}, "
-                     f"lambda={struct['lambda']:.3f}, aggregate={struct['aggregate']}, "
+        lines.append(f"- pore params: structure={struct['structure']}, mu={struct['mu']:.3f}, "
+                     f"sigma={struct['sigma']:.3f}, lambda={struct['lambda']:.3f}, "
+                     f"aniso={struct['aniso']}, aggregate={struct['aggregate']}, "
                      f"saturation={struct['saturation_mode']}\n")
         lines.append(f"- auto-described shape: {shape['shape']} (e={shape['e']:.3f}, l={shape['l']:.3f}, "
                      f"peak={shape['peak']:.3f}, n_peaks={shape['n_peaks']})\n")
         lines.append(f"- non-trivial: {detail['nontrivial'][soil]}\n")
     lines.append(f"- pairwise distances (threshold={detail['threshold']}): {detail['distances']}\n")
+    if "checks" in detail:
+        c = detail["checks"]
+        lines.append(f"- S3a all seed sets pass: {c['S3a_all_seed_sets_pass']} "
+                     f"(per-set min distance: {[round(min(p['distances'].values()), 3) for p in c['per_seed_set']]})\n")
+        lines.append(f"- S3b seed noise {c['S3b_within_mean']:.3f} < 0.5 x min between-soil "
+                     f"{c['S3b_min_between']:.3f}: {c['S3b']}\n")
+        lines.append(f"- S4 shuffled-field distances {scan.fmt(c['S4_shuffled_distances'])}, "
+                     f"drop {scan.fmt(c['S4_drop'])}: {c['S4']}\n")
+        lines.append(f"- R3 OM max/mean per soil: {scan.fmt(c['hoard'])}; theta: {scan.fmt(c['theta'])}\n")
     lines.append(f"- note: {results.get('note', '')}\n")
     lines.append(f"\n**Iteration result: {'SUCCESS' if success_flag else 'not yet successful'}**\n")
     with open(LOGBOOK_PATH, "a", encoding="utf-8") as f:
         f.writelines(lines)
+
+
+def full_checks(sts, mapping_cfg):
+    """S3/S4 (and R3 via validity) for the current configs. Grid, T and
+    saturation mode must be shared by all soils (rule R2)."""
+    keys = [(st["grid"].get("shape", [st["grid"].get("n")] * 2), st["grid"]["dx"], st["T"],
+             st.get("saturation", {"mode": "fully_wet"})) for st in sts.values()]
+    assert all(k == keys[0] for k in keys), "R2: grid/dx/T/saturation must be shared"
+    shape, dx, T, sat = keys[0]
+    pores = [sts[s]["pore"] for s in "ABC"]
+    base = tuple(p["seed"] for p in pores)
+    seed_sets = (base, tuple(x + 10 for x in base), tuple(x + 20 for x in base))
+    return scan.check_triple(pores, tuple(shape), T, sat,
+                             enzyme=mapping_cfg.get("enzyme", {}).get("enabled", False),
+                             seed_sets=seed_sets, dx=dx)
 
 
 def run_search(stage_label="Stage 1"):
@@ -128,6 +162,7 @@ def run_search(stage_label="Stage 1"):
     success_flag = False
     detail = None
     for iteration in range(1, MAX_ITERATIONS + 1):
+        check_biology_frozen()
         biology_cfg = load_yaml("configs/biology.yaml")
         mapping_cfg = load_yaml("configs/mapping.yaml")
         run_out = run_all(biology_cfg, mapping_cfg)
@@ -135,11 +170,15 @@ def run_search(stage_label="Stage 1"):
         outs = {s: run_out[s][0] for s in "ABC"}
         sts = {s: run_out[s][1] for s in "ABC"}
 
-        success_flag, detail = metrics.emergent_distinctness(
+        s2_ok, detail = metrics.emergent_distinctness(
             outs["A"], outs["B"], outs["C"], threshold=DISTINCTNESS_THRESHOLD,
         )
+        checks = full_checks(sts, mapping_cfg)
+        detail["checks"] = checks
+        success_flag = (s2_ok and checks["S3a_all_seed_sets_pass"] and checks["S3b"]
+                        and checks["S4"])
 
-        results = {"note": "target met, no change needed" if success_flag else ""}
+        results = {"note": "S1-S5 met, no change needed" if success_flag else ""}
 
         if success_flag:
             append_logbook(iteration, results, sts, detail, success_flag, stage_label)
@@ -168,4 +207,5 @@ def run_search(stage_label="Stage 1"):
 
 
 if __name__ == "__main__":
-    run_search()
+    import sys
+    run_search(sys.argv[1] if len(sys.argv) > 1 else "Stage 1")

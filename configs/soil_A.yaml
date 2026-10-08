@@ -1,16 +1,18 @@
-# Soil A -- fine-textured, moderately correlated. Reached via the Stage-1
-# emergent-distinctness search (soil_respiration_prompt_v2.md): only pore
-# params differ between soils; K, D, OM, B0 are all derived from this field.
+# Soil A -- fine, narrow pore-size spread, large homogeneous domains (lambda=8).
+# v3 (equal-totals rules, MODEL_SPEC.md SS13): chosen by the P1 library scan
+# (scan.py; LOGBOOK.md "v3 -- P1"). Only the pore field differs between soils;
+# total OM, total B0 and total habitat sum(K) are identical per unit volume.
+# v2 version archived in configs/v2/.
 grid:
-  n: 40
+  shape: [40, 40]
   dx: 1.0
 T: 600
 
 pore:
+  structure: gaussian
   mu: 0.6
-  sigma: 0.5
-  lambda: 4.0
-  aggregate: false
+  sigma: 0.3
+  lambda: 8.0
   seed: 1
 
 saturation:

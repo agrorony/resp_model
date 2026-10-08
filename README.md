@@ -1,33 +1,31 @@
 # Soil-structure microbiome respiration model
 
-Simulates a single microbial species growing logistically on a 2D grid,
-where three soils (A, B, C) share identical biology but differ only in
-spatial structure (diffusion rate, carrying-capacity layout, organic-matter
-placement). This produces three visually distinct respiration curves:
-Soil A rises, Soil B falls, Soil C stays flat/bumpy. See `MODEL_SPEC.md` for
-the full equations and reasoning.
+Simulates a single microbial species growing logistically on a 2D (or 3D)
+pore-structured grid. Three soils (A, B, C) share identical biology AND
+identical amounts (organic matter, initial biomass, total habitat sum(K) per
+unit volume); they differ only in their pore field (pore-size texture and
+spatial arrangement). Their respiration curves are nevertheless clearly
+distinct. See `V3_RESULTS.md` for the short result, `MODEL_SPEC.md` for the
+equations and rules (SS13-15 for v3), and `LOGBOOK.md` for the full record.
 
 ## Setup
 
 ```
 python -m venv .venv
-.venv/Scripts/pip install numpy matplotlib pyyaml scipy   # scipy unused but optional per spec
+source .venv/bin/activate          # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
 ```
-
-(On Linux/Mac: `source .venv/bin/activate` instead of using `.venv/Scripts/...` directly.)
 
 ## Running
 
 ```
-# run all three soils: writes CSVs + all figures to results/
-.venv/Scripts/python.exe run.py
-
-# run a single soil
-.venv/Scripts/python.exe run.py --soil A
-
-# re-run the budget-capped structure search (see LOGBOOK.md for its log)
-.venv/Scripts/python.exe search_loop.py
+python run.py --results-dir results/v3   # all three soils: CSVs, figures, amounts.csv
+python run.py --soil A                   # a single soil
+python search_loop.py "label"            # S1-S5 check of the current configs (+ nudges if failing)
 ```
+
+`scan.py` holds the library scan / triple selection / seed-robustness and
+shuffle-control checks used by the search.
 
 ## Files
 
@@ -38,7 +36,9 @@ python -m venv .venv
   configs (diffusion, carrying capacity, OM placement, horizon).
 - `run.py` — runs one or all soils; writes `results/*.csv` and the required
   figures.
-- `metrics.py` — the rising/falling/flat classifier and success check.
+- `metrics.py` — pairwise distance, shape describer, emergent-distinctness check.
+- `pore_field.py` — n-D pore-field generator, fabric archetypes, K/D/OM/B0 rules.
+- `configs/mapping.yaml` — shared pore->parameter constants and per-volume amounts.
 - `search_loop.py` — the budget-capped (`MAX_ITERATIONS = 12`) structure
   search described in the original prompt; appends to `LOGBOOK.md` every
   iteration and only ever edits `configs/soil_*.yaml`, never
@@ -55,7 +55,5 @@ python -m venv .venv
 
 ## Current status
 
-The structure search succeeded on the first iteration (see `LOGBOOK.md`):
-all three soils meet their target verdict (rising / falling / flat) under
-the automated `metrics.py` check, and the plotted curves in
-`results/respiration_curves.png` are visually distinct.
+v3 succeeds under the equal-totals rules (see `V3_RESULTS.md`). The v2
+configs and figures are kept in `configs/v2/` and `results/` for comparison.
