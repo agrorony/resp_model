@@ -138,16 +138,16 @@ def append_logbook(iteration, results, sts, detail, success_flag, stage_label):
 def full_checks(sts, mapping_cfg):
     """S3/S4 (and R3 via validity) for the current configs. Grid, T and
     saturation mode must be shared by all soils (rule R2)."""
-    keys = [(st["grid"].get("shape", [st["grid"].get("n")] * 2), st["T"],
-             st.get("saturation", {}).get("mode", "fully_wet")) for st in sts.values()]
-    assert all(k == keys[0] for k in keys), "R2: grid/T/saturation must be shared"
-    shape, T, sat = keys[0]
+    keys = [(st["grid"].get("shape", [st["grid"].get("n")] * 2), st["grid"]["dx"], st["T"],
+             st.get("saturation", {"mode": "fully_wet"})) for st in sts.values()]
+    assert all(k == keys[0] for k in keys), "R2: grid/dx/T/saturation must be shared"
+    shape, dx, T, sat = keys[0]
     pores = [sts[s]["pore"] for s in "ABC"]
     base = tuple(p["seed"] for p in pores)
     seed_sets = (base, tuple(x + 10 for x in base), tuple(x + 20 for x in base))
     return scan.check_triple(pores, tuple(shape), T, sat,
                              enzyme=mapping_cfg.get("enzyme", {}).get("enabled", False),
-                             seed_sets=seed_sets)
+                             seed_sets=seed_sets, dx=dx)
 
 
 def run_search(stage_label="Stage 1"):

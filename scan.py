@@ -32,11 +32,14 @@ BIO = "configs/biology.yaml"
 MAP = "configs/mapping.yaml"
 
 
-def soil_cfg(pore, shape, T, sat_mode, seed):
+def soil_cfg(pore, shape, T, sat, seed, dx=1.0):
+    """`sat` is the shared saturation block (dict, e.g. with `theta` for
+    global_theta) or just a mode name."""
     pore = dict(pore)
     pore["seed"] = seed
-    return {"grid": {"shape": list(shape), "dx": 1.0}, "T": T, "pore": pore,
-            "saturation": {"mode": sat_mode}}
+    sat = dict(sat) if isinstance(sat, dict) else {"mode": sat}
+    return {"grid": {"shape": list(shape), "dx": dx}, "T": T, "pore": pore,
+            "saturation": sat}
 
 
 def _mapping(enzyme):
@@ -94,9 +97,9 @@ def library(mus, sigmas, structures):
     return lib
 
 
-def scan(lib, shape, T, sat_mode, enzyme=False, seed=1, workers=4):
+def scan(lib, shape, T, sat_mode, enzyme=False, seed=1, workers=4, dx=1.0):
     names = list(lib)
-    res = run_many([soil_cfg(lib[n], shape, T, sat_mode, seed) for n in names],
+    res = run_many([soil_cfg(lib[n], shape, T, sat_mode, seed, dx) for n in names],
                    enzyme=enzyme, workers=workers)
     res = dict(zip(names, res))
     ok = {n: v for n, v in res.items() if v["r3"] and v["nontrivial"]}
@@ -104,12 +107,12 @@ def scan(lib, shape, T, sat_mode, enzyme=False, seed=1, workers=4):
 
 
 def check_triple(tri_pores, shape, T, sat_mode, enzyme=False,
-                 seed_sets=((1, 2, 3), (11, 12, 13), (21, 22, 23)), workers=4):
+                 seed_sets=((1, 2, 3), (11, 12, 13), (21, 22, 23)), workers=4, dx=1.0):
     """S2/S3/S4 for one triple of pore dicts (A, B, C)."""
     cfgs, keys = [], []
     for si, seeds in enumerate(seed_sets):
         for soil, pore, seed in zip("ABC", tri_pores, seeds):
-            cfgs.append(soil_cfg(pore, shape, T, sat_mode, seed))
+            cfgs.append(soil_cfg(pore, shape, T, sat_mode, seed, dx))
             keys.append((si, soil))
     res = dict(zip(keys, run_many(cfgs, enzyme=enzyme, workers=workers)))
     shuf = dict(zip("ABC", run_many(cfgs[:3], enzyme=enzyme, shuffle=True, workers=workers)))
