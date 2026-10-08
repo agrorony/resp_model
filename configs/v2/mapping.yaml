@@ -22,21 +22,8 @@ p:     2.0      # power-law exponent
 # of THAT soil's own pore field with r <= matric_r_cut.
 matric_r_cut: 5.0
 
-# Shared amounts (v3 equal-totals rule, MODEL_SPEC.md SS13). Defined PER CELL
-# (per unit volume) so that a larger or 3D grid holds the same amount per
-# volume. Values equal the v2 40x40 totals (800 OM, 20 B0) / 1600 cells.
-OM_density: 0.5      # total OM   = OM_density * n_cells, for every soil
-B0_density: 0.0125   # total B0   = B0_density * n_cells, for every soil
-K_density:  0.3      # sum(K)     = K_density  * n_cells, for every soil: K(r)
-                     # keeps its shape (where habitat is good) but the TOTAL
-                     # habitat is equal, so texture cannot buy more habitat.
+# Shared totals / rule exponents (not biology, but invariant across soils
+# exactly like the biology constants -- only the pore field varies).
+OM_total: 800.0
+B0_total: 20.0
 om_fine_bias: 2.5   # OM weight = r^-om_fine_bias (higher weight in fine pores)
-
-# Optional microbially-mediated depolymerization (MODEL_SPEC.md SS14, path P3).
-# Constants fixed a priori, never tuned per soil.
-enzyme:
-  enabled: false
-  a_E: 1.0     # enzyme production per unit biomass per time
-  d_E: 0.1     # enzyme decay rate
-  K_E: 0.05    # half-saturation enzyme level for OM depolymerization
-  f_E: 0.1     # enzyme diffusivity / solute diffusivity (Stokes-Einstein: ~10x slower)

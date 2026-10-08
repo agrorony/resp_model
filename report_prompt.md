@@ -48,5 +48,13 @@ following sections:
    were achieved. If the budget ran out before success, say so honestly and
    describe the best configuration reached.
 
+**v3 update.** Also read `V3_RESULTS.md`, MODEL_SPEC.md SS13-15, the v3
+section of `LOGBOOK.md` and `results/v3/`. The report must: present the
+equal-totals rules (R1-R8) and the S1-S6 criterion; explain why the v2
+result was rejected (habitat amount not normalized; OM hoarding in soil C);
+interpret the v3 curves via delivery (supply curve identical in all soils,
+conductance bottlenecks set by arrangement) using the shuffle control; and
+state the strict-tier limit (identical pore-size histogram) honestly.
+
 Keep the tone scientific and precise. Do not invent results not present in
 `LOGBOOK.md` or `results/`.

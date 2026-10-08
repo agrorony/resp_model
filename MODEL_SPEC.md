@@ -204,3 +204,97 @@ for the pore/K/D fields and `results/respiration_curves.png` /
   point does not already clear the threshold.
 - Deterministic throughout: the only randomness is the fixed-seed pore-field
   generation per soil.
+
+---
+
+# v3 -- structure-driven respiration with equal amounts
+
+## 13. Equal-totals rules and success criterion
+
+**Problem addressed.** In v2, distinct curves were partly bought with
+*amounts*: total habitat sum(K) differed by up to 1.6x between soils (K(r)
+was never normalized), and soil C held 36% of all OM in one cell (lognormal
+tail x `r^-2.5` weighting). v3 forbids both.
+
+Hard rules (enforced in code):
+
+- **R1** `configs/biology.yaml` byte-identical (`model.check_biology_frozen`, SHA-256).
+- **R2** equal totals *per unit volume* for every soil, asserted in
+  `model.build_grids`:
+  `sum(OM) = OM_density*N`, `sum(B0) = B0_density*N`, **`sum(K) = K_density*N`**
+  (`OM_density=0.5, B0_density=0.0125, K_density=0.3` in `mapping.yaml`;
+  the first two equal the v2 40x40 totals 800/20). K(r) keeps its hump shape
+  -- *where* habitat is good -- and is renormalized to the shared total, the
+  same rule OM and B0 already followed. Grid, dx, T, saturation mode and all
+  mapping constants are shared.
+- **R3** no OM hoarding: `max(OM) <= 30 x mean(OM)` (`model.r3_ok`); a
+  candidate that violates it is rejected, never rescaled.
+- **R4** per-soil freedom = the pore field only: texture (`mu`, `sigma`) and
+  arrangement (`structure`, `lambda`, `aniso`, `aggregate`, archetype params, `seed`).
+- **R5** mechanics changes only with a written literature rationale, applied
+  to all soils, constants fixed a priori, mass conservation re-checked, and
+  the +-50% sensitivity test (S6).
+- **R6** distance metric, 0.3 threshold and non-trivial test unchanged (SS10).
+- **R7** `MAX_ITERATIONS = 12` per path, everything logged.
+- **R8** stability: `max(D)*dt/dx^2 < 1/(2*ndim)`.
+
+Success (all required): **S1** R1-R3 hold; **S2** min pairwise distance > 0.3
+and all non-trivial; **S3a** S2 holds for three seed sets; **S3b** mean
+seed-to-seed distance < 0.5 x min between-soil distance; **S4** shuffling
+each soil's pore field (same pore-size multiset, arrangement destroyed)
+removes >= 0.1 of at least one pairwise distance -- i.e. arrangement, not
+only texture, carries the result; **S5** exact mass conservation; **S6**
+(only with a new mechanism) +-50% sensitivity.
+
+Paths (stop at first success): P0 re-baseline v2 soils; P1 2D search,
+current mechanics; P2 3D grid (percolation thresholds differ: ~0.59 in 2D vs
+~0.31 in 3D); P3 enzyme-mediated depolymerization (SS14); P4 archetypes.
+
+## 14. Code extensions (available to every soil)
+
+- **n-D grids**: `grid.shape: [nx, ny]` or `[nx, ny, nz]` (legacy `grid.n`
+  still read). `conservative_divergence` loops over axes; face conductivities
+  are precomputed once.
+- **Fabric archetypes** (`pore.structure`): `gaussian` (`lambda`, optional
+  `aniso` stretching axis 0), `peds` (Voronoi aggregates: macropores on ped
+  faces, micropores inside), `biopores` (tubular, preferentially axis-0
+  channels over a correlated matrix), `hierarchical` (fine texture nested in
+  large domains). All map the latent field through `r = exp(mu + sigma*z)`.
+- **Enzyme option** (`mapping.enzyme.enabled`, off in the final result):
+  `dE/dt = div(f_E*D*grad E) + a_E*B - d_E*E`, release
+  `k_dis*OM*E/(E+K_E)` -- microbial access controls OM turnover (Schmidt et
+  al. 2011; Dungait et al. 2012; Allison 2005). Not needed for the v3 result.
+
+## 15. v3 result and interpretation
+
+Reached at path **P1** (2D 40x40, T=600, fully wet, unchanged mechanics),
+iteration 1 of the `scan.py` library scan (120 candidates):
+
+| soil | mu | sigma | fabric |
+|---|---|---|---|
+| A | 0.6 | 0.3 | gaussian, lambda=8 (large domains) |
+| B | 0.6 | 0.7 | gaussian, lambda=1.5, aniso=5 (elongated along axis 0) |
+| C | 2.3 | 0.7 | gaussian, lambda=8 |
+
+Distances AB=0.711, AC=0.718, BC=1.534; seed sets min 0.711/0.652/0.612;
+seed noise 0.030; shuffled-field distances 0.18/0.15/0.50 (drops
+0.53/0.57/1.03). Every soil has sum(OM)=800, sum(B0)=20, sum(K)=480; max cell
+OM/mean = 3.5/20.0/12.7. The same triple also passes S1-S5 in `retention` mode.
+
+**Why it works.** With first-order release, the OM->S supply curve is
+identical in every soil (22% of OM remains at t=30 in all three). Structure
+acts only on *delivery*, but under equal amounts delivery differs enough:
+C (coarse, a third of its OM already inside habitat) bursts and declines; A
+(large fine and mid-pore domains ~12 cells apart) peaks mid-window; B has OM
+nearer to habitat but behind fine, elongated low-D zones -- with harmonic-mean
+faces the lowest-conductance cells on a path are the bottleneck -- so it
+rises slowly all window. Shuffling erases the bottlenecks and the three
+cumulative-CO2 totals converge (176/158/181 vs 108/47/174).
+
+**Limit found (strict tier).** If all three soils must also share the SAME
+pore-size histogram, the best triple reaches only ~0.09 here (and ~0.2 in
+exploratory 3D/retention runs). Reason: an identical supply curve passed
+through different transport "filters" yields delayed/smoothed copies of one
+shape. Breaking that limit requires structure to change *how much* OM is
+turned over, i.e. microbial-access-controlled depolymerization (SS14, P3),
+which is the documented next step.

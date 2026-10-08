@@ -1,0 +1,16 @@
+# Soil C -- intermediate texture, aggregated, short correlation length.
+# Reached via the Stage-1 emergent-distinctness search.
+grid:
+  n: 40
+  dx: 1.0
+T: 600
+
+pore:
+  mu: 1.2
+  sigma: 0.9
+  lambda: 1.0
+  aggregate: true
+  seed: 3
+
+saturation:
+  mode: fully_wet   # Stage 1: all pores conduct
