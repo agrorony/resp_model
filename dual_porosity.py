@@ -1390,6 +1390,12 @@ def simulate_dual_porosity(biology_cfg, structure_cfg, mapping_cfg, wicking_enab
     # `habitat_properties` for the same reason -- nothing here changes
     # per-timestep since wicking never touches `macro_mask`).
     K_t = np.where(macro_mask, K_base * (1.0 + k_cluster_scale * habitat_scale), 0.0)
+    # Stage 17 R2: the capacity that governs growth is K_t (after the
+    # cluster multiplier, whose `habitat_scale` is soil-specific), so the
+    # equal-habitat rule must constrain K_t itself, not only the pre-cluster
+    # K from build_dual_grids. Absent `stage17_K_density` => unchanged.
+    if "stage17_K_density" in mapping_cfg and K_t.sum() > 0:
+        K_t = K_t * float(mapping_cfg["stage17_K_density"]) * K_t.size / K_t.sum()
     habitable = K_t > 0
     K_safe = np.where(habitable, K_t, 1.0)
 
@@ -1513,6 +1519,7 @@ def simulate_dual_porosity(biology_cfg, structure_cfg, mapping_cfg, wicking_enab
         "maintenance_term_t": maintenance_term_t,
         "active_mass_t": active_mass_t,
         "enzyme_mean_t": enzyme_mean_t,
+        "K_effective_sum": float(K_t.sum()),
         "B_final": B,
         "S_final": S,
         "OM_final": OM_coating + OM_trapped,

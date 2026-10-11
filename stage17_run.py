@@ -94,14 +94,20 @@ def check_biology():
 
 def native_K_density(mapping_cfg):
     """R2's shared habitat density: the mean, over the three soils, of each
-    soil's NATIVE sum(K)/n_cells at that grid (literature PSD, Track L). A
+    soil's NATIVE effective capacity sum(K_t)/n_cells (K_t = K after the
+    cluster multiplier, i.e. what the logistic term actually uses) at that grid (literature PSD, Track L). A
     rule, not a fit: it keeps the overall habitat scale where main had it."""
     out = {}
     m = s16.shared_mapping(mapping_cfg, {"stage16_om_total_shared": 10000.0},
                            {"stage16_D_scale_shared": 1.0})
     for n in GRIDS:
-        vals = [dual_porosity.build_dual_grids(s16.structure_cfg(s, n, 10), m)["K"].sum() / (n * n)
-                for s in ("sand", "vertisol", "loess")]
+        vals = []
+        for s in ("sand", "vertisol", "loess"):
+            g = dual_porosity.build_dual_grids(s16.structure_cfg(s, n, 10), m)
+            _, _, scale = dual_porosity.habitat_properties(g["macro_mask"])
+            k_cl = float(mapping_cfg.get("stage4_variantC_cluster_K_scale", 0.75))
+            K_t = np.where(g["macro_mask"], g["K"] * (1.0 + k_cl * scale), 0.0)
+            vals.append(float(K_t.sum()) / (n * n))
         out[n] = float(np.mean(vals))
     return out
 
@@ -156,7 +162,7 @@ def run_job(spec):
     res.update({
         "R_t": out["R_t"], "runtime_s": time.time() - t0,
         "om_total_init": g["om_total_init"], "om_total_placed": g["om_total_placed"],
-        "om_hoard": g["om_hoard"], "sumK": float(g["K"].sum()), "theta": g["theta"],
+        "om_hoard": g["om_hoard"], "sumK": float(out["K_effective_sum"]), "theta": g["theta"],
         "n_regions": int(g["region_labels"].max()),
         "fuel_end": float(out["fuel_remaining_t"][-1]),
         "R_peak": float(out["R_t"].max()),
