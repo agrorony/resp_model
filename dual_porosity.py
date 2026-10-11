@@ -1004,6 +1004,15 @@ def build_dual_grids(structure_cfg, mapping_cfg):
         n, pore_cfg["lambda"], pore_cfg["seed"],
         psd["bin_edges_um"], psd["cdf_edges"], pore_cfg.get("aggregate", False))
 
+    # Stage 17 (docs/stage_results/STAGE17_RESULTS.md, S4 arrangement
+    # control, ported from the v3 branch's scan.py): `pore.shuffle_seed`
+    # randomly permutes the diameter field -- the SAME measured/literature
+    # pore-size multiset, every spatial arrangement destroyed. Absent (the
+    # default) => byte-identical to every earlier stage.
+    if pore_cfg.get("shuffle_seed") is not None:
+        d = np.random.default_rng(int(pore_cfg["shuffle_seed"])).permutation(
+            d.ravel()).reshape(d.shape)
+
     d_split = mapping_cfg["K_d_low"]  # 30 um macro/matrix split threshold
     macro_mask = d >= d_split
     matrix_mask = ~macro_mask
@@ -1060,6 +1069,14 @@ def build_dual_grids(structure_cfg, mapping_cfg):
     dry_macro_mask = macro_mask & ~water_mask
     film_k_scale = float(mapping_cfg.get("stage7_film_K_scale", 1.0))
     K = np.where(dry_macro_mask, K * film_k_scale, K)
+
+    # Stage 17 R2 (equal totals, ported from the v3 branch's MODEL_SPEC
+    # SS13): with `stage17_K_density` set, total carrying capacity sum(K) is
+    # renormalized to K_density * n_cells for EVERY soil -- K keeps its
+    # spatial shape (where habitat is good) but a soil can no longer get
+    # more total habitat from its texture. Absent => unchanged.
+    if "stage17_K_density" in mapping_cfg and K.sum() > 0:
+        K = K * float(mapping_cfg["stage17_K_density"]) * K.size / K.sum()
 
     D_film = float(mapping_cfg.get("D_film", 0.0))
     D = np.where(water_mask, D_macro_base, np.where(dry_macro_mask, D_film, 0.0))
@@ -1167,6 +1184,10 @@ def build_dual_grids(structure_cfg, mapping_cfg):
         "region_diam_field": region_diam_field,
         "OM": OM, "OM_coating": OM_coating, "OM_trapped": OM_trapped,
         "B0": B0, "S0": S0, "psd_truncation": None,
+        # Stage 17 R3 (OM hoarding): max cell OM over the mean OM of the
+        # porous matrix (the support the OM rule places carbon on).
+        "om_hoard": (float(OM.max() / OM[porous_matrix_mask].mean())
+                     if porous_matrix_mask.any() and OM.sum() > 0 else float("nan")),
     }
 
 
@@ -1303,6 +1324,24 @@ def simulate_dual_porosity(biology_cfg, structure_cfg, mapping_cfg, wicking_enab
     assert dt * 4.0 * (k_leak + (k_wick if wicking_enabled else 0.0)) < 1.0, \
         "exchange stability violated: reduce k_leak/k_wick or dt"
 
+    # Stage 17 (v3's MODEL_SPEC SS14 / path P3, ported): microbially
+    # mediated depolymerization. With `enzyme.enabled`, OM no longer
+    # dissolves at a fixed first-order rate everywhere; extracellular enzyme
+    # E is produced by biomass, decays, and diffuses (f_E x slower than
+    # dissolved substrate, Stokes-Einstein) through the SAME water-gated
+    # conductivity field, and every OM pool releases at
+    #     rate * E / (E + K_E)
+    # so structure controls HOW MUCH OM turns over, not only how fast its
+    # products are delivered. No hand-set distance term: E's spatial pattern
+    # is emergent from biomass + transport. Off (default) => unchanged.
+    enz = mapping_cfg.get("enzyme") or {}
+    use_enzyme = bool(enz.get("enabled", False))
+    if use_enzyme:
+        a_E, d_E = float(enz["a_E"]), float(enz["d_E"])
+        K_E, f_E = float(enz["K_E"]), float(enz["f_E"])
+        E = np.zeros_like(grids["B0"])
+    enzyme_mean_t = np.zeros(T)
+
     B = grids["B0"].copy()
     S = grids["S0"].copy()
     OM_coating = grids["OM_coating"].copy()
@@ -1351,6 +1390,12 @@ def simulate_dual_porosity(biology_cfg, structure_cfg, mapping_cfg, wicking_enab
     # `habitat_properties` for the same reason -- nothing here changes
     # per-timestep since wicking never touches `macro_mask`).
     K_t = np.where(macro_mask, K_base * (1.0 + k_cluster_scale * habitat_scale), 0.0)
+    # Stage 17 R2: the capacity that governs growth is K_t (after the
+    # cluster multiplier, whose `habitat_scale` is soil-specific), so the
+    # equal-habitat rule must constrain K_t itself, not only the pre-cluster
+    # K from build_dual_grids. Absent `stage17_K_density` => unchanged.
+    if "stage17_K_density" in mapping_cfg and K_t.sum() > 0:
+        K_t = K_t * float(mapping_cfg["stage17_K_density"]) * K_t.size / K_t.sum()
     habitable = K_t > 0
     K_safe = np.where(habitable, K_t, 1.0)
 
@@ -1417,7 +1462,12 @@ def simulate_dual_porosity(biology_cfg, structure_cfg, mapping_cfg, wicking_enab
         # (explicit) OM-release source BEFORE the implicit diffusion solve,
         # apply the (explicit) uptake sink and matrix<->macro exchange terms
         # AFTER it.
-        source_increment = dt * (k_dis * OM_coating + k_dis_slow * OM_trapped)
+        if use_enzyme:
+            access = E / (E + K_E)
+            enzyme_mean_t[t] = float(E.mean())
+        else:
+            access = 1.0
+        source_increment = dt * access * (k_dis * OM_coating + k_dis_slow * OM_trapped)
         S_diffused = implicit_diffusion_step(
             S + source_increment, D_total, dx, dt, implicit_iterations, implicit_relaxation,
             tol=implicit_tol)
@@ -1426,8 +1476,13 @@ def simulate_dual_porosity(biology_cfg, structure_cfg, mapping_cfg, wicking_enab
             S_new = S_new + dt * wicking_substrate_exchange(
                 S_diffused, porous_matrix_mask, macro_mask, wet_mask, k_wick, wick_radius)
 
-        dOM_coating = -k_dis * OM_coating
-        dOM_trapped = -k_dis_slow * OM_trapped
+        dOM_coating = -access * k_dis * OM_coating
+        dOM_trapped = -access * k_dis_slow * OM_trapped
+        if use_enzyme:
+            E = implicit_diffusion_step(
+                E + dt * a_E * B, f_E * D_total, dx, dt, implicit_iterations,
+                implicit_relaxation, tol=implicit_tol)
+            E = np.clip(E * (1.0 - dt * d_E), 0.0, None)
 
         B = np.clip(B + dt * dB, 0.0, None)
         S = np.clip(S_new, 0.0, None)
@@ -1463,6 +1518,8 @@ def simulate_dual_porosity(biology_cfg, structure_cfg, mapping_cfg, wicking_enab
         "growth_term_t": growth_term_t,
         "maintenance_term_t": maintenance_term_t,
         "active_mass_t": active_mass_t,
+        "enzyme_mean_t": enzyme_mean_t,
+        "K_effective_sum": float(K_t.sum()),
         "B_final": B,
         "S_final": S,
         "OM_final": OM_coating + OM_trapped,

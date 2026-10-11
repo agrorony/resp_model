@@ -425,3 +425,15 @@ om_mode: shared_fine_pore
 #   rung 3  stage16_om_total_<soil> / stage16_D_scale_<soil>
 #             per-soil, as Stage 10 established -- the fallback, not the
 #             goal.
+
+# Stage 17 (docs/stage_results/STAGE17_RESULTS.md, stage17_run.py) adds three
+# OPTIONAL switches to dual_porosity.py. None is set here, so main's active
+# configuration (and every Stage 1-16 result) is unchanged; stage17_run.py
+# sets them per arm in a copied mapping:
+#   stage17_K_density: <float>   R2 equal habitat -- sum(K) renormalized to
+#                                K_density * n_cells for every soil.
+#   enzyme: {enabled: true, a_E, d_E, K_E, f_E}
+#                                microbially mediated depolymerization (OM
+#                                releases at rate * E/(E+K_E); E produced by
+#                                biomass, decays, diffuses f_E x slower).
+#   (structure) pore.shuffle_seed: <int>   S4 arrangement control.

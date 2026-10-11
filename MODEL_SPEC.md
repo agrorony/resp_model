@@ -1157,3 +1157,53 @@ to attempt a physiological rather than geometric fix (dormant/active
 biomass with substrate-dependent reactivation), explicitly out of scope
 here. Full detail in `docs/stage_results/STAGE16_RESULTS.md`; all
 figures/CSVs in `results/stage16/`.
+
+## Stage 17 -- v3 equal-totals machinery against main's SS4 battery
+
+`stage17_run.py`, `structure_tools.py`. A SYNTHESIS stage. The v3 branch
+(`claude/brave-brahmagupta-edjq14`) branched from the first commit and
+solved a Stage-1-level problem: synthetic gaussian fabrics, fully wet,
+distinctness only. It is not merged. Its rules and controls are ported as
+OFF-by-default switches and tooling, and run against main's data, physics
+and SS4 criteria, which stay the source of truth:
+
+- **R2 equal totals**: one shared `om_total`, `D_scale`, `T`; total
+  effective carrying capacity sum(K_t) renormalized to a shared density
+  (`stage17_K_density`, applied after the soil-specific cluster multiplier).
+- **R3 OM hoarding cap**: max cell OM <= 30 x mean porous-matrix OM
+  (`grids["om_hoard"]`). Main's `shared_fine_pore` rule violates it at any
+  dose (54-288 at n=128). The largest R3-compliant shared exponent is 0.75.
+- **S3/S4 controls**: 3 seed sets; `pore.shuffle_seed` (same PSD multiset,
+  arrangement destroyed).
+- **Enzyme-mediated depolymerization** (`mapping.enzyme`): biomass produces
+  enzyme E, which decays and diffuses at f_E x D through the water-gated
+  field. Every OM pool releases at `rate * E/(E+K_E)`. K_E = kappa x E*,
+  kappa = 0.4 (v3's dimensionless value).
+- `structure_tools.py`: numpy-only port of v3's n-D conservative transport,
+  fabric archetypes (anisotropic gaussian, Voronoi peds, biopores,
+  hierarchical), PSD-quantile layout and seed/shuffle harness. It is
+  tooling and is not wired into the 2D dual-porosity solver.
+
+**Result: no configuration adopted.** Two tracks were run, both
+user-confirmed. On real measured PSDs + `global_theta`, Sand and Vertisol
+cannot hold OM (Stage 13). On main's literature-PSD / `matric_regions`
+soils, 4 arms (OM rule x enzyme) x 9 shared dose/transport probes were run
+at both grids:
+
+- (d) distinctness passes robustly at both grids.
+- Vertisol's slow-rise shape passes on all three seed sets at n=128 under
+  the R3-compliant rule with enzyme (distinctness 1.40-1.45, seed noise
+  0.016). Shuffling the pore field removes it, so arrangement carries the
+  effect.
+- (a) for both soils at once never passes at n=128. The closest arms miss
+  only Sand's "peak in the first third" (0.45), delayed by the enzyme lag.
+- (b) recruitment timing fails in all 80 configurations. Enzyme gating
+  staggers GRADED recruitment (Vertisol per-region half-max median 0.72
+  of the window), but cannot move the boolean count, because every region
+  is seeded with biomass, and so produces enzyme, at t=0.
+- At Stage 16's own per-soil working point the enzyme kills Vertisol: its
+  OM is in the matrix and enzyme cannot diffuse in at D_scale 0.7 before
+  the seeded biomass starves.
+
+Full detail in `docs/stage_results/STAGE17_RESULTS.md`; data in
+`results/stage17/`.
