@@ -1,0 +1,135 @@
+{
+ "K_density": 0.1095862986462395,
+ "native_K_t_density_n128": {
+  "sand": 0.018014236661946622,
+  "vertisol": 0.20115836063053238
+ },
+ "B0_density": 0.0125,
+ "OM_densities": [
+  0.037,
+  0.0843628597358956,
+  0.19235384061671346,
+  0.4385816236650978,
+  1.0
+ ],
+ "grids": [
+  {
+   "soil": "sand",
+   "n": 40,
+   "N": 1600,
+   "coating_fraction": 0.8,
+   "native_K_t_density": null,
+   "n_regions": 1,
+   "habitat_cells": 1307,
+   "porous_matrix_cells": 190,
+   "coating_cells": 166,
+   "trapped_cells": 24,
+   "dry_habitat_frac": 1.0,
+   "trapped_median_geodesic_cells": 4.0,
+   "trapped_median_geodesic_um": 40.0,
+   "trapped_unreachable": 0,
+   "t_diffuse_trapped": 43.50829104871297,
+   "coating_OM_per_cell_per_density": 7.710843373493976,
+   "trapped_OM_per_cell_per_density": 13.33333333333333
+  },
+  {
+   "soil": "sand",
+   "n": 128,
+   "N": 16384,
+   "coating_fraction": 0.8,
+   "native_K_t_density": 0.018014236661946622,
+   "n_regions": 3,
+   "habitat_cells": 13379,
+   "porous_matrix_cells": 1953,
+   "coating_cells": 1844,
+   "trapped_cells": 109,
+   "dry_habitat_frac": 0.9994020479856491,
+   "trapped_median_geodesic_cells": 4.0,
+   "trapped_median_geodesic_um": 40.0,
+   "trapped_unreachable": 0,
+   "t_diffuse_trapped": 43.50829104871297,
+   "coating_OM_per_cell_per_density": 7.108026030368764,
+   "trapped_OM_per_cell_per_density": 30.062385321100912
+  },
+  {
+   "soil": "vertisol",
+   "n": 40,
+   "N": 1600,
+   "coating_fraction": 0.3,
+   "native_K_t_density": null,
+   "n_regions": 9,
+   "habitat_cells": 516,
+   "porous_matrix_cells": 704,
+   "coating_cells": 407,
+   "trapped_cells": 297,
+   "dry_habitat_frac": 0.8934108527131783,
+   "trapped_median_geodesic_cells": 6.0,
+   "trapped_median_geodesic_um": 60.0,
+   "trapped_unreachable": 0,
+   "t_diffuse_trapped": 97.89365485960418,
+   "coating_OM_per_cell_per_density": 1.1793611793611793,
+   "trapped_OM_per_cell_per_density": 3.771043771043771
+  },
+  {
+   "soil": "vertisol",
+   "n": 128,
+   "N": 16384,
+   "coating_fraction": 0.3,
+   "native_K_t_density": 0.20115836063053238,
+   "n_regions": 70,
+   "habitat_cells": 5284,
+   "porous_matrix_cells": 7215,
+   "coating_cells": 4269,
+   "trapped_cells": 2946,
+   "dry_habitat_frac": 0.9131339894019682,
+   "trapped_median_geodesic_cells": 5.0,
+   "trapped_median_geodesic_um": 50.0,
+   "trapped_unreachable": 22,
+   "t_diffuse_trapped": 67.98170476361402,
+   "coating_OM_per_cell_per_density": 1.1513703443429375,
+   "trapped_OM_per_cell_per_density": 3.893007467752885
+  }
+ ],
+ "supply": [
+  {
+   "OM_density": 0.037,
+   "OM_per_habitat_capacity": 0.3376334492274566,
+   "supply_over_maint_sand": 5.920000000000001,
+   "supply_over_maint_vertisol": 2.2199999999999998
+  },
+  {
+   "OM_density": 0.0843628597358956,
+   "OM_per_habitat_capacity": 0.7698303599816906,
+   "supply_over_maint_sand": 13.4980575577433,
+   "supply_over_maint_vertisol": 5.061771584153736
+  },
+  {
+   "OM_density": 0.19235384061671346,
+   "OM_per_habitat_capacity": 1.7552727210694432,
+   "supply_over_maint_sand": 30.776614498674157,
+   "supply_over_maint_vertisol": 11.541230437002806
+  },
+  {
+   "OM_density": 0.4385816236650978,
+   "OM_per_habitat_capacity": 4.002157469346629,
+   "supply_over_maint_sand": 70.17305978641566,
+   "supply_over_maint_vertisol": 26.31489741990587
+  },
+  {
+   "OM_density": 1.0,
+   "OM_per_habitat_capacity": 9.125228357498827,
+   "supply_over_maint_sand": 160.00000000000003,
+   "supply_over_maint_vertisol": 60.0
+  }
+ ],
+ "timescales": {
+  "t_growth_max_rate": 1.0,
+  "t_dissolve": 20.0,
+  "t_leak": 10.0,
+  "D_matrix": 0.367746,
+  "D_film_eff": 4.69611642,
+  "f_star": 0.10909090909090909,
+  "S_star": 0.02448979591836735,
+  "window_time": 75.0
+ }
+}

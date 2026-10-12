@@ -1075,6 +1075,11 @@ def build_dual_grids(structure_cfg, mapping_cfg):
     # mass is equal.
     soil_name = pore_cfg.get("psd_soil", "")
     om_total = _variantc_om_total(mapping_cfg, soil_name, porous_matrix_mask.sum())
+    # Stage 19 R5 (docs/stage_results/STAGE19_RESULTS.md): equal totals as
+    # DENSITIES per grid cell, so n=40 and n=128 are the same physical
+    # system. Absent => every earlier stage unchanged.
+    if "stage19_om_density" in mapping_cfg:
+        om_total = float(mapping_cfg["stage19_om_density"]) * n * n
 
     # Stage 6 Change 2/3 (soil_respiration_prompt_stage6_portback.md): split
     # that total OM into a fast COATING pool (near habitat, along a wet path)
@@ -1115,6 +1120,10 @@ def build_dual_grids(structure_cfg, mapping_cfg):
         coating_fraction = float("nan")
     else:
         coating_fraction = _variantc_coating_fraction(mapping_cfg, soil_name)
+        # Stage 19 R4: coating_fraction as an explicit grid-construction
+        # parameter of the soil config (decides only WHERE OM sits).
+        if pore_cfg.get("coating_fraction") is not None:
+            coating_fraction = float(pore_cfg["coating_fraction"])
         OM_coating, OM_trapped, coating_mask, trapped_mask = split_om_coating_trapped(
             d_struct, porous_matrix_mask, macro_mask, water_mask,
             mapping_cfg["om_fine_bias"], max(om_total, 0.0),
@@ -1125,7 +1134,9 @@ def build_dual_grids(structure_cfg, mapping_cfg):
                                   # connectivity / accessible_om_fraction),
                                   # which only need a single OM density field
 
-    B0 = b0_field(K, mapping_cfg["B0_total"])
+    B0_total = (float(mapping_cfg["stage19_B0_density"]) * n * n
+                if "stage19_B0_density" in mapping_cfg else mapping_cfg["B0_total"])
+    B0 = b0_field(K, B0_total)
     S0 = np.zeros((n, n))
 
     labels, sizes, scale = habitat_properties(macro_mask)
@@ -1325,6 +1336,14 @@ def simulate_dual_porosity(biology_cfg, structure_cfg, mapping_cfg, wicking_enab
         n_macro_cells = int(macro_mask.sum())
         growth_distribution_t = np.zeros((T, n_macro_cells), dtype=float)
 
+    # Stage 19 SS3(c) observational outputs: substrate gained by habitat
+    # cells through transport (diffusion + matrix->macro leak, excluding
+    # their own local release and uptake), split by wet vs dry (film)
+    # habitat, and the wet fraction of habitat. Read-only side effects.
+    delivered_wet_t = np.zeros(T)
+    delivered_dry_t = np.zeros(T)
+    wet_habitat_frac_t = np.zeros(T)
+
     # Stage 16 SS4c observational outputs (see docstring).
     active_mass_t = np.zeros(T)
     n_regions_total = int(region_labels.max())
@@ -1351,6 +1370,11 @@ def simulate_dual_porosity(biology_cfg, structure_cfg, mapping_cfg, wicking_enab
     # `habitat_properties` for the same reason -- nothing here changes
     # per-timestep since wicking never touches `macro_mask`).
     K_t = np.where(macro_mask, K_base * (1.0 + k_cluster_scale * habitat_scale), 0.0)
+    # Stage 19 R5 (ported from Stage 17's stage17_K_density, commit f1e3b68):
+    # equal total habitat capacity on the EFFECTIVE capacity K_t, i.e. after
+    # the soil-specific cluster multiplier. Absent => unchanged.
+    if "stage19_K_density" in mapping_cfg and K_t.sum() > 0:
+        K_t = K_t * float(mapping_cfg["stage19_K_density"]) * K_t.size / K_t.sum()
     habitable = K_t > 0
     K_safe = np.where(habitable, K_t, 1.0)
 
@@ -1421,7 +1445,13 @@ def simulate_dual_porosity(biology_cfg, structure_cfg, mapping_cfg, wicking_enab
         S_diffused = implicit_diffusion_step(
             S + source_increment, D_total, dx, dt, implicit_iterations, implicit_relaxation,
             tol=implicit_tol)
-        S_new = S_diffused - dt * uptake + dt * leak_exchange(S_diffused, porous_matrix_mask, macro_mask, k_leak)
+        leak_t = leak_exchange(S_diffused, porous_matrix_mask, macro_mask, k_leak)
+        S_new = S_diffused - dt * uptake + dt * leak_t
+        transport_gain = np.clip(S_diffused + dt * leak_t - (S + source_increment), 0.0, None)
+        delivered_wet_t[t] = float(transport_gain[macro_mask & wet_mask].sum())
+        delivered_dry_t[t] = float(transport_gain[dry_macro_t].sum())
+        wet_habitat_frac_t[t] = (float((macro_mask & wet_mask).sum()) / float(macro_mask.sum())
+                                 if macro_mask.any() else 0.0)
         if wicking_enabled:
             S_new = S_new + dt * wicking_substrate_exchange(
                 S_diffused, porous_matrix_mask, macro_mask, wet_mask, k_wick, wick_radius)
@@ -1463,6 +1493,10 @@ def simulate_dual_porosity(biology_cfg, structure_cfg, mapping_cfg, wicking_enab
         "growth_term_t": growth_term_t,
         "maintenance_term_t": maintenance_term_t,
         "active_mass_t": active_mass_t,
+        "delivered_wet_t": delivered_wet_t,
+        "delivered_dry_t": delivered_dry_t,
+        "wet_habitat_frac_t": wet_habitat_frac_t,
+        "K_effective_sum": float(K_t.sum()),
         "B_final": B,
         "S_final": S,
         "OM_final": OM_coating + OM_trapped,

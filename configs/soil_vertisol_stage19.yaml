@@ -1,0 +1,25 @@
+# Stage 19 (docs/stage_results/STAGE19_RESULTS.md): Vertisol, literature PSD.
+# Same pore field as configs/soil_vertisol.yaml (psd_parametric, lambda 2.0, seed 3);
+# adds the ONE per-soil OM parameter, coating_fraction (R4): the share of the
+# soil's OM placed in coating cells (porous matrix within
+# stage6_coating_thickness = 2 geodesic steps of a macropore) vs. deeper in
+# the matrix. It decides only WHERE OM sits; it changes no rate. Value =
+# Stage 8's (stage6_coating_fraction_vertisol). Separate file so earlier stages
+# that read configs/soil_vertisol.yaml are unaffected.
+grid:
+  n: 128
+  dx: 1.0
+T: 1500
+
+pore:
+  mode: psd_parametric
+  psd_soil: vertisol
+  psd_config: configs/psd_literature.yaml
+  lambda: 2.0
+  aggregate: false
+  seed: 3
+  coating_fraction: 0.3
+
+saturation:
+  mode: matric_regions
+  matric_d_cut_um: 50.0
