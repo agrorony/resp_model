@@ -9,10 +9,14 @@
 densities, but their curves are not distinct: min pairwise distance 0.238
 against the 0.3 bar. Step 4 (robustness) was not run.**
 
-- **Liveness is fixed, and the fix is grid-independent.** With totals as
+- **Liveness is fixed, and it holds across domain size.** With totals as
   densities, the selected density gives the same regime at n=40 and n=128
   (distance 0.223 vs 0.238; Sand B_peak/B0 3.02 vs 2.89; Vertisol 1.50 vs
-  1.48). Stage 8's n=40 / n=128 disagreement is gone.
+  1.48), so Stage 8's n=40 / n=128 disagreement is gone. Note: both grids
+  use the same 10 um voxel (dx = 1), so n=40 and n=128 are a 400 um and a
+  1,280 um sample of the same material, **not** two resolutions. This is a
+  domain-size consistency result, not a resolution-convergence test (see
+  SS4).
 - **Liveness and distinctness trade off along the only tuning axis
   allowed.** Distance falls monotonically as OM_density rises: 0.733 -> 0.365
   -> 0.223 -> 0.101 over the four densities where anything grows. Both soils
@@ -149,8 +153,17 @@ At OM_density 0.439:
 | Sand | yes | 2.892 | 11.97 | 0.80 | 0.24 | 0.17 | falling |
 | Vertisol | yes | 1.475 | 6.38 | 0.79 | 0.31 | 0.46 | flat |
 
-Distance 0.238 (n=40: 0.223). The same regime at both grids, as R5
+Distance 0.238 (n=40: 0.223). The same regime in both domains, as R5
 intended.
+
+**What this does and does not show.** Every grid in this repo, Stage 8's
+included, keeps the voxel at 10 um (`voxel_um`, dx = 1), so n=40 vs n=128
+changes the physical extent of the sample (400 um vs 1,280 um), not its
+resolution. Stage 8's disagreement came from absolute totals diluted over a
+10x larger domain. Per-cell densities remove that, and the two domain sizes
+now agree. Whether results converge under refinement (the same domain at a
+finer voxel) was **not** tested: it would change the pore-field generation
+and was outside the specified setup.
 
 ## 5. Step 3 -- distinctness at n=128 and controls (`stage19_step3_controls.json`, `stage19_step3_controls.png`)
 
@@ -190,8 +203,9 @@ intended.
 
 - **Achieved:** both soils alive, with equal OM, B0 and habitat-capacity
   densities, no per-soil dose, D_scale or T, one dissolution rate, and the
-  same regime at n=40 and n=128. This fixes the two defects Stage 8 had
-  (dead soils, grid dependence).
+  same regime at n=40 and n=128 (two domain sizes at the same voxel). This
+  fixes the two defects Stage 8 had (dead soils, domain-size dependence
+  from absolute totals). Resolution convergence was not tested.
 - **Not achieved:** distinctness. At the only density where both soils
   live and that the procedure selects, the distance is 0.238. What there
   is comes mostly from the per-soil coating fraction (0.238 -> 0.070 at
