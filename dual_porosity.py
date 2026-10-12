@@ -1003,6 +1003,11 @@ def build_dual_grids(structure_cfg, mapping_cfg):
     d = generate_diameter_field_from_psd(
         n, pore_cfg["lambda"], pore_cfg["seed"],
         psd["bin_edges_um"], psd["cdf_edges"], pore_cfg.get("aggregate", False))
+    # Stage 20 S4 arrangement control (same as Stage 17's): `pore.shuffle_seed`
+    # permutes the diameter field -- same PSD multiset, arrangement destroyed.
+    # Absent => unchanged.
+    if pore_cfg.get("shuffle_seed") is not None:
+        d = np.random.default_rng(int(pore_cfg["shuffle_seed"])).permutation(d.ravel()).reshape(d.shape)
 
     d_split = mapping_cfg["K_d_low"]  # 30 um macro/matrix split threshold
     macro_mask = d >= d_split
@@ -1148,6 +1153,19 @@ def build_dual_grids(structure_cfg, mapping_cfg):
             mapping_cfg["om_fine_bias"], max(om_total, 0.0),
             coating_fraction, coating_thickness,
         )
+        # Stage 20 (shuffle control only, `stage20_conserve_om_pools`): if
+        # one pool has no cells (e.g. a shuffled pore field where every
+        # matrix cell is within the coating distance of a macropore), its
+        # share of OM would otherwise be silently dropped; move it to the
+        # other pool so the equal-OM total holds. No rate changes. Absent =>
+        # unchanged (earlier stages keep their exact behaviour).
+        if mapping_cfg.get("stage20_conserve_om_pools", False):
+            if not trapped_mask.any() and coating_mask.any():
+                OM_coating = OM_coating * (max(om_total, 0.0) / OM_coating.sum())
+                coating_fraction = 1.0
+            elif not coating_mask.any() and trapped_mask.any():
+                OM_trapped = OM_trapped * (max(om_total, 0.0) / OM_trapped.sum())
+                coating_fraction = 0.0
     OM = OM_coating + OM_trapped  # combined field, kept for metrics.py's
                                   # connectivity diagnostics (om_biomass_
                                   # connectivity / accessible_om_fraction),
@@ -1374,6 +1392,13 @@ def simulate_dual_porosity(biology_cfg, structure_cfg, mapping_cfg, wicking_enab
     # habitat, and the wet fraction of habitat. Read-only side effects.
     delivered_wet_t = np.zeros(T)
     delivered_dry_t = np.zeros(T)
+    # Stage 20: the same totals split by mechanism -- diffusion (wet pores /
+    # film) vs matrix->macro leak -- because "into drained habitat" is not
+    # the same as "through the film". Read-only.
+    diff_wet_t = np.zeros(T)
+    diff_dry_t = np.zeros(T)
+    leak_wet_t = np.zeros(T)
+    leak_dry_t = np.zeros(T)
     wet_habitat_frac_t = np.zeros(T)
 
     # Stage 16 SS4c observational outputs (see docstring).
@@ -1482,6 +1507,12 @@ def simulate_dual_porosity(biology_cfg, structure_cfg, mapping_cfg, wicking_enab
         transport_gain = np.clip(S_diffused + dt * leak_t - (S + source_increment), 0.0, None)
         delivered_wet_t[t] = float(transport_gain[macro_mask & wet_mask].sum())
         delivered_dry_t[t] = float(transport_gain[dry_macro_t].sum())
+        diff_gain = np.clip(S_diffused - (S + source_increment), 0.0, None)
+        leak_gain = np.clip(dt * leak_t, 0.0, None)
+        diff_wet_t[t] = float(diff_gain[macro_mask & wet_mask].sum())
+        diff_dry_t[t] = float(diff_gain[dry_macro_t].sum())
+        leak_wet_t[t] = float(leak_gain[macro_mask & wet_mask].sum())
+        leak_dry_t[t] = float(leak_gain[dry_macro_t].sum())
         wet_habitat_frac_t[t] = (float((macro_mask & wet_mask).sum()) / float(macro_mask.sum())
                                  if macro_mask.any() else 0.0)
         if wicking_enabled:
@@ -1527,6 +1558,8 @@ def simulate_dual_porosity(biology_cfg, structure_cfg, mapping_cfg, wicking_enab
         "active_mass_t": active_mass_t,
         "delivered_wet_t": delivered_wet_t,
         "delivered_dry_t": delivered_dry_t,
+        "diff_wet_t": diff_wet_t, "diff_dry_t": diff_dry_t,
+        "leak_wet_t": leak_wet_t, "leak_dry_t": leak_dry_t,
         "wet_habitat_frac_t": wet_habitat_frac_t,
         "K_effective_sum": float(K_t.sum()),
         "film_f_rel": f_rel,

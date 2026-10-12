@@ -1056,3 +1056,14 @@ Sand + Vertisol only (no Loess), literature PSDs, matric_regions wetting, biolog
 - Step 4 not run.
 
 **Stage 19 headline: alive and consistent across domain size (n=40 / n=128, same voxel) under equal densities, but NOT distinct (0.238 at n=128); the remaining distinctness is mostly the hand-set per-soil coating fraction (0.070 at equal fractions). Liveness and distinctness trade off monotonically along OM_density. 2026-10-12. Full detail in docs/stage_results/STAGE19_RESULTS.md.**
+
+## Stage 20 -- film transport (F) x wetting rule (W), 2x2 factorial, Sand + Vertisol
+
+Branched from Stage 19. F1 = Millington-Quirk film D(d) x D_scale x S_w^(10/3) (f_rel <= 1); W1 = equal saturation S_w 0.5 (smallest per-cell pores fill first). Everything else Stage 19's (densities, coating fractions, D_scale, T, biology). Stage 19 point reproduced byte-identically; predictions committed before Step 1 (2973dde).
+
+- **Step 0:** Sand W0 S_w 0.128 -> F1 film 0.013 (F0 4.70); Vertisol W0 film/full-pore ratio 4.9 -> 0.67; under W1 Vertisol's habitat is 0% wet (matrix takes all water).
+- **Step 1 (n=40):** both PRIMARY-alive only at 0.439 and 1.0 in every arm. Distance at 0.439: A0 0.223, **A1 0.943**, A2 0.135, A3 0.192. F effect +0.26 to +0.72 under matric wetting; W effect negative everywhere. Control (a) in A1: 0.924 / 0.930 at the both-alive densities (structure carries it). Secondary (respiration-only) liveness would also admit 0.192 in all arms. Delivery split added: Stage 19's "99.9% via film" was ~76% (diffusion vs leak into drained habitat).
+- **Steps 2-3 (n=128, OM 0.439):** A1 distance 0.689, both alive -> PASS; equal cf 0.639; transport off kills both. A3 0.170 -> fail.
+- **Step 4 (A1):** S3a pass (n=128 0.689/0.677/0.607; n=40 0.943/0.959/0.870), S3b pass (noise 0.014 vs 0.607), MASS pass (5e-12), **S4 FAIL at n=128** -- shuffling kills Vertisol (2,088 regions, median inscribed 20 um < 30 um habitat threshold, K>0 on 10% of macro cells), distance rises 0.689 -> 1.901; passes at n=40 (drop 0.299). Shuffled Sand needed `stage20_conserve_om_pools` (empty trapped pool would drop 20% of OM).
+
+**Stage 20 headline: physical (Millington-Quirk) films with matric wetting give the first alive-and-distinct, seed-robust, structure-carried result (A1, 0.689 at n=128; 0.639 at equal coating fractions), but the pre-registered shuffle control fails at n=128 because shuffling destroys Vertisol's habitat rather than only its arrangement. Equal saturation (W1) lowers distinctness everywhere. 2026-10-12. Full detail in docs/stage_results/STAGE20_RESULTS.md.**

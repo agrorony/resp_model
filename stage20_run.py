@@ -53,11 +53,14 @@ def mapping_for(om_density, film, D_scale=None):
     return m
 
 
-def spec(key, soil, n, arm, om, coating_fraction=None, D_scale=None, seed_offset=0):
+def spec(key, soil, n, arm, om, coating_fraction=None, D_scale=None, seed_offset=0, shuffle=False):
     film, wet = ARMS[arm]
-    return {"key": key, "soil": soil,
-            "cfg": structure_cfg(soil, n, wet, coating_fraction, seed_offset),
-            "m": mapping_for(om, film, D_scale)}
+    cfg = structure_cfg(soil, n, wet, coating_fraction, seed_offset)
+    m = mapping_for(om, film, D_scale)
+    if shuffle:
+        cfg["pore"]["shuffle_seed"] = 9000 + seed_offset
+        m["stage20_conserve_om_pools"] = True   # see dual_porosity / STAGE20_RESULTS
+    return {"key": key, "soil": soil, "cfg": cfg, "m": m}
 
 
 def secondary_alive(r):
@@ -259,5 +262,90 @@ def step3():
     save("stage20_step3_controls.json", out)
 
 
+# ------------------------------------------------------------------ step 4
+
+# Pre-registered Step 4 criteria (fixed before the run):
+#   S3a  all 3 seed sets: both soils PRIMARY-alive and distance > 0.3
+#   S3b  mean within-soil seed-to-seed distance < 0.5 x min between-soil distance
+#   S4   shuffling the pore field (same PSD, arrangement destroyed) lowers the
+#        distance by >= 0.1 (Stage 17's arrangement criterion)
+#   MASS transport step (implicit diffusion + leak, the model's own solver
+#        settings, on the configuration's real D field) conserves total
+#        substrate to relative error < 1e-9
+S4_MIN_DROP = 0.1
+MASS_TOL = 1e-9
+
+
+def mass_check(arm, om, n=128):
+    """One transport step on the real grid of each soil: random S, the
+    configuration's own D field (wet macropores with cluster bonus, film,
+    matrix) and leak, with the model's iteration cap and tolerance."""
+    film, wet = ARMS[arm]
+    m = mapping_for(om, film)
+    out = {}
+    rng = np.random.default_rng(0)
+    for s in SOILS:
+        g = dual_porosity.build_dual_grids(structure_cfg(s, n, wet), m)
+        D_scale = float(m["stage7_D_scale"])
+        macro, water = g["macro_mask"], g["water_mask"]
+        _, _, scale = dual_porosity.habitat_properties(macro)
+        Dbase = g["D_full"] * D_scale
+        f_rel = float(g["S_w"]) ** (10.0 / 3.0)
+        D_film = Dbase * f_rel if film == "F1" else float(m["D_film"]) * D_scale
+        D_macro = np.where(water, Dbase * (1.0 + float(m["stage4_variantC_cluster_D_scale"]) * scale), 0.0)
+        D_macro = np.where(macro & ~water, D_film, D_macro)
+        D_matrix = np.where(water & g["porous_matrix_mask"], float(m["stage4_variantC_matrix_diffusion"]) * D_scale, 0.0)
+        D = D_macro + D_matrix
+        S = rng.uniform(0.0, 5.0, D.shape)
+        S_d = dual_porosity.implicit_diffusion_step(S, D, 1.0, 0.05, int(m["stage6_implicit_iterations"]),
+                                                    float(m["stage6_implicit_relaxation"]),
+                                                    tol=float(m["stage11_implicit_tol"]))
+        S_new = S_d + 0.05 * dual_porosity.leak_exchange(S_d, g["porous_matrix_mask"], macro, float(m["k_leak"]))
+        out[s] = float(abs(S_new.sum() - S.sum()) / S.sum())
+    return out
+
+
+def step4():
+    import metrics
+    s19.check_biology()
+    s3 = load("stage20_step3_controls.json")
+    s2 = load("stage20_step2_n128.json")
+    passing = [a for a, v in s2.items() if v["pass"]]
+    assert passing, "no configuration passed Step 3 -- Step 4 not run"
+    out = {}
+    for arm in passing:
+        x = s2[arm]["OM_density"]
+        res = {}
+        for n in (128, 40):
+            specs = [spec(f"seed{so}", s, n, arm, x, seed_offset=so) for so in (0, 10, 20) for s in SOILS]
+            specs += [spec("shuffle", s, n, arm, x, shuffle=True) for s in SOILS]
+            rs = s19.run_many(specs)
+            sets = {so: s19.pair([r for r in rs if r["key"] == f"seed{so}"]) for so in (0, 10, 20)}
+            shuf = s19.pair([r for r in rs if r["key"] == "shuffle"])
+            within = [float(metrics.pairwise_distance(sets[a]["by"][s]["R_t"], sets[b]["by"][s]["R_t"]))
+                      for s in SOILS for a, b in ((0, 10), (0, 20), (10, 20))]
+            min_between = min(v["distance"] for v in sets.values())
+            res[n] = {
+                "per_seed_set": {so: {"distance": v["distance"], "both_alive": v["both_alive"],
+                                      "soils": {s: {k: v["by"][s][k] for k in ("alive", "B_peak_over_B0",
+                                               "R_peak_over_floor", "peak_frac", "R_end_over_peak")} for s in SOILS}}
+                                 for so, v in sets.items()},
+                "S3a": all(v["pass"] for v in sets.values()),
+                "within_mean": float(np.mean(within)), "min_between": min_between,
+                "S3b": float(np.mean(within)) < 0.5 * min_between,
+                "shuffle": {"distance": shuf["distance"], "both_alive": shuf["both_alive"],
+                            "soils": {s: {k: shuf["by"][s][k] for k in ("alive", "B_peak_over_B0",
+                                     "R_peak_over_floor", "dry_habitat_frac", "peak_frac",
+                                     "coating_fraction")} for s in SOILS}},
+                "S4_drop": sets[0]["distance"] - shuf["distance"],
+                "S4": (sets[0]["distance"] - shuf["distance"]) >= S4_MIN_DROP,
+            }
+        mc = mass_check(arm, x)
+        out[arm] = {"OM_density": x, "grids": res, "mass_rel_error": mc,
+                    "MASS": all(v < MASS_TOL for v in mc.values())}
+        print(json.dumps(out[arm], indent=1, default=str))
+    save("stage20_step4_robustness.json", out)
+
+
 if __name__ == "__main__":
-    {"step0": step0, "step1": step1, "step2": step2, "step3": step3}[sys.argv[1]]()
+    {"step0": step0, "step1": step1, "step2": step2, "step3": step3, "step4": step4}[sys.argv[1]]()

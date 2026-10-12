@@ -133,6 +133,10 @@ def run_job(spec):
         "dry_habitat_frac": float(g["dry_macro_fraction_of_habitat"]),
         "delivered_wet_total": float(out["delivered_wet_t"].sum()),
         "delivered_dry_total": float(out["delivered_dry_t"].sum()),
+        "diffusion_into_wet_habitat": float(out["diff_wet_t"].sum()) if "diff_wet_t" in out else float("nan"),
+        "diffusion_into_drained_habitat": float(out["diff_dry_t"].sum()) if "diff_dry_t" in out else float("nan"),
+        "leak_into_wet_habitat": float(out["leak_wet_t"].sum()) if "leak_wet_t" in out else float("nan"),
+        "leak_into_drained_habitat": float(out["leak_dry_t"].sum()) if "leak_dry_t" in out else float("nan"),
         "shape": metrics.describe_shape(R)["shape"],
     }
     res["alive"] = bool(res["B_peak_over_B0"] > 1.0 and res["R_peak_over_floor"] >= 2.0
