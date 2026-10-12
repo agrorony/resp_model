@@ -1157,3 +1157,22 @@ to attempt a physiological rather than geometric fix (dormant/active
 biomass with substrate-dependent reactivation), explicitly out of scope
 here. Full detail in `docs/stage_results/STAGE16_RESULTS.md`; all
 figures/CSVs in `results/stage16/`.
+
+## Stage 19 -- Stage 8 revived under equal per-cell densities (Sand, Vertisol)
+
+`stage19_run.py`, `configs/soil_{sand,vertisol}_stage19.yaml`. Stage 8's
+coating/trapped placement, with two changes: one dissolution rate
+(`k_dis_slow = k_dis`), and uniform OM within each pool
+(`om_fine_bias = 0`). `coating_fraction` (Sand 0.8, Vertisol 0.3) is the
+only per-soil OM parameter, set in the soil config. Totals are per-cell
+densities, identical at every grid and asserted:
+`stage19_om_density`, `stage19_B0_density` = 0.0125, and
+`stage19_K_density` = 0.1096, applied to the effective K_t after the
+cluster multiplier. Transport and T are shared (D_scale 12.2582, T 1500).
+
+**Result:** Step 1 maps OM_density. Both soils are alive only at
+OM_density >= 0.44, where the distance is <= 0.22. At n=128 (0.439) both
+are alive, but the distance is 0.238, below the 0.3 bar. Equal coating
+fractions drop it to 0.070, and switching transport off kills growth. Most
+habitat is dry, so delivery runs mainly through the water film. Details:
+`docs/stage_results/STAGE19_RESULTS.md`.

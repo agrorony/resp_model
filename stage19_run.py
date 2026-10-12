@@ -287,14 +287,32 @@ def step3():
         p = pair([r for r in res if r["key"] == key])
         out[key] = {"distance": p["distance"], "both_alive": p["both_alive"],
                     "soils": {s: flat(r) for s, r in p["by"].items()},
+                    "curves": {s: p["by"][s]["R_t"] for s in SOILS},
                     "max_dR_over_peak": {s: float(np.abs(np.asarray(p["by"][s]["R_t"]) - np.asarray(s2["curves"][s])).max()
                                               / max(np.asarray(s2["curves"][s]).max(), 1e-300)) for s in SOILS}}
     out["c_delivery"] = {s: {"wet_habitat_frac": float(np.mean(s2["delivery"][s]["wet_frac"])),
                              "delivered_wet_total": float(np.sum(s2["delivery"][s]["wet"])),
                              "delivered_dry_total": float(np.sum(s2["delivery"][s]["dry"]))} for s in SOILS}
     save("stage19_step3_controls.json", out)
+    fig, axes = plt.subplots(1, 3, figsize=(16, 4.6))
+    panels = [("n=128 baseline (OM_density=%.3f; cf 0.8 / 0.3)" % sel, s2["curves"], s2["distance"]),
+              ("(a) equal coating_fraction = 0.5", out["a_equal_cf"]["curves"], out["a_equal_cf"]["distance"]),
+              ("(b) transport off (D_scale = 1e-9)", out["b_transport_off"]["curves"], out["b_transport_off"]["distance"])]
+    for ax, (title, cs, d) in zip(axes, panels):
+        for s in SOILS:
+            R = np.asarray(cs[s])
+            ax.plot(np.arange(len(R)) * 0.05, R, color=COLORS[s], label=f"{s} (R_peak={R.max():.2f})")
+        ax.axhline(0.02 * B0_DENSITY * 128 * 128, color="gray", ls=":", lw=1, label="maintenance floor m0*B0")
+        ax.set_title(f"{title}\ndistance = {d:.3f}", fontsize=9)
+        ax.set_xlabel("time")
+        ax.set_ylabel("R(t)")
+        ax.legend(fontsize=7)
+    fig.tight_layout()
+    fig.savefig(os.path.join(RESULTS_DIR, "stage19_step3_controls.png"), dpi=130)
+    plt.close(fig)
     print(json.dumps({k: (v if k != "a_equal_cf" and k != "b_transport_off" else
-                          {kk: vv for kk, vv in v.items() if kk != "soils"}) for k, v in out.items()}, indent=1))
+                          {kk: vv for kk, vv in v.items() if kk not in ("soils", "curves")})
+                      for k, v in out.items()}, indent=1, default=lambda o: o.tolist()))
 
 
 def step4():
