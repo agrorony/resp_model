@@ -1157,3 +1157,21 @@ to attempt a physiological rather than geometric fix (dormant/active
 biomass with substrate-dependent reactivation), explicitly out of scope
 here. Full detail in `docs/stage_results/STAGE16_RESULTS.md`; all
 figures/CSVs in `results/stage16/`.
+
+## Stage 18 -- uniform OM per cell, single compartment, real measured PSDs
+
+`uniform_om_model.py`, `configs/mapping_stage18.yaml` (the complete constant
+set for this architecture). OM(i,j) = OM_total/N in every cell. D(d) =
+D_min + (D_max-D_min)(d/(d+D_d_ref))^p is the only pore-size-dependent
+law. K(d) = k_min + (K_max-k_min) exp(-0.5 (ln(d/d_opt)/w_K)^2), with d_opt
+= 67.1 um and w_K = 0.805 (main's [30,150] um window as +-1 sigma; never
+zero). sum(OM), sum(B0) and sum(K) are equal and asserted. The PSDs are the
+real measured ones, saturation is global_theta 0.6 unchanged, and per-cell
+biology is main's `model.simulate`. `om_fine_bias`, `K_window`, dual
+porosity and the enzyme are not part of this architecture.
+
+**Result: fails step 1.** At n=128 the pairwise distances are
+0.0004-0.018 and every soil declines; at n=40 they are 0.002-0.046.
+Removing transport (D = 0) changes R(t) by at most 1%. Uniform OM with
+local release makes every cell self-fed, so D(d) has no gradient to act
+on. Details: `docs/stage_results/STAGE18_RESULTS.md`.
