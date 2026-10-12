@@ -83,7 +83,7 @@ normalized curves the distance metric compares are nearly identical: the
 largest pairwise distance is 0.046. A label difference here is a threshold
 effect of `describe_shape`, not a separation.
 
-## 3. Why it fails (diagnostics; nothing was changed, `stage18_diagnostics.txt`)
+## 3. Why it fails (diagnostics; nothing was changed. `stage18_run.py` regenerates the D = 0 control on every run, into `stage18_diagnostics.txt` and `stage18_summary.json` -> `transport_off_control`)
 
 **(a) Transport is inert under uniform OM.** Switching diffusion off
 entirely (D = 0 in every cell) changes R(t) by at most **1.0%** of R_peak
@@ -141,12 +141,15 @@ soil, so it cannot be a source of distinctness either way.
 
 ## 5. Not run
 
-Step 2 (3 seed sets, shuffle control, mass-conservation battery) was not
-run, because step 1 failed at the verdict grid. One related fact is
-already measured: the per-step transport mass error,
-max |sum div(D grad S)|, is reported per run in `stage18_summary.json`.
-It is the conservative-flux telescoping sum and is at round-off level. It
-is not a substitute for the step-2 battery.
+Step 2 (3 seed sets, shuffle control, mass-conservation gate) was not run,
+because step 1 failed at the verdict grid. The step-2 code path is in
+place and gated. Step 2 passes only if every seed set passes AND mass is
+conserved: a diffusion-only budget test (random S, the real D(d) law, 30%
+of cells forced to D = 0) and the per-step transport error of every run,
+both against a 1e-12 relative tolerance. The diffusion-only test runs on
+every invocation and currently gives a worst relative error of 1.8e-16; the
+per-step transport error of the step-1 runs is at round-off (<= 3.5e-17).
+Neither is a substitute for running step 2.
 
 ## 6. Deliverables
 
@@ -156,6 +159,7 @@ is not a substitute for the step-2 battery.
   `psd_measured`; none of the discarded mechanisms is reachable from it.
 - `configs/mapping_stage18.yaml`: the complete constant set for this
   architecture, with the removed keys listed as absent.
-- `stage18_run.py`: the step-1 / step-2 procedure with stop-early logic.
+- `stage18_run.py`: the step-1 / step-2 procedure with stop-early logic,
+  the D = 0 control, and the mass-conservation gate.
 - `results/stage18/`: `stage18_summary.json`, `stage18_step1_curves.png`,
   `stage18_step1_timeseries.csv`, `stage18_diagnostics.txt`.

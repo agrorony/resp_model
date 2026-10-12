@@ -58,7 +58,7 @@ def diameter_field(structure_cfg, shuffle_seed=None):
     return d
 
 
-def build_grids(structure_cfg, m, shuffle_seed=None):
+def build_grids(structure_cfg, m, shuffle_seed=None, transport=True):
     n = structure_cfg["grid"]["n"]
     N = n * n
     d = diameter_field(structure_cfg, shuffle_seed)
@@ -71,6 +71,10 @@ def build_grids(structure_cfg, m, shuffle_seed=None):
     sat_cfg = structure_cfg.get("saturation", {"mode": "fully_wet"})
     water_mask, theta = water_mask_and_theta(d, sat_cfg, m)  # rule 6: unchanged
     D = np.where(water_mask, D_of_d(d, m), 0.0)
+    if not transport:
+        # Diagnostic control only (stage18_run.py): every face conductance
+        # zero, i.e. no substrate moves between cells. Not a model option.
+        D = np.zeros_like(D)
 
     for name, arr, tot in (("OM", OM, m["OM_total"]), ("B0", B0, m["B0_total"]),
                            ("K", K, m["K_mean"] * N)):
@@ -81,13 +85,14 @@ def build_grids(structure_cfg, m, shuffle_seed=None):
             "water_mask": water_mask, "theta": theta, "OM": OM, "B0": B0, "S0": np.zeros((n, n))}
 
 
-def simulate(biology_cfg, structure_cfg, m, shuffle_seed=None, return_mass=False):
-    g = build_grids(structure_cfg, m, shuffle_seed)
+def simulate(biology_cfg, structure_cfg, m, shuffle_seed=None, transport=True):
+    g = build_grids(structure_cfg, m, shuffle_seed, transport)
     dx, D, K = g["dx"], g["D"], g["K"]
     r_max, Ks, Y = biology_cfg["r_max"], biology_cfg["Ks"], biology_cfg["Y"]
     m0, m_s, k_dis, dt = biology_cfg["m0"], biology_cfg["m_s"], biology_cfg["k_dis"], biology_cfg["dt"]
     T = int(structure_cfg["T"])
     assert D.max() * dt / dx ** 2 < 0.2, "diffusion stability violated"
+    S_scale = float(m["OM_total"])  # transport-error normalization (total substrate source)
 
     B, S, OM = g["B0"].copy(), g["S0"].copy(), g["OM"].copy()
     R_t, B_t = np.zeros(T), np.zeros(T)
@@ -105,7 +110,8 @@ def simulate(biology_cfg, structure_cfg, m, shuffle_seed=None, return_mass=False
         S = np.clip(S + dt * dS, 0.0, None)
         OM = np.clip(OM - dt * k_dis * OM, 0.0, None)
     out = {"R_t": R_t, "B_t": B_t, "cum_co2": np.cumsum(R_t) * dt, "B_final": B, "S_final": S,
-           "OM_final": OM, "grids": g, "dt": dt, "transport_mass_err_max": transport_mass_err}
+           "OM_final": OM, "grids": g, "dt": dt, "transport_mass_err_max": transport_mass_err,
+           "transport_mass_err_rel": transport_mass_err / S_scale}
     return out
 
 
