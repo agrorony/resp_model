@@ -1,0 +1,39 @@
+# Stage 18 mapping (docs/stage_results/STAGE18_RESULTS.md, uniform_om_model.py).
+# A clean, single-compartment architecture. This file is the COMPLETE set of
+# pore->parameter constants it reads; nothing else in configs/mapping.yaml
+# is used. Fixed and shared by every soil -- no per-soil knob exists.
+#
+# Deliberately ABSENT (removed from the architecture, not merely unused):
+#   om_fine_bias / r^-bias OM weighting   -- no empirical basis; was tuned to an outcome
+#   K_d_low / K_d_high / K_window          -- absolute-micron habitat cutoff
+#   macro/matrix compartments, coating/trapped pools, enzyme, categorical pore classes
+#   per-soil om_total / D_scale / T
+
+# --- D(d): the ONLY pore-size-dependent transport law ---------------------
+# D(d) = D_min + (D_max - D_min) * (d / (d + D_d_ref))^p, d = diameter (um).
+# Smooth, continuous, never zero (>= D_min). Values = main's mapping.yaml.
+D_min:   0.02
+D_max:   3.0
+D_d_ref: 250.0
+p:       2.0
+
+# --- K(d): smooth lognormal hump, never zero ---------------------------------
+# K(d) = k_min + (K_max - k_min) * exp(-0.5 * (ln(d/d_opt)/w_K)^2)
+# Same functional form as main's K_of_r. K_of_r's own constants (r_opt=5,
+# w_K=0.45) are in v2's arbitrary RADIUS units; on measured DIAMETERS in um
+# (30-1000) they put every cell >6 sigma off-peak (K = k_min everywhere).
+# Rescaled to diameter units exactly as Stage 3 rescaled D (r_ref -> D_d_ref),
+# using constants main already had, NOT tuned: centre = geometric mean of
+# main's microbial window [30, 150] um, +-1 sigma spanning that window.
+K_d_opt: 67.08203932499369    # sqrt(30 * 150)
+w_K:     0.8047189562170501   # ln(150/30) / 2
+K_max:   1.0                  # main's value
+k_min:   0.005                # main's value (floor: K never zero)
+
+# --- equal totals, enforced (identical for every soil) -----------------------
+OM_total: 800.0   # main's value; OM(i,j) = OM_total / N for every cell
+B0_total: 20.0    # main's value; B0 = B0_total * K / sum(K)
+# sum(K) = K_mean * N for every soil. K_mean is fixed by a stated rule, not
+# tuned: the mean, over the three measured soils, of each soil's own native
+# mean K(d) at its configured seed -- computed and asserted by stage18_run.py.
+K_mean: 0.667250838974445   # = mean(Sand 0.7361, Vertisol 0.5132, Loess 0.7525), n=128, configured seeds
