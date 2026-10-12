@@ -1041,9 +1041,28 @@ def build_dual_grids(structure_cfg, mapping_cfg):
         size_for_wetting = np.where(macro_mask, region_diam_field, d)
         water_mask = size_for_wetting < d_cut
         theta = float(water_mask.mean())
+    elif sat_cfg.get("mode") == "equal_saturation":
+        # Stage 20 W1 (docs/stage_results/STAGE20_RESULTS.md): the SAME
+        # degree of saturation S_w of the PORE SPACE for every soil. Non-solid
+        # cells fill in ascending order of their own per-cell PSD diameter d
+        # (capillary equilibrium: smallest pores first; stable sort = ties by
+        # cell index) until exactly round(S_w * n_nonsolid) are wet. Solid
+        # cells never wet. Unlike `global_theta` (quantile over ALL cells,
+        # solid removed afterwards) this gives S_w of the pore space exactly.
+        target = float(sat_cfg["S_w"])
+        nonsolid_idx = np.flatnonzero(~solid_mask.ravel())
+        order = nonsolid_idx[np.argsort(d.ravel()[nonsolid_idx], kind="stable")]
+        k = int(round(target * nonsolid_idx.size))
+        water_mask = np.zeros(d.size, dtype=bool)
+        water_mask[order[:k]] = True
+        water_mask = water_mask.reshape(d.shape)
+        theta = float(water_mask.mean())
     else:
         water_mask, theta = water_mask_and_theta(d, sat_cfg, mapping_cfg)
     water_mask = water_mask & ~solid_mask
+    # Stage 20: degree of saturation of the pore space (wet non-solid cells /
+    # non-solid cells), computed once per soil, grid and wetting rule.
+    S_w = float(water_mask.sum()) / float(max((~solid_mask).sum(), 1))
 
     # Stage 7 Change 3 (soil_respiration_prompt_stage7_calibration.md SS4):
     # a DRAINED macropore (macro cell the matric rule marked dry) is not
@@ -1155,6 +1174,7 @@ def build_dual_grids(structure_cfg, mapping_cfg):
             float(dry_macro_mask.sum()) / float(macro_mask.sum()) if macro_mask.any() else 0.0
         ),
         "D_film": D_film,
+        "S_w": S_w,
         "matrix_fraction": float(matrix_mask.mean()),
         "porous_matrix_fraction": float(porous_matrix_mask.mean()),
         "solid_fraction": float(solid_mask.mean()),
@@ -1265,6 +1285,18 @@ def simulate_dual_porosity(biology_cfg, structure_cfg, mapping_cfg, wicking_enab
     D_macro_base, K_base = grids["D_full"] * D_scale, grids["K"]
     dry_macro_mask = grids["dry_macro_mask"]
     D_film = float(mapping_cfg.get("D_film", 0.0)) * D_scale
+    # Stage 20 F1: film diffusivity in drained macropores from the cell's own
+    # pore-size law and the Millington-Quirk relative diffusivity,
+    # D_film(i,j) = D(d_ij) * D_scale * S_w^(10/3), no cluster bonus. f_rel <= 1,
+    # so a film is never faster than a full pore of the same size. Absent =>
+    # the constant D_film above (Stages 7-19) is used unchanged.
+    film_mode = mapping_cfg.get("stage20_film_mode")
+    f_rel = float("nan")
+    if film_mode == "millington_quirk":
+        f_rel = float(grids["S_w"]) ** (10.0 / 3.0)
+        D_film = D_macro_base * f_rel
+    elif film_mode is not None:
+        raise ValueError(f"unknown stage20_film_mode: {film_mode}")
     wet_mask = grids["water_mask"].copy()
     macro_mask = grids["macro_mask"]
     porous_matrix_mask = grids["porous_matrix_mask"]
@@ -1497,6 +1529,7 @@ def simulate_dual_porosity(biology_cfg, structure_cfg, mapping_cfg, wicking_enab
         "delivered_dry_t": delivered_dry_t,
         "wet_habitat_frac_t": wet_habitat_frac_t,
         "K_effective_sum": float(K_t.sum()),
+        "film_f_rel": f_rel,
         "B_final": B,
         "S_final": S,
         "OM_final": OM_coating + OM_trapped,
