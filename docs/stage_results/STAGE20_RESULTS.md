@@ -152,22 +152,35 @@ At the both-alive densities the distance survives equal coating fractions
 it.**
 
 **Where substrate enters habitat** (A1 / A3 at 0.439, n=40, summed over the
-window; "diffusion" = transport by the D field, "leak" = matrix->macro
-exchange):
+window). These are **net, signed** totals over each habitat set:
+- "diffusion" = net transport by the D field across the set's boundary
+  (negative = net export out of the set)
+- "leak" = matrix->macro exchange (one-directional, so >= 0)
 
-| arm, soil | diffusion into wet habitat | diffusion into drained habitat | leak into wet | leak into drained |
-|---|---|---|---|---|
-| A1 Sand | 0 | 176 | 0 | **740** |
-| A1 Vertisol | 59 | 235 | 23 | 112 |
-| A3 Sand | 383 | 172 | 137 | 1 |
-| A3 Vertisol | 0 | 189 | 0 | 199 |
+Diffusion + leak = net transport gain exactly.
+
+| arm, soil | diffusion -> wet habitat | diffusion -> drained habitat | leak -> wet | leak -> drained | net -> drained |
+|---|---|---|---|---|---|
+| A1 Sand | 0 | **-215** | 0 | **740** | 525 |
+| A1 Vertisol | 57 | 234 | 23 | 112 | 346 |
+| A3 Sand | 357 | 171 | 137 | 1 | 172 |
+| A3 Vertisol | 0 | 172 | 0 | 199 | 371 |
+
+**In A1, Sand gets no net film delivery at all.** Leak deposits substrate
+at matrix-interface habitat cells, and diffusion carries part of it back out
+of the drained habitat into the wet matrix (net -215). Sand in A1 is fed
+entirely by leak.
 
 **Correction to Stage 19's wording.** Stage 19's "delivered via film"
 counter summed everything entering drained habitat, including matrix leak.
-Split by mechanism (added here, read-only), Stage 19's Sand gets 5,706 by
-diffusion and 1,831 by leak into drained habitat at n=128. Its conclusion
-(mostly film) holds, but "99.9% via film" overstated it; the honest figure
-is about 76% of what enters drained habitat.
+With the signed split (added here, read-only), Stage 19's Sand at n=128
+receives 6,761 net into drained habitat: 4,930 (**73%**) by diffusion and
+1,831 (27%) by leak; Vertisol 75% / 25%. Stage 19's conclusion (mostly
+film) holds, but "99.9% via film" overstated it.
+
+*(An earlier version of this split clipped the diffusion and leak gains
+separately per cell, so they did not add up to the net. It was fixed
+after review; all numbers here are the signed version.)*
 
 **Selection** (both PRIMARY-alive, highest distance, per candidate arm):
 **A1 at 0.439** (0.943) and **A3 at 0.439** (0.192).
@@ -181,14 +194,15 @@ is about 76% of what enters drained habitat.
 | Vertisol: B_peak/B0, R_peak/floor, peak @, R_end/R_peak | 1.48, 6.38, 0.31, 0.46 | 1.39, 5.71, 0.32, 0.54 | 1.20, 5.02, 0.24, 0.48 |
 | (a) equal cf 0.5 | 0.070 | **0.639** (both alive) | 0.051 |
 | (b) transport off | 0.496 (both dead) | 0.496 (both dead) | 0.161 (Vertisol dead) |
-| (c) Sand: drained fraction; diffusion / leak into drained habitat | 0.999; 5,706 / 1,831 | 0.999; 2,088 / **7,805** | 0.573; 1,883 / 3 (wet: 3,755 / 1,546) |
-| (c) Vertisol: drained fraction; diffusion / leak into drained habitat | 0.913; 2,701 / 897 | 0.913; 2,174 / 1,240 (wet: 671 / 486) | 1.000; 1,785 / 2,130 |
+| (c) Sand: drained fraction; net diffusion / leak into drained habitat | 0.999; 4,930 / 1,831 | 0.999; **-2,424 / 7,805** | 0.573; 1,880 / 3 (wet: 3,383 / 1,546) |
+| (c) Vertisol: drained fraction; net diffusion / leak into drained habitat | 0.913; 2,683 / 897 | 0.913; 2,094 / 1,240 (wet: 449 / 486) | 1.000; 1,483 / 2,130 |
 
 **A1's curves** (`stage20_n128_curves.png`):
 - **Sand** bursts early (peak at 0.12 of the window, t ~ 9), dips, then
   holds a sustained plateau (R_end/R_peak 0.85). Its habitat interior
-  barely conducts (film 0.013), so after the first burst it is fed almost
-  only by leak at matrix interfaces.
+  barely conducts (film 0.013), so after the first burst it is fed entirely
+  by leak at matrix interfaces (net diffusion into its drained habitat is
+  negative, -2,424).
 - **Vertisol** rises smoothly to a later peak (0.32) and declines slowly.
 
 The real-soil shape targets of earlier stages (Sand burst-and-crash,
@@ -275,7 +289,8 @@ have an empty pool.
   - `S_w` and `film_f_rel` outputs
   - `pore.shuffle_seed`
   - `stage20_conserve_om_pools` (shuffle runs only)
-  - read-only diffusion/leak delivery split
+  - read-only, signed diffusion/leak delivery split (sums exactly to the
+    net)
 - `stage19_run.py`: reports the delivery split (no behaviour change).
 - `stage20_run.py`: `step0` ... `step4`.
 - `results/stage20/`: step-0 budget and committed predictions; step-1 map

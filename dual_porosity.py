@@ -1392,9 +1392,12 @@ def simulate_dual_porosity(biology_cfg, structure_cfg, mapping_cfg, wicking_enab
     # habitat, and the wet fraction of habitat. Read-only side effects.
     delivered_wet_t = np.zeros(T)
     delivered_dry_t = np.zeros(T)
-    # Stage 20: the same totals split by mechanism -- diffusion (wet pores /
-    # film) vs matrix->macro leak -- because "into drained habitat" is not
-    # the same as "through the film". Read-only.
+    # Stage 20: NET transport gain of each habitat set, split by mechanism
+    # -- diffusion (wet pores / film) vs matrix->macro leak. Signed sums over
+    # the set, so diff_* + leak_* is exactly the set's net transport gain
+    # (net_*_t). Diffusion's net over a set is the flux across that set's
+    # boundary; leak is one-directional (matrix -> macro), so it is >= 0.
+    # Read-only.
     diff_wet_t = np.zeros(T)
     diff_dry_t = np.zeros(T)
     leak_wet_t = np.zeros(T)
@@ -1507,8 +1510,8 @@ def simulate_dual_porosity(biology_cfg, structure_cfg, mapping_cfg, wicking_enab
         transport_gain = np.clip(S_diffused + dt * leak_t - (S + source_increment), 0.0, None)
         delivered_wet_t[t] = float(transport_gain[macro_mask & wet_mask].sum())
         delivered_dry_t[t] = float(transport_gain[dry_macro_t].sum())
-        diff_gain = np.clip(S_diffused - (S + source_increment), 0.0, None)
-        leak_gain = np.clip(dt * leak_t, 0.0, None)
+        diff_gain = S_diffused - (S + source_increment)
+        leak_gain = dt * leak_t
         diff_wet_t[t] = float(diff_gain[macro_mask & wet_mask].sum())
         diff_dry_t[t] = float(diff_gain[dry_macro_t].sum())
         leak_wet_t[t] = float(leak_gain[macro_mask & wet_mask].sum())
@@ -1559,6 +1562,7 @@ def simulate_dual_porosity(biology_cfg, structure_cfg, mapping_cfg, wicking_enab
         "delivered_wet_t": delivered_wet_t,
         "delivered_dry_t": delivered_dry_t,
         "diff_wet_t": diff_wet_t, "diff_dry_t": diff_dry_t,
+        "net_wet_t": diff_wet_t + leak_wet_t, "net_dry_t": diff_dry_t + leak_dry_t,
         "leak_wet_t": leak_wet_t, "leak_dry_t": leak_dry_t,
         "wet_habitat_frac_t": wet_habitat_frac_t,
         "K_effective_sum": float(K_t.sum()),
