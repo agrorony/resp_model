@@ -354,6 +354,6 @@ def plot_step2(runs):
 if __name__ == "__main__":
     cmd = sys.argv[1]
     t0 = time.time()
-    r = globals()[cmd]()
+    r = globals()[cmd](*sys.argv[2:])
     print(json.dumps(r, indent=1, default=str)[:6000] if r is not None else "")
     print(f"[{cmd}] {time.time() - t0:.1f} s")
