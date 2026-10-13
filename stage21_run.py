@@ -158,6 +158,80 @@ def step0():
     return res
 
 
+# ------------------------------------------------------------------ step 1
+
+KINDS = ("S", "V", "Sp", "Vp", "Val")
+N_FULL, VOX_FULL = 256, 5.0
+
+
+def get_structure(kind, seed_offset=0, n=N_FULL, vox=VOX_FULL, xp=None):
+    """Build (or load from the untracked cache) a structure; computes its LT."""
+    xp = xp or P.get_xp()
+    os.makedirs(os.path.join(RESULTS_DIR, "cache"), exist_ok=True)
+    fn = os.path.join(RESULTS_DIR, "cache", f"{kind}_s{seed_offset}_n{n}_v{vox:g}.npz")
+    if os.path.exists(fn):
+        z = np.load(fn, allow_pickle=True)
+        st = P.Structure()
+        st.kind, st.n, st.vox_um, st.seed = kind, n, vox, int(z["seed"])
+        st.phase = xp.asarray(z["phase"]); st.info = z["info"].item()
+        st.lt = xp.asarray(z["lt"])
+        return st
+    st = P.build_structure(kind, seed_offset, n, vox, xp)
+    st.lt = P.local_thickness(st.phase == P.PORE, vox, xp)
+    np.savez_compressed(fn, phase=P.to_np(st.phase), lt=P.to_np(st.lt), seed=st.seed, info=np.array(st.info, dtype=object))
+    return st
+
+
+def geometry_gate(rep_by_kind):
+    out = {}
+    for k in ("S", "V"):
+        r = rep_by_kind[k]
+        out[k] = {"spans_any_axis": bool(any(r["spans_axes_xyz"])),
+                  "habitat_gt_1pct": bool(r["habitat_volume_fraction"] > 0.01)}
+    out["pass"] = all(all(v.values()) for v in out.values() if isinstance(v, dict))
+    return out
+
+
+def render_slices(structs, fn):
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from matplotlib.colors import ListedColormap
+    fig, ax = plt.subplots(2, len(structs), figsize=(3.2 * len(structs), 6.6))
+    cm = ListedColormap(["white", "#c8a165", "#3a3a3a"])
+    for j, st in enumerate(structs):
+        z = st.n // 2
+        ph = P.to_np(st.phase[:, :, z]); lt = P.to_np(st.lt[:, :, z])
+        ax[0, j].imshow(ph.T, cmap=cm, vmin=0, vmax=2, origin="lower")
+        ax[0, j].set_title(f"{st.kind}: phase (z mid)", fontsize=9)
+        im = ax[1, j].imshow(np.ma.masked_equal(lt, 0).T, cmap="viridis", origin="lower", vmin=0, vmax=250)
+        ax[1, j].set_title(f"{st.kind}: local thickness (um)", fontsize=9)
+        for a in ax[:, j]:
+            a.set_xticks([]); a.set_yticks([])
+    fig.colorbar(im, ax=ax[1, :], shrink=0.7, label="um")
+    fig.savefig(fn, dpi=110); plt.close(fig)
+
+
+def step1(n=N_FULL, vox=VOX_FULL, tag=""):
+    xp = P.get_xp()
+    hp = M.load_inherited()
+    reps, structs, times = {}, [], {}
+    for k in KINDS:
+        t = time.time()
+        st = get_structure(k, 0, n, vox, xp)
+        reps[k] = P.analyse(st, xp)
+        times[k] = time.time() - t
+        structs.append(st)
+        print(k, f"{times[k]:.1f}s", flush=True)
+    kn = {k: float(M.native_K(structs[KINDS.index(k)], hp, xp).sum()) / structs[0].phase.size
+          for k in ("S", "V")}
+    K_density = float(np.mean(list(kn.values())))
+    res = {"reports": reps, "native_K_density": kn, "K_density": K_density,
+           "gate": geometry_gate(reps), "build_seconds": times}
+    save(f"step1{tag}.json", res)
+    render_slices(structs, os.path.join(RESULTS_DIR, f"step1_slices{tag}.png"))
+    return res
+
 # ------------------------------------------------------------------ main
 
 if __name__ == "__main__":
