@@ -232,6 +232,123 @@ def step1(n=N_FULL, vox=VOX_FULL, tag=""):
     render_slices(structs, os.path.join(RESULTS_DIR, f"step1_slices{tag}.png"))
     return res
 
+# ------------------------------------------------------------ job runner
+
+def jkey(kind, seed, om, T=1500, dscale=None, n=N_FULL, vox=VOX_FULL):
+    return f"{kind}_s{seed}_om{om:g}_T{T}_D{'std' if dscale is None else format(dscale, 'g')}_n{n}"
+
+
+def parse_key(key):
+    kind, s, om, T, D, n = key.split("_")
+    return dict(kind=kind, seed=int(s[1:]), om=float(om[2:]), T=int(T[1:]),
+                dscale=None if D[1:] == "std" else float(D[1:]), n=int(n[1:]))
+
+
+def job(key):
+    """Run one simulation (worker process; one GPU)."""
+    check_biology()
+    p = parse_key(key)
+    xp = P.get_xp()
+    hp = M.load_inherited()
+    bio = load_yaml("configs/biology.yaml")
+    vox = {256: 5.0, 128: 10.0}[p["n"]]
+    K_density = load("step1.json" if p["n"] == 256 else "pilot_step1.json")["K_density"]
+    st = get_structure(p["kind"], p["seed"], p["n"], vox, xp)
+    t0 = time.time()
+    out, res = M.run_structure(st, hp, bio, xp, K_density, p["om"], T=p["T"], D_scale=p["dscale"])
+    res.update({"key": key, "seconds": time.time() - t0, **p, "K_density": K_density,
+                "backend": xp.__name__})
+    os.makedirs(os.path.join(RESULTS_DIR, "runs"), exist_ok=True)
+    np.savez_compressed(os.path.join(RESULTS_DIR, "runs", key + ".npz"),
+                        **{k: out[k] for k in M.STAT_NAMES})
+    with open(os.path.join(RESULTS_DIR, "runs", key + ".json"), "w") as f:
+        json.dump(res, f, indent=1)
+    return res
+
+
+def _done(key):
+    return os.path.exists(os.path.join(RESULTS_DIR, "runs", key + ".json"))
+
+
+def run_jobs(keys, ngpu=2):
+    import subprocess
+    pending = [k for k in dict.fromkeys(keys) if not _done(k)]
+    running = {}
+    while pending or running:
+        for slot in range(ngpu):
+            if slot not in running and pending:
+                k = pending.pop(0)
+                env = dict(os.environ, CUDA_VISIBLE_DEVICES=str(slot), PYTHONDONTWRITEBYTECODE="1")
+                running[slot] = (k, subprocess.Popen([sys.executable, "stage21_run.py", "job", k], env=env,
+                                                     stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True))
+                print("start", k, "on gpu", slot, flush=True)
+        time.sleep(2)
+        for slot, (k, pr) in list(running.items()):
+            if pr.poll() is not None:
+                if pr.returncode != 0:
+                    raise RuntimeError(f"job {k} failed: {pr.stderr.read()[-2000:]}")
+                print("done", k, flush=True)
+                del running[slot]
+    return {k: load_run(k) for k in keys}
+
+
+def load_run(key):
+    with open(os.path.join(RESULTS_DIR, "runs", key + ".json")) as f:
+        r = json.load(f)
+    z = np.load(os.path.join(RESULTS_DIR, "runs", key + ".npz"))
+    r["R"] = z["R"]; r["B"] = z["B"]
+    return r
+
+
+def dist(a, b):
+    import metrics
+    return float(metrics.pairwise_distance(a["R"], b["R"]))
+
+
+# ------------------------------------------------------------------ step 2
+
+def step2():
+    xp = P.get_xp()
+    for k in ("S", "V"):
+        get_structure(k, 0, xp=xp)
+    keys = [jkey(k, 0, om) for om in OM_DENSITIES for k in ("S", "V")]
+    runs = run_jobs(keys)
+    rows = []
+    for om in OM_DENSITIES:
+        s, v = runs[jkey("S", 0, om)], runs[jkey("V", 0, om)]
+        row = {"OM_density": om, "distance": dist(s, v),
+               "both_alive_primary": bool(s["alive_primary"] and v["alive_primary"]),
+               "both_alive_secondary": bool(s["alive_secondary"] and v["alive_secondary"])}
+        for nm, r in (("S", s), ("V", v)):
+            row[nm] = {k: r[k] for k in (
+                "B_peak_over_B0", "R_peak_over_floor", "growth_share_at_peak", "peak_frac",
+                "R_end_over_peak", "alive_primary", "alive_secondary", "fuel_remaining_final",
+                "diffusion_into_wet_habitat", "diffusion_into_drained_habitat",
+                "exchange_into_wet_habitat", "exchange_into_drained_habitat",
+                "mass_balance_rel", "seconds")}
+        rows.append(row)
+    ok = [r for r in rows if r["both_alive_primary"]]
+    sel = max(ok, key=lambda r: r["distance"])["OM_density"] if ok else None
+    res = {"rows": rows, "selected_OM_density": sel, "verdict": "continue" if sel else "STOP"}
+    save("step2.json", res)
+    plot_step2(runs)
+    return res
+
+
+def plot_step2(runs):
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    fig, ax = plt.subplots(1, len(OM_DENSITIES), figsize=(3.3 * len(OM_DENSITIES), 3), sharex=True)
+    for a, om in zip(ax, OM_DENSITIES):
+        for k, c in (("S", "#d62728"), ("V", "#4b0082")):
+            r = runs[jkey(k, 0, om)]
+            a.plot(r["R"] / (0.02 * r["B"][0]), c=c, label=k)
+        a.set_title(f"OM {om}", fontsize=9); a.set_xlabel("step")
+    ax[0].set_ylabel("R / (m0 B0)"); ax[0].legend()
+    fig.tight_layout(); fig.savefig(os.path.join(RESULTS_DIR, "step2_curves.png"), dpi=110); plt.close(fig)
+
+
 # ------------------------------------------------------------------ main
 
 if __name__ == "__main__":
