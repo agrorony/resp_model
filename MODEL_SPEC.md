@@ -1176,3 +1176,29 @@ are alive, but the distance is 0.238, below the 0.3 bar. Equal coating
 fractions drop it to 0.070, and switching transport off kills growth. Most
 habitat is dry, so delivery runs mainly through the water film. Details:
 `docs/stage_results/STAGE19_RESULTS.md`.
+
+## Stage 20 -- film transport x wetting rule (Sand, Vertisol)
+
+`stage20_run.py`. Two optional factors on top of Stage 19:
+
+- **F1** (`stage20_film_mode: millington_quirk`): drained-macropore
+  diffusivity D_film(i,j) = D(d_ij) x D_scale x S_w^(10/3), where S_w is
+  the wet fraction of non-solid cells. This replaces the constant
+  D_film x D_scale = 4.70, so a film is never faster than a full pore of
+  the same size.
+- **W1** (`saturation.mode: equal_saturation`): a pore-space saturation of
+  0.5 for every soil, with the smallest per-cell pores filled first.
+
+**Result:**
+
+- **A1 (F1 + matric wetting) is the first configuration in this series
+  that is alive, distinct and seed-robust, with the separation carried by
+  structure.** At n=128 the distance is 0.689; it is 0.639 with equal
+  coating fractions, and 0.607-0.689 across three seed sets.
+- **The pre-registered shuffle criterion fails at n=128.** Shuffling breaks
+  Vertisol's macropores into regions below the 30 um habitat threshold, so
+  the shuffle changes how much habitat Vertisol has, not just its
+  arrangement.
+- **W1 lowers distinctness** and drains all of Vertisol's habitat.
+
+Details: `docs/stage_results/STAGE20_RESULTS.md`.

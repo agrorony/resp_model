@@ -1,0 +1,196 @@
+{
+ "A1": {
+  "OM_density": 0.4385816236650978,
+  "grids": {
+   "128": {
+    "per_seed_set": {
+     "0": {
+      "distance": 0.6890465317007742,
+      "both_alive": true,
+      "soils": {
+       "sand": {
+        "alive": true,
+        "B_peak_over_B0": 1.338161891514764,
+        "R_peak_over_floor": 4.00584590291196,
+        "peak_frac": 0.12141427618412275,
+        "R_end_over_peak": 0.8511303476228763
+       },
+       "vertisol": {
+        "alive": true,
+        "B_peak_over_B0": 1.3906858048685107,
+        "R_peak_over_floor": 5.7124255026456225,
+        "peak_frac": 0.3228819212808539,
+        "R_end_over_peak": 0.5410828580251946
+       }
+      }
+     },
+     "10": {
+      "distance": 0.6771388826245158,
+      "both_alive": true,
+      "soils": {
+       "sand": {
+        "alive": true,
+        "B_peak_over_B0": 1.341115476465183,
+        "R_peak_over_floor": 4.246917010637365,
+        "peak_frac": 0.12274849899933289,
+        "R_end_over_peak": 0.7969674119790188
+       },
+       "vertisol": {
+        "alive": true,
+        "B_peak_over_B0": 1.5940186965617642,
+        "R_peak_over_floor": 6.407321028557763,
+        "peak_frac": 0.3482321547698466,
+        "R_end_over_peak": 0.540696667756086
+       }
+      }
+     },
+     "20": {
+      "distance": 0.6066229421583647,
+      "both_alive": true,
+      "soils": {
+       "sand": {
+        "alive": true,
+        "B_peak_over_B0": 1.3680566331877235,
+        "R_peak_over_floor": 4.281636250636104,
+        "peak_frac": 0.12208138759172782,
+        "R_end_over_peak": 0.8130863315241771
+       },
+       "vertisol": {
+        "alive": true,
+        "B_peak_over_B0": 1.4660547458165012,
+        "R_peak_over_floor": 5.928098564486322,
+        "peak_frac": 0.3275517011340894,
+        "R_end_over_peak": 0.5451822339754969
+       }
+      }
+     }
+    },
+    "S3a": true,
+    "within_mean": 0.013887279023932898,
+    "min_between": 0.6066229421583647,
+    "S3b": true,
+    "shuffle": {
+     "distance": 1.901139134891851,
+     "both_alive": false,
+     "soils": {
+      "sand": {
+       "alive": true,
+       "B_peak_over_B0": 2.803794750947947,
+       "R_peak_over_floor": 12.864195226033113,
+       "dry_habitat_frac": 0.9981313999551537,
+       "peak_frac": 0.13275517011340893,
+       "coating_fraction": 1.0
+      },
+      "vertisol": {
+       "alive": false,
+       "B_peak_over_B0": 1.0,
+       "R_peak_over_floor": 1.8699498428673378,
+       "dry_habitat_frac": 0.0,
+       "peak_frac": 0.9533022014676451,
+       "coating_fraction": 0.3
+      }
+     }
+    },
+    "S4_drop": -1.2120926031910768,
+    "S4": false
+   },
+   "40": {
+    "per_seed_set": {
+     "0": {
+      "distance": 0.9433117881996077,
+      "both_alive": true,
+      "soils": {
+       "sand": {
+        "alive": true,
+        "B_peak_over_B0": 1.2086369927955714,
+        "R_peak_over_floor": 3.613593698306845,
+        "peak_frac": 0.11874583055370247,
+        "R_end_over_peak": 0.8294461675465153
+       },
+       "vertisol": {
+        "alive": true,
+        "B_peak_over_B0": 1.433366812578212,
+        "R_peak_over_floor": 6.070637393441092,
+        "peak_frac": 0.32421614409606403,
+        "R_end_over_peak": 0.47618960312941333
+       }
+      }
+     },
+     "10": {
+      "distance": 0.9585814654385961,
+      "both_alive": true,
+      "soils": {
+       "sand": {
+        "alive": true,
+        "B_peak_over_B0": 1.257197957801412,
+        "R_peak_over_floor": 4.521938865531561,
+        "peak_frac": 0.12408272181454302,
+        "R_end_over_peak": 0.6858344818507722
+       },
+       "vertisol": {
+        "alive": true,
+        "B_peak_over_B0": 1.2074736048049293,
+        "R_peak_over_floor": 5.0795065334061755,
+        "peak_frac": 0.3008672448298866,
+        "R_end_over_peak": 0.4214538856248271
+       }
+      }
+     },
+     "20": {
+      "distance": 0.870285584144014,
+      "both_alive": true,
+      "soils": {
+       "sand": {
+        "alive": true,
+        "B_peak_over_B0": 1.196548769114562,
+        "R_peak_over_floor": 4.01388808474016,
+        "peak_frac": 0.12408272181454302,
+        "R_end_over_peak": 0.7320257427732361
+       },
+       "vertisol": {
+        "alive": true,
+        "B_peak_over_B0": 1.3325883005002246,
+        "R_peak_over_floor": 5.529183746940737,
+        "peak_frac": 0.32221480987324885,
+        "R_end_over_peak": 0.5770736285998828
+       }
+      }
+     }
+    },
+    "S3a": true,
+    "within_mean": 0.06434055976074324,
+    "min_between": 0.870285584144014,
+    "S3b": true,
+    "shuffle": {
+     "distance": 0.6438754201818124,
+     "both_alive": false,
+     "soils": {
+      "sand": {
+       "alive": true,
+       "B_peak_over_B0": 2.7442151904986787,
+       "R_peak_over_floor": 12.624415302554109,
+       "dry_habitat_frac": 0.9992348890589136,
+       "peak_frac": 0.13275517011340893,
+       "coating_fraction": 1.0
+      },
+      "vertisol": {
+       "alive": false,
+       "B_peak_over_B0": 1.0,
+       "R_peak_over_floor": 1.0568038888110727,
+       "dry_habitat_frac": 0.0,
+       "peak_frac": 0.02068045363575717,
+       "coating_fraction": 0.3
+      }
+     }
+    },
+    "S4_drop": 0.2994363680177953,
+    "S4": true
+   }
+  },
+  "mass_rel_error": {
+   "sand": 5.076080594073702e-12,
+   "vertisol": 9.837768043348667e-13
+  },
+  "MASS": true
+ }
+}
