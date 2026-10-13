@@ -1,0 +1,125 @@
+{
+ "OM_density": 1.0,
+ "runs": {
+  "S": {
+   "alive_primary": true,
+   "alive_secondary": true,
+   "B_peak_over_B0": 2.7099937632448947,
+   "R_peak_over_floor": 6.8800237982213694,
+   "growth_share_at_peak": 0.8463932799686978,
+   "peak_frac": 0.07538358905937291,
+   "R_end_over_peak": 0.8705975383166988,
+   "diffusion_into_wet_habitat": 825916.6228613509,
+   "diffusion_into_drained_habitat": 3312645.3896286734,
+   "exchange_into_wet_habitat": 80706.27870207204,
+   "exchange_into_drained_habitat": 2651531.427685446,
+   "mass_balance_rel": 1.023150193369934e-15
+  },
+  "V": {
+   "alive_primary": true,
+   "alive_secondary": true,
+   "B_peak_over_B0": 4.660844022335745,
+   "R_peak_over_floor": 19.278515944762532,
+   "growth_share_at_peak": 0.8153589779180582,
+   "peak_frac": 0.19946631087391595,
+   "R_end_over_peak": 0.373431827530629,
+   "diffusion_into_wet_habitat": 11672583.394651074,
+   "diffusion_into_drained_habitat": 849311.1426861129,
+   "exchange_into_wet_habitat": 614608.3162682101,
+   "exchange_into_drained_habitat": 22108.144788581136,
+   "mass_balance_rel": 2.273667096377631e-16
+  },
+  "Sp": {
+   "alive_primary": true,
+   "alive_secondary": true,
+   "B_peak_over_B0": 2.0104208071589937,
+   "R_peak_over_floor": 4.964144184911458,
+   "growth_share_at_peak": 0.8251815008481057,
+   "peak_frac": 0.08072048032021348,
+   "R_end_over_peak": 0.9167839960637123,
+   "diffusion_into_wet_habitat": 27193.16317130668,
+   "diffusion_into_drained_habitat": 2607191.0589242186,
+   "exchange_into_wet_habitat": 3451.2891844926294,
+   "exchange_into_drained_habitat": 2323487.6545405397,
+   "mass_balance_rel": 1.8189336771021048e-15
+  },
+  "Vp": {
+   "alive_primary": true,
+   "alive_secondary": true,
+   "B_peak_over_B0": 4.0142645965799995,
+   "R_peak_over_floor": 16.50773811622023,
+   "growth_share_at_peak": 0.7978504567555983,
+   "peak_frac": 0.23482321547698465,
+   "R_end_over_peak": 0.4493884919502784,
+   "diffusion_into_wet_habitat": 9776617.348743869,
+   "diffusion_into_drained_habitat": 1701482.741321181,
+   "exchange_into_wet_habitat": 526713.9064461468,
+   "exchange_into_drained_habitat": 50394.38707219113,
+   "mass_balance_rel": 2.2736670963776306e-15
+  },
+  "Val": {
+   "alive_primary": true,
+   "alive_secondary": true,
+   "B_peak_over_B0": 4.216700991155577,
+   "R_peak_over_floor": 17.575347994427805,
+   "growth_share_at_peak": 0.8091735871046541,
+   "peak_frac": 0.21080720480320214,
+   "R_end_over_peak": 0.409564701052995,
+   "diffusion_into_wet_habitat": 11015591.129521366,
+   "diffusion_into_drained_habitat": 704927.4628891608,
+   "exchange_into_wet_habitat": 586536.9889196149,
+   "exchange_into_drained_habitat": 22048.991414213342,
+   "mass_balance_rel": 2.0463003867398695e-15
+  },
+  "S_off": {
+   "alive_primary": false,
+   "alive_secondary": true,
+   "B_peak_over_B0": 1.0,
+   "R_peak_over_floor": 4.734775750542039,
+   "growth_share_at_peak": 0.8232969626838647,
+   "peak_frac": 0.09006004002668445,
+   "R_end_over_peak": 0.3233005496505738,
+   "diffusion_into_wet_habitat": 0.000846343339635387,
+   "diffusion_into_drained_habitat": 0.00018321707514755623,
+   "exchange_into_wet_habitat": 538503.0221574828,
+   "exchange_into_drained_habitat": 1717439.1949400243,
+   "mass_balance_rel": 8.867301675872761e-15
+  },
+  "V_off": {
+   "alive_primary": false,
+   "alive_secondary": true,
+   "B_peak_over_B0": 1.0,
+   "R_peak_over_floor": 3.1975197697855875,
+   "growth_share_at_peak": 0.7894352633793944,
+   "peak_frac": 0.18145430286857905,
+   "R_end_over_peak": 0.14143361073400937,
+   "diffusion_into_wet_habitat": 0.002957297185828778,
+   "diffusion_into_drained_habitat": 0.00020327265499391753,
+   "exchange_into_wet_habitat": 1504147.8815843365,
+   "exchange_into_drained_habitat": 85857.34943711171,
+   "mass_balance_rel": 5.11575096684967e-15
+  }
+ },
+ "a_factorial": {
+  "S_vs_V (total)": 1.2287722149775282,
+  "shape effect, sand material: S vs Sp": 0.07253816054209504,
+  "shape effect, vertisol material: Vp vs V": 0.0371324587420728,
+  "material effect, sphere shape: S vs Vp": 1.1530941095192127,
+  "material effect, plate shape: Sp vs V": 1.0494222992708604,
+  "Sp_vs_Vp (both off-diagonal)": 0.9505852666115258
+ },
+ "b_orientation": {
+  "V_vs_Val": 0.010008004328229556,
+  "S_vs_Val": 1.1995334483064513
+ },
+ "c_transport_off": {
+  "S_vs_V_off": 0.6077537896656922,
+  "S_vs_S_off": 1.0407230746947078,
+  "V_vs_V_off": 0.28848151414256534,
+  "Rpeak_ratio_S": 0.6881917693026117,
+  "Rpeak_ratio_V": 0.16585922790671395
+ },
+ "distinctness": 1.2287722149775282,
+ "both_alive_primary": true,
+ "pass": true
+}
