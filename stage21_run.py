@@ -1,0 +1,359 @@
+"""
+Stage 21 runner (3D packing; Sand and Vertisol ONLY, no Loess, no measured data).
+
+    python stage21_run.py step0        code validation (point source, extrusion, LT)
+    python stage21_run.py step1        geometry only
+    python stage21_run.py step2        regime map (S, V, one seed)
+    python stage21_run.py step3        distinctness + controls
+    python stage21_run.py step4        seed robustness
+    python stage21_run.py pilot        10 um / 128^3 pilot
+"""
+from __future__ import annotations
+
+import copy
+import hashlib
+import json
+import os
+import sys
+import time
+
+import numpy as np
+
+import model3d as M
+import packing3d as P
+from model import load_yaml
+
+RESULTS_DIR = os.path.join("results", "stage21")
+BIOLOGY_SHA256 = "c76d9869dc5847f830ac3caadcce4c68986a9180875f3333504c2482a4b0bf5f"
+OM_DENSITIES = (0.037, 0.084, 0.192, 0.439, 1.0)
+THRESHOLD = 0.3
+
+
+def check_biology():
+    with open("configs/biology.yaml", "rb") as f:
+        assert hashlib.sha256(f.read().replace(b"\r\n", b"\n")).hexdigest() == BIOLOGY_SHA256, "biology.yaml modified"
+
+
+def save(name, obj):
+    os.makedirs(RESULTS_DIR, exist_ok=True)
+    with open(os.path.join(RESULTS_DIR, name), "w") as f:
+        json.dump(obj, f, indent=1, default=lambda o: o.tolist() if hasattr(o, "tolist") else str(o))
+
+
+def load(name):
+    with open(os.path.join(RESULTS_DIR, name)) as f:
+        return json.load(f)
+
+
+# ------------------------------------------------------------------ step 0
+
+def _point_source(xp):
+    n = 33
+    D = xp.ones((n, n, n))
+    dt, dx, steps = 0.05, 1.0, 200
+    out = {}
+    for solver in ("cg", "jacobi"):
+        dif = M.Diffuser(D, dx, dt, xp, solver, iterations=400, relaxation=1.0, tol=1e-15, cg_rtol=1e-14)
+        u = xp.zeros((n, n, n)); u[n // 2, n // 2, n // 2] = 1.0
+        for _ in range(steps):
+            u = dif.solve(u, x0=u)
+        ax = np.arange(n) - n // 2
+        uu = P.to_np(u)
+        var = [float((uu.sum(axis=tuple(a for a in range(3) if a != k)) * ax ** 2).sum() / uu.sum())
+               for k in range(3)]
+        out[solver] = {"mass_rel_err": float(abs(uu.sum() - 1.0)), "var_xyz": var,
+                       "isotropy_rel_spread": float((max(var) - min(var)) / np.mean(var)),
+                       "var_analytic_2Dt": 2 * 1.0 * dt * steps, "min": float(uu.min())}
+    out["cg_vs_jacobi_max_abs"] = float(np.abs(
+        P.to_np(_run_ps(xp, "cg")) - P.to_np(_run_ps(xp, "jacobi"))).max())
+    return out
+
+
+def _run_ps(xp, solver):
+    n = 33
+    D = xp.ones((n, n, n))
+    dif = M.Diffuser(D, 1.0, 0.05, xp, solver, iterations=400, relaxation=1.0, tol=1e-15)
+    u = xp.zeros((n, n, n)); u[n // 2, n // 2, n // 2] = 1.0
+    for _ in range(60):
+        u = dif.solve(u, x0=u)
+    return u
+
+
+def _extrusion_fields(soil, nz=4):
+    """Stage 20 A1 (F1 + W0) 2D grids at n = 40, OM 0.439, with the OLD rules,
+    reassembled exactly as simulate_dual_porosity does, extruded along z."""
+    import dual_porosity as dp
+    import stage20_run as s20
+    bio = load_yaml("configs/biology.yaml")
+    cfg = s20.structure_cfg(soil, 40, "W0")
+    m = s20.mapping_for(0.439, "F1")
+    ref = dp.simulate_dual_porosity(bio, cfg, m, wicking_enabled=False)
+    g = dp.build_dual_grids(cfg, m)
+    D_scale = dp._variantc_D_scale(m, cfg["pore"].get("psd_soil", ""))
+    macro, wet = g["macro_mask"], g["water_mask"].copy()
+    pm = g["porous_matrix_mask"]
+    dry = macro & ~wet
+    Dbase = g["D_full"] * D_scale
+    _, _, scale = dp.habitat_properties(macro)
+    kcl = float(m.get("stage4_variantC_cluster_K_scale", 0.75))
+    dcl = float(m.get("stage4_variantC_cluster_D_scale", 0.75))
+    f_rel = float(g["S_w"]) ** (10.0 / 3.0)
+    K_t = np.where(macro, g["K"] * (1.0 + kcl * scale), 0.0)
+    K_t = K_t * float(m["stage19_K_density"]) * K_t.size / K_t.sum()
+    Dm = np.where(wet, Dbase * (1.0 + dcl * scale), 0.0)
+    Dm = np.where(dry, Dbase * f_rel, Dm)
+    kmd = float(m.get("stage4_variantC_matrix_diffusion", 0.03)) * D_scale
+    Dt = Dm + np.where(wet & pm, kmd, 0.0)
+    ext = lambda a: np.repeat(np.asarray(a)[:, :, None], nz, axis=2)
+    F = {"D": ext(Dt), "K": ext(K_t), "B0": ext(g["B0"]), "OM_a": ext(g["OM_coating"]),
+         "OM_b": ext(g["OM_trapped"]), "k_dis_b": float(m["k_dis_slow"]),
+         "pore": ext(macro), "matrix": ext(pm), "hab_wet": ext(macro & wet),
+         "hab_dry": ext(dry), "k_ex": float(m["k_leak"])}
+    return bio, cfg, m, ref, F, g["dx"], nz
+
+
+def _extrusion(soil, xp):
+    bio, cfg, m, ref, F, dx, nz = _extrusion_fields(soil)
+    Fx = {k: (xp.asarray(v) if isinstance(v, np.ndarray) else v) for k, v in F.items()}
+    out = M.simulate3d(Fx, bio, cfg["T"], bio["dt"], dx, xp, solver="jacobi", exchange="oneway",
+                       z_diffusion=False, iterations=int(m["stage6_implicit_iterations"]),
+                       relaxation=float(m["stage6_implicit_relaxation"]),
+                       jacobi_tol=float(m["stage11_implicit_tol"]))
+    res = {}
+    for name, a, b in (("R", out["R"] / nz, ref["R_t"]), ("B", out["B"] / nz, ref["B_total_t"]),
+                       ("fuel", out["fuel"] / nz, ref["fuel_remaining_t"] * ref["grids"]["om_total_init"])):
+        res[name] = float(np.abs(a - b).max() / np.abs(b).max())
+    res["R_rel_err_maxnorm"] = res["R"]
+    res["R_peak_2d"] = float(ref["R_t"].max())
+    return res
+
+
+def step0():
+    check_biology()
+    xp = P.get_xp()
+    res = {"backend": xp.__name__}
+    res["point_source_3d"] = {"backend_" + xp.__name__: _point_source(xp)}
+    res["extrusion"] = {}
+    for soil in ("sand", "vertisol"):
+        res["extrusion"][soil] = {"gpu" if xp is not np else "cpu": _extrusion(soil, xp)}
+        if xp is not np:
+            res["extrusion"][soil]["cpu"] = _extrusion(soil, np)
+    # local thickness: analytic checks
+    g = np.indices((64, 64, 64))
+    sph = ((g[0] - 32) ** 2 + (g[1] - 32) ** 2 + (g[2] - 32) ** 2) <= 20 ** 2
+    lt = P.to_np(P.local_thickness(xp.asarray(sph), 1.0, xp))
+    slab = np.zeros((20, 20, 20), bool); slab[:, :, 5:8] = True
+    lts = P.to_np(P.local_thickness(xp.asarray(slab), 1.0, xp))
+    res["local_thickness"] = {"sphere_d40_range": [float(lt[sph].min()), float(lt[sph].max())],
+                              "slab_3voxel": float(np.unique(lts[slab])[0])}
+    hp = M.load_inherited()
+    d = np.random.default_rng(0).uniform(1, 600, 5000)
+    from pore_field import K_window, D_of_d
+    mp = load_yaml("configs/mapping.yaml")
+    mp2 = dict(mp, K_d_low=10.0)
+    res["KD_match_pore_field"] = {
+        "K": float(np.abs(P.to_np(M.K_window3(xp.asarray(d), hp, xp, 10.0)) - K_window(d, mp2)).max()),
+        "D": float(np.abs(P.to_np(M.D_of_d3(xp.asarray(d), hp, xp)) - D_of_d(d, mp)).max())}
+    save("step0.json", res)
+    return res
+
+
+# ------------------------------------------------------------------ step 1
+
+KINDS = ("S", "V", "Sp", "Vp", "Val")
+N_FULL, VOX_FULL = 256, 5.0
+
+
+def get_structure(kind, seed_offset=0, n=N_FULL, vox=VOX_FULL, xp=None):
+    """Build (or load from the untracked cache) a structure; computes its LT."""
+    xp = xp or P.get_xp()
+    os.makedirs(os.path.join(RESULTS_DIR, "cache"), exist_ok=True)
+    fn = os.path.join(RESULTS_DIR, "cache", f"{kind}_s{seed_offset}_n{n}_v{vox:g}.npz")
+    if os.path.exists(fn):
+        z = np.load(fn, allow_pickle=True)
+        st = P.Structure()
+        st.kind, st.n, st.vox_um, st.seed = kind, n, vox, int(z["seed"])
+        st.phase = xp.asarray(z["phase"]); st.info = z["info"].item()
+        st.lt = xp.asarray(z["lt"])
+        return st
+    st = P.build_structure(kind, seed_offset, n, vox, xp)
+    st.lt = P.local_thickness(st.phase == P.PORE, vox, xp)
+    np.savez_compressed(fn, phase=P.to_np(st.phase), lt=P.to_np(st.lt), seed=st.seed, info=np.array(st.info, dtype=object))
+    return st
+
+
+def geometry_gate(rep_by_kind):
+    out = {}
+    for k in ("S", "V"):
+        r = rep_by_kind[k]
+        out[k] = {"spans_any_axis": bool(any(r["spans_axes_xyz"])),
+                  "habitat_gt_1pct": bool(r["habitat_volume_fraction"] > 0.01)}
+    out["pass"] = all(all(v.values()) for v in out.values() if isinstance(v, dict))
+    return out
+
+
+def render_slices(structs, fn):
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from matplotlib.colors import ListedColormap
+    fig, ax = plt.subplots(2, len(structs), figsize=(3.2 * len(structs), 6.6))
+    cm = ListedColormap(["white", "#c8a165", "#3a3a3a"])
+    for j, st in enumerate(structs):
+        z = st.n // 2
+        ph = P.to_np(st.phase[:, :, z]); lt = P.to_np(st.lt[:, :, z])
+        ax[0, j].imshow(ph.T, cmap=cm, vmin=0, vmax=2, origin="lower")
+        ax[0, j].set_title(f"{st.kind}: phase (z mid)", fontsize=9)
+        im = ax[1, j].imshow(np.ma.masked_equal(lt, 0).T, cmap="viridis", origin="lower", vmin=0, vmax=250)
+        ax[1, j].set_title(f"{st.kind}: local thickness (um)", fontsize=9)
+        for a in ax[:, j]:
+            a.set_xticks([]); a.set_yticks([])
+    fig.colorbar(im, ax=ax[1, :], shrink=0.7, label="um")
+    fig.savefig(fn, dpi=110); plt.close(fig)
+
+
+def step1(n=N_FULL, vox=VOX_FULL, tag=""):
+    xp = P.get_xp()
+    hp = M.load_inherited()
+    reps, structs, times = {}, [], {}
+    for k in KINDS:
+        t = time.time()
+        st = get_structure(k, 0, n, vox, xp)
+        reps[k] = P.analyse(st, xp)
+        times[k] = time.time() - t
+        structs.append(st)
+        print(k, f"{times[k]:.1f}s", flush=True)
+    kn = {k: float(M.native_K(structs[KINDS.index(k)], hp, xp).sum()) / structs[0].phase.size
+          for k in ("S", "V")}
+    K_density = float(np.mean(list(kn.values())))
+    res = {"reports": reps, "native_K_density": kn, "K_density": K_density,
+           "gate": geometry_gate(reps), "build_seconds": times}
+    save(f"step1{tag}.json", res)
+    render_slices(structs, os.path.join(RESULTS_DIR, f"step1_slices{tag}.png"))
+    return res
+
+# ------------------------------------------------------------ job runner
+
+def jkey(kind, seed, om, T=1500, dscale=None, n=N_FULL, vox=VOX_FULL):
+    return f"{kind}_s{seed}_om{om:g}_T{T}_D{'std' if dscale is None else format(dscale, 'g')}_n{n}"
+
+
+def parse_key(key):
+    kind, s, om, T, D, n = key.split("_")
+    return dict(kind=kind, seed=int(s[1:]), om=float(om[2:]), T=int(T[1:]),
+                dscale=None if D[1:] == "std" else float(D[1:]), n=int(n[1:]))
+
+
+def job(key):
+    """Run one simulation (worker process; one GPU)."""
+    check_biology()
+    p = parse_key(key)
+    xp = P.get_xp()
+    hp = M.load_inherited()
+    bio = load_yaml("configs/biology.yaml")
+    vox = {256: 5.0, 128: 10.0}[p["n"]]
+    K_density = load("step1.json" if p["n"] == 256 else "pilot_step1.json")["K_density"]
+    st = get_structure(p["kind"], p["seed"], p["n"], vox, xp)
+    t0 = time.time()
+    out, res = M.run_structure(st, hp, bio, xp, K_density, p["om"], T=p["T"], D_scale=p["dscale"])
+    res.update({"key": key, "seconds": time.time() - t0, **p, "K_density": K_density,
+                "backend": xp.__name__})
+    os.makedirs(os.path.join(RESULTS_DIR, "runs"), exist_ok=True)
+    np.savez_compressed(os.path.join(RESULTS_DIR, "runs", key + ".npz"),
+                        **{k: out[k] for k in M.STAT_NAMES})
+    with open(os.path.join(RESULTS_DIR, "runs", key + ".json"), "w") as f:
+        json.dump(res, f, indent=1)
+    return res
+
+
+def _done(key):
+    return os.path.exists(os.path.join(RESULTS_DIR, "runs", key + ".json"))
+
+
+def run_jobs(keys, ngpu=2):
+    import subprocess
+    pending = [k for k in dict.fromkeys(keys) if not _done(k)]
+    running = {}
+    while pending or running:
+        for slot in range(ngpu):
+            if slot not in running and pending:
+                k = pending.pop(0)
+                env = dict(os.environ, CUDA_VISIBLE_DEVICES=str(slot), PYTHONDONTWRITEBYTECODE="1")
+                running[slot] = (k, subprocess.Popen([sys.executable, "stage21_run.py", "job", k], env=env,
+                                                     stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True))
+                print("start", k, "on gpu", slot, flush=True)
+        time.sleep(2)
+        for slot, (k, pr) in list(running.items()):
+            if pr.poll() is not None:
+                if pr.returncode != 0:
+                    raise RuntimeError(f"job {k} failed: {pr.stderr.read()[-2000:]}")
+                print("done", k, flush=True)
+                del running[slot]
+    return {k: load_run(k) for k in keys}
+
+
+def load_run(key):
+    with open(os.path.join(RESULTS_DIR, "runs", key + ".json")) as f:
+        r = json.load(f)
+    z = np.load(os.path.join(RESULTS_DIR, "runs", key + ".npz"))
+    r["R"] = z["R"]; r["B"] = z["B"]
+    return r
+
+
+def dist(a, b):
+    import metrics
+    return float(metrics.pairwise_distance(a["R"], b["R"]))
+
+
+# ------------------------------------------------------------------ step 2
+
+def step2():
+    xp = P.get_xp()
+    for k in ("S", "V"):
+        get_structure(k, 0, xp=xp)
+    keys = [jkey(k, 0, om) for om in OM_DENSITIES for k in ("S", "V")]
+    runs = run_jobs(keys)
+    rows = []
+    for om in OM_DENSITIES:
+        s, v = runs[jkey("S", 0, om)], runs[jkey("V", 0, om)]
+        row = {"OM_density": om, "distance": dist(s, v),
+               "both_alive_primary": bool(s["alive_primary"] and v["alive_primary"]),
+               "both_alive_secondary": bool(s["alive_secondary"] and v["alive_secondary"])}
+        for nm, r in (("S", s), ("V", v)):
+            row[nm] = {k: r[k] for k in (
+                "B_peak_over_B0", "R_peak_over_floor", "growth_share_at_peak", "peak_frac",
+                "R_end_over_peak", "alive_primary", "alive_secondary", "fuel_remaining_final",
+                "diffusion_into_wet_habitat", "diffusion_into_drained_habitat",
+                "exchange_into_wet_habitat", "exchange_into_drained_habitat",
+                "mass_balance_rel", "seconds")}
+        rows.append(row)
+    ok = [r for r in rows if r["both_alive_primary"]]
+    sel = max(ok, key=lambda r: r["distance"])["OM_density"] if ok else None
+    res = {"rows": rows, "selected_OM_density": sel, "verdict": "continue" if sel else "STOP"}
+    save("step2.json", res)
+    plot_step2(runs)
+    return res
+
+
+def plot_step2(runs):
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    fig, ax = plt.subplots(1, len(OM_DENSITIES), figsize=(3.3 * len(OM_DENSITIES), 3), sharex=True)
+    for a, om in zip(ax, OM_DENSITIES):
+        for k, c in (("S", "#d62728"), ("V", "#4b0082")):
+            r = runs[jkey(k, 0, om)]
+            a.plot(r["R"] / (0.02 * r["B"][0]), c=c, label=k)
+        a.set_title(f"OM {om}", fontsize=9); a.set_xlabel("step")
+    ax[0].set_ylabel("R / (m0 B0)"); ax[0].legend()
+    fig.tight_layout(); fig.savefig(os.path.join(RESULTS_DIR, "step2_curves.png"), dpi=110); plt.close(fig)
+
+
+# ------------------------------------------------------------------ main
+
+if __name__ == "__main__":
+    cmd = sys.argv[1]
+    t0 = time.time()
+    r = globals()[cmd](*sys.argv[2:])
+    print(json.dumps(r, indent=1, default=str)[:6000] if r is not None else "")
+    print(f"[{cmd}] {time.time() - t0:.1f} s")
