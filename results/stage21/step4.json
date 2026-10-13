@@ -1,0 +1,124 @@
+{
+ "OM_density": 1.0,
+ "within_soil_seed_distance": {
+  "S": [
+   0.006161322636793498,
+   0.08929964030356569,
+   0.10851346319210695
+  ],
+  "V": [
+   0.0026803220248015833,
+   0.0015071501864952603,
+   0.0011310141943069953
+  ]
+ },
+ "between_soil_distances_all_pairs": [
+  1.2287722149775282,
+  1.2353058337791034,
+  1.2317385400111378,
+  1.2322166161401369,
+  1.2382410637336938,
+  1.2348862054118002,
+  1.206906875052518,
+  1.2165688397995715,
+  1.21171573662054
+ ],
+ "same_seed_pair_distance": [
+  1.2287722149775282,
+  1.2382410637336938,
+  1.21171573662054
+ ],
+ "seed_noise_max": 0.10851346319210695,
+ "between_min": 1.206906875052518,
+ "noise_lt_half_between": true,
+ "all_seeds_alive_primary": true,
+ "all_seed_pairs_distinct": true,
+ "mass_balance_max": 7.957834837321708e-15,
+ "runs": {
+  "S_seed0": {
+   "alive_primary": true,
+   "alive_secondary": true,
+   "B_peak_over_B0": 2.7099937632448947,
+   "R_peak_over_floor": 6.8800237982213694,
+   "growth_share_at_peak": 0.8463932799686978,
+   "peak_frac": 0.07538358905937291,
+   "R_end_over_peak": 0.8705975383166988,
+   "diffusion_into_wet_habitat": 825916.6228613509,
+   "diffusion_into_drained_habitat": 3312645.3896286734,
+   "exchange_into_wet_habitat": 80706.27870207204,
+   "exchange_into_drained_habitat": 2651531.427685446,
+   "mass_balance_rel": 1.023150193369934e-15
+  },
+  "S_seed1": {
+   "alive_primary": true,
+   "alive_secondary": true,
+   "B_peak_over_B0": 2.796700841447085,
+   "R_peak_over_floor": 7.182281322708964,
+   "growth_share_at_peak": 0.849257872518125,
+   "peak_frac": 0.07404936624416278,
+   "R_end_over_peak": 0.8561539084825391,
+   "diffusion_into_wet_habitat": 939636.9713884409,
+   "diffusion_into_drained_habitat": 3436552.6940710642,
+   "exchange_into_wet_habitat": 91038.85376320241,
+   "exchange_into_drained_habitat": 2613428.048054331,
+   "mass_balance_rel": 7.957834837321708e-15
+  },
+  "S_seed2": {
+   "alive_primary": true,
+   "alive_secondary": true,
+   "B_peak_over_B0": 2.2722428785600854,
+   "R_peak_over_floor": 5.129420438912799,
+   "growth_share_at_peak": 0.5570176191207877,
+   "peak_frac": 1.0,
+   "R_end_over_peak": 1.0,
+   "diffusion_into_wet_habitat": 43678.200533461015,
+   "diffusion_into_drained_habitat": 2769724.4791638367,
+   "exchange_into_wet_habitat": 5305.675048361703,
+   "exchange_into_drained_habitat": 3209890.8925687545,
+   "mass_balance_rel": 5.570484386125196e-15
+  },
+  "V_seed0": {
+   "alive_primary": true,
+   "alive_secondary": true,
+   "B_peak_over_B0": 4.660844022335745,
+   "R_peak_over_floor": 19.278515944762532,
+   "growth_share_at_peak": 0.8153589779180582,
+   "peak_frac": 0.19946631087391595,
+   "R_end_over_peak": 0.373431827530629,
+   "diffusion_into_wet_habitat": 11672583.394651074,
+   "diffusion_into_drained_habitat": 849311.1426861129,
+   "exchange_into_wet_habitat": 614608.3162682101,
+   "exchange_into_drained_habitat": 22108.144788581136,
+   "mass_balance_rel": 2.273667096377631e-16
+  },
+  "V_seed1": {
+   "alive_primary": true,
+   "alive_secondary": true,
+   "B_peak_over_B0": 4.640041596159863,
+   "R_peak_over_floor": 19.257887696329362,
+   "growth_share_at_peak": 0.8165583190627846,
+   "peak_frac": 0.19746497665110074,
+   "R_end_over_peak": 0.3706761963016868,
+   "diffusion_into_wet_habitat": 11574383.099507648,
+   "diffusion_into_drained_habitat": 846458.2117169786,
+   "exchange_into_wet_habitat": 612252.3439714451,
+   "exchange_into_drained_habitat": 21859.076438505494,
+   "mass_balance_rel": 1.5631461287596208e-15
+  },
+  "V_seed2": {
+   "alive_primary": true,
+   "alive_secondary": true,
+   "B_peak_over_B0": 4.627521623599011,
+   "R_peak_over_floor": 19.18616564060941,
+   "growth_share_at_peak": 0.8161302081036249,
+   "peak_frac": 0.1981320880587058,
+   "R_end_over_peak": 0.3731042427345365,
+   "diffusion_into_wet_habitat": 11572479.962748084,
+   "diffusion_into_drained_habitat": 842979.7599601694,
+   "exchange_into_wet_habitat": 610026.8743201271,
+   "exchange_into_drained_habitat": 21585.86388067109,
+   "mass_balance_rel": 1.7620919996926636e-15
+  }
+ },
+ "pass": true
+}
