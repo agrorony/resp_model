@@ -433,18 +433,32 @@ def summarize(out, bio):
 
 # ------------------------------------------- Stage 21 physics: field building
 
-def native_K(st, hp, xp, lt=None):
+def equal_wet_mask(st, xp, frac=0.5):
+    """Stage 22: exactly `frac` of resolved pore voxels wet, smallest local thickness first
+    (ties broken by a fixed-seed pseudo-random key, deterministic and spatially unbiased)."""
+    pore = (st.phase == P.PORE).ravel()
+    lt = st.lt.astype(xp.float64).ravel()
+    idx = xp.nonzero(pore)[0]
+    tie = xp.asarray(np.random.RandomState(22).random_sample(idx.size))
+    order = xp.lexsort(xp.stack([tie, lt[idx]]))
+    k = int(round(frac * idx.size))
+    wet = xp.zeros(pore.size, dtype=bool)
+    wet[idx[order[:k]]] = True
+    return wet.reshape(st.phase.shape)
+
+
+def native_K(st, hp, xp, lt=None, wetting="matric"):
     """Unscaled habitat capacity of a structure (film scale on drained)."""
     phase = st.phase
     pore = phase == P.PORE
     lt = (st.lt if lt is None else lt).astype(xp.float64)
-    wet = pore & (lt < hp["d_cut_um"])
+    wet = pore & (lt < hp["d_cut_um"]) if wetting == "matric" else equal_wet_mask(st, xp)
     K = xp.where(pore, K_window3(lt, hp, xp, hp["K_d_low_um"]), 0.0)
     K = xp.where(pore & ~wet, K * hp["film_K_scale"], K)
     return K
 
 
-def build_fields(st, hp, xp, K_density, OM_density, D_scale=None):
+def build_fields(st, hp, xp, K_density, OM_density, D_scale=None, wetting="matric"):
     """Stage 21 rules (see STAGE21_RESULTS.md). st.lt must exist (analyse())."""
     phase, lt = st.phase, st.lt.astype(xp.float64)
     n = phase.shape[0]
@@ -452,15 +466,19 @@ def build_fields(st, hp, xp, K_density, OM_density, D_scale=None):
     pore = phase == P.PORE
     matrix = phase == P.MATRIX
     solid = phase == P.SOLID
-    wet_pore = pore & (lt < hp["d_cut_um"])
+    if wetting == "matric":
+        wet_pore = pore & (lt < hp["d_cut_um"])
+        S_w = float(wet_pore.sum() + matrix.sum()) / float((~solid).sum())
+    else:  # "equal50": film factor from the resolved-pore saturation (0.5), same in both soils
+        wet_pore = equal_wet_mask(st, xp)
+        S_w = float(wet_pore.sum()) / float(pore.sum())
     drained = pore & ~wet_pore
-    S_w = float(wet_pore.sum() + matrix.sum()) / float((~solid).sum())
     Ds = hp["D_scale"] if D_scale is None else D_scale
     Dfull = D_of_d3(lt, hp, xp) * Ds
     D = xp.where(wet_pore, Dfull, 0.0)
     D = xp.where(drained, Dfull * S_w ** (10.0 / 3.0), D)
     D = xp.where(matrix, hp["k_matrix_diff"] * Ds, D)
-    Kn = native_K(st, hp, xp)
+    Kn = native_K(st, hp, xp, wetting=wetting)
     K = Kn * (K_density * N / float(Kn.sum()))
     B0 = K * (hp["B0_density"] * N / float(K.sum()))
     OM = xp.where(matrix, OM_density * N / float(matrix.sum()), 0.0)
@@ -473,8 +491,8 @@ def build_fields(st, hp, xp, K_density, OM_density, D_scale=None):
     return F, meta
 
 
-def run_structure(st, hp, bio, xp, K_density, OM_density, T=None, D_scale=None, solver="cg"):
-    F, meta = build_fields(st, hp, xp, K_density, OM_density, D_scale)
+def run_structure(st, hp, bio, xp, K_density, OM_density, T=None, D_scale=None, solver="cg", wetting="matric"):
+    F, meta = build_fields(st, hp, xp, K_density, OM_density, D_scale, wetting)
     N = meta["N"]
     # equal totals as per-voxel densities, asserted every run
     assert abs(float(F["OM_a"].sum()) / (OM_density * N) - 1) < 1e-9, "OM total"
