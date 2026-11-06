@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 
 from scan3d import select_fines
-from timemap import classify_period_shape, day_to_step
+from timemap import classify_period_shape, day_to_step, physiological_outputs
 
 
 class ScanStructureTests(unittest.TestCase):
@@ -23,6 +23,19 @@ class ScanStructureTests(unittest.TestCase):
         self.assertEqual(classify_period_shape(np.array([1.0, 1.05, 1.08, 1.09])), "flat")
         self.assertEqual(classify_period_shape(np.array([1.0, 1.0, 1.0, 1.2])), "rise")
         self.assertEqual(classify_period_shape(np.array([1.0, 1.2, 1.2, 1.0])), "rise-then-fall")
+
+    def test_primary_mapping_physiology_integrals(self):
+        values = physiological_outputs(
+            np.full(3000, 2.0),
+            np.full(3000, 4.0),
+            np.full(3000, 0.1),
+            initial_om=3000.0,
+            r_lit=2.6,
+        )
+        self.assertAlmostEqual(values["cumulative_respiration_model_units"], 78.0)
+        self.assertAlmostEqual(values["cumulative_respiration_fraction_initial_OM"], 0.026)
+        self.assertAlmostEqual(values["qCO2_per_day"], 1.3)
+        self.assertAlmostEqual(values["CUE"], 0.0)
 
 
 if __name__ == "__main__":

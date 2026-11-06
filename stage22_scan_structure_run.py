@@ -808,6 +808,199 @@ def step5() -> dict:
     return output
 
 
+def _mean_sd(values: list[float]) -> dict:
+    array = np.asarray(values, dtype=float)
+    if array.size == 0:
+        raise ValueError("Cannot summarize an empty set")
+    return {
+        "mean": float(array.mean()),
+        "sd": float(array.std(ddof=1)) if array.size > 1 else 0.0,
+    }
+
+
+def _timemapped_crop(run: dict, r_lit: float, dt: float) -> dict:
+    respiration = np.asarray(run["R"], dtype=float)
+    if respiration[0] <= 0:
+        raise ValueError(f"Nonpositive R(t=0) for {run['key']}")
+    periods = timemap.period_means(respiration / respiration[0], r_lit, dt)
+    initial_om = float(run["OM_density"] * run["N"])
+    physiology = timemap.physiological_outputs(
+        respiration,
+        run["B"],
+        run["uptake_dt"],
+        initial_om,
+        r_lit,
+        dt,
+    )
+    return {
+        "period_means_normalized_to_R0": periods.tolist(),
+        "shape": timemap.classify_period_shape(periods),
+        **physiology,
+    }
+
+
+def step6() -> dict:
+    with (OUT / "step2.json").open(encoding="utf-8") as file:
+        step2_result = json.load(file)
+    bio = load_yaml("configs/biology.yaml")
+    dt = float(bio["dt"])
+    groups = {
+        "sand": {
+            "specimens": ("SA", "SB"),
+            "crops": [f"{scan_id}_c{index}" for scan_id in ("SA", "SB") for index in range(4)],
+        },
+        "vertisol": {
+            "specimens": ("VA", "VB"),
+            "crops": [f"{scan_id}_c{index}" for scan_id in ("VA", "VB") for index in range(4)],
+        },
+    }
+    main_runs = {structure_id: _load_run(structure_id) for g in groups.values() for structure_id in g["crops"]}
+    output = {
+        "r_lit_d-1": timemap.R_LIT_DAYS,
+        "periods_days": timemap.PERIODS_DAYS,
+        "step2_T": step2_result["T"],
+        "OM_density": step2_result["OM_density"],
+        "soil_results": {},
+        "specimen_results": {},
+        "crop_results": {},
+        "maintenance_note": (
+            "R includes maintenance respiration; whole-community CUE can therefore be low or negative "
+            "when uptake is small."
+        ),
+    }
+    figure_data = {}
+    for label, r_lit in timemap.R_LIT_DAYS.items():
+        mapped = {
+            structure_id: _timemapped_crop(run, r_lit, dt)
+            for structure_id, run in main_runs.items()
+        }
+        output["crop_results"][label] = mapped
+        soil_summary = {}
+        specimen_summary = {}
+        for soil, group in groups.items():
+            crop_ids = group["crops"]
+            period_matrix = np.asarray([
+                mapped[structure_id]["period_means_normalized_to_R0"] for structure_id in crop_ids
+            ])
+            period_summary = [
+                _mean_sd(period_matrix[:, period].tolist()) for period in range(4)
+            ]
+            physiology_summary = {
+                metric: _mean_sd([mapped[key][metric] for key in crop_ids])
+                for metric in (
+                    "cumulative_respiration_model_units",
+                    "cumulative_respiration_fraction_initial_OM",
+                    "qCO2_per_day",
+                    "CUE",
+                )
+            }
+            soil_summary[soil] = {
+                "n_crops": len(crop_ids),
+                "period_means_normalized_to_R0": period_summary,
+                "shape": timemap.classify_period_shape(
+                    np.asarray([item["mean"] for item in period_summary])
+                ),
+                **physiology_summary,
+            }
+            for scan_id in group["specimens"]:
+                specimen_ids = [f"{scan_id}_c{index}" for index in range(4)]
+                specimen_period_matrix = np.asarray([
+                    mapped[structure_id]["period_means_normalized_to_R0"]
+                    for structure_id in specimen_ids
+                ])
+                specimen_period_summary = [
+                    _mean_sd(specimen_period_matrix[:, period].tolist()) for period in range(4)
+                ]
+                specimen_summary[scan_id] = {
+                    "n_crops": len(specimen_ids),
+                    "period_means_normalized_to_R0": specimen_period_summary,
+                    "shape": timemap.classify_period_shape(
+                        np.asarray([item["mean"] for item in specimen_period_summary])
+                    ),
+                    **{
+                        metric: _mean_sd([mapped[key][metric] for key in specimen_ids])
+                        for metric in (
+                            "cumulative_respiration_model_units",
+                            "cumulative_respiration_fraction_initial_OM",
+                            "qCO2_per_day",
+                            "CUE",
+                        )
+                    },
+                }
+        ratios = [
+            soil_summary["sand"]["period_means_normalized_to_R0"][period]["mean"]
+            / soil_summary["vertisol"]["period_means_normalized_to_R0"][period]["mean"]
+            for period in range(4)
+        ]
+        output["soil_results"][label] = {
+            **soil_summary,
+            "sand_to_vertisol_ratio_by_period": ratios,
+            "qCO2_vertisol_over_sand": (
+                soil_summary["vertisol"]["qCO2_per_day"]["mean"]
+                / soil_summary["sand"]["qCO2_per_day"]["mean"]
+            ),
+        }
+        output["specimen_results"][label] = specimen_summary
+        figure_data[label] = {
+            soil: np.asarray([
+                mapped[structure_id]["period_means_normalized_to_R0"]
+                for structure_id in group["crops"]
+            ])
+            for soil, group in groups.items()
+        }
+
+    figure_path = OUT / "step6_periods.png"
+    if figure_path.exists():
+        raise FileExistsError(f"Refusing to overwrite Stage 22 figure: {figure_path}")
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    fig, axes = plt.subplots(1, len(timemap.R_LIT_DAYS), figsize=(14, 4), sharey=True)
+    colors = {"sand": "#c45127", "vertisol": "#4b398a"}
+    for ax, label in zip(axes, timemap.R_LIT_DAYS):
+        x = np.arange(4, dtype=float)
+        width = 0.36
+        for offset, soil in ((-width / 2, "sand"), (width / 2, "vertisol")):
+            values = output["soil_results"][label][soil]["period_means_normalized_to_R0"]
+            centers = x + offset
+            ax.bar(centers, [v["mean"] for v in values], width=width, color=colors[soil], alpha=0.8,
+                   label=soil if label == "low" else None)
+            for period in range(4):
+                points = figure_data[label][soil][:, period]
+                jitter = np.linspace(-width * 0.28, width * 0.28, len(points))
+                ax.scatter(np.full(len(points), centers[period]) + jitter, points,
+                           color=colors[soil], s=10, alpha=0.55, zorder=3)
+        ax.set_xticks(x, ["P1", "P2", "P3", "P4"])
+        ax.set_title(f"{label}: r_lit={timemap.R_LIT_DAYS[label]} d-1")
+        ax.set_xlabel("incubation period")
+    axes[0].set_ylabel("period mean R / R(t=0)")
+    axes[0].legend()
+    fig.tight_layout()
+    fig.savefig(figure_path, dpi=130)
+    plt.close(fig)
+    output["figure"] = str(figure_path)
+    output["active_step2"] = "step2.json"
+    _write_json(OUT / "step6.json", output)
+    print(json.dumps({
+        label: {
+            soil: {
+                "shape": output["soil_results"][label][soil]["shape"],
+                "period_means": [
+                    item["mean"]
+                    for item in output["soil_results"][label][soil]["period_means_normalized_to_R0"]
+                ],
+                "qCO2_per_day": output["soil_results"][label][soil]["qCO2_per_day"],
+                "CUE": output["soil_results"][label][soil]["CUE"],
+            }
+            for soil in groups
+        }
+        for label in timemap.R_LIT_DAYS
+    }, indent=2))
+    return output
+
+
 if __name__ == "__main__":
     command = sys.argv[1]
     if command == "job":
