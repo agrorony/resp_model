@@ -22,6 +22,7 @@ class ScanStructureTests(unittest.TestCase):
         np.testing.assert_allclose([day_to_step(15, r) for r in (0.36, 2.6, 9.2)], [108.0, 780.0, 2760.0])
         self.assertEqual(classify_period_shape(np.array([1.0, 1.05, 1.08, 1.09])), "flat")
         self.assertEqual(classify_period_shape(np.array([1.0, 1.0, 1.0, 1.2])), "rise")
+        self.assertEqual(classify_period_shape(np.array([1.0, 1.2, 1.2, 1.0])), "rise-then-fall")
 
 
 if __name__ == "__main__":

@@ -34,12 +34,12 @@ def classify_period_shape(means: np.ndarray) -> str:
     values = np.asarray(means, dtype=float)
     if values.shape != (4,) or not np.all(np.isfinite(values)):
         raise ValueError("Four finite period means are required")
-    maximum = int(np.argmax(values))
-    if maximum == 3 and values[3] > 1.1 * values[0]:
+    maximum = float(values.max())
+    if values[3] == maximum and values[3] > 1.1 * values[0]:
         return "rise"
-    if maximum in (1, 2) and values[3] < 0.9 * values[maximum]:
+    if (values[1] == maximum or values[2] == maximum) and values[3] < 0.9 * maximum:
         return "rise-then-fall"
-    if maximum == 0 and values[3] < 0.9 * values[0]:
+    if values[0] == maximum and values[3] < 0.9 * values[0]:
         return "fall"
     return "flat"
 

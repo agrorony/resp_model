@@ -93,7 +93,7 @@ def select_fines(
     return selected.reshape(solid.shape), threshold
 
 
-def crop_to_structure(crop: np.ndarray, scan_id: str, vox_um: float, seed: int = 22):
+def crop_to_structure(crop: np.ndarray, scan_id: str, vox_um: float, seed: int = 22, xp=np):
     """Map one scan crop to a packing3d.Structure with Stage 22 phase rules."""
     phase = np.empty(crop.shape, dtype=np.uint8)
     if SOIL_BY_ID[scan_id] == "vertisol":
@@ -106,8 +106,8 @@ def crop_to_structure(crop: np.ndarray, scan_id: str, vox_um: float, seed: int =
     else:
         pore = np.asarray(crop == 1)
         solid = ~pore
-        thickness = P.local_thickness(solid, vox_um, np)
-        pore_distance = P.edt(solid, np)
+        thickness = P.to_np(P.local_thickness(xp.asarray(solid), vox_um, xp))
+        pore_distance = P.to_np(P.edt(xp.asarray(solid), xp))
         matrix_fraction = P.fines_volume_fraction()
         matrix, threshold = select_fines(solid, thickness, pore_distance, matrix_fraction, seed)
         phase.fill(P.SOLID)
