@@ -14,6 +14,7 @@ from pathlib import Path
 
 import numpy as np
 
+import metrics
 import model3d as M
 import packing3d as P
 import scan3d
@@ -414,6 +415,261 @@ def step1() -> dict:
         "aggregates_main_crops": aggregates,
         "vertisol_plate_voxels_at_15um": result["vertisol_plate_voxels_at_15um"],
     }, indent=2, default=_json_default))
+    return result
+
+
+def _run_key(structure_id: str) -> str:
+    with (OUT / "step1.json").open(encoding="utf-8") as file:
+        report = json.load(file)["reports"][structure_id]
+    return f"{structure_id}_v{_voxel_tag(report['vox_um'])}um_T3000"
+
+
+def _load_run(structure_id: str) -> dict:
+    key = _run_key(structure_id)
+    with (RUNS / f"{key}.json").open(encoding="utf-8") as file:
+        result = json.load(file)
+    with np.load(RUNS / f"{key}.npz", allow_pickle=False) as arrays:
+        result.update({name: arrays[name] for name in arrays.files})
+    return result
+
+
+def _normalized_curve(run: dict, m0: float) -> np.ndarray:
+    denominator = m0 * float(run["B"][0])
+    if denominator <= 0:
+        raise ValueError(f"Nonpositive m0*B0 for {run['key']}")
+    return np.asarray(run["R"], dtype=float) / denominator
+
+
+def _distance(curve_a: np.ndarray, curve_b: np.ndarray, steps: int) -> float:
+    return metrics.pairwise_distance(curve_a[:steps], curve_b[:steps])
+
+
+def _mean_curve(curves: list[np.ndarray]) -> np.ndarray:
+    if not curves:
+        raise ValueError("Cannot average an empty curve set")
+    return np.mean(np.stack(curves), axis=0)
+
+
+def step3() -> dict:
+    with (OUT / "step2.json").open(encoding="utf-8") as file:
+        step2_result = json.load(file)
+    bio = load_yaml("configs/biology.yaml")
+    curve_ids = {
+        "sand": [f"{scan_id}_c{index}" for scan_id in ("SA", "SB") for index in range(4)],
+        "vertisol": [f"{scan_id}_c{index}" for scan_id in ("VA", "VB") for index in range(4)],
+    }
+    runs = {structure_id: _load_run(structure_id) for ids in curve_ids.values() for structure_id in ids}
+    curves = {key: _normalized_curve(value, bio["m0"]) for key, value in runs.items()}
+    means = {soil: _mean_curve([curves[key] for key in ids]) for soil, ids in curve_ids.items()}
+    within = {}
+    cross = {}
+    for steps in (1500, 3000):
+        within_by_soil = {}
+        within_pairs = {}
+        for soil, ids in curve_ids.items():
+            groups = {"within_specimen": [], "between_specimen": []}
+            all_distances = []
+            for index_a in range(len(ids)):
+                for index_b in range(index_a + 1, len(ids)):
+                    a, b = ids[index_a], ids[index_b]
+                    pair = {
+                        "a": a,
+                        "b": b,
+                        "distance": _distance(curves[a], curves[b], steps),
+                    }
+                    all_distances.append(pair)
+                    group = "within_specimen" if a.split("_")[0] == b.split("_")[0] else "between_specimen"
+                    groups[group].append(pair)
+            within_by_soil[soil] = {
+                group: [pair["distance"] for pair in pairs] for group, pairs in groups.items()
+            }
+            within_pairs[soil] = all_distances
+        cross_pairs = []
+        for sand_id in curve_ids["sand"]:
+            for vertisol_id in curve_ids["vertisol"]:
+                cross_pairs.append({
+                    "sand": sand_id,
+                    "vertisol": vertisol_id,
+                    "distance": _distance(curves[sand_id], curves[vertisol_id], steps),
+                })
+        all_within = [pair["distance"] for pairs in within_pairs.values() for pair in pairs]
+        cross_distances = [pair["distance"] for pair in cross_pairs]
+        within[steps] = {
+            "by_soil": within_by_soil,
+            "pairs": within_pairs,
+            "max_all": float(max(all_within)),
+            "p90_all": float(np.percentile(all_within, 90)),
+        }
+        cross[steps] = {
+            "pairs": cross_pairs,
+            "min": float(min(cross_distances)),
+            "max": float(max(cross_distances)),
+        }
+
+    alive = {
+        soil: {
+            "count": sum(bool(runs[key]["alive_primary"]) for key in ids),
+            "total": len(ids),
+            "crops": {key: bool(runs[key]["alive_primary"]) for key in ids},
+        }
+        for soil, ids in curve_ids.items()
+    }
+    mean_distances = {
+        str(steps): _distance(means["sand"], means["vertisol"], steps)
+        for steps in (1500, 3000)
+    }
+    criteria = {
+        "alive_at_least_6_each": all(alive[soil]["count"] >= 6 for soil in alive),
+        "soil_mean_distance_01500_gt_0_3": mean_distances["1500"] > 0.3,
+        "max_within_lt_half_min_cross_01500": within[1500]["max_all"] < 0.5 * cross[1500]["min"],
+    }
+    result = {
+        "alive_primary": alive,
+        "soil_mean_distance": mean_distances,
+        "within_soil": {str(k): v for k, v in within.items()},
+        "cross_soil": {str(k): v for k, v in cross.items()},
+        "secondary_p90_within_vs_min_cross_01500": {
+            "p90_within": within[1500]["p90_all"],
+            "min_cross": cross[1500]["min"],
+            "p90_lt_half_min_cross": within[1500]["p90_all"] < 0.5 * cross[1500]["min"],
+        },
+        "criteria": criteria,
+        "pass": all(criteria.values()),
+        "active_step2": "step2.json",
+        "K_density": step2_result["K_density"],
+    }
+    curves_path = OUT / "step3_soil_mean_curves.npz"
+    if curves_path.exists():
+        raise FileExistsError(f"Refusing to overwrite Stage 22 output: {curves_path}")
+    np.savez_compressed(curves_path, sand=means["sand"], vertisol=means["vertisol"])
+    _write_json(OUT / "step3.json", result)
+    print(json.dumps({
+        "alive_primary": alive,
+        "soil_mean_distance": mean_distances,
+        "max_within_1500": within[1500]["max_all"],
+        "p90_within_1500": within[1500]["p90_all"],
+        "min_cross_1500": cross[1500]["min"],
+        "criteria": criteria,
+        "pass": result["pass"],
+    }, indent=2))
+    return result
+
+
+def _control_mean(kind: str, m0: float) -> tuple[np.ndarray, list[np.ndarray]]:
+    curves = [_normalized_curve(_load_run(f"{kind}15_s{seed}"), m0) for seed in range(3)]
+    return _mean_curve(curves), curves
+
+
+def _stage21_mean(kind: str, m0: float) -> tuple[np.ndarray, list[np.ndarray]]:
+    curves = []
+    for seed in range(3):
+        run = S21.load_run(S21.jkey(kind, seed, 1.0))
+        curves.append(np.asarray(run["R"], dtype=float) / (m0 * float(run["B"][0])))
+    return _mean_curve(curves), curves
+
+
+def step4() -> dict:
+    with (OUT / "step2.json").open(encoding="utf-8") as file:
+        step2_result = json.load(file)
+    bio = load_yaml("configs/biology.yaml")
+    m0 = float(bio["m0"])
+    scan_ids = {
+        "sand": [f"{scan_id}_c{index}" for scan_id in ("SA", "SB") for index in range(4)],
+        "vertisol": [f"{scan_id}_c{index}" for scan_id in ("VA", "VB") for index in range(4)],
+    }
+    scan_curves = {
+        soil: [_normalized_curve(_load_run(structure_id), m0) for structure_id in ids]
+        for soil, ids in scan_ids.items()
+    }
+    scan_means = {soil: _mean_curve(curves) for soil, curves in scan_curves.items()}
+    controls = {kind: _control_mean(kind, m0) for kind in ("S", "V")}
+    synthetic5 = {kind: _stage21_mean(kind, m0) for kind in ("S", "V")}
+    distances = {}
+    for steps in (1500, 3000):
+        distances[str(steps)] = {
+            "S_scan_vs_S15": _distance(scan_means["sand"], controls["S"][0], steps),
+            "V_scan_vs_V15": _distance(scan_means["vertisol"], controls["V"][0], steps),
+            "S15_vs_V15": _distance(controls["S"][0], controls["V"][0], steps),
+            "S_scan_vs_V_scan": _distance(scan_means["sand"], scan_means["vertisol"], steps),
+        }
+    distances["1500"].update({
+        "S15_vs_S5": _distance(controls["S"][0], synthetic5["S"][0], 1500),
+        "V15_vs_V5": _distance(controls["V"][0], synthetic5["V"][0], 1500),
+    })
+    control_noise = {
+        kind: [
+            _distance(curves[a], curves[b], 3000)
+            for a in range(3) for b in range(a + 1, 3)
+        ]
+        for kind, (_, curves) in controls.items()
+    }
+    domain_comparisons = {}
+    for scan_id in SCAN_IDS:
+        specimen_curves = [
+            _normalized_curve(_load_run(f"{scan_id}_c{index}"), m0) for index in range(4)
+        ]
+        specimen_mean = _mean_curve(specimen_curves)
+        domain_curve = _normalized_curve(_load_run(f"{scan_id}_domain256"), m0)
+        domain_comparisons[scan_id] = {
+            "distance_to_100cube_specimen_mean_03000": _distance(domain_curve, specimen_mean, 3000),
+        }
+    source_effect = float(np.mean([
+        distances["3000"]["S_scan_vs_S15"],
+        distances["3000"]["V_scan_vs_V15"],
+    ]))
+    resolution_effect = float(np.mean([
+        distances["1500"]["S15_vs_S5"],
+        distances["1500"]["V15_vs_V5"],
+    ]))
+    result = {
+        "distances": distances,
+        "control_seed_noise_03000": control_noise,
+        "domain_size_comparisons": domain_comparisons,
+        "factorial_2x2": {
+            "synthetic_5um_S_vs_V": _distance(synthetic5["S"][0], synthetic5["V"][0], 1500),
+            "synthetic_15um_S_vs_V": distances["1500"]["S15_vs_V15"],
+            "scan_15um_S_vs_V": distances["1500"]["S_scan_vs_V_scan"],
+            "mean_structure_source_effect_at_15um": source_effect,
+            "mean_resolution_effect_in_synthetic": resolution_effect,
+            "larger_mean_curve_shift": "structure source" if source_effect > resolution_effect else "resolution",
+        },
+        "active_step2": "step2.json",
+        "K_density": step2_result["K_density"],
+    }
+    curve_path = OUT / "step4_curves.png"
+    if curve_path.exists():
+        raise FileExistsError(f"Refusing to overwrite Stage 22 figure: {curve_path}")
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    fig, axes = plt.subplots(1, 2, figsize=(12, 4))
+    x = np.arange(3000)
+    colors = {"sand": "#c45127", "vertisol": "#4b398a"}
+    for soil, curves in scan_curves.items():
+        for curve in curves:
+            axes[0].plot(x, curve, color=colors[soil], alpha=0.16, linewidth=0.8)
+        axes[0].plot(x, scan_means[soil], color=colors[soil], linewidth=2.2, label=f"{soil} scan mean")
+        axes[1].plot(x, scan_means[soil], color=colors[soil], linewidth=2.2, label=f"{soil} scan")
+    for kind, label in (("S", "S15 control"), ("V", "V15 control")):
+        color = colors["sand" if kind == "S" else "vertisol"]
+        axes[1].plot(x, controls[kind][0], color=color, linestyle="--", linewidth=1.6, label=label)
+        axes[1].plot(
+            np.arange(len(synthetic5[kind][0])), synthetic5[kind][0],
+            color=color, linestyle=":", linewidth=1.5, label=f"{kind}5 Stage 21",
+        )
+    for ax in axes:
+        ax.set_xlabel("model step")
+        ax.set_ylabel("R/(m0 B0)")
+        ax.legend(fontsize=8)
+    axes[0].set_title("Scan crops and soil means")
+    axes[1].set_title("Soil means and synthetic controls")
+    fig.tight_layout()
+    fig.savefig(curve_path, dpi=130)
+    plt.close(fig)
+    _write_json(OUT / "step4.json", result)
+    print(json.dumps(result, indent=2))
     return result
 
 
