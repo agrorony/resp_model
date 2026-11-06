@@ -1,0 +1,416 @@
+{
+  "representative_crops": {
+    "sand": {
+      "structure_id": "SA_c2",
+      "distance_to_soil_mean": 0.005925502619508898
+    },
+    "vertisol": {
+      "structure_id": "VB_c3",
+      "distance_to_soil_mean": 0.005840656513151884
+    }
+  },
+  "perturbations": {
+    "r_max": {
+      "0.5": {
+        "base_value": 1.0,
+        "perturbed_value": 0.5,
+        "alive_primary_both": true,
+        "alive_primary": {
+          "sand": true,
+          "vertisol": true
+        },
+        "distance_01500": 0.31161951123485143,
+        "peak_amplitude_order": {
+          "base": "Sand",
+          "perturbed": "Sand",
+          "unchanged": true
+        },
+        "peak_time_order": {
+          "base": "Sand earlier",
+          "perturbed": "Sand earlier",
+          "unchanged": true
+        },
+        "run_keys": {
+          "sand": "sens_r_max_x0.5_SA_c2_v15.000149um_T3000",
+          "vertisol": "sens_r_max_x0.5_VB_c3_v15.034357um_T3000"
+        }
+      },
+      "1.5": {
+        "base_value": 1.0,
+        "perturbed_value": 1.5,
+        "alive_primary_both": true,
+        "alive_primary": {
+          "sand": true,
+          "vertisol": true
+        },
+        "distance_01500": 0.6726715327793599,
+        "peak_amplitude_order": {
+          "base": "Sand",
+          "perturbed": "Sand",
+          "unchanged": true
+        },
+        "peak_time_order": {
+          "base": "Sand earlier",
+          "perturbed": "Sand earlier",
+          "unchanged": true
+        },
+        "run_keys": {
+          "sand": "sens_r_max_x1.5_SA_c2_v15.000149um_T3000",
+          "vertisol": "sens_r_max_x1.5_VB_c3_v15.034357um_T3000"
+        }
+      }
+    },
+    "Ks": {
+      "0.5": {
+        "base_value": 0.2,
+        "perturbed_value": 0.1,
+        "alive_primary_both": true,
+        "alive_primary": {
+          "sand": true,
+          "vertisol": true
+        },
+        "distance_01500": 0.6771502004778385,
+        "peak_amplitude_order": {
+          "base": "Sand",
+          "perturbed": "Sand",
+          "unchanged": true
+        },
+        "peak_time_order": {
+          "base": "Sand earlier",
+          "perturbed": "Sand earlier",
+          "unchanged": true
+        },
+        "run_keys": {
+          "sand": "sens_Ks_x0.5_SA_c2_v15.000149um_T3000",
+          "vertisol": "sens_Ks_x0.5_VB_c3_v15.034357um_T3000"
+        }
+      },
+      "1.5": {
+        "base_value": 0.2,
+        "perturbed_value": 0.30000000000000004,
+        "alive_primary_both": true,
+        "alive_primary": {
+          "sand": true,
+          "vertisol": true
+        },
+        "distance_01500": 0.5118944801999599,
+        "peak_amplitude_order": {
+          "base": "Sand",
+          "perturbed": "Sand",
+          "unchanged": true
+        },
+        "peak_time_order": {
+          "base": "Sand earlier",
+          "perturbed": "Sand earlier",
+          "unchanged": true
+        },
+        "run_keys": {
+          "sand": "sens_Ks_x1.5_SA_c2_v15.000149um_T3000",
+          "vertisol": "sens_Ks_x1.5_VB_c3_v15.034357um_T3000"
+        }
+      }
+    },
+    "Y": {
+      "0.5": {
+        "base_value": 0.4,
+        "perturbed_value": 0.2,
+        "alive_primary_both": false,
+        "alive_primary": {
+          "sand": true,
+          "vertisol": false
+        },
+        "distance_01500": 0.47966573306358795,
+        "peak_amplitude_order": {
+          "base": "Sand",
+          "perturbed": "Sand",
+          "unchanged": true
+        },
+        "peak_time_order": {
+          "base": "Sand earlier",
+          "perturbed": "Sand earlier",
+          "unchanged": true
+        },
+        "run_keys": {
+          "sand": "sens_Y_x0.5_SA_c2_v15.000149um_T3000",
+          "vertisol": "sens_Y_x0.5_VB_c3_v15.034357um_T3000"
+        }
+      },
+      "1.5": {
+        "base_value": 0.4,
+        "perturbed_value": 0.6000000000000001,
+        "alive_primary_both": true,
+        "alive_primary": {
+          "sand": true,
+          "vertisol": true
+        },
+        "distance_01500": 0.5081020103462897,
+        "peak_amplitude_order": {
+          "base": "Sand",
+          "perturbed": "Sand",
+          "unchanged": true
+        },
+        "peak_time_order": {
+          "base": "Sand earlier",
+          "perturbed": "Sand earlier",
+          "unchanged": true
+        },
+        "run_keys": {
+          "sand": "sens_Y_x1.5_SA_c2_v15.000149um_T3000",
+          "vertisol": "sens_Y_x1.5_VB_c3_v15.034357um_T3000"
+        }
+      }
+    },
+    "m0": {
+      "0.5": {
+        "base_value": 0.02,
+        "perturbed_value": 0.01,
+        "alive_primary_both": true,
+        "alive_primary": {
+          "sand": true,
+          "vertisol": true
+        },
+        "distance_01500": 0.8340473375546609,
+        "peak_amplitude_order": {
+          "base": "Sand",
+          "perturbed": "Sand",
+          "unchanged": true
+        },
+        "peak_time_order": {
+          "base": "Sand earlier",
+          "perturbed": "Sand earlier",
+          "unchanged": true
+        },
+        "run_keys": {
+          "sand": "sens_m0_x0.5_SA_c2_v15.000149um_T3000",
+          "vertisol": "sens_m0_x0.5_VB_c3_v15.034357um_T3000"
+        }
+      },
+      "1.5": {
+        "base_value": 0.02,
+        "perturbed_value": 0.03,
+        "alive_primary_both": true,
+        "alive_primary": {
+          "sand": true,
+          "vertisol": true
+        },
+        "distance_01500": 0.39031301997028417,
+        "peak_amplitude_order": {
+          "base": "Sand",
+          "perturbed": "Sand",
+          "unchanged": true
+        },
+        "peak_time_order": {
+          "base": "Sand earlier",
+          "perturbed": "Sand earlier",
+          "unchanged": true
+        },
+        "run_keys": {
+          "sand": "sens_m0_x1.5_SA_c2_v15.000149um_T3000",
+          "vertisol": "sens_m0_x1.5_VB_c3_v15.034357um_T3000"
+        }
+      }
+    },
+    "m_s": {
+      "0.5": {
+        "base_value": 0.1,
+        "perturbed_value": 0.05,
+        "alive_primary_both": true,
+        "alive_primary": {
+          "sand": true,
+          "vertisol": true
+        },
+        "distance_01500": 0.6597105144464006,
+        "peak_amplitude_order": {
+          "base": "Sand",
+          "perturbed": "Sand",
+          "unchanged": true
+        },
+        "peak_time_order": {
+          "base": "Sand earlier",
+          "perturbed": "Sand earlier",
+          "unchanged": true
+        },
+        "run_keys": {
+          "sand": "sens_m_s_x0.5_SA_c2_v15.000149um_T3000",
+          "vertisol": "sens_m_s_x0.5_VB_c3_v15.034357um_T3000"
+        }
+      },
+      "1.5": {
+        "base_value": 0.1,
+        "perturbed_value": 0.15000000000000002,
+        "alive_primary_both": true,
+        "alive_primary": {
+          "sand": true,
+          "vertisol": true
+        },
+        "distance_01500": 0.5246906103894526,
+        "peak_amplitude_order": {
+          "base": "Sand",
+          "perturbed": "Sand",
+          "unchanged": true
+        },
+        "peak_time_order": {
+          "base": "Sand earlier",
+          "perturbed": "Sand earlier",
+          "unchanged": true
+        },
+        "run_keys": {
+          "sand": "sens_m_s_x1.5_SA_c2_v15.000149um_T3000",
+          "vertisol": "sens_m_s_x1.5_VB_c3_v15.034357um_T3000"
+        }
+      }
+    },
+    "k_dis": {
+      "0.5": {
+        "base_value": 0.05,
+        "perturbed_value": 0.025,
+        "alive_primary_both": true,
+        "alive_primary": {
+          "sand": true,
+          "vertisol": true
+        },
+        "distance_01500": 0.4958618126295494,
+        "peak_amplitude_order": {
+          "base": "Sand",
+          "perturbed": "Sand",
+          "unchanged": true
+        },
+        "peak_time_order": {
+          "base": "Sand earlier",
+          "perturbed": "Sand earlier",
+          "unchanged": true
+        },
+        "run_keys": {
+          "sand": "sens_k_dis_x0.5_SA_c2_v15.000149um_T3000",
+          "vertisol": "sens_k_dis_x0.5_VB_c3_v15.034357um_T3000"
+        }
+      },
+      "1.5": {
+        "base_value": 0.05,
+        "perturbed_value": 0.07500000000000001,
+        "alive_primary_both": true,
+        "alive_primary": {
+          "sand": true,
+          "vertisol": true
+        },
+        "distance_01500": 0.524084914121737,
+        "peak_amplitude_order": {
+          "base": "Sand",
+          "perturbed": "Sand",
+          "unchanged": true
+        },
+        "peak_time_order": {
+          "base": "Sand earlier",
+          "perturbed": "Sand earlier",
+          "unchanged": true
+        },
+        "run_keys": {
+          "sand": "sens_k_dis_x1.5_SA_c2_v15.000149um_T3000",
+          "vertisol": "sens_k_dis_x1.5_VB_c3_v15.034357um_T3000"
+        }
+      }
+    },
+    "k_ex": {
+      "0.5": {
+        "base_value": 0.1,
+        "perturbed_value": 0.05,
+        "alive_primary_both": true,
+        "alive_primary": {
+          "sand": true,
+          "vertisol": true
+        },
+        "distance_01500": 0.5001644433146427,
+        "peak_amplitude_order": {
+          "base": "Sand",
+          "perturbed": "Sand",
+          "unchanged": true
+        },
+        "peak_time_order": {
+          "base": "Sand earlier",
+          "perturbed": "Sand earlier",
+          "unchanged": true
+        },
+        "run_keys": {
+          "sand": "sens_k_ex_x0.5_SA_c2_v15.000149um_T3000",
+          "vertisol": "sens_k_ex_x0.5_VB_c3_v15.034357um_T3000"
+        }
+      },
+      "1.5": {
+        "base_value": 0.1,
+        "perturbed_value": 0.15000000000000002,
+        "alive_primary_both": true,
+        "alive_primary": {
+          "sand": true,
+          "vertisol": true
+        },
+        "distance_01500": 0.6134231692509968,
+        "peak_amplitude_order": {
+          "base": "Sand",
+          "perturbed": "Sand",
+          "unchanged": true
+        },
+        "peak_time_order": {
+          "base": "Sand earlier",
+          "perturbed": "Sand earlier",
+          "unchanged": true
+        },
+        "run_keys": {
+          "sand": "sens_k_ex_x1.5_SA_c2_v15.000149um_T3000",
+          "vertisol": "sens_k_ex_x1.5_VB_c3_v15.034357um_T3000"
+        }
+      }
+    },
+    "K_density": {
+      "0.5": {
+        "base_value": 0.16445337235927582,
+        "perturbed_value": 0.08222668617963791,
+        "alive_primary_both": true,
+        "alive_primary": {
+          "sand": true,
+          "vertisol": true
+        },
+        "distance_01500": 0.675004210062699,
+        "peak_amplitude_order": {
+          "base": "Sand",
+          "perturbed": "Sand",
+          "unchanged": true
+        },
+        "peak_time_order": {
+          "base": "Sand earlier",
+          "perturbed": "Sand earlier",
+          "unchanged": true
+        },
+        "run_keys": {
+          "sand": "sens_K_density_x0.5_SA_c2_v15.000149um_T3000",
+          "vertisol": "sens_K_density_x0.5_VB_c3_v15.034357um_T3000"
+        }
+      },
+      "1.5": {
+        "base_value": 0.16445337235927582,
+        "perturbed_value": 0.24668005853891373,
+        "alive_primary_both": true,
+        "alive_primary": {
+          "sand": true,
+          "vertisol": true
+        },
+        "distance_01500": 0.5290886988166614,
+        "peak_amplitude_order": {
+          "base": "Sand",
+          "perturbed": "Sand",
+          "unchanged": true
+        },
+        "peak_time_order": {
+          "base": "Sand earlier",
+          "perturbed": "Sand earlier",
+          "unchanged": true
+        },
+        "run_keys": {
+          "sand": "sens_K_density_x1.5_SA_c2_v15.000149um_T3000",
+          "vertisol": "sens_K_density_x1.5_VB_c3_v15.034357um_T3000"
+        }
+      }
+    }
+  },
+  "n_runs": 32,
+  "active_step2": "step2.json"
+}

@@ -673,6 +673,141 @@ def step4() -> dict:
     return result
 
 
+def _load_run_key(key: str) -> dict:
+    with (RUNS / f"{key}.json").open(encoding="utf-8") as file:
+        result = json.load(file)
+    with np.load(RUNS / f"{key}.npz", allow_pickle=False) as arrays:
+        result.update({name: arrays[name] for name in arrays.files})
+    return result
+
+
+def _peak_order(sand: dict, vertisol: dict) -> tuple[str, str]:
+    amplitude = "Sand" if sand["R_peak"] > vertisol["R_peak"] else (
+        "Vertisol" if vertisol["R_peak"] > sand["R_peak"] else "tie"
+    )
+    sand_step = int(np.argmax(sand["R"]))
+    vertisol_step = int(np.argmax(vertisol["R"]))
+    timing = "Sand earlier" if sand_step < vertisol_step else (
+        "Vertisol earlier" if vertisol_step < sand_step else "tie"
+    )
+    return amplitude, timing
+
+
+def step5() -> dict:
+    with (OUT / "step2.json").open(encoding="utf-8") as file:
+        step2_result = json.load(file)
+    with (OUT / "step3.json").open(encoding="utf-8") as file:
+        step3_result = json.load(file)
+    if not step3_result["pass"]:
+        raise RuntimeError("Step 5 is gated on a passing Step 3")
+    bio = load_yaml("configs/biology.yaml")
+    soil_ids = {
+        "sand": [f"{scan_id}_c{index}" for scan_id in ("SA", "SB") for index in range(4)],
+        "vertisol": [f"{scan_id}_c{index}" for scan_id in ("VA", "VB") for index in range(4)],
+    }
+    mean_curves = {}
+    with np.load(OUT / "step3_soil_mean_curves.npz", allow_pickle=False) as arrays:
+        mean_curves = {soil: arrays[soil] for soil in soil_ids}
+    representatives = {}
+    for soil, ids in soil_ids.items():
+        candidates = []
+        for structure_id in ids:
+            run = _load_run(structure_id)
+            curve = _normalized_curve(run, bio["m0"])
+            candidates.append((metrics.pairwise_distance(curve, mean_curves[soil]), structure_id, run))
+        _, selected_id, selected_run = min(candidates, key=lambda value: value[0])
+        representatives[soil] = {
+            "structure_id": selected_id,
+            "distance_to_soil_mean": float(min(candidates, key=lambda value: value[0])[0]),
+            "run": selected_run,
+        }
+
+    hp = M.load_inherited()
+    parameters = {
+        "r_max": ("biology", float(bio["r_max"])),
+        "Ks": ("biology", float(bio["Ks"])),
+        "Y": ("biology", float(bio["Y"])),
+        "m0": ("biology", float(bio["m0"])),
+        "m_s": ("biology", float(bio["m_s"])),
+        "k_dis": ("biology", float(bio["k_dis"])),
+        "k_ex": ("model", float(hp["k_ex"])),
+        "K_density": ("capacity", float(step2_result["K_density"])),
+    }
+    keys = {}
+    base_key = {}
+    for parameter, (target, value) in parameters.items():
+        for factor in (0.5, 1.5):
+            perturbation = value * factor
+            for soil in ("sand", "vertisol"):
+                structure_id = representatives[soil]["structure_id"]
+                key = f"sens_{parameter}_x{factor}_{structure_id}_v{_voxel_tag(VOX_UM[structure_id[:2]])}um_T3000"
+                base_key[(parameter, factor, soil)] = key
+                biology_overrides, model_overrides = {}, {}
+                K_density = step2_result["K_density"]
+                if target == "biology":
+                    biology_overrides[parameter] = perturbation
+                elif target == "model":
+                    model_overrides[parameter] = perturbation
+                else:
+                    K_density = perturbation
+                _write_json(_job_config_path(key), {
+                    "structure_id": structure_id,
+                    "T": 3000,
+                    "OM_density": 1.0,
+                    "K_density": K_density,
+                    "biology_overrides": biology_overrides,
+                    "model_overrides": model_overrides,
+                })
+                keys[(parameter, factor, soil)] = key
+
+    results = run_jobs(list(keys.values()), ngpu=2)
+    output = {"representative_crops": {}, "perturbations": {}}
+    base_orders = _peak_order(representatives["sand"]["run"], representatives["vertisol"]["run"])
+    for soil in ("sand", "vertisol"):
+        output["representative_crops"][soil] = {
+            "structure_id": representatives[soil]["structure_id"],
+            "distance_to_soil_mean": representatives[soil]["distance_to_soil_mean"],
+        }
+    for parameter, (_, value) in parameters.items():
+        output["perturbations"][parameter] = {}
+        for factor in (0.5, 1.5):
+            sand_key = keys[(parameter, factor, "sand")]
+            vertisol_key = keys[(parameter, factor, "vertisol")]
+            sand_run, vertisol_run = results[sand_key], results[vertisol_key]
+            sand_arrays, vertisol_arrays = _load_run_key(sand_key), _load_run_key(vertisol_key)
+            orders = _peak_order(sand_arrays, vertisol_arrays)
+            output["perturbations"][parameter][str(factor)] = {
+                "base_value": value,
+                "perturbed_value": value * factor,
+                "alive_primary_both": bool(sand_run["alive_primary"] and vertisol_run["alive_primary"]),
+                "alive_primary": {
+                    "sand": bool(sand_run["alive_primary"]),
+                    "vertisol": bool(vertisol_run["alive_primary"]),
+                },
+                "distance_01500": _distance(sand_arrays["R"], vertisol_arrays["R"], 1500),
+                "peak_amplitude_order": {"base": base_orders[0], "perturbed": orders[0],
+                                         "unchanged": base_orders[0] == orders[0]},
+                "peak_time_order": {"base": base_orders[1], "perturbed": orders[1],
+                                    "unchanged": base_orders[1] == orders[1]},
+                "run_keys": {"sand": sand_key, "vertisol": vertisol_key},
+            }
+    output["n_runs"] = len(keys)
+    output["active_step2"] = "step2.json"
+    _write_json(OUT / "step5.json", output)
+    print(json.dumps({
+        "representative_crops": output["representative_crops"],
+        "n_runs": output["n_runs"],
+        "alive_both_counts": {
+            parameter: sum(
+                item["alive_primary_both"]
+                for item in perturbations.values()
+            )
+            for parameter, perturbations in output["perturbations"].items()
+        },
+    }, indent=2))
+    return output
+
+
 if __name__ == "__main__":
     command = sys.argv[1]
     if command == "job":
