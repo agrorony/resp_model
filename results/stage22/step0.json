@@ -1,0 +1,68 @@
+{
+ "maps": {
+  "S": {
+   "matric": {
+    "wet_fraction_resolved_pores": 0.012410848475927331,
+    "wet_fraction_habitat": 0.012171713534187707,
+    "habitat_volume_fraction": 0.31778955459594727,
+    "S_w_voxel": 0.21515290329387488,
+    "S_w_used_for_film": 0.21515290329387488,
+    "f_rel": 0.005967934338703577,
+    "air_entry_diameter_um": 47.5,
+    "air_entry_psi_kPa": -6.063157894736842,
+    "LT_median_um": 125.0
+   },
+   "equal50": {
+    "wet_fraction_resolved_pores": 0.5000000937573541,
+    "wet_fraction_habitat": 0.4998790237271045,
+    "habitat_volume_fraction": 0.31778955459594727,
+    "S_w_voxel": 0.6026450126935097,
+    "S_w_used_for_film": 0.5000000937573541,
+    "f_rel": 0.09921262776074374,
+    "air_entry_diameter_um": 125.0,
+    "air_entry_psi_kPa": -2.304,
+    "LT_median_um": 125.0
+   },
+   "native_K_density_equal50": 0.222259188896976,
+   "native_K_density_stage21": 0.13701562583446503
+  },
+  "V": {
+   "matric": {
+    "wet_fraction_resolved_pores": 0.7646353561975059,
+    "wet_fraction_habitat": 0.7377804064381505,
+    "habitat_volume_fraction": 0.22422969341278076,
+    "S_w_voxel": 0.9412025809288025,
+    "S_w_used_for_film": 0.9412025809288025,
+    "f_rel": 0.8171034258706635,
+    "air_entry_diameter_um": 47.5,
+    "air_entry_psi_kPa": -6.063157894736842,
+    "LT_median_um": 35.0
+   },
+   "equal50": {
+    "wet_fraction_resolved_pores": 0.5,
+    "wet_fraction_habitat": 0.44295033160993635,
+    "habitat_volume_fraction": 0.22422969341278076,
+    "S_w_voxel": 0.8750929236412048,
+    "S_w_used_for_film": 0.5,
+    "f_rel": 0.09921256574801246,
+    "air_entry_diameter_um": 35.0,
+    "air_entry_psi_kPa": -8.22857142857143,
+    "LT_median_um": 35.0
+   },
+   "native_K_density_equal50": 0.15553080141544343,
+   "native_K_density_stage21": 0.1918911188840866
+  }
+ },
+ "K_density_used": 0.16445337235927582,
+ "off_switch_reproduction": {
+  "S": {
+   "R_rel_err_max": 0.0,
+   "B_rel_err_max": 0.0
+  },
+  "V": {
+   "R_rel_err_max": 0.0,
+   "B_rel_err_max": 0.0
+  }
+ },
+ "seconds": 281.23006415367126
+}

@@ -1,0 +1,80 @@
+{
+ "runs": {
+  "S_eq": {
+   "alive_primary": true,
+   "alive_secondary": true,
+   "B_peak_over_B0": 6.154113441634037,
+   "R_peak_over_floor": 22.358782566431774,
+   "growth_share_at_peak": 0.8749669278731882,
+   "peak_frac": 0.09539693128752502,
+   "R_end_over_peak": 0.3423306283975076,
+   "fuel_remaining_final": 0.02346624679371317,
+   "diffusion_into_wet_habitat": 11821544.621851861,
+   "diffusion_into_drained_habitat": 1667873.2748311977,
+   "exchange_into_wet_habitat": 580720.1281064753,
+   "exchange_into_drained_habitat": 141.32783883367378,
+   "mass_balance_rel": 8.242043224368912e-16,
+   "seconds": 329.48903131484985
+  },
+  "V_eq": {
+   "alive_primary": true,
+   "alive_secondary": true,
+   "B_peak_over_B0": 4.70625427063933,
+   "R_peak_over_floor": 18.942529659108242,
+   "growth_share_at_peak": 0.808409783062914,
+   "peak_frac": 0.20880587058038694,
+   "R_end_over_peak": 0.3866510761029354,
+   "fuel_remaining_final": 0.023466246793713154,
+   "diffusion_into_wet_habitat": 10491454.142369907,
+   "diffusion_into_drained_habitat": 1912313.1108068018,
+   "exchange_into_wet_habitat": 572940.2689498828,
+   "exchange_into_drained_habitat": 205935.9170193559,
+   "mass_balance_rel": 2.842083870472039e-16,
+   "seconds": 171.32613611221313
+  },
+  "S_21": {
+   "alive_primary": true,
+   "alive_secondary": true,
+   "B_peak_over_B0": 2.7099937632448947,
+   "R_peak_over_floor": 6.8800237982213694,
+   "growth_share_at_peak": 0.8463932799686978,
+   "peak_frac": 0.07538358905937291,
+   "R_end_over_peak": 0.8705975383166988,
+   "fuel_remaining_final": 0.02346624679371317,
+   "diffusion_into_wet_habitat": 825916.6228613509,
+   "diffusion_into_drained_habitat": 3312645.3896286734,
+   "exchange_into_wet_habitat": 80706.27870207204,
+   "exchange_into_drained_habitat": 2651531.427685446,
+   "mass_balance_rel": 1.023150193369934e-15,
+   "seconds": 213.15229415893555
+  },
+  "V_21": {
+   "alive_primary": true,
+   "alive_secondary": true,
+   "B_peak_over_B0": 4.660844022335745,
+   "R_peak_over_floor": 19.278515944762532,
+   "growth_share_at_peak": 0.8153589779180582,
+   "peak_frac": 0.19946631087391595,
+   "R_end_over_peak": 0.373431827530629,
+   "fuel_remaining_final": 0.023466246793713154,
+   "diffusion_into_wet_habitat": 11672583.394651074,
+   "diffusion_into_drained_habitat": 849311.1426861129,
+   "exchange_into_wet_habitat": 614608.3162682101,
+   "exchange_into_drained_habitat": 22108.144788581136,
+   "mass_balance_rel": 2.273667096377631e-16,
+   "seconds": 324.6300036907196
+  }
+ },
+ "distances": {
+  "S_eq_vs_V_eq": 0.19324483117324795,
+  "S_eq_vs_S_21": 1.1027600145581657,
+  "V_eq_vs_V_21": 0.010118664118817792,
+  "S_eq_vs_V_21": 0.17043745597275137,
+  "V_eq_vs_S_21": 1.2046024308428547,
+  "S_21_vs_V_21": 1.2287722149775282
+ },
+ "both_primary_alive": true,
+ "reading": "collapsed: Stage 21 distinction carried by the wetting asymmetry",
+ "proceed_step2": false,
+ "seconds": 332.2257397174835
+}
