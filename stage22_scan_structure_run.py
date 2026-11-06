@@ -94,6 +94,178 @@ def _analyse_and_save(structure_id: str, structure, xp) -> dict:
     return report
 
 
+def _ensure_structure_cache(step1: dict) -> None:
+    for scan_id in SCAN_IDS:
+        selected_origins = step1["positions"][scan_id]["selected"]
+        structure_ids = [f"{scan_id}_c{index}" for index in range(len(selected_origins))]
+        domain_id = f"{scan_id}_domain{step1['positions'][scan_id]['domain_actual_size']}"
+        if not any(not (STRUCTURES / f"{structure_id}.npz").exists()
+                   for structure_id in [*structure_ids, domain_id]):
+            continue
+        volume = scan3d.load_scan(scan_id, ROOT)
+        xp = P.get_xp()
+        for structure_id in structure_ids:
+            path = STRUCTURES / f"{structure_id}.npz"
+            if path.exists():
+                continue
+            report1 = step1["reports"][structure_id]
+            crop = scan3d.crop_at(volume, tuple(report1["origin"]), report1["n"])
+            structure, _ = scan3d.crop_to_structure(crop, scan_id, VOX_UM[scan_id], xp=xp)
+            structure.phase = xp.asarray(structure.phase)
+            _analyse_and_save(structure_id, structure, xp)
+        path = STRUCTURES / f"{domain_id}.npz"
+        if not path.exists():
+            report1 = step1["reports"][domain_id]
+            crop = scan3d.crop_at(volume, tuple(report1["origin"]), report1["actual_size"])
+            structure, _ = scan3d.crop_to_structure(crop, scan_id, VOX_UM[scan_id], xp=xp)
+            structure.phase = xp.asarray(structure.phase)
+            _analyse_and_save(domain_id, structure, xp)
+        del volume
+    xp = P.get_xp()
+    for kind in ("S", "V"):
+        for seed in range(3):
+            structure_id = f"{kind}15_s{seed}"
+            if (STRUCTURES / f"{structure_id}.npz").exists():
+                continue
+            structure = P.build_structure(kind, seed_offset=seed, n=100, vox_um=15.0, xp=xp)
+            _analyse_and_save(structure_id, structure, xp)
+
+
+def _job_config_path(key: str) -> Path:
+    return JOB_CONFIGS / f"{key}.json"
+
+
+def _voxel_tag(vox_um: float) -> str:
+    return f"{vox_um:.6f}".rstrip("0").rstrip(".")
+
+
+def job(key: str) -> dict:
+    with _job_config_path(key).open(encoding="utf-8") as file:
+        config = json.load(file)
+    xp = P.get_xp()
+    structure = _load_structure(config["structure_id"], xp)
+    hp = M.load_inherited()
+    hp.update(config.get("model_overrides", {}))
+    bio = load_yaml("configs/biology.yaml")
+    bio.update(config.get("biology_overrides", {}))
+    K_density = config.get("K_density", S21.load("step1.json")["K_density"])
+    start = time.time()
+    out, summary = M.run_structure(
+        structure, hp, bio, xp, K_density, config["OM_density"], T=config["T"]
+    )
+    elapsed = time.time() - start
+    if summary["mass_balance_rel"] > 1e-10:
+        raise RuntimeError(f"{key} mass balance failed: {summary['mass_balance_rel']}")
+    if structure.n == 100 and elapsed > 600:
+        raise TimeoutError(f"{key} exceeded the 10 minute 100-cube run limit: {elapsed:.1f}s")
+    B0 = hp["B0_density"] * structure.phase.size
+    summary.update({
+        "key": key,
+        "structure_id": config["structure_id"],
+        "T": config["T"],
+        "OM_density": config["OM_density"],
+        "K_density": K_density,
+        "vox_um": structure.vox_um,
+        "n": structure.n,
+        "seconds": elapsed,
+        "R_peak": float(np.max(P.to_np(out["R"]))),
+        "R_floor": float(bio["m0"] * B0),
+        "backend": xp.__name__,
+    })
+    RUNS.mkdir(parents=True, exist_ok=True)
+    json_path = RUNS / f"{key}.json"
+    npz_path = RUNS / f"{key}.npz"
+    if json_path.exists() or npz_path.exists():
+        raise FileExistsError(f"Refusing to overwrite Stage 22 run: {key}")
+    arrays = {name: P.to_np(out[name]) for name in M.STAT_NAMES}
+    np.savez_compressed(npz_path, **arrays)
+    _write_json(json_path, summary)
+    return summary
+
+
+def run_jobs(keys: list[str], ngpu: int = 2) -> dict[str, dict]:
+    RUNS.mkdir(parents=True, exist_ok=True)
+    JOB_CONFIGS.mkdir(parents=True, exist_ok=True)
+    running = {}
+    pending = list(keys)
+    results = {}
+    while pending or running:
+        for slot in range(ngpu):
+            if slot in running or not pending:
+                continue
+            key = pending.pop(0)
+            json_path, npz_path = RUNS / f"{key}.json", RUNS / f"{key}.npz"
+            if json_path.exists() or npz_path.exists():
+                raise FileExistsError(f"Refusing to reuse prior Stage 22 output: {key}")
+            config_path = _job_config_path(key)
+            if not config_path.exists():
+                raise FileNotFoundError(f"Missing job configuration for {key}")
+            env = dict(os.environ, CUDA_VISIBLE_DEVICES=str(slot), PYTHONDONTWRITEBYTECODE="1")
+            process = subprocess.Popen(
+                [sys.executable, Path(__file__).name, "job", key],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.PIPE,
+                text=True,
+                env=env,
+            )
+            running[slot] = (key, process, time.time())
+            print(f"start {key} on GPU {slot}", flush=True)
+        time.sleep(2)
+        for slot, (key, process, started) in list(running.items()):
+            structure_id = "_".join(key.split("_")[:-2])
+            size = int(structure_id.rsplit("domain", 1)[1]) if "_domain" in structure_id else 100
+            if size == 100 and process.poll() is None and time.time() - started > 600:
+                process.terminate()
+                process.wait()
+                raise TimeoutError(f"{key} exceeded the 10 minute 100-cube run limit")
+            if process.poll() is None:
+                continue
+            stderr = process.stderr.read() if process.stderr else ""
+            if process.returncode:
+                for other_slot, (_, other, _) in list(running.items()):
+                    if other_slot != slot and other.poll() is None:
+                        other.terminate()
+                raise RuntimeError(f"Stage 22 run {key} failed: {stderr[-4000:]}")
+            with (RUNS / f"{key}.json").open(encoding="utf-8") as file:
+                results[key] = json.load(file)
+            print(f"done {key} ({results[key]['seconds']:.1f}s)", flush=True)
+            del running[slot]
+    return results
+
+
+def step2() -> dict:
+    with (OUT / "step1.json").open(encoding="utf-8") as file:
+        step1_result = json.load(file)
+    _ensure_structure_cache(step1_result)
+    keys = []
+    for scan_id in SCAN_IDS:
+        voxel_tag = _voxel_tag(VOX_UM[scan_id])
+        keys.extend(f"{scan_id}_c{crop}_v{voxel_tag}um_T3000" for crop in range(4))
+    for scan_id in SCAN_IDS:
+        size = step1_result["positions"][scan_id]["domain_actual_size"]
+        voxel_tag = _voxel_tag(VOX_UM[scan_id])
+        keys.append(f"{scan_id}_domain{size}_v{voxel_tag}um_T3000")
+    for kind in ("S", "V"):
+        keys.extend(f"{kind}15_s{seed}_v15um_T3000" for seed in range(3))
+    S21.check_biology()
+    K_density = S21.load("step1.json")["K_density"]
+    for key in keys:
+        parts = key.split("_")
+        structure_id = "_".join(parts[:-2])
+        _write_json(_job_config_path(key), {
+            "structure_id": structure_id,
+            "T": 3000,
+            "OM_density": 1.0,
+            "K_density": K_density,
+            "biology_overrides": {},
+            "model_overrides": {},
+        })
+    results = run_jobs(keys, ngpu=2)
+    output = {"K_density": K_density, "T": 3000, "OM_density": 1.0, "runs": results}
+    _write_json(OUT / "step2.json", output)
+    return output
+
+
 def _aggregate(reports: dict[str, dict], ids: list[str]) -> dict:
     result = {"n": len(ids)}
     for metric in GEOMETRY_METRICS:
@@ -247,4 +419,7 @@ def step1() -> dict:
 
 if __name__ == "__main__":
     command = sys.argv[1]
-    globals()[command]()
+    if command == "job":
+        job(sys.argv[2])
+    else:
+        globals()[command]()

@@ -1,3 +1,4 @@
 /.venv
 __pycache__/
 results/stage22_scan_structure/structures/
+results/stage22_scan_structure/job_configs/
