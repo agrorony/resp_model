@@ -1067,3 +1067,24 @@ Branched from Stage 19. F1 = Millington-Quirk film D(d) x D_scale x S_w^(10/3) (
 - **Step 4 (A1):** S3a pass (n=128 0.689/0.677/0.607; n=40 0.943/0.959/0.870), S3b pass (noise 0.014 vs 0.607), MASS pass (5e-12), **S4 FAIL at n=128** -- shuffling kills Vertisol (2,088 regions, median inscribed 20 um < 30 um habitat threshold, K>0 on 10% of macro cells), distance rises 0.689 -> 1.901; passes at n=40 (drop 0.299). Shuffled Sand needed `stage20_conserve_om_pools` (empty trapped pool would drop 20% of OM).
 
 **Stage 20 headline: physical (Millington-Quirk) films with matric wetting give the first alive-and-distinct, seed-robust, structure-carried result (A1, 0.689 at n=128; 0.639 at equal coating fractions), but the pre-registered shuffle control fails at n=128 because shuffling destroys Vertisol's habitat rather than only its arrangement. Equal saturation (W1) lowers distinctness everywhere. 2026-10-12. Full detail in docs/stage_results/STAGE20_RESULTS.md.**
+
+## Stage 22 — scan-derived structure (Sand and Vertisol only)
+
+Ran the pre-registered µCT structure test on VA/VB Vertisol and SA/SB Sand.
+Step 0 passed: all input label/porosity gates passed, biology.yaml matched
+main, and the fresh Stage 21 reproduction matched its stored curve exactly.
+The Step 1 geometry/predictions were committed before any respiration run.
+Derived crop arrays remain local-only; tracked outputs live under
+`results/stage22_scan_structure/` to preserve the earlier equal-wetting Stage
+22 files.
+
+**Headline:** all 8 main crops per soil are primary-alive. The comparable
+0–1500-step distinctness gate passes (mean S–V distance 0.554; max
+within-soil distance 0.110 vs. min cross-soil 0.422), but the distance falls
+to 0.203 over all 3000 steps. The scan-vs-control structure effect at 15 µm
+(0.214 mean distance on steps 0–1500) is below the synthetic resolution
+effect (0.241 on the same interval). Step 6 shapes for both soils are rise /
+flat / rise-then-fall at low / primary / high r_lit. No laboratory respiration
+data were used.
+
+Full results: `docs/stage_results/STAGE22_SCAN_STRUCTURE_RESULTS.md`.

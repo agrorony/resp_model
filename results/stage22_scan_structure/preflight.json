@@ -1,0 +1,53 @@
+{
+  "baseline": {
+    "branch": "agents/stage22-scan-structure",
+    "head": "72b45fe534cb3f9f294c51d2bee8eb3aa4f1a692",
+    "origin_main": "72b45fe534cb3f9f294c51d2bee8eb3aa4f1a692",
+    "biology_matches_main": true,
+    "biology_sha256": "c76d9869dc5847f830ac3caadcce4c68986a9180875f3333504c2482a4b0bf5f"
+  },
+  "stage21_reproduction": {
+    "run": "S, seed 0, OM 1.0, T 1500, n=256, vox_um=5",
+    "backend": "cupy",
+    "max_relative_difference_R": 0.0,
+    "mass_balance_rel": 1.023150193369934e-15,
+    "gate_pass": true
+  },
+  "scan_inputs": {
+    "VA": {
+      "shape": [650, 650, 650],
+      "dtype": "uint8",
+      "label_fractions": {"0": 0.8227625634956759, "1": 0.023146141101502047, "2": 0.0024028730086481564, "5": 0.15168842239417387},
+      "pore_fraction": 0.15168842239417387,
+      "pom_2_plus_3_fraction": 0.0024028730086481564,
+      "gate_pass": true,
+      "slices": "inputs_VA.png"
+    },
+    "VB": {
+      "shape": [650, 650, 650],
+      "dtype": "uint8",
+      "label_fractions": {"0": 0.7544653800637232, "1": 0.020962286754665453, "2": 0.0081695657715066, "5": 0.21640276741046467},
+      "pore_fraction": 0.21640276741010467,
+      "pom_2_plus_3_fraction": 0.0081695657715066,
+      "gate_pass": true,
+      "slices": "inputs_VB.png"
+    },
+    "SA": {
+      "shape": [650, 650, 650],
+      "dtype": "bool",
+      "unique_values": [false, true],
+      "pore_fraction": 0.3049832207555758,
+      "gate_pass": true,
+      "slices": "inputs_SA.png"
+    },
+    "SB": {
+      "shape": [650, 650, 650],
+      "dtype": "bool",
+      "unique_values": [false, true],
+      "pore_fraction": 0.4084788675466545,
+      "gate_pass": true,
+      "slices": "inputs_SB.png"
+    }
+  },
+  "core_interior_check": "Central xy, xz, and yz slices inspected; no container wall or exterior air was apparent."
+}
