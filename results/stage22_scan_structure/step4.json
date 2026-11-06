@@ -42,12 +42,13 @@
     }
   },
   "factorial_2x2": {
+    "effect_comparison_interval_steps": 1500,
     "synthetic_5um_S_vs_V": 1.2274376344903275,
     "synthetic_15um_S_vs_V": 1.060304082741498,
     "scan_15um_S_vs_V": 0.5543772695952314,
-    "mean_structure_source_effect_at_15um": 0.2948736489235308,
+    "mean_structure_source_effect_at_15um": 0.21355681229706097,
     "mean_resolution_effect_in_synthetic": 0.2409578020476728,
-    "larger_mean_curve_shift": "structure source"
+    "larger_mean_curve_shift": "resolution"
   },
   "active_step2": "step2.json",
   "K_density": 0.16445337235927582

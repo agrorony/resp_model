@@ -1082,8 +1082,9 @@ Derived crop arrays remain local-only; tracked outputs live under
 0–1500-step distinctness gate passes (mean S–V distance 0.554; max
 within-soil distance 0.110 vs. min cross-soil 0.422), but the distance falls
 to 0.203 over all 3000 steps. The scan-vs-control structure effect at 15 µm
-(0.295 mean distance) is slightly larger than synthetic resolution change
-(0.241). Step 6 shapes for both soils are rise / flat / rise-then-fall at
-low / primary / high r_lit. No laboratory respiration data were used.
+(0.214 mean distance on steps 0–1500) is below the synthetic resolution
+effect (0.241 on the same interval). Step 6 shapes for both soils are rise /
+flat / rise-then-fall at low / primary / high r_lit. No laboratory respiration
+data were used.
 
 Full results: `docs/stage_results/STAGE22_SCAN_STRUCTURE_RESULTS.md`.

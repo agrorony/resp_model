@@ -133,8 +133,12 @@ a material qualification, not hidden by the prefix verdict.
 | S15 – Stage 21 S5 | 0.4435 | n/a (Stage 21 reference ends at 1500) |
 | V15 – Stage 21 V5 | 0.0384 | n/a (Stage 21 reference ends at 1500) |
 
-The structure-source effect at 15 µm (mean scan-vs-control distance 0.2949)
-exceeded the synthetic resolution effect (mean 5-vs-15 µm distance 0.2410).
+On the shared 0–1500 interval, the structure-source effect at 15 µm
+(mean scan-vs-control distance 0.2136) was below the synthetic resolution
+effect (mean 5-vs-15 µm distance 0.2410). Resolution therefore moved the
+curves slightly more than structure source under this matched-horizon
+comparison. The separate 0–3000 scan-vs-control distances remain reported
+above but are not used in that ranking.
 The 2×2 S–V distances on steps 0–1500 were: synthetic 5 µm 1.2274,
 synthetic 15 µm 1.0603, scan 15 µm 0.5544. Domain-size distances from each
 256^3 crop to its specimen's 100^3 mean were VA 0.0050, VB 0.0036, SA 0.0509,
@@ -184,9 +188,10 @@ can be low or negative when uptake is small.
 ## Verdict
 
 The scan-backed model passes the Stage 21-comparable distinctness gate at
-OM=1.0 and T=3000 with all main crops primary-alive. Scan structure moves the
-curves more than the tested synthetic resolution change at 15 µm, and the
-domain-size checks are close to their corresponding crop means. However, the
+OM=1.0 and T=3000 with all main crops primary-alive. On the shared
+0–1500 interval, synthetic resolution moves the curves slightly more than
+structure source at 15 µm, and the domain-size checks are close to their
+corresponding crop means. However, the
 distinctness is not maintained across the full 3000-step interval, the
 Vertisol's delivered substrate remains wet-diffusion dominated, and predicted
 period shapes depend strongly on the literature time mapping. These are

@@ -614,8 +614,8 @@ def step4() -> dict:
             "distance_to_100cube_specimen_mean_03000": _distance(domain_curve, specimen_mean, 3000),
         }
     source_effect = float(np.mean([
-        distances["3000"]["S_scan_vs_S15"],
-        distances["3000"]["V_scan_vs_V15"],
+        distances["1500"]["S_scan_vs_S15"],
+        distances["1500"]["V_scan_vs_V15"],
     ]))
     resolution_effect = float(np.mean([
         distances["1500"]["S15_vs_S5"],
@@ -626,6 +626,7 @@ def step4() -> dict:
         "control_seed_noise_03000": control_noise,
         "domain_size_comparisons": domain_comparisons,
         "factorial_2x2": {
+            "effect_comparison_interval_steps": 1500,
             "synthetic_5um_S_vs_V": _distance(synthetic5["S"][0], synthetic5["V"][0], 1500),
             "synthetic_15um_S_vs_V": distances["1500"]["S15_vs_V15"],
             "scan_15um_S_vs_V": distances["1500"]["S_scan_vs_V_scan"],
