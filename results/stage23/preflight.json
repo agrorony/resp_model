@@ -1,0 +1,313 @@
+{
+  "stage": 23,
+  "step": 0,
+  "main_commit": "eecc7b217aaa0388ab41ad441efe10cf8c58c2fa",
+  "biology_config": {
+    "sha256": "c76d9869dc5847f830ac3caadcce4c68986a9180875f3333504c2482a4b0bf5f",
+    "matches_main": true,
+    "matches_origin_main": true
+  },
+  "stage22_reproduction": {
+    "reference_run": "results\\stage22_scan_structure\\runs\\SA_c0_v15.000149um_T3000.npz",
+    "structure_id": "SA_c0",
+    "origin": [
+      400,
+      300,
+      100
+    ],
+    "shape": [
+      100,
+      100,
+      100
+    ],
+    "fines_solid_threshold_um": 135.0013427734375,
+    "chemistry": "chem_eq",
+    "K_density": 0.16445337235927582,
+    "T": 3000,
+    "max_relative_difference": 0.0,
+    "max_difference_over_peak": 0.0,
+    "gate_max_relative_lt_1e-8": true
+  },
+  "chemistry": {
+    "S": {
+      "soil": "Sand (Rehovot)",
+      "Cmic_mg_kg": 199.44,
+      "LOI_SOM_g_g": 0.016732,
+      "Corg_g_kg": 9.705,
+      "core_BD_g_cm3": 1.3947,
+      "Corg_mg_cm3_reported": 13.535,
+      "Cmic_ug_cm3_reported": 278.16,
+      "Corg_mg_cm3": 13.5355635,
+      "Cmic_ug_cm3": 278.158968,
+      "OM_density": 0.5843486121885222,
+      "B0_density": 0.008807455109562084
+    },
+    "V": {
+      "soil": "Vertisol (Bnei Re'em)",
+      "Cmic_mg_kg": 406.61,
+      "LOI_SOM_g_g": 0.048627,
+      "Corg_g_kg": 28.204,
+      "core_BD_g_cm3": 1.3482,
+      "Corg_mg_cm3_reported": 38.023,
+      "Cmic_ug_cm3_reported": 548.17,
+      "Corg_mg_cm3": 38.024632800000006,
+      "Cmic_ug_cm3": 548.191602,
+      "OM_density": 1.6415749078830861,
+      "B0_density": 0.017357602959088933
+    },
+    "L": {
+      "soil": "Loess (Mishmar HaNegev)",
+      "Cmic_mg_kg": 315.57,
+      "LOI_SOM_g_g": 0.027252,
+      "Corg_g_kg": 15.806,
+      "core_BD_g_cm3": 1.1344,
+      "Corg_mg_cm3_reported": 17.931,
+      "Cmic_ug_cm3_reported": 357.99,
+      "Corg_mg_cm3": 17.930326400000002,
+      "Cmic_ug_cm3": 357.982608,
+      "OM_density": 0.7740764799283917,
+      "B0_density": 0.011334941931348983
+    },
+    "chem_S": {
+      "soil": "Sand (Rehovot)",
+      "Cmic_mg_kg": 199.44,
+      "LOI_SOM_g_g": 0.016732,
+      "Corg_g_kg": 9.705,
+      "core_BD_g_cm3": 1.3947,
+      "Corg_mg_cm3_reported": 13.535,
+      "Cmic_ug_cm3_reported": 278.16,
+      "Corg_mg_cm3": 13.5355635,
+      "Cmic_ug_cm3": 278.158968,
+      "OM_density": 0.5843486121885222,
+      "B0_density": 0.008807455109562084
+    },
+    "chem_V": {
+      "soil": "Vertisol (Bnei Re'em)",
+      "Cmic_mg_kg": 406.61,
+      "LOI_SOM_g_g": 0.048627,
+      "Corg_g_kg": 28.204,
+      "core_BD_g_cm3": 1.3482,
+      "Corg_mg_cm3_reported": 38.023,
+      "Cmic_ug_cm3_reported": 548.17,
+      "Corg_mg_cm3": 38.024632800000006,
+      "Cmic_ug_cm3": 548.191602,
+      "OM_density": 1.6415749078830861,
+      "B0_density": 0.017357602959088933
+    },
+    "chem_L": {
+      "soil": "Loess (Mishmar HaNegev)",
+      "Cmic_mg_kg": 315.57,
+      "LOI_SOM_g_g": 0.027252,
+      "Corg_g_kg": 15.806,
+      "core_BD_g_cm3": 1.1344,
+      "Corg_mg_cm3_reported": 17.931,
+      "Cmic_ug_cm3_reported": 357.99,
+      "Corg_mg_cm3": 17.930326400000002,
+      "Cmic_ug_cm3": 357.982608,
+      "OM_density": 0.7740764799283917,
+      "B0_density": 0.011334941931348983
+    },
+    "chem_eq": {
+      "soil": "Stage 22 equal chemistry",
+      "OM_density": 1.0,
+      "B0_density": 0.0125
+    }
+  },
+  "chemistry_validation": "Derived columns agree with prompt values to four significant figures.",
+  "input_gates": {
+    "VA": {
+      "dtype": "uint8",
+      "shape": [
+        650,
+        650,
+        650
+      ],
+      "fractions": {
+        "0": 0.8227625634956759,
+        "1": 0.02314614110150205,
+        "2": 0.0024028730086481567,
+        "5": 0.15168842239417388
+      },
+      "invalid_counts": {},
+      "pore_fraction": 0.15168842239417388,
+      "pom_fraction": 0.0024028730086481567,
+      "gate": {
+        "labels_and_porosity": true,
+        "pass": true
+      },
+      "input_path": "E:\\PROJECTS\\Yael_Mishael\\Rony\\remote_computer backup\\nnUNet_resources\\bnei_reem_specA_unified\\inference_concatenated\\bnei_reem_specA_unified.nii.gz",
+      "input_figure": "results\\stage23\\inputs_VA.png"
+    },
+    "VB": {
+      "dtype": "uint8",
+      "shape": [
+        650,
+        650,
+        650
+      ],
+      "fractions": {
+        "0": 0.7544653800637232,
+        "1": 0.020962286754665452,
+        "2": 0.0081695657715066,
+        "5": 0.2164027674101047
+      },
+      "invalid_counts": {},
+      "pore_fraction": 0.2164027674101047,
+      "pom_fraction": 0.0081695657715066,
+      "gate": {
+        "labels_and_porosity": true,
+        "pass": true
+      },
+      "input_path": "E:\\PROJECTS\\Yael_Mishael\\Rony\\remote_computer backup\\nnUNet_resources\\bnei_reem_specB_unified\\inference_concatenated\\bnei_reem_specB_unified.nii.gz",
+      "input_figure": "results\\stage23\\inputs_VB.png"
+    },
+    "SA": {
+      "dtype": "bool",
+      "shape": [
+        650,
+        650,
+        650
+      ],
+      "unique_values": [
+        false,
+        true
+      ],
+      "pore_fraction": 0.30498322075557577,
+      "gate": {
+        "labels_and_porosity": true,
+        "pass": true
+      },
+      "input_path": "E:\\PROJECTS\\Yael_Mishael\\Rony\\remote_computer backup\\10.5\\rehovot_samp_2.npy",
+      "input_figure": "results\\stage23\\inputs_SA.png"
+    },
+    "SB": {
+      "dtype": "bool",
+      "shape": [
+        650,
+        650,
+        650
+      ],
+      "unique_values": [
+        false,
+        true
+      ],
+      "pore_fraction": 0.4084788675466545,
+      "gate": {
+        "labels_and_porosity": true,
+        "pass": true
+      },
+      "input_path": "E:\\PROJECTS\\Yael_Mishael\\Rony\\remote_computer backup\\10.5\\Rehovot_samp3_highkV_Cu0.11_15um.npy",
+      "input_figure": "results\\stage23\\inputs_SB.png"
+    },
+    "LA": {
+      "dtype": "uint8",
+      "shape": [
+        474,
+        474,
+        474
+      ],
+      "whole_volume_counts": {
+        "0": 75046435,
+        "1": 992730,
+        "2": 2162315,
+        "5": 28294944
+      },
+      "whole_volume_fractions": {
+        "0": 0.7046850230388957,
+        "1": 0.009321721450477998,
+        "2": 0.020304108990551645,
+        "5": 0.2656891465200747
+      },
+      "invalid_counts": {},
+      "whole_volume_pore_fraction": 0.2656891465200747,
+      "whole_volume_pom_fraction": 0.020304108990551645,
+      "gate": {
+        "valid_labels": true,
+        "whole_volume_pore_fraction_within_1pp": true,
+        "pass": true
+      },
+      "input_path": "E:\\PROJECTS\\Yael_Mishael\\Rony\\remote_computer backup\\nnUNet4SoilXrayCT\\05_evaluation\\psd\\pom_analysis_20260829_roi_expansion\\pipeline_work\\mishmar_native_5p85um\\mishmar_native_5p85um_label_downsample.nii.gz",
+      "input_figure": "results\\stage23\\inputs_LA.png"
+    },
+    "LB": {
+      "dtype": "uint8",
+      "shape": [
+        947,
+        947,
+        947
+      ],
+      "whole_volume_counts": {
+        "0": 604175432,
+        "1": 5586996,
+        "2": 66747114,
+        "5": 172768581
+      },
+      "whole_volume_fractions": {
+        "0": 0.7113987934433111,
+        "1": 0.006578523393802291,
+        "2": 0.07859276271502404,
+        "5": 0.2034299204478625
+      },
+      "invalid_counts": {},
+      "whole_volume_pore_fraction": 0.2034299204478625,
+      "whole_volume_pom_fraction": 0.07859276271502404,
+      "inscribed_disk": {
+        "radius_voxels": 473.5,
+        "voxel_count": 666956948,
+        "counts": {
+          "0": 484200817,
+          "1": 4256448,
+          "2": 13677790,
+          "5": 164821893
+        },
+        "fractions": {
+          "0": 0.7259851156089913,
+          "1": 0.0063818931833063385,
+          "2": 0.02050775547209683,
+          "5": 0.24712523573560552
+        },
+        "pore_fraction": 0.24712523573560552,
+        "pom_fraction": 0.02050775547209683
+      },
+      "gate": {
+        "valid_labels": true,
+        "whole_volume_pore_fraction_within_1pp": true,
+        "pass": true
+      },
+      "input_path": "E:\\PROJECTS\\Yael_Mishael\\Rony\\remote_computer backup\\nnUNet4SoilXrayCT\\05_evaluation\\psd\\pom_analysis_20260829_roi_expansion\\pipeline_work\\mishmar_second_8p8um\\mishmar_second_8p8um_label_downsample.nii.gz",
+      "input_figure": "results\\stage23\\inputs_LB.png"
+    },
+    "LC": {
+      "dtype": "uint8",
+      "shape": [
+        650,
+        650,
+        822
+      ],
+      "whole_volume_counts": {
+        "0": 252223988,
+        "1": 3031747,
+        "2": 415264,
+        "5": 91624001
+      },
+      "whole_volume_fractions": {
+        "0": 0.7262528628399487,
+        "1": 0.0087296016354972,
+        "2": 0.0011957096992470378,
+        "5": 0.263821825825307
+      },
+      "invalid_counts": {},
+      "whole_volume_pore_fraction": 0.263821825825307,
+      "whole_volume_pom_fraction": 0.0011957096992470378,
+      "gate": {
+        "valid_labels": true,
+        "whole_volume_pore_fraction_within_1pp": true,
+        "pass": true
+      },
+      "input_path": "E:\\PROJECTS\\Yael_Mishael\\Rony\\remote_computer backup\\nnUNet_resources\\mishmar_hanegev_Cu011_samp_2_Rec_nlm\\inference_output_concat_loess_i2\\mishmar_hanegev_Cu011_samp_2_Rec_nlm.nii.gz",
+      "input_figure": "results\\stage23\\inputs_LC.png"
+    }
+  },
+  "LB_gate_amendment": "The 2026-11-08 amendment gates LB on the whole-volume pore fraction; the inscribed-disk pore fraction is reported but is not a gate.",
+  "tests": "test_stage22_scan_structure and test_stage23 passed."
+}

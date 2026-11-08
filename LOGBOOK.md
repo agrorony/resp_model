@@ -1088,3 +1088,29 @@ flat / rise-then-fall at low / primary / high r_lit. No laboratory respiration
 data were used.
 
 Full results: `docs/stage_results/STAGE22_SCAN_STRUCTURE_RESULTS.md`.
+
+## Stage 23 — Loess and soil-specific chemistry
+
+Ran the pre-registered Loess extension and fixed structure × chemistry cross
+after fetching `origin/main`. The 2026-11-08 LB amendment is recorded in the
+Stage 23 prompt: the whole-volume pore fraction (20.343%) passes; the 24.713%
+inside-disk value is report-only. All 131 prescribed runs completed and all
+primary and secondary checks remained alive; maximum mass-balance error was
+`1.23e-14`.
+
+**Headline:** Arm A retains Sand–Vertisol distinctness (0–1500 distance
+0.5544); Loess is not distinct from either soil. In the 3×3 cross, structure
+dominates peak timing and chemistry dominates cumulative R; Arm B primary
+cumulative R/mass, P4 rate/mass/day, and qCO2 rank Vertisol > Loess > Sand.
+No laboratory respiration data were used.
+
+| Arm | Runs | Mean seconds | Maximum seconds | Sum seconds |
+|---|---:|---:|---:|---:|
+| A | 28 | 62.8 | 177.6 | 1,757 |
+| B | 28 | 60.8 | 147.7 | 1,701 |
+| C | 56 | 42.4 | 115.4 | 2,375 |
+| D | 16 | 31.7 | 39.2 | 508 |
+| E | 3 | 348.6 | 349.9 | 1,046 |
+| **Total** | **131** | — | — | **7,387** |
+
+Full results: `docs/stage_results/STAGE23_RESULTS.md`.

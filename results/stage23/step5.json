@@ -1,0 +1,593 @@
+{
+  "stage": 23,
+  "step": 5,
+  "arm_d_sand_rule_check": {
+    "chem_eq": {
+      "paired_crop_results": [
+        {
+          "crop_id": "SA_c0",
+          "curve_distance": {
+            "1500": 0.1263640182596366,
+            "3000": 0.06664368171026491
+          },
+          "base": {
+            "R_peak_over_floor": 16.282196660440505,
+            "peak_frac": 0.043014338112704234,
+            "diffusion_total": 414946.0822573188,
+            "exchange_total": 479110.0797234196,
+            "total": 894056.1619807384,
+            "fractions_defined": true,
+            "diffusion_fraction": 0.46411634962397186,
+            "exchange_fraction": 0.5358836503760281
+          },
+          "pore_fill": {
+            "R_peak_over_floor": 16.87798473027281,
+            "peak_frac": 0.04201400466822274,
+            "diffusion_total": 367034.29022928176,
+            "exchange_total": 390846.2439778981,
+            "total": 757880.5342071799,
+            "fractions_defined": true,
+            "diffusion_fraction": 0.4842904305666551,
+            "exchange_fraction": 0.5157095694333448
+          }
+        },
+        {
+          "crop_id": "SA_c1",
+          "curve_distance": {
+            "1500": 0.08102165114015633,
+            "3000": 0.0463056596211894
+          },
+          "base": {
+            "R_peak_over_floor": 16.399865895896966,
+            "peak_frac": 0.0426808936312104,
+            "diffusion_total": 469657.80295944156,
+            "exchange_total": 431313.3424913202,
+            "total": 900971.1454507618,
+            "fractions_defined": true,
+            "diffusion_fraction": 0.5212795163650537,
+            "exchange_fraction": 0.4787204836349463
+          },
+          "pore_fill": {
+            "R_peak_over_floor": 11.720384296718704,
+            "peak_frac": 0.043014338112704234,
+            "diffusion_total": 301852.61606529244,
+            "exchange_total": 276310.8506351771,
+            "total": 578163.4667004696,
+            "fractions_defined": true,
+            "diffusion_fraction": 0.522088705791011,
+            "exchange_fraction": 0.4779112942089889
+          }
+        },
+        {
+          "crop_id": "SA_c2",
+          "curve_distance": {
+            "1500": 0.03386518562695159,
+            "3000": 0.019675587568643352
+          },
+          "base": {
+            "R_peak_over_floor": 16.020386059671708,
+            "peak_frac": 0.043014338112704234,
+            "diffusion_total": 378579.6379341022,
+            "exchange_total": 495913.7012915628,
+            "total": 874493.339225665,
+            "fractions_defined": true,
+            "diffusion_fraction": 0.43291311774806884,
+            "exchange_fraction": 0.5670868822519313
+          },
+          "pore_fill": {
+            "R_peak_over_floor": 13.293479626682593,
+            "peak_frac": 0.0426808936312104,
+            "diffusion_total": 294201.39001396275,
+            "exchange_total": 389706.0362804255,
+            "total": 683907.4262943882,
+            "fractions_defined": true,
+            "diffusion_fraction": 0.43017721215286764,
+            "exchange_fraction": 0.5698227878471324
+          }
+        },
+        {
+          "crop_id": "SA_c3",
+          "curve_distance": {
+            "1500": 0.12958701485002472,
+            "3000": 0.07038877508176283
+          },
+          "base": {
+            "R_peak_over_floor": 15.500214626928758,
+            "peak_frac": 0.0426808936312104,
+            "diffusion_total": 394864.74673625675,
+            "exchange_total": 487997.1829181564,
+            "total": 882861.9296544131,
+            "fractions_defined": true,
+            "diffusion_fraction": 0.4472553787553421,
+            "exchange_fraction": 0.5527446212446578
+          },
+          "pore_fill": {
+            "R_peak_over_floor": 14.005865838639016,
+            "peak_frac": 0.04168056018672891,
+            "diffusion_total": 271584.3773494433,
+            "exchange_total": 410231.78757762624,
+            "total": 681816.1649270696,
+            "fractions_defined": true,
+            "diffusion_fraction": 0.39832493173360495,
+            "exchange_fraction": 0.601675068266395
+          }
+        },
+        {
+          "crop_id": "SB_c0",
+          "curve_distance": {
+            "1500": 0.140660510260933,
+            "3000": 0.1792787203278613
+          },
+          "base": {
+            "R_peak_over_floor": 14.004304837895516,
+            "peak_frac": 0.04334778259419807,
+            "diffusion_total": 294123.4294303664,
+            "exchange_total": 538669.4514246635,
+            "total": 832792.8808550299,
+            "fractions_defined": true,
+            "diffusion_fraction": 0.35317716588593956,
+            "exchange_fraction": 0.6468228341140605
+          },
+          "pore_fill": {
+            "R_peak_over_floor": 10.389372883228667,
+            "peak_frac": 0.042347449149716575,
+            "diffusion_total": 113330.35649521001,
+            "exchange_total": 478741.17891555984,
+            "total": 592071.5354107699,
+            "fractions_defined": true,
+            "diffusion_fraction": 0.1914132832219053,
+            "exchange_fraction": 0.8085867167780947
+          }
+        },
+        {
+          "crop_id": "SB_c1",
+          "curve_distance": {
+            "1500": 0.16497456093030785,
+            "3000": 0.1282319562272742
+          },
+          "base": {
+            "R_peak_over_floor": 15.433077125763399,
+            "peak_frac": 0.043014338112704234,
+            "diffusion_total": 385582.22980006365,
+            "exchange_total": 497539.50045690074,
+            "total": 883121.7302569645,
+            "fractions_defined": true,
+            "diffusion_fraction": 0.4366127755545883,
+            "exchange_fraction": 0.5633872244454117
+          },
+          "pore_fill": {
+            "R_peak_over_floor": 12.741649603122237,
+            "peak_frac": 0.04201400466822274,
+            "diffusion_total": 215114.93677024764,
+            "exchange_total": 433191.10786367644,
+            "total": 648306.044633924,
+            "fractions_defined": true,
+            "diffusion_fraction": 0.33181078373519657,
+            "exchange_fraction": 0.6681892162648035
+          }
+        },
+        {
+          "crop_id": "SB_c2",
+          "curve_distance": {
+            "1500": 0.16377765026411528,
+            "3000": 0.09078738257723547
+          },
+          "base": {
+            "R_peak_over_floor": 15.3153286068667,
+            "peak_frac": 0.04334778259419807,
+            "diffusion_total": 385881.3029801598,
+            "exchange_total": 502119.906687157,
+            "total": 888001.2096673169,
+            "fractions_defined": true,
+            "diffusion_fraction": 0.4345504249084609,
+            "exchange_fraction": 0.565449575091539
+          },
+          "pore_fill": {
+            "R_peak_over_floor": 15.747297308665612,
+            "peak_frac": 0.04168056018672891,
+            "diffusion_total": 324073.6232228493,
+            "exchange_total": 418808.03582336573,
+            "total": 742881.659046215,
+            "fractions_defined": true,
+            "diffusion_fraction": 0.43623855734832256,
+            "exchange_fraction": 0.5637614426516775
+          }
+        },
+        {
+          "crop_id": "SB_c3",
+          "curve_distance": {
+            "1500": 0.11112509345655552,
+            "3000": 0.08398481445557367
+          },
+          "base": {
+            "R_peak_over_floor": 16.184055174275674,
+            "peak_frac": 0.043014338112704234,
+            "diffusion_total": 315341.9650149397,
+            "exchange_total": 578079.6214001128,
+            "total": 893421.5864150524,
+            "fractions_defined": true,
+            "diffusion_fraction": 0.3529598677823337,
+            "exchange_fraction": 0.6470401322176663
+          },
+          "pore_fill": {
+            "R_peak_over_floor": 14.844825948664756,
+            "peak_frac": 0.04168056018672891,
+            "diffusion_total": 251021.66888702003,
+            "exchange_total": 479987.5600929874,
+            "total": 731009.2289800073,
+            "fractions_defined": true,
+            "diffusion_fraction": 0.3433905605231221,
+            "exchange_fraction": 0.656609439476878
+          }
+        }
+      ],
+      "mean_curve_distance": {
+        "1500": 0.11892196059858512,
+        "3000": 0.08566207219622564
+      },
+      "mean_base_peak_over_floor": 15.642428623467405,
+      "mean_pore_fill_peak_over_floor": 13.7026075294993,
+      "mean_base_peak_frac": 0.043014338112704234,
+      "mean_pore_fill_peak_frac": 0.042139046348782926,
+      "mean_base_delivery": {
+        "diffusion_total": 379872.1496390811,
+        "exchange_total": 501342.8482991616,
+        "diffusion_fraction": 0.4303580745779699,
+        "exchange_fraction": 0.5696419254220302
+      },
+      "mean_pore_fill_delivery": {
+        "diffusion_total": 267276.65737916343,
+        "exchange_total": 409727.85014583956,
+        "diffusion_fraction": 0.39221680813408566,
+        "exchange_fraction": 0.6077831918659145
+      }
+    },
+    "chem_S": {
+      "paired_crop_results": [
+        {
+          "crop_id": "SA_c0",
+          "curve_distance": {
+            "1500": 0.060985586821636184,
+            "3000": 0.038765564246528224
+          },
+          "base": {
+            "R_peak_over_floor": 17.50359766211955,
+            "peak_frac": 0.05301767255751917,
+            "diffusion_total": 262205.09552077967,
+            "exchange_total": 298896.8203239088,
+            "total": 561101.9158446884,
+            "fractions_defined": true,
+            "diffusion_fraction": 0.4673038678295252,
+            "exchange_fraction": 0.5326961321704748
+          },
+          "pore_fill": {
+            "R_peak_over_floor": 17.396576425595654,
+            "peak_frac": 0.05235078359453151,
+            "diffusion_total": 247473.67223151936,
+            "exchange_total": 243390.21883344432,
+            "total": 490863.89106496365,
+            "fractions_defined": true,
+            "diffusion_fraction": 0.5041594558821751,
+            "exchange_fraction": 0.4958405441178249
+          }
+        },
+        {
+          "crop_id": "SA_c1",
+          "curve_distance": {
+            "1500": 0.04825062877128221,
+            "3000": 0.024825011903163628
+          },
+          "base": {
+            "R_peak_over_floor": 17.25124707837165,
+            "peak_frac": 0.05301767255751917,
+            "diffusion_total": 294045.44476912124,
+            "exchange_total": 267571.31008608156,
+            "total": 561616.7548552027,
+            "fractions_defined": true,
+            "diffusion_fraction": 0.5235695734272257,
+            "exchange_fraction": 0.4764304265727745
+          },
+          "pore_fill": {
+            "R_peak_over_floor": 11.468376549143803,
+            "peak_frac": 0.056018672890963656,
+            "diffusion_total": 196588.11905729125,
+            "exchange_total": 174403.11642063851,
+            "total": 370991.23547792976,
+            "fractions_defined": true,
+            "diffusion_fraction": 0.5298996317366809,
+            "exchange_fraction": 0.4701003682633191
+          }
+        },
+        {
+          "crop_id": "SA_c2",
+          "curve_distance": {
+            "1500": 0.016248624507572657,
+            "3000": 0.012065577847499379
+          },
+          "base": {
+            "R_peak_over_floor": 17.30661122947285,
+            "peak_frac": 0.053351117039013005,
+            "diffusion_total": 243904.5708887193,
+            "exchange_total": 311999.6284995157,
+            "total": 555904.199388235,
+            "fractions_defined": true,
+            "diffusion_fraction": 0.4387528843227537,
+            "exchange_fraction": 0.5612471156772463
+          },
+          "pore_fill": {
+            "R_peak_over_floor": 13.823714691351402,
+            "peak_frac": 0.05301767255751917,
+            "diffusion_total": 198961.83537075302,
+            "exchange_total": 248713.61787135666,
+            "total": 447675.4532421097,
+            "fractions_defined": true,
+            "diffusion_fraction": 0.4444332025127843,
+            "exchange_fraction": 0.5555667974872157
+          }
+        },
+        {
+          "crop_id": "SA_c3",
+          "curve_distance": {
+            "1500": 0.05625026262444241,
+            "3000": 0.030196748048484417
+          },
+          "base": {
+            "R_peak_over_floor": 16.86560785832519,
+            "peak_frac": 0.05301767255751917,
+            "diffusion_total": 251052.28040699678,
+            "exchange_total": 306826.6065775691,
+            "total": 557878.8869845659,
+            "fractions_defined": true,
+            "diffusion_fraction": 0.4500121554410829,
+            "exchange_fraction": 0.5499878445589171
+          },
+          "pore_fill": {
+            "R_peak_over_floor": 14.969323142674382,
+            "peak_frac": 0.05201733911303768,
+            "diffusion_total": 192647.32015448768,
+            "exchange_total": 264550.0414058603,
+            "total": 457197.36156034796,
+            "fractions_defined": true,
+            "diffusion_fraction": 0.42136577406529746,
+            "exchange_fraction": 0.5786342259347026
+          }
+        },
+        {
+          "crop_id": "SB_c0",
+          "curve_distance": {
+            "1500": 0.08298307648301712,
+            "3000": 0.10662680948198038
+          },
+          "base": {
+            "R_peak_over_floor": 15.932748435676661,
+            "peak_frac": 0.05368456152050684,
+            "diffusion_total": 193626.9172603366,
+            "exchange_total": 343887.67736323917,
+            "total": 537514.5946235758,
+            "fractions_defined": true,
+            "diffusion_fraction": 0.3602263439859424,
+            "exchange_fraction": 0.6397736560140576
+          },
+          "pore_fill": {
+            "R_peak_over_floor": 12.044099328509303,
+            "peak_frac": 0.05268422807602534,
+            "diffusion_total": 84467.10341419748,
+            "exchange_total": 321740.3242648748,
+            "total": 406207.42767907225,
+            "fractions_defined": true,
+            "diffusion_fraction": 0.20794081461487074,
+            "exchange_fraction": 0.7920591853851293
+          }
+        },
+        {
+          "crop_id": "SB_c1",
+          "curve_distance": {
+            "1500": 0.06956895465227586,
+            "3000": 0.049203685209770864
+          },
+          "base": {
+            "R_peak_over_floor": 17.0919447344739,
+            "peak_frac": 0.053351117039013005,
+            "diffusion_total": 249098.66079735293,
+            "exchange_total": 312169.9889678068,
+            "total": 561268.6497651597,
+            "fractions_defined": true,
+            "diffusion_fraction": 0.4438136013860355,
+            "exchange_fraction": 0.5561863986139646
+          },
+          "pore_fill": {
+            "R_peak_over_floor": 14.018162905673359,
+            "peak_frac": 0.05235078359453151,
+            "diffusion_total": 160204.6201178813,
+            "exchange_total": 283964.84531778714,
+            "total": 444169.4654356685,
+            "fractions_defined": true,
+            "diffusion_fraction": 0.3606835511773482,
+            "exchange_fraction": 0.6393164488226518
+          }
+        },
+        {
+          "crop_id": "SB_c2",
+          "curve_distance": {
+            "1500": 0.09952182409792559,
+            "3000": 0.0546615313422989
+          },
+          "base": {
+            "R_peak_over_floor": 17.055391967369893,
+            "peak_frac": 0.05368456152050684,
+            "diffusion_total": 247122.42402874277,
+            "exchange_total": 314388.1533171298,
+            "total": 561510.5773458725,
+            "fractions_defined": true,
+            "diffusion_fraction": 0.44010288318491153,
+            "exchange_fraction": 0.5598971168150886
+          },
+          "pore_fill": {
+            "R_peak_over_floor": 16.785816429471407,
+            "peak_frac": 0.051683894631543846,
+            "diffusion_total": 220578.23197441082,
+            "exchange_total": 259477.18210989103,
+            "total": 480055.41408430185,
+            "fractions_defined": true,
+            "diffusion_fraction": 0.45948493757780096,
+            "exchange_fraction": 0.540515062422199
+          }
+        },
+        {
+          "crop_id": "SB_c3",
+          "curve_distance": {
+            "1500": 0.05493396881753035,
+            "3000": 0.036824902814233104
+          },
+          "base": {
+            "R_peak_over_floor": 18.638026058317166,
+            "peak_frac": 0.05368456152050684,
+            "diffusion_total": 206044.34832647958,
+            "exchange_total": 361628.1050209669,
+            "total": 567672.4533474465,
+            "fractions_defined": true,
+            "diffusion_fraction": 0.36296344328754876,
+            "exchange_fraction": 0.6370365567124512
+          },
+          "pore_fill": {
+            "R_peak_over_floor": 16.819787714658258,
+            "peak_frac": 0.051683894631543846,
+            "diffusion_total": 181904.6449789733,
+            "exchange_total": 302003.45149239607,
+            "total": 483908.0964713694,
+            "fractions_defined": true,
+            "diffusion_fraction": 0.375907421895628,
+            "exchange_fraction": 0.624092578104372
+          }
+        }
+      ],
+      "mean_curve_distance": {
+        "1500": 0.06109286584696029,
+        "3000": 0.044146228861744866
+      },
+      "mean_base_peak_over_floor": 17.20564687801586,
+      "mean_pore_fill_peak_over_floor": 14.665732148384695,
+      "mean_base_peak_frac": 0.053351117039013005,
+      "mean_pore_fill_peak_frac": 0.05272590863621207,
+      "mean_base_delivery": {
+        "diffusion_total": 243387.46774981613,
+        "exchange_total": 314671.0362695273,
+        "diffusion_fraction": 0.43584309410812816,
+        "exchange_fraction": 0.5641569058918718
+      },
+      "mean_pore_fill_delivery": {
+        "diffusion_total": 185353.1934124393,
+        "exchange_total": 262280.3497145311,
+        "diffusion_fraction": 0.4129843486828232,
+        "exchange_fraction": 0.5870156513171768
+      }
+    }
+  },
+  "sand_ordering_with_arm_d_substitution": [
+    {
+      "arm": "A",
+      "sand_rule": "stage22_solid_lt",
+      "chemistry": "chem_eq",
+      "by_steps": {
+        "1500": {
+          "S_V_distance": 0.554379283083709,
+          "S_L_distance": 0.5508755620089664,
+          "closer_pair": "S-L"
+        },
+        "3000": {
+          "S_V_distance": 0.20308963583646422,
+          "S_L_distance": 0.24742006153927404,
+          "closer_pair": "S-V"
+        }
+      }
+    },
+    {
+      "arm": "A",
+      "sand_rule": "stage21_pore_fill",
+      "chemistry": "chem_eq",
+      "by_steps": {
+        "1500": {
+          "S_V_distance": 0.838284352931313,
+          "S_L_distance": 0.7189001472892029,
+          "closer_pair": "S-L",
+          "ordering_changed": false
+        },
+        "3000": {
+          "S_V_distance": 0.32713335615958894,
+          "S_L_distance": 0.31369555401512794,
+          "closer_pair": "S-L",
+          "ordering_changed": true
+        }
+      }
+    },
+    {
+      "arm": "B",
+      "sand_rule": "stage22_solid_lt",
+      "chemistry": "chem_S",
+      "by_steps": {
+        "1500": {
+          "S_V_distance": 0.33808249028796594,
+          "S_L_distance": 0.31777380621895496,
+          "closer_pair": "S-L"
+        },
+        "3000": {
+          "S_V_distance": 0.16033111146967965,
+          "S_L_distance": 0.12005019869973665,
+          "closer_pair": "S-L"
+        }
+      }
+    },
+    {
+      "arm": "B",
+      "sand_rule": "stage21_pore_fill",
+      "chemistry": "chem_S",
+      "by_steps": {
+        "1500": {
+          "S_V_distance": 0.4714751109732235,
+          "S_L_distance": 0.3982961498832797,
+          "closer_pair": "S-L",
+          "ordering_changed": false
+        },
+        "3000": {
+          "S_V_distance": 0.20779759085792754,
+          "S_L_distance": 0.14218214974091692,
+          "closer_pair": "S-L",
+          "ordering_changed": false
+        }
+      }
+    }
+  ],
+  "loess_domain_size_check": {
+    "LA": {
+      "domain_run": "E-LA_domain256-chem_eq-not_applicable-T3000",
+      "n_100_crops": 4,
+      "domain_vs_100_crop_mean_distance": {
+        "1500": 0.018943856843189104,
+        "3000": 0.015350133147007748
+      },
+      "domain_R_peak_over_floor": 16.99353868222797,
+      "domain_peak_frac": 0.09103034344781594
+    },
+    "LB": {
+      "domain_run": "E-LB_domain256-chem_eq-not_applicable-T3000",
+      "n_100_crops": 4,
+      "domain_vs_100_crop_mean_distance": {
+        "1500": 0.009753237500282336,
+        "3000": 0.009778510479603271
+      },
+      "domain_R_peak_over_floor": 12.067362881899975,
+      "domain_peak_frac": 0.10770256752250751
+    },
+    "LC": {
+      "domain_run": "E-LC_domain256-chem_eq-not_applicable-T3000",
+      "n_100_crops": 4,
+      "domain_vs_100_crop_mean_distance": {
+        "1500": 0.006382638956733781,
+        "3000": 0.007835211758676002
+      },
+      "domain_R_peak_over_floor": 9.137048331943708,
+      "domain_peak_frac": 0.12070690230076692
+    }
+  },
+  "alternative_fines_rule_adopted": false
+}

@@ -1,0 +1,2196 @@
+{
+  "stage": 23,
+  "T": 3000,
+  "dt": 0.05,
+  "K_density": 0.16445,
+  "fixed_chemistry": {
+    "S": {
+      "soil": "Sand (Rehovot)",
+      "Cmic_mg_kg": 199.44,
+      "LOI_SOM_g_g": 0.016732,
+      "Corg_g_kg": 9.705,
+      "core_BD_g_cm3": 1.3947,
+      "Corg_mg_cm3_reported": 13.535,
+      "Cmic_ug_cm3_reported": 278.16,
+      "Corg_mg_cm3": 13.5355635,
+      "Cmic_ug_cm3": 278.158968,
+      "OM_density": 0.5843486121885222,
+      "B0_density": 0.008807455109562084
+    },
+    "V": {
+      "soil": "Vertisol (Bnei Re'em)",
+      "Cmic_mg_kg": 406.61,
+      "LOI_SOM_g_g": 0.048627,
+      "Corg_g_kg": 28.204,
+      "core_BD_g_cm3": 1.3482,
+      "Corg_mg_cm3_reported": 38.023,
+      "Cmic_ug_cm3_reported": 548.17,
+      "Corg_mg_cm3": 38.024632800000006,
+      "Cmic_ug_cm3": 548.191602,
+      "OM_density": 1.6415749078830861,
+      "B0_density": 0.017357602959088933
+    },
+    "L": {
+      "soil": "Loess (Mishmar HaNegev)",
+      "Cmic_mg_kg": 315.57,
+      "LOI_SOM_g_g": 0.027252,
+      "Corg_g_kg": 15.806,
+      "core_BD_g_cm3": 1.1344,
+      "Corg_mg_cm3_reported": 17.931,
+      "Cmic_ug_cm3_reported": 357.99,
+      "Corg_mg_cm3": 17.930326400000002,
+      "Cmic_ug_cm3": 357.982608,
+      "OM_density": 0.7740764799283917,
+      "B0_density": 0.011334941931348983
+    },
+    "chem_S": {
+      "soil": "Sand (Rehovot)",
+      "Cmic_mg_kg": 199.44,
+      "LOI_SOM_g_g": 0.016732,
+      "Corg_g_kg": 9.705,
+      "core_BD_g_cm3": 1.3947,
+      "Corg_mg_cm3_reported": 13.535,
+      "Cmic_ug_cm3_reported": 278.16,
+      "Corg_mg_cm3": 13.5355635,
+      "Cmic_ug_cm3": 278.158968,
+      "OM_density": 0.5843486121885222,
+      "B0_density": 0.008807455109562084
+    },
+    "chem_V": {
+      "soil": "Vertisol (Bnei Re'em)",
+      "Cmic_mg_kg": 406.61,
+      "LOI_SOM_g_g": 0.048627,
+      "Corg_g_kg": 28.204,
+      "core_BD_g_cm3": 1.3482,
+      "Corg_mg_cm3_reported": 38.023,
+      "Cmic_ug_cm3_reported": 548.17,
+      "Corg_mg_cm3": 38.024632800000006,
+      "Cmic_ug_cm3": 548.191602,
+      "OM_density": 1.6415749078830861,
+      "B0_density": 0.017357602959088933
+    },
+    "chem_L": {
+      "soil": "Loess (Mishmar HaNegev)",
+      "Cmic_mg_kg": 315.57,
+      "LOI_SOM_g_g": 0.027252,
+      "Corg_g_kg": 15.806,
+      "core_BD_g_cm3": 1.1344,
+      "Corg_mg_cm3_reported": 17.931,
+      "Cmic_ug_cm3_reported": 357.99,
+      "Corg_mg_cm3": 17.930326400000002,
+      "Cmic_ug_cm3": 357.982608,
+      "OM_density": 0.7740764799283917,
+      "B0_density": 0.011334941931348983
+    },
+    "chem_eq": {
+      "soil": "Stage 22 equal chemistry",
+      "OM_density": 1.0,
+      "B0_density": 0.0125
+    }
+  },
+  "counts_by_arm": {
+    "A": 28,
+    "B": 28,
+    "C": 56,
+    "D": 16,
+    "E": 3
+  },
+  "runs": [
+    {
+      "key": "A-VA_c0-chem_eq-not_applicable-T3000",
+      "config": {
+        "key": "A-VA_c0-chem_eq-not_applicable-T3000",
+        "arm": "A",
+        "structure_id": "VA_c0",
+        "crop_id": "VA_c0",
+        "soil_code": "V",
+        "chemistry": "chem_eq",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.0,
+        "B0_density": 0.0125
+      }
+    },
+    {
+      "key": "A-VA_c1-chem_eq-not_applicable-T3000",
+      "config": {
+        "key": "A-VA_c1-chem_eq-not_applicable-T3000",
+        "arm": "A",
+        "structure_id": "VA_c1",
+        "crop_id": "VA_c1",
+        "soil_code": "V",
+        "chemistry": "chem_eq",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.0,
+        "B0_density": 0.0125
+      }
+    },
+    {
+      "key": "A-VA_c2-chem_eq-not_applicable-T3000",
+      "config": {
+        "key": "A-VA_c2-chem_eq-not_applicable-T3000",
+        "arm": "A",
+        "structure_id": "VA_c2",
+        "crop_id": "VA_c2",
+        "soil_code": "V",
+        "chemistry": "chem_eq",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.0,
+        "B0_density": 0.0125
+      }
+    },
+    {
+      "key": "A-VA_c3-chem_eq-not_applicable-T3000",
+      "config": {
+        "key": "A-VA_c3-chem_eq-not_applicable-T3000",
+        "arm": "A",
+        "structure_id": "VA_c3",
+        "crop_id": "VA_c3",
+        "soil_code": "V",
+        "chemistry": "chem_eq",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.0,
+        "B0_density": 0.0125
+      }
+    },
+    {
+      "key": "A-VB_c0-chem_eq-not_applicable-T3000",
+      "config": {
+        "key": "A-VB_c0-chem_eq-not_applicable-T3000",
+        "arm": "A",
+        "structure_id": "VB_c0",
+        "crop_id": "VB_c0",
+        "soil_code": "V",
+        "chemistry": "chem_eq",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.0,
+        "B0_density": 0.0125
+      }
+    },
+    {
+      "key": "A-VB_c1-chem_eq-not_applicable-T3000",
+      "config": {
+        "key": "A-VB_c1-chem_eq-not_applicable-T3000",
+        "arm": "A",
+        "structure_id": "VB_c1",
+        "crop_id": "VB_c1",
+        "soil_code": "V",
+        "chemistry": "chem_eq",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.0,
+        "B0_density": 0.0125
+      }
+    },
+    {
+      "key": "A-VB_c2-chem_eq-not_applicable-T3000",
+      "config": {
+        "key": "A-VB_c2-chem_eq-not_applicable-T3000",
+        "arm": "A",
+        "structure_id": "VB_c2",
+        "crop_id": "VB_c2",
+        "soil_code": "V",
+        "chemistry": "chem_eq",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.0,
+        "B0_density": 0.0125
+      }
+    },
+    {
+      "key": "A-VB_c3-chem_eq-not_applicable-T3000",
+      "config": {
+        "key": "A-VB_c3-chem_eq-not_applicable-T3000",
+        "arm": "A",
+        "structure_id": "VB_c3",
+        "crop_id": "VB_c3",
+        "soil_code": "V",
+        "chemistry": "chem_eq",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.0,
+        "B0_density": 0.0125
+      }
+    },
+    {
+      "key": "A-SA_c0-chem_eq-stage22_solid_lt-T3000",
+      "config": {
+        "key": "A-SA_c0-chem_eq-stage22_solid_lt-T3000",
+        "arm": "A",
+        "structure_id": "SA_c0",
+        "crop_id": "SA_c0",
+        "soil_code": "S",
+        "chemistry": "chem_eq",
+        "fines_rule": "stage22_solid_lt",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.0,
+        "B0_density": 0.0125
+      }
+    },
+    {
+      "key": "A-SA_c1-chem_eq-stage22_solid_lt-T3000",
+      "config": {
+        "key": "A-SA_c1-chem_eq-stage22_solid_lt-T3000",
+        "arm": "A",
+        "structure_id": "SA_c1",
+        "crop_id": "SA_c1",
+        "soil_code": "S",
+        "chemistry": "chem_eq",
+        "fines_rule": "stage22_solid_lt",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.0,
+        "B0_density": 0.0125
+      }
+    },
+    {
+      "key": "A-SA_c2-chem_eq-stage22_solid_lt-T3000",
+      "config": {
+        "key": "A-SA_c2-chem_eq-stage22_solid_lt-T3000",
+        "arm": "A",
+        "structure_id": "SA_c2",
+        "crop_id": "SA_c2",
+        "soil_code": "S",
+        "chemistry": "chem_eq",
+        "fines_rule": "stage22_solid_lt",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.0,
+        "B0_density": 0.0125
+      }
+    },
+    {
+      "key": "A-SA_c3-chem_eq-stage22_solid_lt-T3000",
+      "config": {
+        "key": "A-SA_c3-chem_eq-stage22_solid_lt-T3000",
+        "arm": "A",
+        "structure_id": "SA_c3",
+        "crop_id": "SA_c3",
+        "soil_code": "S",
+        "chemistry": "chem_eq",
+        "fines_rule": "stage22_solid_lt",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.0,
+        "B0_density": 0.0125
+      }
+    },
+    {
+      "key": "A-SB_c0-chem_eq-stage22_solid_lt-T3000",
+      "config": {
+        "key": "A-SB_c0-chem_eq-stage22_solid_lt-T3000",
+        "arm": "A",
+        "structure_id": "SB_c0",
+        "crop_id": "SB_c0",
+        "soil_code": "S",
+        "chemistry": "chem_eq",
+        "fines_rule": "stage22_solid_lt",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.0,
+        "B0_density": 0.0125
+      }
+    },
+    {
+      "key": "A-SB_c1-chem_eq-stage22_solid_lt-T3000",
+      "config": {
+        "key": "A-SB_c1-chem_eq-stage22_solid_lt-T3000",
+        "arm": "A",
+        "structure_id": "SB_c1",
+        "crop_id": "SB_c1",
+        "soil_code": "S",
+        "chemistry": "chem_eq",
+        "fines_rule": "stage22_solid_lt",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.0,
+        "B0_density": 0.0125
+      }
+    },
+    {
+      "key": "A-SB_c2-chem_eq-stage22_solid_lt-T3000",
+      "config": {
+        "key": "A-SB_c2-chem_eq-stage22_solid_lt-T3000",
+        "arm": "A",
+        "structure_id": "SB_c2",
+        "crop_id": "SB_c2",
+        "soil_code": "S",
+        "chemistry": "chem_eq",
+        "fines_rule": "stage22_solid_lt",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.0,
+        "B0_density": 0.0125
+      }
+    },
+    {
+      "key": "A-SB_c3-chem_eq-stage22_solid_lt-T3000",
+      "config": {
+        "key": "A-SB_c3-chem_eq-stage22_solid_lt-T3000",
+        "arm": "A",
+        "structure_id": "SB_c3",
+        "crop_id": "SB_c3",
+        "soil_code": "S",
+        "chemistry": "chem_eq",
+        "fines_rule": "stage22_solid_lt",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.0,
+        "B0_density": 0.0125
+      }
+    },
+    {
+      "key": "A-LA_c0-chem_eq-not_applicable-T3000",
+      "config": {
+        "key": "A-LA_c0-chem_eq-not_applicable-T3000",
+        "arm": "A",
+        "structure_id": "LA_c0",
+        "crop_id": "LA_c0",
+        "soil_code": "L",
+        "chemistry": "chem_eq",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.0,
+        "B0_density": 0.0125
+      }
+    },
+    {
+      "key": "A-LA_c1-chem_eq-not_applicable-T3000",
+      "config": {
+        "key": "A-LA_c1-chem_eq-not_applicable-T3000",
+        "arm": "A",
+        "structure_id": "LA_c1",
+        "crop_id": "LA_c1",
+        "soil_code": "L",
+        "chemistry": "chem_eq",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.0,
+        "B0_density": 0.0125
+      }
+    },
+    {
+      "key": "A-LA_c2-chem_eq-not_applicable-T3000",
+      "config": {
+        "key": "A-LA_c2-chem_eq-not_applicable-T3000",
+        "arm": "A",
+        "structure_id": "LA_c2",
+        "crop_id": "LA_c2",
+        "soil_code": "L",
+        "chemistry": "chem_eq",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.0,
+        "B0_density": 0.0125
+      }
+    },
+    {
+      "key": "A-LA_c3-chem_eq-not_applicable-T3000",
+      "config": {
+        "key": "A-LA_c3-chem_eq-not_applicable-T3000",
+        "arm": "A",
+        "structure_id": "LA_c3",
+        "crop_id": "LA_c3",
+        "soil_code": "L",
+        "chemistry": "chem_eq",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.0,
+        "B0_density": 0.0125
+      }
+    },
+    {
+      "key": "A-LB_c0-chem_eq-not_applicable-T3000",
+      "config": {
+        "key": "A-LB_c0-chem_eq-not_applicable-T3000",
+        "arm": "A",
+        "structure_id": "LB_c0",
+        "crop_id": "LB_c0",
+        "soil_code": "L",
+        "chemistry": "chem_eq",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.0,
+        "B0_density": 0.0125
+      }
+    },
+    {
+      "key": "A-LB_c1-chem_eq-not_applicable-T3000",
+      "config": {
+        "key": "A-LB_c1-chem_eq-not_applicable-T3000",
+        "arm": "A",
+        "structure_id": "LB_c1",
+        "crop_id": "LB_c1",
+        "soil_code": "L",
+        "chemistry": "chem_eq",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.0,
+        "B0_density": 0.0125
+      }
+    },
+    {
+      "key": "A-LB_c2-chem_eq-not_applicable-T3000",
+      "config": {
+        "key": "A-LB_c2-chem_eq-not_applicable-T3000",
+        "arm": "A",
+        "structure_id": "LB_c2",
+        "crop_id": "LB_c2",
+        "soil_code": "L",
+        "chemistry": "chem_eq",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.0,
+        "B0_density": 0.0125
+      }
+    },
+    {
+      "key": "A-LB_c3-chem_eq-not_applicable-T3000",
+      "config": {
+        "key": "A-LB_c3-chem_eq-not_applicable-T3000",
+        "arm": "A",
+        "structure_id": "LB_c3",
+        "crop_id": "LB_c3",
+        "soil_code": "L",
+        "chemistry": "chem_eq",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.0,
+        "B0_density": 0.0125
+      }
+    },
+    {
+      "key": "A-LC_c0-chem_eq-not_applicable-T3000",
+      "config": {
+        "key": "A-LC_c0-chem_eq-not_applicable-T3000",
+        "arm": "A",
+        "structure_id": "LC_c0",
+        "crop_id": "LC_c0",
+        "soil_code": "L",
+        "chemistry": "chem_eq",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.0,
+        "B0_density": 0.0125
+      }
+    },
+    {
+      "key": "A-LC_c1-chem_eq-not_applicable-T3000",
+      "config": {
+        "key": "A-LC_c1-chem_eq-not_applicable-T3000",
+        "arm": "A",
+        "structure_id": "LC_c1",
+        "crop_id": "LC_c1",
+        "soil_code": "L",
+        "chemistry": "chem_eq",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.0,
+        "B0_density": 0.0125
+      }
+    },
+    {
+      "key": "A-LC_c2-chem_eq-not_applicable-T3000",
+      "config": {
+        "key": "A-LC_c2-chem_eq-not_applicable-T3000",
+        "arm": "A",
+        "structure_id": "LC_c2",
+        "crop_id": "LC_c2",
+        "soil_code": "L",
+        "chemistry": "chem_eq",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.0,
+        "B0_density": 0.0125
+      }
+    },
+    {
+      "key": "A-LC_c3-chem_eq-not_applicable-T3000",
+      "config": {
+        "key": "A-LC_c3-chem_eq-not_applicable-T3000",
+        "arm": "A",
+        "structure_id": "LC_c3",
+        "crop_id": "LC_c3",
+        "soil_code": "L",
+        "chemistry": "chem_eq",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.0,
+        "B0_density": 0.0125
+      }
+    },
+    {
+      "key": "B-VA_c0-chem_V-not_applicable-T3000",
+      "config": {
+        "key": "B-VA_c0-chem_V-not_applicable-T3000",
+        "arm": "B",
+        "structure_id": "VA_c0",
+        "crop_id": "VA_c0",
+        "soil_code": "V",
+        "chemistry": "chem_V",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.6415749078830861,
+        "B0_density": 0.017357602959088933
+      }
+    },
+    {
+      "key": "B-VA_c1-chem_V-not_applicable-T3000",
+      "config": {
+        "key": "B-VA_c1-chem_V-not_applicable-T3000",
+        "arm": "B",
+        "structure_id": "VA_c1",
+        "crop_id": "VA_c1",
+        "soil_code": "V",
+        "chemistry": "chem_V",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.6415749078830861,
+        "B0_density": 0.017357602959088933
+      }
+    },
+    {
+      "key": "B-VA_c2-chem_V-not_applicable-T3000",
+      "config": {
+        "key": "B-VA_c2-chem_V-not_applicable-T3000",
+        "arm": "B",
+        "structure_id": "VA_c2",
+        "crop_id": "VA_c2",
+        "soil_code": "V",
+        "chemistry": "chem_V",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.6415749078830861,
+        "B0_density": 0.017357602959088933
+      }
+    },
+    {
+      "key": "B-VA_c3-chem_V-not_applicable-T3000",
+      "config": {
+        "key": "B-VA_c3-chem_V-not_applicable-T3000",
+        "arm": "B",
+        "structure_id": "VA_c3",
+        "crop_id": "VA_c3",
+        "soil_code": "V",
+        "chemistry": "chem_V",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.6415749078830861,
+        "B0_density": 0.017357602959088933
+      }
+    },
+    {
+      "key": "B-VB_c0-chem_V-not_applicable-T3000",
+      "config": {
+        "key": "B-VB_c0-chem_V-not_applicable-T3000",
+        "arm": "B",
+        "structure_id": "VB_c0",
+        "crop_id": "VB_c0",
+        "soil_code": "V",
+        "chemistry": "chem_V",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.6415749078830861,
+        "B0_density": 0.017357602959088933
+      }
+    },
+    {
+      "key": "B-VB_c1-chem_V-not_applicable-T3000",
+      "config": {
+        "key": "B-VB_c1-chem_V-not_applicable-T3000",
+        "arm": "B",
+        "structure_id": "VB_c1",
+        "crop_id": "VB_c1",
+        "soil_code": "V",
+        "chemistry": "chem_V",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.6415749078830861,
+        "B0_density": 0.017357602959088933
+      }
+    },
+    {
+      "key": "B-VB_c2-chem_V-not_applicable-T3000",
+      "config": {
+        "key": "B-VB_c2-chem_V-not_applicable-T3000",
+        "arm": "B",
+        "structure_id": "VB_c2",
+        "crop_id": "VB_c2",
+        "soil_code": "V",
+        "chemistry": "chem_V",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.6415749078830861,
+        "B0_density": 0.017357602959088933
+      }
+    },
+    {
+      "key": "B-VB_c3-chem_V-not_applicable-T3000",
+      "config": {
+        "key": "B-VB_c3-chem_V-not_applicable-T3000",
+        "arm": "B",
+        "structure_id": "VB_c3",
+        "crop_id": "VB_c3",
+        "soil_code": "V",
+        "chemistry": "chem_V",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.6415749078830861,
+        "B0_density": 0.017357602959088933
+      }
+    },
+    {
+      "key": "B-SA_c0-chem_S-stage22_solid_lt-T3000",
+      "config": {
+        "key": "B-SA_c0-chem_S-stage22_solid_lt-T3000",
+        "arm": "B",
+        "structure_id": "SA_c0",
+        "crop_id": "SA_c0",
+        "soil_code": "S",
+        "chemistry": "chem_S",
+        "fines_rule": "stage22_solid_lt",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.5843486121885222,
+        "B0_density": 0.008807455109562084
+      }
+    },
+    {
+      "key": "B-SA_c1-chem_S-stage22_solid_lt-T3000",
+      "config": {
+        "key": "B-SA_c1-chem_S-stage22_solid_lt-T3000",
+        "arm": "B",
+        "structure_id": "SA_c1",
+        "crop_id": "SA_c1",
+        "soil_code": "S",
+        "chemistry": "chem_S",
+        "fines_rule": "stage22_solid_lt",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.5843486121885222,
+        "B0_density": 0.008807455109562084
+      }
+    },
+    {
+      "key": "B-SA_c2-chem_S-stage22_solid_lt-T3000",
+      "config": {
+        "key": "B-SA_c2-chem_S-stage22_solid_lt-T3000",
+        "arm": "B",
+        "structure_id": "SA_c2",
+        "crop_id": "SA_c2",
+        "soil_code": "S",
+        "chemistry": "chem_S",
+        "fines_rule": "stage22_solid_lt",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.5843486121885222,
+        "B0_density": 0.008807455109562084
+      }
+    },
+    {
+      "key": "B-SA_c3-chem_S-stage22_solid_lt-T3000",
+      "config": {
+        "key": "B-SA_c3-chem_S-stage22_solid_lt-T3000",
+        "arm": "B",
+        "structure_id": "SA_c3",
+        "crop_id": "SA_c3",
+        "soil_code": "S",
+        "chemistry": "chem_S",
+        "fines_rule": "stage22_solid_lt",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.5843486121885222,
+        "B0_density": 0.008807455109562084
+      }
+    },
+    {
+      "key": "B-SB_c0-chem_S-stage22_solid_lt-T3000",
+      "config": {
+        "key": "B-SB_c0-chem_S-stage22_solid_lt-T3000",
+        "arm": "B",
+        "structure_id": "SB_c0",
+        "crop_id": "SB_c0",
+        "soil_code": "S",
+        "chemistry": "chem_S",
+        "fines_rule": "stage22_solid_lt",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.5843486121885222,
+        "B0_density": 0.008807455109562084
+      }
+    },
+    {
+      "key": "B-SB_c1-chem_S-stage22_solid_lt-T3000",
+      "config": {
+        "key": "B-SB_c1-chem_S-stage22_solid_lt-T3000",
+        "arm": "B",
+        "structure_id": "SB_c1",
+        "crop_id": "SB_c1",
+        "soil_code": "S",
+        "chemistry": "chem_S",
+        "fines_rule": "stage22_solid_lt",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.5843486121885222,
+        "B0_density": 0.008807455109562084
+      }
+    },
+    {
+      "key": "B-SB_c2-chem_S-stage22_solid_lt-T3000",
+      "config": {
+        "key": "B-SB_c2-chem_S-stage22_solid_lt-T3000",
+        "arm": "B",
+        "structure_id": "SB_c2",
+        "crop_id": "SB_c2",
+        "soil_code": "S",
+        "chemistry": "chem_S",
+        "fines_rule": "stage22_solid_lt",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.5843486121885222,
+        "B0_density": 0.008807455109562084
+      }
+    },
+    {
+      "key": "B-SB_c3-chem_S-stage22_solid_lt-T3000",
+      "config": {
+        "key": "B-SB_c3-chem_S-stage22_solid_lt-T3000",
+        "arm": "B",
+        "structure_id": "SB_c3",
+        "crop_id": "SB_c3",
+        "soil_code": "S",
+        "chemistry": "chem_S",
+        "fines_rule": "stage22_solid_lt",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.5843486121885222,
+        "B0_density": 0.008807455109562084
+      }
+    },
+    {
+      "key": "B-LA_c0-chem_L-not_applicable-T3000",
+      "config": {
+        "key": "B-LA_c0-chem_L-not_applicable-T3000",
+        "arm": "B",
+        "structure_id": "LA_c0",
+        "crop_id": "LA_c0",
+        "soil_code": "L",
+        "chemistry": "chem_L",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.7740764799283917,
+        "B0_density": 0.011334941931348983
+      }
+    },
+    {
+      "key": "B-LA_c1-chem_L-not_applicable-T3000",
+      "config": {
+        "key": "B-LA_c1-chem_L-not_applicable-T3000",
+        "arm": "B",
+        "structure_id": "LA_c1",
+        "crop_id": "LA_c1",
+        "soil_code": "L",
+        "chemistry": "chem_L",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.7740764799283917,
+        "B0_density": 0.011334941931348983
+      }
+    },
+    {
+      "key": "B-LA_c2-chem_L-not_applicable-T3000",
+      "config": {
+        "key": "B-LA_c2-chem_L-not_applicable-T3000",
+        "arm": "B",
+        "structure_id": "LA_c2",
+        "crop_id": "LA_c2",
+        "soil_code": "L",
+        "chemistry": "chem_L",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.7740764799283917,
+        "B0_density": 0.011334941931348983
+      }
+    },
+    {
+      "key": "B-LA_c3-chem_L-not_applicable-T3000",
+      "config": {
+        "key": "B-LA_c3-chem_L-not_applicable-T3000",
+        "arm": "B",
+        "structure_id": "LA_c3",
+        "crop_id": "LA_c3",
+        "soil_code": "L",
+        "chemistry": "chem_L",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.7740764799283917,
+        "B0_density": 0.011334941931348983
+      }
+    },
+    {
+      "key": "B-LB_c0-chem_L-not_applicable-T3000",
+      "config": {
+        "key": "B-LB_c0-chem_L-not_applicable-T3000",
+        "arm": "B",
+        "structure_id": "LB_c0",
+        "crop_id": "LB_c0",
+        "soil_code": "L",
+        "chemistry": "chem_L",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.7740764799283917,
+        "B0_density": 0.011334941931348983
+      }
+    },
+    {
+      "key": "B-LB_c1-chem_L-not_applicable-T3000",
+      "config": {
+        "key": "B-LB_c1-chem_L-not_applicable-T3000",
+        "arm": "B",
+        "structure_id": "LB_c1",
+        "crop_id": "LB_c1",
+        "soil_code": "L",
+        "chemistry": "chem_L",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.7740764799283917,
+        "B0_density": 0.011334941931348983
+      }
+    },
+    {
+      "key": "B-LB_c2-chem_L-not_applicable-T3000",
+      "config": {
+        "key": "B-LB_c2-chem_L-not_applicable-T3000",
+        "arm": "B",
+        "structure_id": "LB_c2",
+        "crop_id": "LB_c2",
+        "soil_code": "L",
+        "chemistry": "chem_L",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.7740764799283917,
+        "B0_density": 0.011334941931348983
+      }
+    },
+    {
+      "key": "B-LB_c3-chem_L-not_applicable-T3000",
+      "config": {
+        "key": "B-LB_c3-chem_L-not_applicable-T3000",
+        "arm": "B",
+        "structure_id": "LB_c3",
+        "crop_id": "LB_c3",
+        "soil_code": "L",
+        "chemistry": "chem_L",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.7740764799283917,
+        "B0_density": 0.011334941931348983
+      }
+    },
+    {
+      "key": "B-LC_c0-chem_L-not_applicable-T3000",
+      "config": {
+        "key": "B-LC_c0-chem_L-not_applicable-T3000",
+        "arm": "B",
+        "structure_id": "LC_c0",
+        "crop_id": "LC_c0",
+        "soil_code": "L",
+        "chemistry": "chem_L",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.7740764799283917,
+        "B0_density": 0.011334941931348983
+      }
+    },
+    {
+      "key": "B-LC_c1-chem_L-not_applicable-T3000",
+      "config": {
+        "key": "B-LC_c1-chem_L-not_applicable-T3000",
+        "arm": "B",
+        "structure_id": "LC_c1",
+        "crop_id": "LC_c1",
+        "soil_code": "L",
+        "chemistry": "chem_L",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.7740764799283917,
+        "B0_density": 0.011334941931348983
+      }
+    },
+    {
+      "key": "B-LC_c2-chem_L-not_applicable-T3000",
+      "config": {
+        "key": "B-LC_c2-chem_L-not_applicable-T3000",
+        "arm": "B",
+        "structure_id": "LC_c2",
+        "crop_id": "LC_c2",
+        "soil_code": "L",
+        "chemistry": "chem_L",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.7740764799283917,
+        "B0_density": 0.011334941931348983
+      }
+    },
+    {
+      "key": "B-LC_c3-chem_L-not_applicable-T3000",
+      "config": {
+        "key": "B-LC_c3-chem_L-not_applicable-T3000",
+        "arm": "B",
+        "structure_id": "LC_c3",
+        "crop_id": "LC_c3",
+        "soil_code": "L",
+        "chemistry": "chem_L",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.7740764799283917,
+        "B0_density": 0.011334941931348983
+      }
+    },
+    {
+      "key": "C-VA_c0-chem_S-not_applicable-T3000",
+      "config": {
+        "key": "C-VA_c0-chem_S-not_applicable-T3000",
+        "arm": "C",
+        "structure_id": "VA_c0",
+        "crop_id": "VA_c0",
+        "soil_code": "V",
+        "chemistry": "chem_S",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.5843486121885222,
+        "B0_density": 0.008807455109562084
+      }
+    },
+    {
+      "key": "C-VA_c0-chem_L-not_applicable-T3000",
+      "config": {
+        "key": "C-VA_c0-chem_L-not_applicable-T3000",
+        "arm": "C",
+        "structure_id": "VA_c0",
+        "crop_id": "VA_c0",
+        "soil_code": "V",
+        "chemistry": "chem_L",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.7740764799283917,
+        "B0_density": 0.011334941931348983
+      }
+    },
+    {
+      "key": "C-VA_c1-chem_S-not_applicable-T3000",
+      "config": {
+        "key": "C-VA_c1-chem_S-not_applicable-T3000",
+        "arm": "C",
+        "structure_id": "VA_c1",
+        "crop_id": "VA_c1",
+        "soil_code": "V",
+        "chemistry": "chem_S",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.5843486121885222,
+        "B0_density": 0.008807455109562084
+      }
+    },
+    {
+      "key": "C-VA_c1-chem_L-not_applicable-T3000",
+      "config": {
+        "key": "C-VA_c1-chem_L-not_applicable-T3000",
+        "arm": "C",
+        "structure_id": "VA_c1",
+        "crop_id": "VA_c1",
+        "soil_code": "V",
+        "chemistry": "chem_L",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.7740764799283917,
+        "B0_density": 0.011334941931348983
+      }
+    },
+    {
+      "key": "C-VA_c2-chem_S-not_applicable-T3000",
+      "config": {
+        "key": "C-VA_c2-chem_S-not_applicable-T3000",
+        "arm": "C",
+        "structure_id": "VA_c2",
+        "crop_id": "VA_c2",
+        "soil_code": "V",
+        "chemistry": "chem_S",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.5843486121885222,
+        "B0_density": 0.008807455109562084
+      }
+    },
+    {
+      "key": "C-VA_c2-chem_L-not_applicable-T3000",
+      "config": {
+        "key": "C-VA_c2-chem_L-not_applicable-T3000",
+        "arm": "C",
+        "structure_id": "VA_c2",
+        "crop_id": "VA_c2",
+        "soil_code": "V",
+        "chemistry": "chem_L",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.7740764799283917,
+        "B0_density": 0.011334941931348983
+      }
+    },
+    {
+      "key": "C-VA_c3-chem_S-not_applicable-T3000",
+      "config": {
+        "key": "C-VA_c3-chem_S-not_applicable-T3000",
+        "arm": "C",
+        "structure_id": "VA_c3",
+        "crop_id": "VA_c3",
+        "soil_code": "V",
+        "chemistry": "chem_S",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.5843486121885222,
+        "B0_density": 0.008807455109562084
+      }
+    },
+    {
+      "key": "C-VA_c3-chem_L-not_applicable-T3000",
+      "config": {
+        "key": "C-VA_c3-chem_L-not_applicable-T3000",
+        "arm": "C",
+        "structure_id": "VA_c3",
+        "crop_id": "VA_c3",
+        "soil_code": "V",
+        "chemistry": "chem_L",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.7740764799283917,
+        "B0_density": 0.011334941931348983
+      }
+    },
+    {
+      "key": "C-VB_c0-chem_S-not_applicable-T3000",
+      "config": {
+        "key": "C-VB_c0-chem_S-not_applicable-T3000",
+        "arm": "C",
+        "structure_id": "VB_c0",
+        "crop_id": "VB_c0",
+        "soil_code": "V",
+        "chemistry": "chem_S",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.5843486121885222,
+        "B0_density": 0.008807455109562084
+      }
+    },
+    {
+      "key": "C-VB_c0-chem_L-not_applicable-T3000",
+      "config": {
+        "key": "C-VB_c0-chem_L-not_applicable-T3000",
+        "arm": "C",
+        "structure_id": "VB_c0",
+        "crop_id": "VB_c0",
+        "soil_code": "V",
+        "chemistry": "chem_L",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.7740764799283917,
+        "B0_density": 0.011334941931348983
+      }
+    },
+    {
+      "key": "C-VB_c1-chem_S-not_applicable-T3000",
+      "config": {
+        "key": "C-VB_c1-chem_S-not_applicable-T3000",
+        "arm": "C",
+        "structure_id": "VB_c1",
+        "crop_id": "VB_c1",
+        "soil_code": "V",
+        "chemistry": "chem_S",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.5843486121885222,
+        "B0_density": 0.008807455109562084
+      }
+    },
+    {
+      "key": "C-VB_c1-chem_L-not_applicable-T3000",
+      "config": {
+        "key": "C-VB_c1-chem_L-not_applicable-T3000",
+        "arm": "C",
+        "structure_id": "VB_c1",
+        "crop_id": "VB_c1",
+        "soil_code": "V",
+        "chemistry": "chem_L",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.7740764799283917,
+        "B0_density": 0.011334941931348983
+      }
+    },
+    {
+      "key": "C-VB_c2-chem_S-not_applicable-T3000",
+      "config": {
+        "key": "C-VB_c2-chem_S-not_applicable-T3000",
+        "arm": "C",
+        "structure_id": "VB_c2",
+        "crop_id": "VB_c2",
+        "soil_code": "V",
+        "chemistry": "chem_S",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.5843486121885222,
+        "B0_density": 0.008807455109562084
+      }
+    },
+    {
+      "key": "C-VB_c2-chem_L-not_applicable-T3000",
+      "config": {
+        "key": "C-VB_c2-chem_L-not_applicable-T3000",
+        "arm": "C",
+        "structure_id": "VB_c2",
+        "crop_id": "VB_c2",
+        "soil_code": "V",
+        "chemistry": "chem_L",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.7740764799283917,
+        "B0_density": 0.011334941931348983
+      }
+    },
+    {
+      "key": "C-VB_c3-chem_S-not_applicable-T3000",
+      "config": {
+        "key": "C-VB_c3-chem_S-not_applicable-T3000",
+        "arm": "C",
+        "structure_id": "VB_c3",
+        "crop_id": "VB_c3",
+        "soil_code": "V",
+        "chemistry": "chem_S",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.5843486121885222,
+        "B0_density": 0.008807455109562084
+      }
+    },
+    {
+      "key": "C-VB_c3-chem_L-not_applicable-T3000",
+      "config": {
+        "key": "C-VB_c3-chem_L-not_applicable-T3000",
+        "arm": "C",
+        "structure_id": "VB_c3",
+        "crop_id": "VB_c3",
+        "soil_code": "V",
+        "chemistry": "chem_L",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.7740764799283917,
+        "B0_density": 0.011334941931348983
+      }
+    },
+    {
+      "key": "C-SA_c0-chem_V-stage22_solid_lt-T3000",
+      "config": {
+        "key": "C-SA_c0-chem_V-stage22_solid_lt-T3000",
+        "arm": "C",
+        "structure_id": "SA_c0",
+        "crop_id": "SA_c0",
+        "soil_code": "S",
+        "chemistry": "chem_V",
+        "fines_rule": "stage22_solid_lt",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.6415749078830861,
+        "B0_density": 0.017357602959088933
+      }
+    },
+    {
+      "key": "C-SA_c0-chem_L-stage22_solid_lt-T3000",
+      "config": {
+        "key": "C-SA_c0-chem_L-stage22_solid_lt-T3000",
+        "arm": "C",
+        "structure_id": "SA_c0",
+        "crop_id": "SA_c0",
+        "soil_code": "S",
+        "chemistry": "chem_L",
+        "fines_rule": "stage22_solid_lt",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.7740764799283917,
+        "B0_density": 0.011334941931348983
+      }
+    },
+    {
+      "key": "C-SA_c1-chem_V-stage22_solid_lt-T3000",
+      "config": {
+        "key": "C-SA_c1-chem_V-stage22_solid_lt-T3000",
+        "arm": "C",
+        "structure_id": "SA_c1",
+        "crop_id": "SA_c1",
+        "soil_code": "S",
+        "chemistry": "chem_V",
+        "fines_rule": "stage22_solid_lt",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.6415749078830861,
+        "B0_density": 0.017357602959088933
+      }
+    },
+    {
+      "key": "C-SA_c1-chem_L-stage22_solid_lt-T3000",
+      "config": {
+        "key": "C-SA_c1-chem_L-stage22_solid_lt-T3000",
+        "arm": "C",
+        "structure_id": "SA_c1",
+        "crop_id": "SA_c1",
+        "soil_code": "S",
+        "chemistry": "chem_L",
+        "fines_rule": "stage22_solid_lt",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.7740764799283917,
+        "B0_density": 0.011334941931348983
+      }
+    },
+    {
+      "key": "C-SA_c2-chem_V-stage22_solid_lt-T3000",
+      "config": {
+        "key": "C-SA_c2-chem_V-stage22_solid_lt-T3000",
+        "arm": "C",
+        "structure_id": "SA_c2",
+        "crop_id": "SA_c2",
+        "soil_code": "S",
+        "chemistry": "chem_V",
+        "fines_rule": "stage22_solid_lt",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.6415749078830861,
+        "B0_density": 0.017357602959088933
+      }
+    },
+    {
+      "key": "C-SA_c2-chem_L-stage22_solid_lt-T3000",
+      "config": {
+        "key": "C-SA_c2-chem_L-stage22_solid_lt-T3000",
+        "arm": "C",
+        "structure_id": "SA_c2",
+        "crop_id": "SA_c2",
+        "soil_code": "S",
+        "chemistry": "chem_L",
+        "fines_rule": "stage22_solid_lt",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.7740764799283917,
+        "B0_density": 0.011334941931348983
+      }
+    },
+    {
+      "key": "C-SA_c3-chem_V-stage22_solid_lt-T3000",
+      "config": {
+        "key": "C-SA_c3-chem_V-stage22_solid_lt-T3000",
+        "arm": "C",
+        "structure_id": "SA_c3",
+        "crop_id": "SA_c3",
+        "soil_code": "S",
+        "chemistry": "chem_V",
+        "fines_rule": "stage22_solid_lt",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.6415749078830861,
+        "B0_density": 0.017357602959088933
+      }
+    },
+    {
+      "key": "C-SA_c3-chem_L-stage22_solid_lt-T3000",
+      "config": {
+        "key": "C-SA_c3-chem_L-stage22_solid_lt-T3000",
+        "arm": "C",
+        "structure_id": "SA_c3",
+        "crop_id": "SA_c3",
+        "soil_code": "S",
+        "chemistry": "chem_L",
+        "fines_rule": "stage22_solid_lt",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.7740764799283917,
+        "B0_density": 0.011334941931348983
+      }
+    },
+    {
+      "key": "C-SB_c0-chem_V-stage22_solid_lt-T3000",
+      "config": {
+        "key": "C-SB_c0-chem_V-stage22_solid_lt-T3000",
+        "arm": "C",
+        "structure_id": "SB_c0",
+        "crop_id": "SB_c0",
+        "soil_code": "S",
+        "chemistry": "chem_V",
+        "fines_rule": "stage22_solid_lt",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.6415749078830861,
+        "B0_density": 0.017357602959088933
+      }
+    },
+    {
+      "key": "C-SB_c0-chem_L-stage22_solid_lt-T3000",
+      "config": {
+        "key": "C-SB_c0-chem_L-stage22_solid_lt-T3000",
+        "arm": "C",
+        "structure_id": "SB_c0",
+        "crop_id": "SB_c0",
+        "soil_code": "S",
+        "chemistry": "chem_L",
+        "fines_rule": "stage22_solid_lt",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.7740764799283917,
+        "B0_density": 0.011334941931348983
+      }
+    },
+    {
+      "key": "C-SB_c1-chem_V-stage22_solid_lt-T3000",
+      "config": {
+        "key": "C-SB_c1-chem_V-stage22_solid_lt-T3000",
+        "arm": "C",
+        "structure_id": "SB_c1",
+        "crop_id": "SB_c1",
+        "soil_code": "S",
+        "chemistry": "chem_V",
+        "fines_rule": "stage22_solid_lt",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.6415749078830861,
+        "B0_density": 0.017357602959088933
+      }
+    },
+    {
+      "key": "C-SB_c1-chem_L-stage22_solid_lt-T3000",
+      "config": {
+        "key": "C-SB_c1-chem_L-stage22_solid_lt-T3000",
+        "arm": "C",
+        "structure_id": "SB_c1",
+        "crop_id": "SB_c1",
+        "soil_code": "S",
+        "chemistry": "chem_L",
+        "fines_rule": "stage22_solid_lt",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.7740764799283917,
+        "B0_density": 0.011334941931348983
+      }
+    },
+    {
+      "key": "C-SB_c2-chem_V-stage22_solid_lt-T3000",
+      "config": {
+        "key": "C-SB_c2-chem_V-stage22_solid_lt-T3000",
+        "arm": "C",
+        "structure_id": "SB_c2",
+        "crop_id": "SB_c2",
+        "soil_code": "S",
+        "chemistry": "chem_V",
+        "fines_rule": "stage22_solid_lt",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.6415749078830861,
+        "B0_density": 0.017357602959088933
+      }
+    },
+    {
+      "key": "C-SB_c2-chem_L-stage22_solid_lt-T3000",
+      "config": {
+        "key": "C-SB_c2-chem_L-stage22_solid_lt-T3000",
+        "arm": "C",
+        "structure_id": "SB_c2",
+        "crop_id": "SB_c2",
+        "soil_code": "S",
+        "chemistry": "chem_L",
+        "fines_rule": "stage22_solid_lt",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.7740764799283917,
+        "B0_density": 0.011334941931348983
+      }
+    },
+    {
+      "key": "C-SB_c3-chem_V-stage22_solid_lt-T3000",
+      "config": {
+        "key": "C-SB_c3-chem_V-stage22_solid_lt-T3000",
+        "arm": "C",
+        "structure_id": "SB_c3",
+        "crop_id": "SB_c3",
+        "soil_code": "S",
+        "chemistry": "chem_V",
+        "fines_rule": "stage22_solid_lt",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.6415749078830861,
+        "B0_density": 0.017357602959088933
+      }
+    },
+    {
+      "key": "C-SB_c3-chem_L-stage22_solid_lt-T3000",
+      "config": {
+        "key": "C-SB_c3-chem_L-stage22_solid_lt-T3000",
+        "arm": "C",
+        "structure_id": "SB_c3",
+        "crop_id": "SB_c3",
+        "soil_code": "S",
+        "chemistry": "chem_L",
+        "fines_rule": "stage22_solid_lt",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.7740764799283917,
+        "B0_density": 0.011334941931348983
+      }
+    },
+    {
+      "key": "C-LA_c0-chem_S-not_applicable-T3000",
+      "config": {
+        "key": "C-LA_c0-chem_S-not_applicable-T3000",
+        "arm": "C",
+        "structure_id": "LA_c0",
+        "crop_id": "LA_c0",
+        "soil_code": "L",
+        "chemistry": "chem_S",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.5843486121885222,
+        "B0_density": 0.008807455109562084
+      }
+    },
+    {
+      "key": "C-LA_c0-chem_V-not_applicable-T3000",
+      "config": {
+        "key": "C-LA_c0-chem_V-not_applicable-T3000",
+        "arm": "C",
+        "structure_id": "LA_c0",
+        "crop_id": "LA_c0",
+        "soil_code": "L",
+        "chemistry": "chem_V",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.6415749078830861,
+        "B0_density": 0.017357602959088933
+      }
+    },
+    {
+      "key": "C-LA_c1-chem_S-not_applicable-T3000",
+      "config": {
+        "key": "C-LA_c1-chem_S-not_applicable-T3000",
+        "arm": "C",
+        "structure_id": "LA_c1",
+        "crop_id": "LA_c1",
+        "soil_code": "L",
+        "chemistry": "chem_S",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.5843486121885222,
+        "B0_density": 0.008807455109562084
+      }
+    },
+    {
+      "key": "C-LA_c1-chem_V-not_applicable-T3000",
+      "config": {
+        "key": "C-LA_c1-chem_V-not_applicable-T3000",
+        "arm": "C",
+        "structure_id": "LA_c1",
+        "crop_id": "LA_c1",
+        "soil_code": "L",
+        "chemistry": "chem_V",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.6415749078830861,
+        "B0_density": 0.017357602959088933
+      }
+    },
+    {
+      "key": "C-LA_c2-chem_S-not_applicable-T3000",
+      "config": {
+        "key": "C-LA_c2-chem_S-not_applicable-T3000",
+        "arm": "C",
+        "structure_id": "LA_c2",
+        "crop_id": "LA_c2",
+        "soil_code": "L",
+        "chemistry": "chem_S",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.5843486121885222,
+        "B0_density": 0.008807455109562084
+      }
+    },
+    {
+      "key": "C-LA_c2-chem_V-not_applicable-T3000",
+      "config": {
+        "key": "C-LA_c2-chem_V-not_applicable-T3000",
+        "arm": "C",
+        "structure_id": "LA_c2",
+        "crop_id": "LA_c2",
+        "soil_code": "L",
+        "chemistry": "chem_V",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.6415749078830861,
+        "B0_density": 0.017357602959088933
+      }
+    },
+    {
+      "key": "C-LA_c3-chem_S-not_applicable-T3000",
+      "config": {
+        "key": "C-LA_c3-chem_S-not_applicable-T3000",
+        "arm": "C",
+        "structure_id": "LA_c3",
+        "crop_id": "LA_c3",
+        "soil_code": "L",
+        "chemistry": "chem_S",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.5843486121885222,
+        "B0_density": 0.008807455109562084
+      }
+    },
+    {
+      "key": "C-LA_c3-chem_V-not_applicable-T3000",
+      "config": {
+        "key": "C-LA_c3-chem_V-not_applicable-T3000",
+        "arm": "C",
+        "structure_id": "LA_c3",
+        "crop_id": "LA_c3",
+        "soil_code": "L",
+        "chemistry": "chem_V",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.6415749078830861,
+        "B0_density": 0.017357602959088933
+      }
+    },
+    {
+      "key": "C-LB_c0-chem_S-not_applicable-T3000",
+      "config": {
+        "key": "C-LB_c0-chem_S-not_applicable-T3000",
+        "arm": "C",
+        "structure_id": "LB_c0",
+        "crop_id": "LB_c0",
+        "soil_code": "L",
+        "chemistry": "chem_S",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.5843486121885222,
+        "B0_density": 0.008807455109562084
+      }
+    },
+    {
+      "key": "C-LB_c0-chem_V-not_applicable-T3000",
+      "config": {
+        "key": "C-LB_c0-chem_V-not_applicable-T3000",
+        "arm": "C",
+        "structure_id": "LB_c0",
+        "crop_id": "LB_c0",
+        "soil_code": "L",
+        "chemistry": "chem_V",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.6415749078830861,
+        "B0_density": 0.017357602959088933
+      }
+    },
+    {
+      "key": "C-LB_c1-chem_S-not_applicable-T3000",
+      "config": {
+        "key": "C-LB_c1-chem_S-not_applicable-T3000",
+        "arm": "C",
+        "structure_id": "LB_c1",
+        "crop_id": "LB_c1",
+        "soil_code": "L",
+        "chemistry": "chem_S",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.5843486121885222,
+        "B0_density": 0.008807455109562084
+      }
+    },
+    {
+      "key": "C-LB_c1-chem_V-not_applicable-T3000",
+      "config": {
+        "key": "C-LB_c1-chem_V-not_applicable-T3000",
+        "arm": "C",
+        "structure_id": "LB_c1",
+        "crop_id": "LB_c1",
+        "soil_code": "L",
+        "chemistry": "chem_V",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.6415749078830861,
+        "B0_density": 0.017357602959088933
+      }
+    },
+    {
+      "key": "C-LB_c2-chem_S-not_applicable-T3000",
+      "config": {
+        "key": "C-LB_c2-chem_S-not_applicable-T3000",
+        "arm": "C",
+        "structure_id": "LB_c2",
+        "crop_id": "LB_c2",
+        "soil_code": "L",
+        "chemistry": "chem_S",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.5843486121885222,
+        "B0_density": 0.008807455109562084
+      }
+    },
+    {
+      "key": "C-LB_c2-chem_V-not_applicable-T3000",
+      "config": {
+        "key": "C-LB_c2-chem_V-not_applicable-T3000",
+        "arm": "C",
+        "structure_id": "LB_c2",
+        "crop_id": "LB_c2",
+        "soil_code": "L",
+        "chemistry": "chem_V",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.6415749078830861,
+        "B0_density": 0.017357602959088933
+      }
+    },
+    {
+      "key": "C-LB_c3-chem_S-not_applicable-T3000",
+      "config": {
+        "key": "C-LB_c3-chem_S-not_applicable-T3000",
+        "arm": "C",
+        "structure_id": "LB_c3",
+        "crop_id": "LB_c3",
+        "soil_code": "L",
+        "chemistry": "chem_S",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.5843486121885222,
+        "B0_density": 0.008807455109562084
+      }
+    },
+    {
+      "key": "C-LB_c3-chem_V-not_applicable-T3000",
+      "config": {
+        "key": "C-LB_c3-chem_V-not_applicable-T3000",
+        "arm": "C",
+        "structure_id": "LB_c3",
+        "crop_id": "LB_c3",
+        "soil_code": "L",
+        "chemistry": "chem_V",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.6415749078830861,
+        "B0_density": 0.017357602959088933
+      }
+    },
+    {
+      "key": "C-LC_c0-chem_S-not_applicable-T3000",
+      "config": {
+        "key": "C-LC_c0-chem_S-not_applicable-T3000",
+        "arm": "C",
+        "structure_id": "LC_c0",
+        "crop_id": "LC_c0",
+        "soil_code": "L",
+        "chemistry": "chem_S",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.5843486121885222,
+        "B0_density": 0.008807455109562084
+      }
+    },
+    {
+      "key": "C-LC_c0-chem_V-not_applicable-T3000",
+      "config": {
+        "key": "C-LC_c0-chem_V-not_applicable-T3000",
+        "arm": "C",
+        "structure_id": "LC_c0",
+        "crop_id": "LC_c0",
+        "soil_code": "L",
+        "chemistry": "chem_V",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.6415749078830861,
+        "B0_density": 0.017357602959088933
+      }
+    },
+    {
+      "key": "C-LC_c1-chem_S-not_applicable-T3000",
+      "config": {
+        "key": "C-LC_c1-chem_S-not_applicable-T3000",
+        "arm": "C",
+        "structure_id": "LC_c1",
+        "crop_id": "LC_c1",
+        "soil_code": "L",
+        "chemistry": "chem_S",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.5843486121885222,
+        "B0_density": 0.008807455109562084
+      }
+    },
+    {
+      "key": "C-LC_c1-chem_V-not_applicable-T3000",
+      "config": {
+        "key": "C-LC_c1-chem_V-not_applicable-T3000",
+        "arm": "C",
+        "structure_id": "LC_c1",
+        "crop_id": "LC_c1",
+        "soil_code": "L",
+        "chemistry": "chem_V",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.6415749078830861,
+        "B0_density": 0.017357602959088933
+      }
+    },
+    {
+      "key": "C-LC_c2-chem_S-not_applicable-T3000",
+      "config": {
+        "key": "C-LC_c2-chem_S-not_applicable-T3000",
+        "arm": "C",
+        "structure_id": "LC_c2",
+        "crop_id": "LC_c2",
+        "soil_code": "L",
+        "chemistry": "chem_S",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.5843486121885222,
+        "B0_density": 0.008807455109562084
+      }
+    },
+    {
+      "key": "C-LC_c2-chem_V-not_applicable-T3000",
+      "config": {
+        "key": "C-LC_c2-chem_V-not_applicable-T3000",
+        "arm": "C",
+        "structure_id": "LC_c2",
+        "crop_id": "LC_c2",
+        "soil_code": "L",
+        "chemistry": "chem_V",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.6415749078830861,
+        "B0_density": 0.017357602959088933
+      }
+    },
+    {
+      "key": "C-LC_c3-chem_S-not_applicable-T3000",
+      "config": {
+        "key": "C-LC_c3-chem_S-not_applicable-T3000",
+        "arm": "C",
+        "structure_id": "LC_c3",
+        "crop_id": "LC_c3",
+        "soil_code": "L",
+        "chemistry": "chem_S",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.5843486121885222,
+        "B0_density": 0.008807455109562084
+      }
+    },
+    {
+      "key": "C-LC_c3-chem_V-not_applicable-T3000",
+      "config": {
+        "key": "C-LC_c3-chem_V-not_applicable-T3000",
+        "arm": "C",
+        "structure_id": "LC_c3",
+        "crop_id": "LC_c3",
+        "soil_code": "L",
+        "chemistry": "chem_V",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.6415749078830861,
+        "B0_density": 0.017357602959088933
+      }
+    },
+    {
+      "key": "D-SA_c0_porefill-chem_eq-stage21_pore_fill-T3000",
+      "config": {
+        "key": "D-SA_c0_porefill-chem_eq-stage21_pore_fill-T3000",
+        "arm": "D",
+        "structure_id": "SA_c0_porefill",
+        "crop_id": "SA_c0",
+        "soil_code": "S",
+        "chemistry": "chem_eq",
+        "fines_rule": "stage21_pore_fill",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.0,
+        "B0_density": 0.0125
+      }
+    },
+    {
+      "key": "D-SA_c0_porefill-chem_S-stage21_pore_fill-T3000",
+      "config": {
+        "key": "D-SA_c0_porefill-chem_S-stage21_pore_fill-T3000",
+        "arm": "D",
+        "structure_id": "SA_c0_porefill",
+        "crop_id": "SA_c0",
+        "soil_code": "S",
+        "chemistry": "chem_S",
+        "fines_rule": "stage21_pore_fill",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.5843486121885222,
+        "B0_density": 0.008807455109562084
+      }
+    },
+    {
+      "key": "D-SA_c1_porefill-chem_eq-stage21_pore_fill-T3000",
+      "config": {
+        "key": "D-SA_c1_porefill-chem_eq-stage21_pore_fill-T3000",
+        "arm": "D",
+        "structure_id": "SA_c1_porefill",
+        "crop_id": "SA_c1",
+        "soil_code": "S",
+        "chemistry": "chem_eq",
+        "fines_rule": "stage21_pore_fill",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.0,
+        "B0_density": 0.0125
+      }
+    },
+    {
+      "key": "D-SA_c1_porefill-chem_S-stage21_pore_fill-T3000",
+      "config": {
+        "key": "D-SA_c1_porefill-chem_S-stage21_pore_fill-T3000",
+        "arm": "D",
+        "structure_id": "SA_c1_porefill",
+        "crop_id": "SA_c1",
+        "soil_code": "S",
+        "chemistry": "chem_S",
+        "fines_rule": "stage21_pore_fill",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.5843486121885222,
+        "B0_density": 0.008807455109562084
+      }
+    },
+    {
+      "key": "D-SA_c2_porefill-chem_eq-stage21_pore_fill-T3000",
+      "config": {
+        "key": "D-SA_c2_porefill-chem_eq-stage21_pore_fill-T3000",
+        "arm": "D",
+        "structure_id": "SA_c2_porefill",
+        "crop_id": "SA_c2",
+        "soil_code": "S",
+        "chemistry": "chem_eq",
+        "fines_rule": "stage21_pore_fill",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.0,
+        "B0_density": 0.0125
+      }
+    },
+    {
+      "key": "D-SA_c2_porefill-chem_S-stage21_pore_fill-T3000",
+      "config": {
+        "key": "D-SA_c2_porefill-chem_S-stage21_pore_fill-T3000",
+        "arm": "D",
+        "structure_id": "SA_c2_porefill",
+        "crop_id": "SA_c2",
+        "soil_code": "S",
+        "chemistry": "chem_S",
+        "fines_rule": "stage21_pore_fill",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.5843486121885222,
+        "B0_density": 0.008807455109562084
+      }
+    },
+    {
+      "key": "D-SA_c3_porefill-chem_eq-stage21_pore_fill-T3000",
+      "config": {
+        "key": "D-SA_c3_porefill-chem_eq-stage21_pore_fill-T3000",
+        "arm": "D",
+        "structure_id": "SA_c3_porefill",
+        "crop_id": "SA_c3",
+        "soil_code": "S",
+        "chemistry": "chem_eq",
+        "fines_rule": "stage21_pore_fill",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.0,
+        "B0_density": 0.0125
+      }
+    },
+    {
+      "key": "D-SA_c3_porefill-chem_S-stage21_pore_fill-T3000",
+      "config": {
+        "key": "D-SA_c3_porefill-chem_S-stage21_pore_fill-T3000",
+        "arm": "D",
+        "structure_id": "SA_c3_porefill",
+        "crop_id": "SA_c3",
+        "soil_code": "S",
+        "chemistry": "chem_S",
+        "fines_rule": "stage21_pore_fill",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.5843486121885222,
+        "B0_density": 0.008807455109562084
+      }
+    },
+    {
+      "key": "D-SB_c0_porefill-chem_eq-stage21_pore_fill-T3000",
+      "config": {
+        "key": "D-SB_c0_porefill-chem_eq-stage21_pore_fill-T3000",
+        "arm": "D",
+        "structure_id": "SB_c0_porefill",
+        "crop_id": "SB_c0",
+        "soil_code": "S",
+        "chemistry": "chem_eq",
+        "fines_rule": "stage21_pore_fill",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.0,
+        "B0_density": 0.0125
+      }
+    },
+    {
+      "key": "D-SB_c0_porefill-chem_S-stage21_pore_fill-T3000",
+      "config": {
+        "key": "D-SB_c0_porefill-chem_S-stage21_pore_fill-T3000",
+        "arm": "D",
+        "structure_id": "SB_c0_porefill",
+        "crop_id": "SB_c0",
+        "soil_code": "S",
+        "chemistry": "chem_S",
+        "fines_rule": "stage21_pore_fill",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.5843486121885222,
+        "B0_density": 0.008807455109562084
+      }
+    },
+    {
+      "key": "D-SB_c1_porefill-chem_eq-stage21_pore_fill-T3000",
+      "config": {
+        "key": "D-SB_c1_porefill-chem_eq-stage21_pore_fill-T3000",
+        "arm": "D",
+        "structure_id": "SB_c1_porefill",
+        "crop_id": "SB_c1",
+        "soil_code": "S",
+        "chemistry": "chem_eq",
+        "fines_rule": "stage21_pore_fill",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.0,
+        "B0_density": 0.0125
+      }
+    },
+    {
+      "key": "D-SB_c1_porefill-chem_S-stage21_pore_fill-T3000",
+      "config": {
+        "key": "D-SB_c1_porefill-chem_S-stage21_pore_fill-T3000",
+        "arm": "D",
+        "structure_id": "SB_c1_porefill",
+        "crop_id": "SB_c1",
+        "soil_code": "S",
+        "chemistry": "chem_S",
+        "fines_rule": "stage21_pore_fill",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.5843486121885222,
+        "B0_density": 0.008807455109562084
+      }
+    },
+    {
+      "key": "D-SB_c2_porefill-chem_eq-stage21_pore_fill-T3000",
+      "config": {
+        "key": "D-SB_c2_porefill-chem_eq-stage21_pore_fill-T3000",
+        "arm": "D",
+        "structure_id": "SB_c2_porefill",
+        "crop_id": "SB_c2",
+        "soil_code": "S",
+        "chemistry": "chem_eq",
+        "fines_rule": "stage21_pore_fill",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.0,
+        "B0_density": 0.0125
+      }
+    },
+    {
+      "key": "D-SB_c2_porefill-chem_S-stage21_pore_fill-T3000",
+      "config": {
+        "key": "D-SB_c2_porefill-chem_S-stage21_pore_fill-T3000",
+        "arm": "D",
+        "structure_id": "SB_c2_porefill",
+        "crop_id": "SB_c2",
+        "soil_code": "S",
+        "chemistry": "chem_S",
+        "fines_rule": "stage21_pore_fill",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.5843486121885222,
+        "B0_density": 0.008807455109562084
+      }
+    },
+    {
+      "key": "D-SB_c3_porefill-chem_eq-stage21_pore_fill-T3000",
+      "config": {
+        "key": "D-SB_c3_porefill-chem_eq-stage21_pore_fill-T3000",
+        "arm": "D",
+        "structure_id": "SB_c3_porefill",
+        "crop_id": "SB_c3",
+        "soil_code": "S",
+        "chemistry": "chem_eq",
+        "fines_rule": "stage21_pore_fill",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.0,
+        "B0_density": 0.0125
+      }
+    },
+    {
+      "key": "D-SB_c3_porefill-chem_S-stage21_pore_fill-T3000",
+      "config": {
+        "key": "D-SB_c3_porefill-chem_S-stage21_pore_fill-T3000",
+        "arm": "D",
+        "structure_id": "SB_c3_porefill",
+        "crop_id": "SB_c3",
+        "soil_code": "S",
+        "chemistry": "chem_S",
+        "fines_rule": "stage21_pore_fill",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 0.5843486121885222,
+        "B0_density": 0.008807455109562084
+      }
+    },
+    {
+      "key": "E-LA_domain256-chem_eq-not_applicable-T3000",
+      "config": {
+        "key": "E-LA_domain256-chem_eq-not_applicable-T3000",
+        "arm": "E",
+        "structure_id": "LA_domain256",
+        "crop_id": "LA_domain256",
+        "soil_code": "L",
+        "chemistry": "chem_eq",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.0,
+        "B0_density": 0.0125
+      }
+    },
+    {
+      "key": "E-LB_domain256-chem_eq-not_applicable-T3000",
+      "config": {
+        "key": "E-LB_domain256-chem_eq-not_applicable-T3000",
+        "arm": "E",
+        "structure_id": "LB_domain256",
+        "crop_id": "LB_domain256",
+        "soil_code": "L",
+        "chemistry": "chem_eq",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.0,
+        "B0_density": 0.0125
+      }
+    },
+    {
+      "key": "E-LC_domain256-chem_eq-not_applicable-T3000",
+      "config": {
+        "key": "E-LC_domain256-chem_eq-not_applicable-T3000",
+        "arm": "E",
+        "structure_id": "LC_domain256",
+        "crop_id": "LC_domain256",
+        "soil_code": "L",
+        "chemistry": "chem_eq",
+        "fines_rule": "not_applicable",
+        "T": 3000,
+        "K_density": 0.16445,
+        "OM_density": 1.0,
+        "B0_density": 0.0125
+      }
+    }
+  ]
+}

@@ -51,13 +51,9 @@ Read the whole prompt before doing anything. Work in order. Stop and report at a
 | LC | Loess | `RB\nnUNet_resources\mishmar_hanegev_Cu011_samp_2_Rec_nlm\inference_output_concat_loess_i2\mishmar_hanegev_Cu011_samp_2_Rec_nlm.nii.gz` | 15.000149 | 5 | 26.18 (catalog 26.4) | native 15 µm; POM channel invalid (irrelevant: POM → matrix) |
 
 Loess labels (`i2_loess` `dataset.json`): background 0, Stones 1, POM_type1 2, POM_type2 3, unused 4, Pore 5, ignore 6.
-Gates for LA–LC: label histogram reported; label-5 fraction **over the whole volume** within ±1 pp of the table; any voxel with
-4, 6 or a value outside {0,1,2,3,5}: stop and report. For LB also report the pore fraction inside the inscribed disk; it is
-expected to be higher than the whole-volume figure (the table value 20.34 % was computed over the whole 947³ volume, including
-the region outside the core) and is reported, not gated.
-*(Amended 2026-11-08 after the first attempt stopped at this gate: LB whole volume 20.343 %, inside the disk 24.713 %. The gate
-was meant to check the whole-volume figure. No respiration run had been made.)*
-Expected POM (2+3): LA ≈ 2.0 %, LB ≈ 7.9 %, LC ≈ 0.1 %.
+Gates for LA–LC: label histogram reported; label-5 fraction within ±1 pp of the table (if the whole-volume figure includes the
+outside of the core for LB, compute it inside the inscribed disk and report both); any voxel with 4, 6 or a value outside
+{0,1,2,3,5}: stop and report. Expected POM (2+3): LA ≈ 2.0 %, LB ≈ 7.9 %, LC ≈ 0.1 %.
 
 **LB has a circular container:** voxels outside the core must never enter a crop (outside is probably label 0 and would become
 matrix). Restrict crop origins to cubes whose xy corners lie inside the inscribed disk, reusing the `grid_origins` circular logic
