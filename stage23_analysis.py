@@ -214,6 +214,9 @@ def step3() -> dict:
             "equal_to_1e-8": all(
                 abs(observed[name] - prior[name]) < 1e-8 for name in prior
             ),
+            "equal_at_4dp": all(
+                f"{observed[name]:.4f}" == f"{prior[name]:.4f}" for name in prior
+            ),
             "K_density_note": (
                 "Stage 23 uses the fixed 0.16445; Stage 22 used 0.16445337235927582."
             ),
