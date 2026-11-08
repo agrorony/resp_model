@@ -2,3 +2,5 @@
 __pycache__/
 results/stage22_scan_structure/structures/
 results/stage22_scan_structure/job_configs/
+results/stage23/structures/
+results/stage23/job_configs/
