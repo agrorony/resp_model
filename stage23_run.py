@@ -6,6 +6,7 @@ import json
 import os
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 import numpy as np
@@ -782,14 +783,281 @@ def refresh_step1_outputs() -> dict:
     return result
 
 
+def _fines_rule_for_structure(structure_id: str) -> str:
+    if structure_id.endswith("_porefill"):
+        return "stage21_pore_fill"
+    scan_id = structure_id[:2]
+    return "stage22_solid_lt" if scan_id in ("SA", "SB") else "not_applicable"
+
+
+def _run_plan() -> list[dict]:
+    step1_result = _read_json(OUT / "step1.json")
+    crop_ids = [
+        f"{scan_id}_c{index}"
+        for scan_id in SCAN_IDS
+        for index in range(N_CROPS)
+    ]
+    entries = []
+
+    def add(arm: str, structure_id: str, chemistry: str) -> None:
+        fines_rule = _fines_rule_for_structure(structure_id)
+        key = f"{arm}-{structure_id}-{chemistry}-{fines_rule}-T{T_STEPS}"
+        scan_id = structure_id[:2]
+        if structure_id.endswith("_porefill"):
+            crop_id = structure_id.removesuffix("_porefill")
+        else:
+            crop_id = structure_id
+        entries.append({
+            "key": key,
+            "config": {
+                "key": key,
+                "arm": arm,
+                "structure_id": structure_id,
+                "crop_id": crop_id,
+                "soil_code": SOIL_FOR_SCAN[scan_id],
+                "chemistry": chemistry,
+                "fines_rule": fines_rule,
+                "T": T_STEPS,
+                "K_density": K_DENSITY,
+                "OM_density": chem23.CHEMISTRY[chemistry]["OM_density"],
+                "B0_density": chem23.CHEMISTRY[chemistry]["B0_density"],
+            },
+        })
+
+    for structure_id in crop_ids:
+        add("A", structure_id, "chem_eq")
+    for structure_id in crop_ids:
+        own = f"chem_{SOIL_FOR_SCAN[structure_id[:2]]}"
+        add("B", structure_id, own)
+    for structure_id in crop_ids:
+        own_code = SOIL_FOR_SCAN[structure_id[:2]]
+        for code in ("S", "V", "L"):
+            if code != own_code:
+                add("C", structure_id, f"chem_{code}")
+    for structure_id in step1_result["arm_d_structure_ids"]:
+        add("D", structure_id, "chem_eq")
+        add("D", structure_id, "chem_S")
+    for structure_id in step1_result["domain_structure_ids"]:
+        add("E", structure_id, "chem_eq")
+
+    if len(entries) != 131 or len({entry["key"] for entry in entries}) != 131:
+        raise AssertionError(f"Expected 131 unique runs, got {len(entries)}")
+    counts = {
+        arm: sum(entry["config"]["arm"] == arm for entry in entries)
+        for arm in "ABCDE"
+    }
+    if counts != {"A": 28, "B": 28, "C": 56, "D": 16, "E": 3}:
+        raise AssertionError(f"Unexpected Stage 23 run design: {counts}")
+    return entries
+
+
+def _write_job_configs(entries: list[dict]) -> None:
+    JOB_CONFIGS.mkdir(parents=True, exist_ok=True)
+    for entry in entries:
+        path = JOB_CONFIGS / f"{entry['key']}.json"
+        encoded = json.dumps(entry["config"], indent=2, default=_json_default) + "\n"
+        if path.exists():
+            if path.read_text(encoding="utf-8") != encoded:
+                raise ValueError(f"Existing job config differs from this Stage 23 plan: {path}")
+        else:
+            path.write_text(encoded, encoding="utf-8")
+
+
+def _load_completed_run(entry: dict) -> dict | None:
+    key = entry["key"]
+    json_path, npz_path = RUNS / f"{key}.json", RUNS / f"{key}.npz"
+    if json_path.exists() != npz_path.exists():
+        raise FileExistsError(f"Incomplete Stage 23 output pair for {key}")
+    if not json_path.exists():
+        return None
+    result = _read_json(json_path)
+    expected = entry["config"]
+    for field in ("key", "arm", "structure_id", "crop_id", "chemistry", "fines_rule"):
+        if result.get(field) != expected[field]:
+            raise ValueError(f"Existing Stage 23 output metadata mismatch for {key}: {field}")
+    with np.load(npz_path, allow_pickle=False) as arrays:
+        if "R" not in arrays or arrays["R"].shape != (T_STEPS,):
+            raise ValueError(f"Existing Stage 23 curve is invalid for {key}")
+    return result
+
+
+def _run_worker(key: str) -> dict:
+    config = _read_json(JOB_CONFIGS / f"{key}.json")
+    if config["key"] != key:
+        raise ValueError(f"Job key/config mismatch for {key}")
+    xp = P.get_xp()
+    structure = _load_structure(config["structure_id"], xp)
+    hp = M.load_inherited()
+    hp["B0_density"] = float(config["B0_density"])
+    bio = load_yaml("configs/biology.yaml")
+    start = time.time()
+    output, summary = M.run_structure(
+        structure,
+        hp,
+        bio,
+        xp,
+        float(config["K_density"]),
+        float(config["OM_density"]),
+        T=int(config["T"]),
+    )
+    elapsed = time.time() - start
+    if summary["mass_balance_rel"] > 1e-10:
+        raise RuntimeError(f"{key} mass balance failed: {summary['mass_balance_rel']}")
+    if structure.n == CROP_SIZE and elapsed > 600:
+        raise TimeoutError(f"{key} exceeded the 10 minute 100-cube run limit: {elapsed:.1f}s")
+    B0 = float(config["B0_density"]) * structure.phase.size
+    summary.update({
+        **{
+            field: config[field]
+            for field in ("key", "arm", "structure_id", "crop_id", "soil_code", "chemistry", "fines_rule")
+        },
+        "T": int(config["T"]),
+        "OM_density": float(config["OM_density"]),
+        "B0_density": float(config["B0_density"]),
+        "K_density": float(config["K_density"]),
+        "vox_um": structure.vox_um,
+        "n": structure.n,
+        "seconds": elapsed,
+        "R_peak": float(np.max(output["R"])),
+        "R_floor": float(bio["m0"] * B0),
+        "peak_step": int(np.argmax(output["R"])),
+        "backend": xp.__name__,
+    })
+    RUNS.mkdir(parents=True, exist_ok=True)
+    json_path, npz_path = RUNS / f"{key}.json", RUNS / f"{key}.npz"
+    if json_path.exists() or npz_path.exists():
+        raise FileExistsError(f"Refusing to overwrite Stage 23 output: {key}")
+    np.savez_compressed(
+        npz_path,
+        **{name: P.to_np(output[name]) for name in M.STAT_NAMES},
+    )
+    _write_json(json_path, summary)
+    return summary
+
+
+def _run_jobs(entries: list[dict], ngpu: int) -> dict[str, dict]:
+    RUNS.mkdir(parents=True, exist_ok=True)
+    results = {}
+    pending = []
+    for entry in entries:
+        completed = _load_completed_run(entry)
+        if completed is None:
+            pending.append(entry["key"])
+        else:
+            results[entry["key"]] = completed
+    running = {}
+    while pending or running:
+        for slot in range(ngpu):
+            if slot in running or not pending:
+                continue
+            key = pending.pop(0)
+            env = dict(os.environ, CUDA_VISIBLE_DEVICES=str(slot), PYTHONDONTWRITEBYTECODE="1")
+            process = subprocess.Popen(
+                [sys.executable, Path(__file__).name, "job", key],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.PIPE,
+                text=True,
+                env=env,
+            )
+            running[slot] = (key, process, time.time())
+            print(f"start {key} on GPU {slot}", flush=True)
+        time.sleep(2)
+        for slot, (key, process, started) in list(running.items()):
+            config = _read_json(JOB_CONFIGS / f"{key}.json")
+            is_100_cube = "domain" not in config["structure_id"]
+            if (
+                config["T"] == T_STEPS
+                and is_100_cube
+                and process.poll() is None
+                and time.time() - started > 600
+            ):
+                process.terminate()
+                process.wait()
+                raise TimeoutError(f"{key} exceeded the 10 minute 100-cube run limit")
+            if process.poll() is None:
+                continue
+            stderr = process.stderr.read() if process.stderr else ""
+            if process.returncode:
+                for other_slot, (_, other, _) in list(running.items()):
+                    if other_slot != slot and other.poll() is None:
+                        other.terminate()
+                        other.wait()
+                raise RuntimeError(f"Stage 23 run {key} failed: {stderr[-4000:]}")
+            results[key] = _read_json(RUNS / f"{key}.json")
+            print(f"done {key} ({results[key]['seconds']:.1f}s)", flush=True)
+            del running[slot]
+    return results
+
+
+def step2() -> dict:
+    if not (OUT / "step1.json").is_file() or not (Path("docs/stage_results/STAGE23_PREDICTIONS.md").is_file()):
+        raise FileNotFoundError("Commit Stage 23 Step 1 geometry and predictions before Step 2")
+    output_path = OUT / "step2.json"
+    if output_path.exists():
+        raise FileExistsError(f"Refusing to overwrite Stage 23 run summary: {output_path}")
+    entries = _run_plan()
+    plan_path = OUT / "run_plan.json"
+    plan = {
+        "stage": 23,
+        "T": T_STEPS,
+        "dt": DT,
+        "K_density": K_DENSITY,
+        "fixed_chemistry": chem23.CHEMISTRY,
+        "counts_by_arm": {"A": 28, "B": 28, "C": 56, "D": 16, "E": 3},
+        "runs": entries,
+    }
+    if plan_path.exists():
+        if _read_json(plan_path) != plan:
+            raise ValueError("Existing Stage 23 run plan differs from the fixed design")
+    else:
+        if any(RUNS.glob("*")):
+            raise FileExistsError("Stage 23 runs exist without a matching run_plan.json")
+        _write_json(plan_path, plan)
+    _write_job_configs(entries)
+    results = {}
+    standard = [entry for entry in entries if entry["config"]["arm"] != "E"]
+    domains = [entry for entry in entries if entry["config"]["arm"] == "E"]
+    results.update(_run_jobs(standard, ngpu=2))
+    results.update(_run_jobs(domains, ngpu=1))
+    if len(results) != 131:
+        raise AssertionError(f"Expected 131 completed runs, got {len(results)}")
+    result = {
+        "stage": 23,
+        "step": 2,
+        "T": T_STEPS,
+        "dt": DT,
+        "K_density": K_DENSITY,
+        "run_count": len(results),
+        "counts_by_arm": plan["counts_by_arm"],
+        "runs": results,
+    }
+    _write_json(output_path, result)
+    print(json.dumps({
+        "run_count": len(results),
+        "counts_by_arm": plan["counts_by_arm"],
+        "runtime_seconds": sum(row["seconds"] for row in results.values()),
+        "backend_counts": {
+            backend: sum(row["backend"] == backend for row in results.values())
+            for backend in sorted({row["backend"] for row in results.values()})
+        },
+    }, indent=2))
+    return result
+
+
 def main(argv: list[str] | None = None) -> None:
     args = list(sys.argv[1:] if argv is None else argv)
+    if args and args[0] == "job":
+        if len(args) != 2:
+            raise SystemExit("Usage: python stage23_run.py job <run-key>")
+        _run_worker(args[1])
+        return
     if len(args) != 1:
         raise SystemExit("Usage: python stage23_run.py step0|step1|step2|step3|step4|step5|step6|step7")
     steps = {
         "step0": step0,
         "step1": step1,
         "refresh_step1": refresh_step1_outputs,
+        "step2": step2,
     }
     if args[0] not in steps:
         raise SystemExit(f"Step {args[0]!r} is not implemented yet")
