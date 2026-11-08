@@ -263,7 +263,11 @@ def step0() -> dict:
         "test_stage22_scan_structure",
         "test_stage23",
     ]
-    subprocess.run(test_command, check=True)
+    subprocess.run(
+        test_command,
+        check=True,
+        env=dict(os.environ, PYTHONDONTWRITEBYTECODE="1"),
+    )
     result = {
         "stage": 23,
         "step": 0,
@@ -295,12 +299,497 @@ def step0() -> dict:
     return result
 
 
+GEOMETRY_METRICS = (
+    "porosity_resolved",
+    "matrix_fraction",
+    "solid_fraction",
+    "largest_cluster_fraction",
+    "S_w",
+    "habitat_volume_fraction",
+    "wet_fraction_of_habitat",
+)
+
+
+def _cache_structure(structure_id: str, structure: P.Structure, report: dict) -> None:
+    STRUCTURES.mkdir(parents=True, exist_ok=True)
+    path = STRUCTURES / f"{structure_id}.npz"
+    if path.exists():
+        raise FileExistsError(f"Refusing to overwrite Stage 23 structure: {path}")
+    np.savez_compressed(
+        path,
+        phase=P.to_np(structure.phase),
+        lt=P.to_np(structure.lt),
+        vox_um=np.float64(structure.vox_um),
+        seed=np.int64(structure.seed),
+    )
+    report["structure_file"] = str(path)
+
+
+def _analyse_structure(
+    structure_id: str,
+    structure: P.Structure,
+    xp,
+    extra: dict | None = None,
+) -> dict:
+    report = P.analyse(structure, xp)
+    report["structure_id"] = structure_id
+    if extra:
+        report.update(extra)
+    _cache_structure(structure_id, structure, report)
+    return report
+
+
+def _load_structure(structure_id: str, xp) -> P.Structure:
+    path = STRUCTURES / f"{structure_id}.npz"
+    with np.load(path, allow_pickle=False) as data:
+        structure = P.Structure()
+        structure.kind = structure_id
+        structure.phase = xp.asarray(data["phase"])
+        structure.lt = xp.asarray(data["lt"])
+        structure.n = int(data["phase"].shape[0])
+        structure.vox_um = float(data["vox_um"])
+        structure.seed = int(data["seed"])
+        structure.info = {"structure_id": structure_id}
+    return structure
+
+
+def _make_structure(crop: np.ndarray, scan_id: str, xp) -> tuple[P.Structure, float | None]:
+    if scan_id in scan3d.SOIL_BY_ID:
+        structure, threshold = scan3d.crop_to_structure(
+            crop, scan_id, VOX_UM[scan_id], seed=22, xp=xp
+        )
+        structure.phase = xp.asarray(structure.phase)
+        return structure, threshold
+    structure = scan3d_loess.crop_to_structure(crop, scan_id, xp)
+    return structure, None
+
+
+def _aggregate_geometry(reports: dict[str, dict], structure_ids: list[str]) -> dict:
+    result = {"n": len(structure_ids)}
+    for metric in GEOMETRY_METRICS:
+        values = np.asarray([reports[item][metric] for item in structure_ids], dtype=float)
+        result[metric] = {
+            "mean": float(values.mean()),
+            "sd": float(values.std(ddof=1)) if values.size > 1 else 0.0,
+        }
+    spans = np.asarray(
+        [reports[item]["spans_axes_xyz"] for item in structure_ids], dtype=float
+    )
+    result["spans_axes_xyz"] = [
+        {
+            "mean": float(spans[:, axis].mean()),
+            "sd": float(spans[:, axis].std(ddof=1)) if spans.shape[0] > 1 else 0.0,
+        }
+        for axis in range(3)
+    ]
+    for percentile in ("d10", "d50", "d90"):
+        values = np.asarray(
+            [reports[item]["LT_percentiles_um"][percentile] for item in structure_ids],
+            dtype=float,
+        )
+        result[f"LT_{percentile}_um"] = {
+            "mean": float(values.mean()),
+            "sd": float(values.std(ddof=1)) if values.size > 1 else 0.0,
+        }
+    return result
+
+
+def _geometry_aggregate_sets(
+    crops_by_scan: dict[str, list[str]],
+    arm_d_ids: list[str],
+    domain_ids: list[str],
+) -> dict[str, list[str]]:
+    result = {scan_id: list(crops_by_scan[scan_id]) for scan_id in SCAN_IDS}
+    result.update(
+        {
+            "S": crops_by_scan["SA"] + crops_by_scan["SB"],
+            "V": crops_by_scan["VA"] + crops_by_scan["VB"],
+            "L": crops_by_scan["LA"] + crops_by_scan["LB"] + crops_by_scan["LC"],
+            "SA_armD": [item for item in arm_d_ids if item.startswith("SA_")],
+            "SB_armD": [item for item in arm_d_ids if item.startswith("SB_")],
+            "S_armD": list(arm_d_ids),
+            "LA_domain": ["LA_domain256"],
+            "LB_domain": ["LB_domain256"],
+            "LC_domain": ["LC_domain256"],
+            "L_domain": list(domain_ids),
+        }
+    )
+    return result
+
+
+def _write_step1_slices() -> Path:
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from matplotlib.colors import ListedColormap
+    from matplotlib.patches import Patch
+
+    selected_ids = [f"{scan_id}_c0" for scan_id in SCAN_IDS]
+    colors = ("#2786b8", "#d9a441", "#a77746", "#333333")
+    cmap = ListedColormap(colors)
+    fig, axes = plt.subplots(1, len(selected_ids), figsize=(17, 3.8))
+    for ax, structure_id in zip(axes, selected_ids):
+        structure = _load_structure(structure_id, np)
+        phase = structure.phase[:, :, structure.n // 2]
+        lt = structure.lt[:, :, structure.n // 2]
+        image = np.full(phase.shape, 3, dtype=np.uint8)
+        image[phase == P.MATRIX] = 2
+        image[(phase == P.PORE) & (lt < 50.0)] = 0
+        image[(phase == P.PORE) & (lt >= 50.0)] = 1
+        ax.imshow(image.T, cmap=cmap, vmin=0, vmax=3, interpolation="nearest", origin="lower")
+        ax.set_title(structure_id, fontsize=8)
+        ax.set_xticks([])
+        ax.set_yticks([])
+    fig.legend(
+        handles=[
+            Patch(color=colors[0], label="wet pore (<50 um)"),
+            Patch(color=colors[1], label="drained pore (>=50 um)"),
+            Patch(color=colors[2], label="matrix"),
+            Patch(color=colors[3], label="inert solid"),
+        ],
+        loc="lower center",
+        ncol=4,
+        fontsize=8,
+    )
+    fig.tight_layout(rect=(0, 0.14, 1, 1))
+    target = OUT / "step1_slices.png"
+    if target.exists():
+        raise FileExistsError(f"Refusing to overwrite Stage 23 figure: {target}")
+    fig.savefig(target, dpi=130)
+    plt.close(fig)
+    return target
+
+
+def _format_mean_sd(summary: dict, metric: str, digits: int = 3) -> str:
+    values = summary[metric]
+    return f"{values['mean']:.{digits}f} ± {values['sd']:.{digits}f}"
+
+
+def _write_predictions(step1_result: dict, overwrite: bool = False) -> Path:
+    soils = step1_result["aggregates"]
+    table = []
+    for soil_code, label in (("S", "Sand"), ("V", "Vertisol"), ("L", "Loess")):
+        row = soils[soil_code]
+        spans = "/".join(
+            f"{item['mean']:.2f}" for item in row["spans_axes_xyz"]
+        )
+        table.append(
+            f"| {label} | {_format_mean_sd(row, 'porosity_resolved')} | "
+            f"{_format_mean_sd(row, 'matrix_fraction')} | "
+            f"{_format_mean_sd(row, 'solid_fraction')} | "
+            f"{_format_mean_sd(row, 'LT_d10_um', 1)} | "
+            f"{_format_mean_sd(row, 'LT_d50_um', 1)} | "
+            f"{_format_mean_sd(row, 'LT_d90_um', 1)} | "
+            f"{_format_mean_sd(row, 'largest_cluster_fraction')} | "
+            f"{spans} | "
+            f"{_format_mean_sd(row, 'S_w')} | "
+            f"{_format_mean_sd(row, 'habitat_volume_fraction')} | "
+            f"{_format_mean_sd(row, 'wet_fraction_of_habitat')} |"
+        )
+    loess = soils["L"]
+    sand = soils["S"]
+    vertisol = soils["V"]
+    loess_wet = loess["wet_fraction_of_habitat"]["mean"]
+    sand_wet = sand["wet_fraction_of_habitat"]["mean"]
+    vertisol_wet = vertisol["wet_fraction_of_habitat"]["mean"]
+    if min(sand_wet, vertisol_wet) < loess_wet < max(sand_wet, vertisol_wet):
+        relative_wetness = "between Sand and Vertisol"
+    elif loess_wet > max(sand_wet, vertisol_wet):
+        relative_wetness = "higher than both Sand and Vertisol"
+    else:
+        relative_wetness = "lower than both Sand and Vertisol"
+    loess_regime = (
+        "Loess has "
+        f"{loess['porosity_resolved']['mean']:.3f} resolved porosity and "
+        f"{loess_wet:.3f} wet fraction of habitat, {relative_wetness} "
+        f"(Sand {sand_wet:.3f}; Vertisol {vertisol_wet:.3f}). "
+    )
+    if loess["wet_fraction_of_habitat"]["mean"] > 0.5:
+        loess_regime += (
+            "The prediction is therefore a wet-pore diffusion response with a substantial "
+            "drained-film/exchange contribution, rather than a purely drained regime."
+        )
+    else:
+        loess_regime += (
+            "The prediction is a drained-film/exchange-dominated response, with the wet-pore "
+            "fraction limiting direct diffusion."
+        )
+    text = f"""# Stage 23 predictions (pre-run)
+
+These predictions were written after Step 1 geometry and before any Stage 23 respiration run.
+They use only the fixed scan geometries and chemistry constants. No laboratory respiration
+measurements were opened or used.
+
+## Geometry informing the predictions
+
+| Structure soil | Porosity | Matrix | Solid | LT d10 (µm) | LT d50 (µm) | LT d90 (µm) | Largest pore cluster | Spans x/y/z | S_w | Habitat | Wet habitat fraction |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+{chr(10).join(table)}
+
+Under the inherited matric rule, pore voxels with local thickness below 50 µm are wet and
+diffusive; larger pores remain habitat through the drained-film diffusivity and exchange.
+{loess_regime}
+
+## Arm A ordering prediction
+
+Loess is predicted to have an intermediate structure-only response between Sand and Vertisol
+in peak timing and curve shape: its resolved porosity and pore LT d50 are intermediate, while
+its wet habitat fraction and S_w are higher than both other soils. This may make its response
+earlier or more active than the porosity ordering alone suggests. The exact peak height depends
+on connectivity and habitat fraction. This is a geometry-based prediction, not a claim about
+measured respiration. The Loess specimens are expected to show appreciable specimen-to-specimen
+spread because LA and LB are downsampled labels while LC is a native 15 µm scan.
+
+## Structure × chemistry cross
+
+| Output | Predicted dominant factor | Pre-run reason |
+|---|---|---|
+| Peak height (R_peak/floor) | Chemistry | OM and B0 are changed together; the chemistry-specific OM:B0 ratio ranges from about {chem23.CHEMISTRY['chem_S']['OM_density']/chem23.CHEMISTRY['chem_S']['B0_density']:.1f} (Sand) to {chem23.CHEMISTRY['chem_V']['OM_density']/chem23.CHEMISTRY['chem_V']['B0_density']:.1f} (Vertisol), changing substrate availability per initial biomass. |
+| Peak time | Structure | Pore LT distributions, connected clusters, wet habitat and matrix exchange distances alter substrate delivery times even when chemistry is held fixed. |
+| Cumulative R to day 15 | Chemistry | OM_density spans {min(chem23.CHEMISTRY[c]['OM_density'] for c in ('S','V','L')):.3f}–{max(chem23.CHEMISTRY[c]['OM_density'] for c in ('S','V','L')):.3f}; the largest expected direct effect is on total available substrate, with geometry modulating how much is accessed by day 15. |
+
+These are directional predictions only; the fixed 3×3 cross will quantify main effects and
+interaction without tuning or dropping crops.
+
+## Arm D prediction
+
+Filling the narrowest Sand pore voxels with matrix rather than carving fines from inert solid
+is expected to reduce resolved porosity and the narrow-pore habitat fraction, while increasing
+matrix volume and proximity for exchange. The change should broaden or delay the response and
+may change the Sand-versus-Loess/Vertisol ordering; arm D is a model-choice check and will not
+be adopted.
+"""
+    target = Path("docs/stage_results/STAGE23_PREDICTIONS.md")
+    if target.exists() and not overwrite:
+        raise FileExistsError(f"Refusing to overwrite Stage 23 predictions: {target}")
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(text, encoding="utf-8")
+    return target
+
+
+def step1() -> dict:
+    if not (OUT / "preflight.json").is_file():
+        raise FileNotFoundError("Run Stage 23 Step 0 before Step 1")
+    xp = P.get_xp()
+    stage22 = _read_json(Path("results/stage22_scan_structure/step1.json"))
+    reports: dict[str, dict] = {}
+    positions: dict[str, dict] = {}
+    crops_by_scan: dict[str, list[str]] = {}
+    origin_checks = {}
+    arm_d_ids = []
+    domain_ids = []
+
+    for scan_id in SCAN_IDS:
+        volume = _load_scan(scan_id)
+        circular = scan_id == "LB"
+        origins = scan3d_loess.grid_origins(volume.shape, CROP_SIZE, circular=circular)
+        if scan_id in scan3d.SOIL_BY_ID:
+            chosen, rejected = scan3d.draw_habitable_crops(
+                volume,
+                scan_id,
+                VOX_UM[scan_id],
+                origins,
+                crop_size=CROP_SIZE,
+                n_crops=N_CROPS,
+                seed=22,
+            )
+        else:
+            chosen, rejected = scan3d_loess.draw_habitable_crops(
+                volume,
+                scan_id,
+                origins,
+                crop_size=CROP_SIZE,
+                n_crops=N_CROPS,
+                seed=22,
+            )
+        if scan_id in stage22["positions"]:
+            registered = [
+                tuple(int(value) for value in point)
+                for point in stage22["positions"][scan_id]["selected"]
+            ]
+            match = chosen == registered
+            origin_checks[scan_id] = {
+                "reproduced_stage22_origins": match,
+                "selected": chosen,
+                "stage22_selected": registered,
+            }
+            if not match:
+                raise RuntimeError(
+                    f"Stage 22 crop origins changed for {scan_id}: {chosen} != {registered}"
+                )
+        if scan_id == "LB":
+            outside = [
+                origin
+                for origin in chosen
+                if not scan3d_loess.crop_inside_disk(origin, CROP_SIZE, volume.shape)
+            ]
+            if outside:
+                raise RuntimeError(f"LB crop reaches outside the core: {outside}")
+
+        positions[scan_id] = {
+            "grid_origins_100": origins,
+            "selected": chosen,
+            "rejected_zero_habitat": rejected,
+            "circular_constraint": circular,
+        }
+        crops_by_scan[scan_id] = []
+        for crop_index, origin in enumerate(chosen):
+            structure_id = f"{scan_id}_c{crop_index}"
+            crop = (
+                scan3d.crop_at(volume, origin, CROP_SIZE)
+                if scan_id in scan3d.SOIL_BY_ID
+                else scan3d_loess.crop_at(volume, origin, CROP_SIZE)
+            )
+            structure, threshold = _make_structure(crop, scan_id, xp)
+            report = _analyse_structure(
+                structure_id,
+                structure,
+                xp,
+                {
+                    "origin": origin,
+                    "solid_LT_threshold_um": threshold,
+                    "fines_rule": "solid_lt" if scan_id in ("SA", "SB") else "not_applicable",
+                },
+            )
+            reports[structure_id] = report
+            crops_by_scan[scan_id].append(structure_id)
+            if scan_id in ("SA", "SB"):
+                pore_phase, n_fines = scan3d_loess.pore_fill_fines_phase(
+                    crop, VOX_UM[scan_id], seed=22, xp=xp
+                )
+                alternative = P.Structure()
+                alternative.kind = f"{structure_id}_porefill"
+                alternative.n = CROP_SIZE
+                alternative.vox_um = VOX_UM[scan_id]
+                alternative.seed = 22
+                alternative.phase = xp.asarray(pore_phase)
+                alternative.info = {
+                    "scan_id": scan_id,
+                    "fines_rule": "stage21_pore_fill",
+                    "n_fines_voxels": n_fines,
+                }
+                arm_d_id = f"{structure_id}_porefill"
+                arm_d_ids.append(arm_d_id)
+                reports[arm_d_id] = _analyse_structure(
+                    arm_d_id,
+                    alternative,
+                    xp,
+                    {
+                        "origin": origin,
+                        "fines_rule": "stage21_pore_fill",
+                        "n_fines_voxels": n_fines,
+                    },
+                )
+
+        if scan_id in scan3d_loess.LOESS_IDS:
+            domain_origin, domain_size = scan3d.centered_cube_origin(volume.shape, 256)
+            if domain_size != 256:
+                raise ValueError(f"{scan_id} cannot supply the required 256-cube domain check")
+            if scan_id == "LB" and not scan3d_loess.crop_inside_disk(
+                domain_origin, domain_size, volume.shape
+            ):
+                raise RuntimeError(
+                    f"LB 256-cube domain reaches outside the core: {domain_origin}"
+                )
+            crop = scan3d_loess.crop_at(volume, domain_origin, domain_size)
+            domain = scan3d_loess.crop_to_structure(crop, scan_id, xp)
+            domain_id = f"{scan_id}_domain256"
+            reports[domain_id] = _analyse_structure(
+                domain_id,
+                domain,
+                xp,
+                {
+                    "origin": domain_origin,
+                    "requested_size": 256,
+                    "actual_size": domain_size,
+                    "fines_rule": "not_applicable",
+                    "lb_inside_crop_safe_disk": (
+                        scan3d_loess.crop_inside_disk(domain_origin, domain_size, volume.shape)
+                        if scan_id == "LB"
+                        else None
+                    ),
+                },
+            )
+            domain_ids.append(domain_id)
+            positions[scan_id]["domain_origin"] = domain_origin
+            positions[scan_id]["domain_actual_size"] = domain_size
+        del volume
+
+    aggregate_ids = _geometry_aggregate_sets(crops_by_scan, arm_d_ids, domain_ids)
+    aggregates = {
+        key: _aggregate_geometry(reports, structure_ids)
+        for key, structure_ids in aggregate_ids.items()
+    }
+    result = {
+        "stage": 23,
+        "step": 1,
+        "input_gates": {
+            key: value["gate"]
+            for key, value in _read_json(OUT / "preflight.json")["input_gates"].items()
+        },
+        "positions": positions,
+        "origin_checks_against_stage22": origin_checks,
+        "reports": reports,
+        "aggregates": aggregates,
+        "arm_d_structure_ids": arm_d_ids,
+        "domain_structure_ids": domain_ids,
+        "crop_count": sum(len(ids) for ids in crops_by_scan.values()),
+        "lb_crop_constraint": {
+            "grid": "centered non-overlapping grid from run_tortuosity_subvolumes.py",
+            "corner_radius_fraction": 0.90,
+            "selected_origins_inside_crop_safe_disk": True,
+            "domain_256_inside_crop_safe_disk": True,
+        },
+        "respiration_runs_started": False,
+    }
+    slices_path = _write_step1_slices()
+    prediction_path = _write_predictions(result)
+    result["slice_figure"] = str(slices_path)
+    result["predictions"] = str(prediction_path)
+    _write_json(OUT / "step1.json", result)
+    print(json.dumps({
+        "crop_count": result["crop_count"],
+        "origin_checks_against_stage22": origin_checks,
+        "aggregates": aggregates,
+        "arm_d_structures": arm_d_ids,
+        "domain_structures": domain_ids,
+        "slice_figure": str(slices_path),
+        "predictions": str(prediction_path),
+    }, indent=2, default=_json_default))
+    return result
+
+
+def refresh_step1_outputs() -> dict:
+    """Finalize geometry summaries/predictions from this run's Step 1 outputs."""
+    result = _read_json(OUT / "step1.json")
+    if result.get("respiration_runs_started"):
+        raise RuntimeError("Cannot refresh Step 1 predictions after respiration runs began")
+    crops_by_scan = {
+        scan_id: [f"{scan_id}_c{index}" for index in range(N_CROPS)]
+        for scan_id in SCAN_IDS
+    }
+    arm_d_ids = result["arm_d_structure_ids"]
+    domain_ids = result["domain_structure_ids"]
+    aggregate_ids = _geometry_aggregate_sets(crops_by_scan, arm_d_ids, domain_ids)
+    result["aggregates"] = {
+        key: _aggregate_geometry(result["reports"], ids)
+        for key, ids in aggregate_ids.items()
+    }
+    _write_predictions(result, overwrite=True)
+    target = OUT / "step1.json"
+    target.write_text(json.dumps(result, indent=2, default=_json_default) + "\n", encoding="utf-8")
+    return result
+
+
 def main(argv: list[str] | None = None) -> None:
     args = list(sys.argv[1:] if argv is None else argv)
     if len(args) != 1:
         raise SystemExit("Usage: python stage23_run.py step0|step1|step2|step3|step4|step5|step6|step7")
     steps = {
         "step0": step0,
+        "step1": step1,
+        "refresh_step1": refresh_step1_outputs,
     }
     if args[0] not in steps:
         raise SystemExit(f"Step {args[0]!r} is not implemented yet")
