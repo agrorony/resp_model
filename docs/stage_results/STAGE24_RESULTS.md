@@ -287,4 +287,4 @@ The grey-level verdict is determined by the fixed GMM rule: SA=no qualifying two
 
 Figures: [sens_curves.png](../../results/stage24/sens_curves.png), [sens_summary.png](../../results/stage24/sens_summary.png), [grey_histograms.png](../../results/stage24/grey_histograms.png). Preview overlays are saved for qualifying scans only.
 
-Branch: `agents/stage24-matrix-sensitivity`. Commits and PR: recorded in `LOGBOOK.md` after publication.
+Branch: `agents/stage24-matrix-sensitivity`. Commits and publication status are recorded in `LOGBOOK.md`.
