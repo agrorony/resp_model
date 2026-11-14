@@ -1,0 +1,186 @@
+{
+  "stage": 24,
+  "step": 0,
+  "biology_gate": {
+    "sha256_normalized": "c76d9869dc5847f830ac3caadcce4c68986a9180875f3333504c2482a4b0bf5f",
+    "matches_HEAD_main_origin_main": true,
+    "normalization": "CRLF converted to LF before comparison"
+  },
+  "preexisting_diff_and_stash": {
+    "biology_diff_HEAD": "",
+    "status_short": "",
+    "stash_command": "git stash push -u -m pre-stage24-leftovers",
+    "stash_stdout": "No local changes to save",
+    "stash_stderr": "",
+    "stashed_changes": false,
+    "note": "The apparent byte mismatch was CRLF checkout representation only; after CRLF-to-LF normalization, the working file equals the committed file. The stash command had nothing to save, so no change was used."
+  },
+  "input_gates": {
+    "segmented_scans": {
+      "VA": {
+        "shape": [
+          650,
+          650,
+          650
+        ],
+        "path": "E:\\PROJECTS\\Yael_Mishael\\Rony\\remote_computer backup\\nnUNet_resources\\bnei_reem_specA_unified\\inference_concatenated\\bnei_reem_specA_unified.nii.gz",
+        "gate_pass": true
+      },
+      "VB": {
+        "shape": [
+          650,
+          650,
+          650
+        ],
+        "path": "E:\\PROJECTS\\Yael_Mishael\\Rony\\remote_computer backup\\nnUNet_resources\\bnei_reem_specB_unified\\inference_concatenated\\bnei_reem_specB_unified.nii.gz",
+        "gate_pass": true
+      },
+      "SA": {
+        "shape": [
+          650,
+          650,
+          650
+        ],
+        "path": "E:\\PROJECTS\\Yael_Mishael\\Rony\\remote_computer backup\\10.5\\rehovot_samp_2.npy",
+        "gate_pass": true
+      },
+      "SB": {
+        "shape": [
+          650,
+          650,
+          650
+        ],
+        "path": "E:\\PROJECTS\\Yael_Mishael\\Rony\\remote_computer backup\\10.5\\Rehovot_samp3_highkV_Cu0.11_15um.npy",
+        "gate_pass": true
+      },
+      "LA": {
+        "shape": [
+          474,
+          474,
+          474
+        ],
+        "path": "E:\\PROJECTS\\Yael_Mishael\\Rony\\remote_computer backup\\nnUNet4SoilXrayCT\\05_evaluation\\psd\\pom_analysis_20260829_roi_expansion\\pipeline_work\\mishmar_native_5p85um\\mishmar_native_5p85um_label_downsample.nii.gz",
+        "gate_pass": true
+      },
+      "LB": {
+        "shape": [
+          947,
+          947,
+          947
+        ],
+        "path": "E:\\PROJECTS\\Yael_Mishael\\Rony\\remote_computer backup\\nnUNet4SoilXrayCT\\05_evaluation\\psd\\pom_analysis_20260829_roi_expansion\\pipeline_work\\mishmar_second_8p8um\\mishmar_second_8p8um_label_downsample.nii.gz",
+        "gate_pass": true
+      },
+      "LC": {
+        "shape": [
+          650,
+          650,
+          822
+        ],
+        "path": "E:\\PROJECTS\\Yael_Mishael\\Rony\\remote_computer backup\\nnUNet_resources\\mishmar_hanegev_Cu011_samp_2_Rec_nlm\\inference_output_concat_loess_i2\\mishmar_hanegev_Cu011_samp_2_Rec_nlm.nii.gz",
+        "gate_pass": true
+      }
+    },
+    "raw_scan_paths": {
+      "SA": "E:\\PROJECTS\\Yael_Mishael\\Rony\\remote_computer backup\\nnUNet_resources\\rehovot_inference_rehovot_samp_2\\nifti_predict\\rehovot_samp_2_0000.nii.gz",
+      "SB": "E:\\PROJECTS\\Yael_Mishael\\Rony\\remote_computer backup\\nnUNet_resources\\rehovot_inference_Rehovot_samp3_highkV_Cu0.11_15um\\nifti_predict\\Rehovot_samp3_highkV_Cu0.11_15um_0000.nii.gz",
+      "VA": "E:\\PROJECTS\\Yael_Mishael\\Rony\\remote_computer backup\\nnUNet_resources\\bnei_reem_specA_unified\\nifti_predict\\bnei_reem_specA_unified_0000.nii.gz",
+      "VB": "E:\\PROJECTS\\Yael_Mishael\\Rony\\remote_computer backup\\nnUNet_resources\\bnei_reem_specB_unified\\nifti_predict\\bnei_reem_specB_unified_0000.nii.gz",
+      "LC": "E:\\PROJECTS\\Yael_Mishael\\Rony\\remote_computer backup\\nnUNet_resources\\mishmar_hanegev_Cu011_samp_2_Rec_nlm\\old_results\\nifti_predict\\mishmar_hanegev_Cu011_samp_2_Rec_nlm_0000.nii.gz"
+    },
+    "alignment_helper": "E:\\PROJECTS\\Yael_Mishael\\Rony\\remote_computer backup\\nnUNet4SoilXrayCT\\06_reporting\\missing_data_20261004\\figure7\\make_fig7.py",
+    "alignment_helper_sha256": "520713cc24749d7624b5f1e06877bc98a55e3f39757a79dc56e233a7d20cdc2f"
+  },
+  "crop_origins_reused_from_stage23": true,
+  "crop_count": 28,
+  "stage23_run_count": 131,
+  "T": 3000,
+  "K_density": 0.16445,
+  "chemistry": {
+    "S": {
+      "soil": "Sand (Rehovot)",
+      "Cmic_mg_kg": 199.44,
+      "LOI_SOM_g_g": 0.016732,
+      "Corg_g_kg": 9.705,
+      "core_BD_g_cm3": 1.3947,
+      "Corg_mg_cm3_reported": 13.535,
+      "Cmic_ug_cm3_reported": 278.16,
+      "Corg_mg_cm3": 13.5355635,
+      "Cmic_ug_cm3": 278.158968,
+      "OM_density": 0.5843486121885222,
+      "B0_density": 0.008807455109562084
+    },
+    "V": {
+      "soil": "Vertisol (Bnei Re'em)",
+      "Cmic_mg_kg": 406.61,
+      "LOI_SOM_g_g": 0.048627,
+      "Corg_g_kg": 28.204,
+      "core_BD_g_cm3": 1.3482,
+      "Corg_mg_cm3_reported": 38.023,
+      "Cmic_ug_cm3_reported": 548.17,
+      "Corg_mg_cm3": 38.024632800000006,
+      "Cmic_ug_cm3": 548.191602,
+      "OM_density": 1.6415749078830861,
+      "B0_density": 0.017357602959088933
+    },
+    "L": {
+      "soil": "Loess (Mishmar HaNegev)",
+      "Cmic_mg_kg": 315.57,
+      "LOI_SOM_g_g": 0.027252,
+      "Corg_g_kg": 15.806,
+      "core_BD_g_cm3": 1.1344,
+      "Corg_mg_cm3_reported": 17.931,
+      "Cmic_ug_cm3_reported": 357.99,
+      "Corg_mg_cm3": 17.930326400000002,
+      "Cmic_ug_cm3": 357.982608,
+      "OM_density": 0.7740764799283917,
+      "B0_density": 0.011334941931348983
+    },
+    "chem_S": {
+      "soil": "Sand (Rehovot)",
+      "Cmic_mg_kg": 199.44,
+      "LOI_SOM_g_g": 0.016732,
+      "Corg_g_kg": 9.705,
+      "core_BD_g_cm3": 1.3947,
+      "Corg_mg_cm3_reported": 13.535,
+      "Cmic_ug_cm3_reported": 278.16,
+      "Corg_mg_cm3": 13.5355635,
+      "Cmic_ug_cm3": 278.158968,
+      "OM_density": 0.5843486121885222,
+      "B0_density": 0.008807455109562084
+    },
+    "chem_V": {
+      "soil": "Vertisol (Bnei Re'em)",
+      "Cmic_mg_kg": 406.61,
+      "LOI_SOM_g_g": 0.048627,
+      "Corg_g_kg": 28.204,
+      "core_BD_g_cm3": 1.3482,
+      "Corg_mg_cm3_reported": 38.023,
+      "Cmic_ug_cm3_reported": 548.17,
+      "Corg_mg_cm3": 38.024632800000006,
+      "Cmic_ug_cm3": 548.191602,
+      "OM_density": 1.6415749078830861,
+      "B0_density": 0.017357602959088933
+    },
+    "chem_L": {
+      "soil": "Loess (Mishmar HaNegev)",
+      "Cmic_mg_kg": 315.57,
+      "LOI_SOM_g_g": 0.027252,
+      "Corg_g_kg": 15.806,
+      "core_BD_g_cm3": 1.1344,
+      "Corg_mg_cm3_reported": 17.931,
+      "Cmic_ug_cm3_reported": 357.99,
+      "Corg_mg_cm3": 17.930326400000002,
+      "Cmic_ug_cm3": 357.982608,
+      "OM_density": 0.7740764799283917,
+      "B0_density": 0.011334941931348983
+    },
+    "chem_eq": {
+      "soil": "Stage 22 equal chemistry",
+      "OM_density": 1.0,
+      "B0_density": 0.0125
+    }
+  },
+  "biology_unchanged": true,
+  "lab_files_opened": false
+}
