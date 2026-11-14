@@ -1122,11 +1122,19 @@ def _aligned_scan(scan_id: str) -> tuple[np.ndarray, np.ndarray, dict]:
 def _quantile_summary(values: np.ndarray) -> dict:
     if values.size == 0:
         raise ValueError("Cannot summarize an empty grey-level set")
-    quantiles = np.quantile(values, [0.01, 0.25, 0.5, 0.75, 0.95, 0.99])
+    sample_limit = 500_000
+    flattened = values.ravel()
+    if flattened.size > sample_limit:
+        sample = flattened[np.random.default_rng(24).choice(flattened.size, sample_limit, replace=False)]
+    else:
+        sample = flattened
+    quantiles = np.quantile(sample, [0.01, 0.25, 0.5, 0.75, 0.95, 0.99])
     return {
         "n": int(values.size),
-        "mean": float(np.mean(values, dtype=np.float64)),
-        "std": float(np.std(values, dtype=np.float64)),
+        "summary_sample_n": int(sample.size),
+        "mean": float(np.mean(sample, dtype=np.float64)),
+        "std": float(np.std(sample, dtype=np.float64)),
+        "quantiles_sampled": bool(values.size > sample_limit),
         "q01": float(quantiles[0]),
         "q25": float(quantiles[1]),
         "median": float(quantiles[2]),
@@ -1141,9 +1149,12 @@ def _gmm_test(values: np.ndarray) -> dict:
 
     rng = np.random.default_rng(24)
     sample_limit = 500_000
-    sample = values.astype(np.float64, copy=False)
-    if sample.size > sample_limit:
-        sample = sample[rng.choice(sample.size, sample_limit, replace=False)]
+    flattened = values.ravel()
+    if flattened.size > sample_limit:
+        sample = flattened[rng.choice(flattened.size, sample_limit, replace=False)]
+    else:
+        sample = flattened
+    sample = sample.astype(np.float64, copy=False)
     if sample.size < 100:
         raise ValueError(f"Too few eroded voxels for GMM: {sample.size}")
     center = float(sample.mean())
@@ -1188,7 +1199,11 @@ def _multiotsu_thresholds(grey: np.ndarray) -> tuple[list[float], np.ndarray, np
     if low == high:
         raise ValueError("Raw scan has constant grey values")
     if np.issubdtype(values.dtype, np.integer) and high - low <= 65535:
-        counts = np.bincount((values.ravel().astype(np.int64) - int(low)), minlength=int(high - low + 1))
+        counts = np.zeros(int(high - low + 1), dtype=np.int64)
+        for z0 in range(0, values.shape[2], 8):
+            chunk = values[:, :, z0 : z0 + 8]
+            shifted = chunk.astype(np.int64, copy=False) - int(low)
+            counts += np.bincount(shifted.ravel(), minlength=counts.size)
         centers = np.arange(int(low), int(high) + 1, dtype=float)
     else:
         counts, edges = np.histogram(values, bins=4096, range=(low, high))
@@ -1197,7 +1212,7 @@ def _multiotsu_thresholds(grey: np.ndarray) -> tuple[list[float], np.ndarray, np
     return [float(value) for value in thresholds], counts, centers
 
 
-def _histogram_panel(ax, whole_values: np.ndarray, raw_values: np.ndarray, eroded_values: np.ndarray, label1: np.ndarray | None, thresholds: list[float], gmm: dict | None, model, scale_info) -> None:
+def _histogram_panel(ax, whole_values: np.ndarray, raw_values: np.ndarray, eroded_values: np.ndarray, label1: np.ndarray | None, label1_eroded: np.ndarray | None, thresholds: list[float], gmm: dict | None, model, scale_info) -> None:
     high = float(np.quantile(raw_values, 0.999))
     low = float(np.quantile(raw_values, 0.001))
     bins = np.linspace(low, high, 240)
@@ -1206,6 +1221,8 @@ def _histogram_panel(ax, whole_values: np.ndarray, raw_values: np.ndarray, erode
     ax.hist(eroded_values, bins=bins, density=True, histtype="step", color="#c47b36", linewidth=1.2, label="phase eroded")
     if label1 is not None and label1.size:
         ax.hist(label1, bins=bins, density=True, histtype="step", color="#7b5ca6", linewidth=0.9, linestyle="--", label="label 1 raw")
+    if label1_eroded is not None and label1_eroded.size:
+        ax.hist(label1_eroded, bins=bins, density=True, histtype="step", color="#7b5ca6", linewidth=1.1, linestyle=":", label="label 1 eroded")
     for index, threshold in enumerate(thresholds):
         ax.axvline(threshold, color="#168a8a", linestyle=":", linewidth=1, label="Multi-Otsu" if index == 0 else None)
     if gmm is not None and model is not None:
@@ -1269,6 +1286,11 @@ def step5() -> dict:
             if label1_mask is not None
             else None
         )
+        label1_eroded_values = (
+            np.asarray(grey[label1_eroded])
+            if label1_eroded is not None and label1_eroded.any()
+            else None
+        )
         gmm_report, gmm_model, scale_info = _gmm_test(eroded_values)
         thresholds, otsu_counts, otsu_centers = _multiotsu_thresholds(raw)
         middle = (grey > thresholds[0]) & (grey <= thresholds[1])
@@ -1284,8 +1306,8 @@ def step5() -> dict:
                 "phase_eroded_2vox": _quantile_summary(eroded_values),
                 "label1_raw": _quantile_summary(label1_values) if label1_values is not None and label1_values.size else None,
                 "label1_eroded_2vox": (
-                    _quantile_summary(grey[label1_eroded])
-                    if label1_eroded is not None and label1_eroded.any()
+                    _quantile_summary(label1_eroded_values)
+                    if label1_eroded_values is not None
                     else None
                 ),
             },
@@ -1298,14 +1320,16 @@ def step5() -> dict:
             },
         }
         if scan_id in ("SA", "SB"):
-            values = raw_phase_values.astype(np.float64, copy=False)
-            q50, q90, q99, q999 = np.quantile(values, [0.5, 0.9, 0.99, 0.999])
+            sample = raw_phase_values.ravel()
+            if sample.size > 500_000:
+                sample = sample[np.random.default_rng(24).choice(sample.size, 500_000, replace=False)]
+            q50, q90, q99, q999 = np.quantile(sample, [0.5, 0.9, 0.99, 0.999])
             report["sand_bright_tail"] = {
                 "solid_q50": float(q50),
                 "solid_q90": float(q90),
                 "solid_q99": float(q99),
                 "solid_q99_9": float(q999),
-                "top_0_1_percent_range": [float(q999), float(np.max(values))],
+                "top_0_1_percent_range": [float(q999), float(np.max(raw_phase_values))],
                 "interpretation": "A high-grey tail is descriptive only; it is not specific evidence of Fe-oxide coatings.",
             }
         if gmm_report["two_populations"]:
@@ -1339,7 +1363,7 @@ def step5() -> dict:
         axis.set_ylabel("Density")
         raw_plot = raw_phase_values
         eroded_plot = eroded_values
-        _histogram_panel(axis, raw.ravel(), raw_plot, eroded_plot, label1_values, thresholds, gmm_report, gmm_model, scale_info)
+        _histogram_panel(axis, raw.ravel(), raw_plot, eroded_plot, label1_values, label1_eroded_values, thresholds, gmm_report, gmm_model, scale_info)
         axis.legend(fontsize=6)
         del raw, aligned, grey, labels
     figure.tight_layout()
@@ -1389,6 +1413,11 @@ def step6() -> str:
     grey = _read_json(required[5])
     variants = [row.name for row in MS.VARIANTS]
 
+    def curve_source(variant: str, soil: str) -> str:
+        if variant != "base" and MS.variant_changes(VARIANT_BY_NAME[variant], soil):
+            return "Stage 24"
+        return "Stage 23 reused"
+
     geometry_rows = []
     for variant in variants:
         for soil in ("S", "V", "L"):
@@ -1410,15 +1439,18 @@ def step6() -> str:
             f"{' > '.join(outputs['peak_height_order'])} ({'same' if same['peak_height_order'] else 'different'}) | "
             f"{' < '.join(outputs['peak_time_order'])} ({'same' if same['peak_time_order'] else 'different'}) | "
             f"{'/'.join(outputs['arm_b_shape_primary'])} ({'same' if same['arm_b_shape_primary'] else 'different'}) | "
-            f"{' > '.join(outputs['arm_b_cumulative_rank_primary'])} ({'same' if same['arm_b_cumulative_rank_primary'] else 'different'}) |"
+            f"{' > '.join(outputs['arm_b_cumulative_rank_primary'])} ({'same' if same['arm_b_cumulative_rank_primary'] else 'different'}) | "
+            f"Stage 24 affected soils; Stage 23 reused otherwise |"
         )
     pair_rows = []
     for variant in variants:
         for pair, row in analysis["variants"][variant]["arm_a"]["pairwise_distances_and_distinctness"].items():
             one, full = row["by_steps"]["1500"], row["by_steps"]["3000"]
+            soil_a, soil_b = pair.split("-")
+            sources = f"{soil_a}: {curve_source(variant, soil_a)}; {soil_b}: {curve_source(variant, soil_b)}"
             pair_rows.append(
                 f"| {variant} | {pair} | {one['soil_mean_distance']:.4f} | {one['max_within']:.4f} | "
-                f"{one['min_cross']:.4f} | {row['distinct']} | {full['soil_mean_distance']:.4f} |"
+                f"{one['min_cross']:.4f} | {row['distinct']} | {full['soil_mean_distance']:.4f} | {sources} |"
             )
     period_rows = []
     rank_rows = []
@@ -1432,21 +1464,41 @@ def step6() -> str:
                     for mean in row["period_R_per_voxel_mean_sd"]
                 )
                 period_rows.append(
-                    f"| {variant} | {mapping} | {SOIL_NAMES[soil]} | {periods} | {row['shape_stage23_mean_curve']} |"
+                    f"| {variant} | {mapping} | {SOIL_NAMES[soil]} | {periods} | {row['shape_stage23_mean_curve']} | "
+                    f"{curve_source(variant, soil)} |"
                 )
+            qco2_values = ", ".join(
+                f"{soil} {arm_b[soil]['qCO2_days10_15']['mean']:.4g} ± "
+                f"{arm_b[soil]['qCO2_days10_15']['sd']:.3g}"
+                for soil in ("S", "V", "L")
+            )
             rank_rows.append(
                 f"| {variant} | {mapping} | {' > '.join(arm_b['cumulative_R_per_mass_rank'])} | "
-                f"{' > '.join(arm_b['qCO2_days10_15_rank'])} |"
+                f"{qco2_values} | {' > '.join(arm_b['qCO2_days10_15_rank'])} | "
+                f"Stage 24 affected soils; Stage 23 reused otherwise |"
             )
     delivery_rows = []
     for variant in variants:
         for soil in ("S", "V", "L"):
             row = analysis["variants"][variant]["delivery_split_arm_b"][soil]
+            total = sum(
+                row[name]
+                for name in (
+                    "diffusion_into_wet_habitat",
+                    "diffusion_into_drained_habitat",
+                    "exchange_into_wet_habitat",
+                    "exchange_into_drained_habitat",
+                )
+            )
             delivery_rows.append(
-                f"| {variant} | {SOIL_NAMES[soil]} | {_percent(row['diffusion_fraction_total_delivery'])} | "
+                f"| {variant} | {SOIL_NAMES[soil]} | "
+                f"{_percent(row['diffusion_into_wet_habitat'] / total if total else None)} | "
+                f"{_percent(row['diffusion_into_drained_habitat'] / total if total else None)} | "
+                f"{_percent(row['exchange_into_wet_habitat'] / total if total else None)} | "
+                f"{_percent(row['exchange_into_drained_habitat'] / total if total else None)} | "
+                f"{_percent(row['diffusion_fraction_total_delivery'])} | "
                 f"{_percent(row['exchange_fraction_total_delivery'])} | "
-                f"{_percent(row['exchange_into_wet_habitat'] / (row['diffusion_into_wet_habitat'] + row['diffusion_into_drained_habitat'] + row['exchange_into_wet_habitat'] + row['exchange_into_drained_habitat']) if row['diffusion_into_wet_habitat'] + row['diffusion_into_drained_habitat'] + row['exchange_into_wet_habitat'] + row['exchange_into_drained_habitat'] else None)} | "
-                f"{_percent(row['drained_exchange_fraction_total_delivery'])} |"
+                f"{_percent(row['drained_exchange_fraction_of_exchange'])} | {curve_source(variant, soil)} |"
             )
     grey_rows = []
     for scan_id in SEGMENTATION_RAW_IDS:
@@ -1556,8 +1608,8 @@ Every listed geometry is a mean ± SD across the fixed Stage 23 crop set for tha
 
 The Stage 23 rule applies at 0–1500 steps: both soils at least 75% alive, soil-mean distance >0.3, and max within-soil distance < half the min cross-soil distance.
 
-| Variant | Pair | Mean distance 0–1500 | Max within | Min cross | Distinct? | Mean distance 0–3000 |
-|---|---|---:|---:|---:|---|---:|
+| Variant | Pair | Mean distance 0–1500 | Max within | Min cross | Distinct? | Mean distance 0–3000 | Curve source by soil |
+|---|---|---:|---:|---:|---|---:|---|
 {chr(10).join(pair_rows)}
 
 | Variant | Peak-height order (high to low) | Peak-time order (early to late) |
@@ -1568,18 +1620,18 @@ The Stage 23 rule applies at 0–1500 steps: both soils at least 75% alive, soil
 
 P1–P4 values are mean ± SD of per-voxel R, in model units. Shape classes use the unchanged Stage 23 classifier.
 
-| Variant | r_lit | Soil | P1 | P2 | P3 | P4 | Shape |
-|---|---|---|---:|---:|---:|---:|---|
+| Variant | r_lit | Soil | P1 | P2 | P3 | P4 | Shape | Curve source |
+|---|---|---|---:|---:|---:|---:|---|---|
 {chr(10).join(period_rows)}
 
-| Variant | r_lit | Cumulative R/mass rank (high to low) | qCO₂ days 10–15 rank (high to low) |
-|---|---|---|---|
+| Variant | r_lit | Cumulative R/mass rank (high to low) | qCO₂ days 10–15 (S/V/L mean ± SD) | qCO₂ rank (high to low) | Curve source |
+|---|---|---|---|---|---|
 {chr(10).join(rank_rows)}
 
 ### Variants × outputs
 
-| Variant | Sand–Vertisol distinct? | Peak-height order | Peak-time order | Arm B shapes at 2.6 (S/V/L) | Arm B cumulative rank at 2.6 |
-|---|---|---|---|---|---|
+| Variant | Sand–Vertisol distinct? | Peak-height order | Peak-time order | Arm B shapes at 2.6 (S/V/L) | Arm B cumulative rank at 2.6 | Curve source |
+|---|---|---|---|---|---|---|
 {chr(10).join(summary_rows)}
 
 `same` / `different` compares the listed output with base. The primary mapping is `r_lit=2.6`.
@@ -1588,8 +1640,8 @@ P1–P4 values are mean ± SD of per-voxel R, in model units. Shape classes use 
 
 The first two delivery columns partition total net delivery. Wet-exchange is its share of total delivery; drained-exchange columns show Sand’s drained-pore exchange reliance explicitly.
 
-| Variant | Soil | Diffusion | Exchange | Wet exchange / total | Drained exchange / total | Drained exchange / exchange |
-|---|---|---:|---:|---:|---:|---:|
+| Variant | Soil | Diffusion wet / total | Diffusion drained / total | Exchange wet / total | Exchange drained / total | Total diffusion | Total exchange | Drained exchange / exchange | Curve source |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---|
 {chr(10).join(delivery_rows)}
 
 Sand’s drained-exchange share is {_percent(sand_drained['base'])} in base versus {_percent(sand_drained['S30'])} in S30.
