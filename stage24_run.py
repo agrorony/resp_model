@@ -1145,8 +1145,6 @@ def _quantile_summary(values: np.ndarray) -> dict:
 
 
 def _gmm_test(values: np.ndarray) -> dict:
-    from sklearn.mixture import GaussianMixture
-
     rng = np.random.default_rng(24)
     sample_limit = 500_000
     flattened = values.ravel()
@@ -1162,23 +1160,65 @@ def _gmm_test(values: np.ndarray) -> dict:
     if scale <= 0:
         raise ValueError("Eroded grey-level sample has zero variance")
     standardized = ((sample - center) / scale).reshape(-1, 1)
-    one = GaussianMixture(n_components=1, covariance_type="full", n_init=3, random_state=24, reg_covar=1e-6)
-    two = GaussianMixture(n_components=2, covariance_type="full", n_init=5, random_state=24, reg_covar=1e-6)
-    one.fit(standardized)
-    two.fit(standardized)
-    means = two.means_.ravel() * scale + center
-    variances = two.covariances_.reshape(-1) * scale**2
+    x = standardized.ravel()
+    one_mean = float(x.mean())
+    one_variance = max(float(np.mean((x - one_mean) ** 2)), 1e-6)
+    one_log_likelihood = float(
+        -0.5 * np.sum(np.log(2.0 * np.pi * one_variance) + (x - one_mean) ** 2 / one_variance)
+    )
+    one_bic = 2 * np.log(sample.size) - 2 * one_log_likelihood
+    initial_quantiles = ((0.15, 0.85), (0.25, 0.75), (0.35, 0.65), (0.05, 0.95), (0.40, 0.80))
+    best = None
+    for q0, q1 in initial_quantiles:
+        means_z = np.quantile(x, [q0, q1]).astype(float)
+        variances_z = np.full(2, one_variance, dtype=float)
+        weights_z = np.array([0.5, 0.5], dtype=float)
+        previous = -np.inf
+        for _ in range(150):
+            log_prob = (
+                np.log(weights_z)[None, :]
+                - 0.5 * np.log(2.0 * np.pi * variances_z)[None, :]
+                - 0.5 * (x[:, None] - means_z[None, :]) ** 2 / variances_z[None, :]
+            )
+            log_norm = np.logaddexp(log_prob[:, 0], log_prob[:, 1])
+            log_likelihood = float(log_norm.sum())
+            responsibilities = np.exp(log_prob - log_norm[:, None])
+            effective = np.maximum(responsibilities.sum(axis=0), 1e-6)
+            weights_z = np.maximum(effective / sample.size, 1e-6)
+            weights_z /= weights_z.sum()
+            means_z = (responsibilities * x[:, None]).sum(axis=0) / effective
+            variances_z = np.maximum(
+                (responsibilities * (x[:, None] - means_z[None, :]) ** 2).sum(axis=0) / effective,
+                1e-6,
+            )
+            if abs(log_likelihood - previous) <= 1e-6 * (1.0 + abs(log_likelihood)):
+                break
+            previous = log_likelihood
+        log_prob = (
+            np.log(weights_z)[None, :]
+            - 0.5 * np.log(2.0 * np.pi * variances_z)[None, :]
+            - 0.5 * (x[:, None] - means_z[None, :]) ** 2 / variances_z[None, :]
+        )
+        final_log_likelihood = float(np.logaddexp(log_prob[:, 0], log_prob[:, 1]).sum())
+        if best is None or final_log_likelihood > best[0]:
+            best = (final_log_likelihood, means_z.copy(), variances_z.copy(), weights_z.copy())
+    if best is None:
+        raise ArithmeticError("Two-component Gaussian mixture did not produce a fit")
+    two_log_likelihood, means_z, variances_z, weights = best
+    means = means_z * scale + center
+    variances = variances_z * scale**2
     order = np.argsort(means)
-    means, variances, weights = means[order], variances[order], two.weights_[order]
+    means, variances, weights = means[order], variances[order], weights[order]
     ashman_d = float(np.sqrt(2.0) * abs(means[1] - means[0]) / np.sqrt(variances.sum()))
-    delta_bic = float(one.bic(standardized) - two.bic(standardized))
+    two_bic = 5 * np.log(sample.size) - 2 * two_log_likelihood
+    delta_bic = float(one_bic - two_bic)
     minor_weight = float(weights.min())
     qualifies = delta_bic > 10.0 and ashman_d > 2.0 and minor_weight >= 0.05
     return {
         "sample_n": int(sample.size),
         "sample_limit": sample_limit,
-        "BIC_1_component": float(one.bic(standardized)),
-        "BIC_2_component": float(two.bic(standardized)),
+        "BIC_1_component": float(one_bic),
+        "BIC_2_component": float(two_bic),
         "delta_BIC_1_minus_2": delta_bic,
         "Ashman_D": ashman_d,
         "means_grey": means.tolist(),
@@ -1187,7 +1227,7 @@ def _gmm_test(values: np.ndarray) -> dict:
         "minor_component_weight": minor_weight,
         "two_populations": bool(qualifies),
         "rule": "delta_BIC > 10, Ashman_D > 2, minor weight >= 0.05",
-    }, two, (center, scale)
+    }, (center, scale)
 
 
 def _multiotsu_thresholds(grey: np.ndarray) -> tuple[list[float], np.ndarray, np.ndarray]:
@@ -1212,7 +1252,7 @@ def _multiotsu_thresholds(grey: np.ndarray) -> tuple[list[float], np.ndarray, np
     return [float(value) for value in thresholds], counts, centers
 
 
-def _histogram_panel(ax, whole_values: np.ndarray, raw_values: np.ndarray, eroded_values: np.ndarray, label1: np.ndarray | None, label1_eroded: np.ndarray | None, thresholds: list[float], gmm: dict | None, model, scale_info) -> None:
+def _histogram_panel(ax, whole_values: np.ndarray, raw_values: np.ndarray, eroded_values: np.ndarray, label1: np.ndarray | None, label1_eroded: np.ndarray | None, thresholds: list[float], gmm: dict | None, scale_info) -> None:
     high = float(np.quantile(raw_values, 0.999))
     low = float(np.quantile(raw_values, 0.001))
     bins = np.linspace(low, high, 240)
@@ -1225,13 +1265,13 @@ def _histogram_panel(ax, whole_values: np.ndarray, raw_values: np.ndarray, erode
         ax.hist(label1_eroded, bins=bins, density=True, histtype="step", color="#7b5ca6", linewidth=1.1, linestyle=":", label="label 1 eroded")
     for index, threshold in enumerate(thresholds):
         ax.axvline(threshold, color="#168a8a", linestyle=":", linewidth=1, label="Multi-Otsu" if index == 0 else None)
-    if gmm is not None and model is not None:
+    if gmm is not None and scale_info is not None:
         center, scale = scale_info
         x = np.linspace(low, high, 500)
         standardized = (x - center) / scale
-        weights = model.weights_
-        means = model.means_.ravel()
-        variances = model.covariances_.reshape(-1)
+        weights = np.asarray(gmm["weights_dark_to_bright"])
+        means = (np.asarray(gmm["means_grey"]) - center) / scale
+        variances = np.asarray(gmm["variances_grey"]) / scale**2
         density = np.zeros_like(x)
         for weight, mean, variance in zip(weights, means, variances):
             component = weight * np.exp(-0.5 * (standardized - mean) ** 2 / variance) / np.sqrt(2 * np.pi * variance) / scale
@@ -1291,7 +1331,7 @@ def step5() -> dict:
             if label1_eroded is not None and label1_eroded.any()
             else None
         )
-        gmm_report, gmm_model, scale_info = _gmm_test(eroded_values)
+        gmm_report, scale_info = _gmm_test(eroded_values)
         thresholds, otsu_counts, otsu_centers = _multiotsu_thresholds(raw)
         middle = (grey > thresholds[0]) & (grey <= thresholds[1])
         middle_fraction = float(np.count_nonzero(middle & phase_mask) / np.count_nonzero(phase_mask))
@@ -1335,7 +1375,7 @@ def step5() -> dict:
         if gmm_report["two_populations"]:
             means = gmm_report["means_grey"]
             threshold = 0.5 * (means[0] + means[1])
-            darker = raw_phase_values < threshold
+            darker = eroded_values < threshold
             report["grey_split_preview"] = {
                 "dark_component_is_matrix": True,
                 "decision_threshold_grey": threshold,
@@ -1363,9 +1403,15 @@ def step5() -> dict:
         axis.set_ylabel("Density")
         raw_plot = raw_phase_values
         eroded_plot = eroded_values
-        _histogram_panel(axis, raw.ravel(), raw_plot, eroded_plot, label1_values, label1_eroded_values, thresholds, gmm_report, gmm_model, scale_info)
+        _histogram_panel(axis, raw.ravel(), raw_plot, eroded_plot, label1_values, label1_eroded_values, thresholds, gmm_report, scale_info)
         axis.legend(fontsize=6)
-        del raw, aligned, grey, labels
+        del raw, aligned, grey, labels, phase_mask, eroded, raw_phase_values, eroded_values
+        if label1_values is not None:
+            del label1_values
+        if label1_eroded is not None:
+            del label1_eroded
+        if label1_eroded_values is not None:
+            del label1_eroded_values
     figure.tight_layout()
     figure.savefig(OUT / "grey_histograms.png", dpi=150)
     plt.close(figure)
@@ -1376,6 +1422,7 @@ def step5() -> dict:
         "alignment_helper": str(ALIGNMENT_HELPER),
         "figure": str(OUT / "grey_histograms.png"),
         "two_population_rule": "delta BIC > 10, Ashman D > 2, minor weight >= 0.05",
+        "GMM_implementation": "Deterministic 1-D NumPy EM (installed scikit-learn binary is incompatible with NumPy in this environment).",
     }
     _write_json(OUT / "grey_levels.json", result)
     print(json.dumps({
@@ -1524,6 +1571,13 @@ def step6() -> str:
             f"{preview.get('matrix_fraction_of_core_crop', 'no qualifying split')} | "
             f"{'saved' if preview else 'not generated'} |"
         )
+    sand_tail_rows = []
+    for scan_id in ("SA", "SB"):
+        tail = grey["scans"][scan_id]["sand_bright_tail"]
+        low, high = tail["top_0_1_percent_range"]
+        sand_tail_rows.append(
+            f"| {scan_id} | {tail['solid_q99_9']:.6g} | {low:.6g}–{high:.6g} |"
+        )
 
     base = analysis["variants"]["base"]
     sv_all = [analysis["variants"][variant]["arm_a"]["pairwise_distances_and_distinctness"]["S-V"]["distinct"] for variant in variants]
@@ -1648,13 +1702,21 @@ Sand’s drained-exchange share is {_percent(sand_drained['base'])} in base vers
 
 ## Part B — raw grey-level split evidence
 
-Grey histograms cover the whole volume and the core after excluding a 10-voxel border; phase masks and label 1 are shown raw and after 2-voxel erosion. Multi-Otsu thresholds are fit to the whole-volume histogram. The fixed two-population rule is applied to the eroded phase sample. Preview fractions are candidate darker-population volume fractions, not adopted parameters.
+Grey histograms cover the whole volume and the core after excluding a 10-voxel border; phase masks and label 1 are shown raw and after 2-voxel erosion. Multi-Otsu thresholds are fit to the whole-volume histogram. The fixed two-population rule is applied to the eroded phase sample. GMMs use deterministic 1-D NumPy EM because the installed scikit-learn binary is incompatible with NumPy in this environment. Preview fractions are candidate darker-population volume fractions, not adopted parameters.
 
 | Scan | Corr(pore, low grey) | Two-population test (ΔBIC, Ashman D, minor wt, pass) | Multi-Otsu thresholds | Middle non-pore fraction before / after erosion | Phase voxels raw / eroded | Candidate matrix fraction of core | Overlay |
 |---|---:|---|---|---|---:|---:|---|
 {chr(10).join(grey_rows)}
 
 For Sand, the solid histograms show the bright-tail quantiles in `grey_levels.json`; a bright tail can be consistent with dense/coated grains but is not specific evidence for Fe-oxide coatings. No scan failing the 0.5 alignment threshold was analyzed further.
+
+| Sand scan | Solid q99.9 | Top 0.1% grey range |
+|---|---:|---:|
+{chr(10).join(sand_tail_rows)}
+
+A bright tail is present in both Sand solids; samp3’s top 0.1% is clipped at the observed maximum of 1.0, so it is not evidence specific to Fe-oxide coatings.
+
+The Multi-Otsu middle-class fraction decreases after erosion in every scan, by more than half in each case. This is consistent with the class being predominantly grain-edge partial-volume blur, not a distinct material population.
 
 ## Verdict
 
@@ -1668,6 +1730,7 @@ The grey-level verdict is determined by the fixed GMM rule: {', '.join(f"{scan}=
 
 - Matrix fractions are sensitivity inputs, not measured quantities; no variant is adopted.
 - Crop replicates are subsamples of the seven registered scans, not independent field replicates.
+- Input paths and shapes were recorded, but source-volume checksums were not; the files at those paths were assumed immutable during the workflow.
 - The dark/bright interpretation assumes darker material is porous matrix; grey-level populations may also reflect composition, density, reconstruction, noise or partial volume.
 - Multi-Otsu is an intensity partition, not a mineralogical or porosity assay; erosion cannot eliminate every partial-volume effect.
 - Stage 23 chemistry means and the fixed time mapping were not varied. No laboratory respiration data were opened.
