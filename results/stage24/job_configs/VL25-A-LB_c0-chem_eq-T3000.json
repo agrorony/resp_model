@@ -1,0 +1,13 @@
+{
+  "key": "VL25-A-LB_c0-chem_eq-T3000",
+  "variant": "VL25",
+  "arm": "A",
+  "crop_id": "LB_c0",
+  "soil_code": "L",
+  "chemistry": "chem_eq",
+  "T": 3000,
+  "K_density": 0.16445,
+  "OM_density": 1.0,
+  "B0_density": 0.0125,
+  "gate": false
+}

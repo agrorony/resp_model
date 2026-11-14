@@ -1,0 +1,13 @@
+{
+  "key": "CONV-B-LC_c3-chem_L-T3000",
+  "variant": "CONV",
+  "arm": "B",
+  "crop_id": "LC_c3",
+  "soil_code": "L",
+  "chemistry": "chem_L",
+  "T": 3000,
+  "K_density": 0.16445,
+  "OM_density": 0.7740764799283917,
+  "B0_density": 0.011334941931348983,
+  "gate": false
+}
