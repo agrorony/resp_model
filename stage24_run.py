@@ -200,7 +200,10 @@ def _save_structure(variant: str, crop_id: str, phase: np.ndarray, base: P.Struc
     STRUCTURES.mkdir(parents=True, exist_ok=True)
     path = STRUCTURES / f"{variant}_{crop_id}.npz"
     if path.exists():
-        raise FileExistsError(f"Refusing to overwrite Stage 24 structure: {path}")
+        with np.load(path, allow_pickle=False) as data:
+            if not np.array_equal(data["phase"], phase) or not np.array_equal(data["lt"], base.lt):
+                raise ValueError(f"Existing Stage 24 structure differs from this geometry: {path}")
+        return
     np.savez_compressed(
         path,
         phase=phase.astype(np.uint8, copy=False),
@@ -298,8 +301,13 @@ to the outcomes.
 def step1() -> dict:
     if not (OUT / "preflight.json").is_file():
         raise FileNotFoundError("Run Stage 24 Step 0 before geometry")
-    if PREDICTIONS.exists():
-        raise FileExistsError(f"Refusing to overwrite Stage 24 predictions: {PREDICTIONS}")
+    if (OUT / "reproduction_gate.json").exists() or (OUT / "runs.json").exists():
+        raise RuntimeError("Cannot recompute Stage 24 predictions after respiration runs began")
+    prior_geometry = (
+        _read_json(OUT / "geometry.json")
+        if (OUT / "geometry.json").is_file()
+        else None
+    )
     stage23_step1 = _read_json(Path("results/stage23/step1.json"))
     crops_by_scan = {
         scan_id: {
@@ -317,17 +325,29 @@ def step1() -> dict:
             "A": float(chem23.CHEMISTRY["chem_eq"]["OM_density"]),
             "B": float(chem23.CHEMISTRY[f"chem_{soil}"]["OM_density"]),
         }
-        soil_rows: dict[str, list[dict]] = {variant.name: [] for variant in MS.VARIANTS}
         for crop_id, origin in crops_by_scan[scan_id].items():
             crop = _crop_from_volume(volume, scan_id, origin)
             base = _load_base_structure(crop_id)
             base_variant = VARIANT_BY_NAME["base"]
-            base_phase, _ = MS.split_phase(crop, scan_id, base.vox_um, base_variant)
-            if not np.array_equal(base_phase, base.phase):
-                raise RuntimeError(f"Stage 24 base split does not reproduce Stage 23 phase for {crop_id}")
+            if prior_geometry is None or crop_id not in prior_geometry["crops"]["base"]:
+                base_phase, _ = MS.split_phase(crop, scan_id, base.vox_um, base_variant)
+                if not np.array_equal(base_phase, base.phase):
+                    raise RuntimeError(f"Stage 24 base split does not reproduce Stage 23 phase for {crop_id}")
             for variant in MS.VARIANTS:
                 if MS.variant_changes(variant, scan_id):
-                    phase, split_report = MS.split_phase(crop, scan_id, base.vox_um, variant)
+                    structure_path = STRUCTURES / f"{variant.name}_{crop_id}.npz"
+                    if (
+                        structure_path.is_file()
+                        and prior_geometry is not None
+                        and crop_id in prior_geometry["crops"].get(variant.name, {})
+                    ):
+                        with np.load(structure_path, allow_pickle=False) as data:
+                            phase = np.asarray(data["phase"])
+                            if not np.array_equal(data["lt"], base.lt):
+                                raise ValueError(f"Cached LT differs from Stage 23 for {crop_id}")
+                        split_report = prior_geometry["crops"][variant.name][crop_id]["split"]
+                    else:
+                        phase, split_report = MS.split_phase(crop, scan_id, base.vox_um, variant)
                     if variant.name != "base":
                         _save_structure(variant.name, crop_id, phase, base)
                 else:
@@ -343,10 +363,15 @@ def step1() -> dict:
                     **geometry,
                 }
                 reports[variant.name][crop_id] = report
-                soil_rows[variant.name].append(report)
-        for variant in MS.VARIANTS:
-            aggregates[variant.name][soil] = _aggregate_geometry(soil_rows[variant.name])
         del volume
+    for variant in MS.VARIANTS:
+        for soil in ("S", "V", "L"):
+            soil_rows = [
+                row
+                for row in reports[variant.name].values()
+                if SOIL_FOR_SCAN[row["scan_id"]] == soil
+            ]
+            aggregates[variant.name][soil] = _aggregate_geometry(soil_rows)
     result = {
         "stage": 24,
         "step": "A1_geometry",
@@ -357,7 +382,10 @@ def step1() -> dict:
         "aggregates": aggregates,
         "respiration_runs_started": False,
     }
-    _write_json(OUT / "geometry.json", result)
+    geometry_path = OUT / "geometry.json"
+    geometry_text = json.dumps(result, indent=2, default=_json_default) + "\n"
+    geometry_path.parent.mkdir(parents=True, exist_ok=True)
+    geometry_path.write_text(geometry_text, encoding="utf-8")
     PREDICTIONS.parent.mkdir(parents=True, exist_ok=True)
     PREDICTIONS.write_text(_prediction_document(result), encoding="utf-8")
     print(json.dumps({"geometry": aggregates, "predictions": str(PREDICTIONS)}, indent=2, default=_json_default))
