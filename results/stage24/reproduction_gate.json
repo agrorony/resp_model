@@ -1,0 +1,107 @@
+{
+  "stage": 24,
+  "step": "A2_reproduction_gate",
+  "run_count": 14,
+  "max_relative_difference": 0.0,
+  "passed": true,
+  "runs": {
+    "base-A-VA_c0-chem_eq-T3000": {
+      "stage23_reference": "A-VA_c0-chem_eq-not_applicable-T3000",
+      "max_relative_difference": 0.0,
+      "mass_balance_rel": 3.494374274387312e-16,
+      "seconds": 37.17727184295654,
+      "pass": true
+    },
+    "base-B-VA_c0-chem_V-T3000": {
+      "stage23_reference": "B-VA_c0-chem_V-not_applicable-T3000",
+      "max_relative_difference": 0.0,
+      "mass_balance_rel": 8.514687347148902e-16,
+      "seconds": 41.30768394470215,
+      "pass": true
+    },
+    "base-A-VB_c0-chem_eq-T3000": {
+      "stage23_reference": "A-VB_c0-chem_eq-not_applicable-T3000",
+      "max_relative_difference": 0.0,
+      "mass_balance_rel": 5.823957123978857e-17,
+      "seconds": 32.636176109313965,
+      "pass": true
+    },
+    "base-B-VB_c0-chem_V-T3000": {
+      "stage23_reference": "B-VB_c0-chem_V-not_applicable-T3000",
+      "max_relative_difference": 0.0,
+      "mass_balance_rel": 1.915804653108504e-15,
+      "seconds": 35.425331830978394,
+      "pass": true
+    },
+    "base-A-SA_c0-chem_eq-T3000": {
+      "stage23_reference": "A-SA_c0-chem_eq-stage22_solid_lt-T3000",
+      "max_relative_difference": 0.0,
+      "mass_balance_rel": 5.940436266458431e-15,
+      "seconds": 27.71696639060974,
+      "pass": true
+    },
+    "base-B-SA_c0-chem_S-T3000": {
+      "stage23_reference": "B-SA_c0-chem_S-stage22_solid_lt-T3000",
+      "max_relative_difference": 0.0,
+      "mass_balance_rel": 1.5012160951557155e-15,
+      "seconds": 30.093669652938843,
+      "pass": true
+    },
+    "base-A-SB_c0-chem_eq-T3000": {
+      "stage23_reference": "A-SB_c0-chem_eq-stage22_solid_lt-T3000",
+      "max_relative_difference": 0.0,
+      "mass_balance_rel": 3.4070149175276295e-15,
+      "seconds": 28.929603338241577,
+      "pass": true
+    },
+    "base-B-SB_c0-chem_S-T3000": {
+      "stage23_reference": "B-SB_c0-chem_S-stage22_solid_lt-T3000",
+      "max_relative_difference": 0.0,
+      "mass_balance_rel": 1.79398437927322e-15,
+      "seconds": 29.88214373588562,
+      "pass": true
+    },
+    "base-A-LA_c0-chem_eq-T3000": {
+      "stage23_reference": "A-LA_c0-chem_eq-not_applicable-T3000",
+      "max_relative_difference": 0.0,
+      "mass_balance_rel": 5.387160339680435e-15,
+      "seconds": 43.784576654434204,
+      "pass": true
+    },
+    "base-B-LA_c0-chem_L-T3000": {
+      "stage23_reference": "B-LA_c0-chem_L-not_applicable-T3000",
+      "max_relative_difference": 0.0,
+      "mass_balance_rel": 5.078530559473127e-16,
+      "seconds": 35.79011821746826,
+      "pass": true
+    },
+    "base-A-LB_c0-chem_eq-T3000": {
+      "stage23_reference": "A-LB_c0-chem_eq-not_applicable-T3000",
+      "max_relative_difference": 0.0,
+      "mass_balance_rel": 4.076769986785189e-16,
+      "seconds": 33.34562873840332,
+      "pass": true
+    },
+    "base-B-LB_c0-chem_L-T3000": {
+      "stage23_reference": "B-LB_c0-chem_L-not_applicable-T3000",
+      "max_relative_difference": 0.0,
+      "mass_balance_rel": 5.9437616918278095e-15,
+      "seconds": 37.93976593017578,
+      "pass": true
+    },
+    "base-A-LC_c0-chem_eq-T3000": {
+      "stage23_reference": "A-LC_c0-chem_eq-not_applicable-T3000",
+      "max_relative_difference": 0.0,
+      "mass_balance_rel": 8.037060831090818e-15,
+      "seconds": 34.88020658493042,
+      "pass": true
+    },
+    "base-B-LC_c0-chem_L-T3000": {
+      "stage23_reference": "B-LC_c0-chem_L-not_applicable-T3000",
+      "max_relative_difference": 0.0,
+      "mass_balance_rel": 3.0094995907988903e-15,
+      "seconds": 37.59577250480652,
+      "pass": true
+    }
+  }
+}
