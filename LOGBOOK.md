@@ -1185,8 +1185,13 @@ lab/measurement files were read; `configs/biology.yaml` and the existing
 Stage result archives remain unchanged. The starvation-loss measurements
 identify a second non-closed carbon flow; no biology change was made.
 
-Commits so far: `9c24081` (audit), `37106bb` (formula, tests, and docs),
-`bc6736b` (fresh gates), `1f2e39a` (Stage 23 post-hoc outputs), `cf57ab6`
-(Stage 22/24 outputs), `e482ce6` (Figure A1), and `4bd3633` (starvation-loss
-report). The consolidated report is being committed separately. Push and PR
-remain pending.
+Commits: `9c24081` (audit), `37106bb` (formula, tests, and docs), `bc6736b`
+(fresh gates), `1f2e39a` (Stage 23 post-hoc outputs), `cf57ab6` (Stage 22/24
+outputs), `e482ce6` (Figure A1), `4bd3633` (starvation-loss report), and
+`52add0c` (consolidated report). The branch was pushed to
+`origin/agents/fix-growth-respiration`.
+
+Pull request creation is blocked because `gh auth status` reports that no
+GitHub host is authenticated; `gh pr create` returned the `gh auth login`
+instruction. The ready-to-create comparison is
+https://github.com/agrorony/resp_model/compare/agents/stage24-matrix-sensitivity...agents/fix-growth-respiration?expand=1.
