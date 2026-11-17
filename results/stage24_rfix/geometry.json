@@ -1,0 +1,5651 @@
+{
+  "stage": 24,
+  "step": "A1_geometry",
+  "variants": [
+    "base",
+    "S04",
+    "S16",
+    "S30",
+    "VL25",
+    "VL50",
+    "CONV"
+  ],
+  "crop_count": 28,
+  "variant_crop_geometry_count": 196,
+  "crops": {
+    "base": {
+      "VA_c0": {
+        "crop_id": "VA_c0",
+        "scan_id": "VA",
+        "origin": [
+          400,
+          300,
+          100
+        ],
+        "variant": "base",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.862345,
+        "solid_fraction": 0.011451,
+        "pore_fraction": 0.126204,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.116791,
+        "mean_matrix_distance_to_pore_um": 68.15016359262337,
+        "matrix_voxels": 862345,
+        "matrix_interface_faces": 116791,
+        "om_per_matrix_voxel": {
+          "A": 1.1596286868944563,
+          "B": 1.9036173548673516
+        }
+      },
+      "VA_c1": {
+        "crop_id": "VA_c1",
+        "scan_id": "VA",
+        "origin": [
+          500,
+          0,
+          0
+        ],
+        "variant": "base",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.821397,
+        "solid_fraction": 0.011825,
+        "pore_fraction": 0.166778,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.123061,
+        "mean_matrix_distance_to_pore_um": 75.8047387182769,
+        "matrix_voxels": 821397,
+        "matrix_interface_faces": 123061,
+        "om_per_matrix_voxel": {
+          "A": 1.2174380963163975,
+          "B": 1.9985158308139501
+        }
+      },
+      "VA_c2": {
+        "crop_id": "VA_c2",
+        "scan_id": "VA",
+        "origin": [
+          0,
+          500,
+          500
+        ],
+        "variant": "base",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.86078,
+        "solid_fraction": 0.023631,
+        "pore_fraction": 0.115589,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.096716,
+        "mean_matrix_distance_to_pore_um": 81.1380095859204,
+        "matrix_voxels": 860780,
+        "matrix_interface_faces": 96716,
+        "om_per_matrix_voxel": {
+          "A": 1.161737029206069,
+          "B": 1.907078356703323
+        }
+      },
+      "VA_c3": {
+        "crop_id": "VA_c3",
+        "scan_id": "VA",
+        "origin": [
+          300,
+          100,
+          400
+        ],
+        "variant": "base",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.869962,
+        "solid_fraction": 0.015624,
+        "pore_fraction": 0.114414,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.127002,
+        "mean_matrix_distance_to_pore_um": 62.84980228066412,
+        "matrix_voxels": 869962,
+        "matrix_interface_faces": 127002,
+        "om_per_matrix_voxel": {
+          "A": 1.1494754943319363,
+          "B": 1.8869501287218133
+        }
+      },
+      "VB_c0": {
+        "crop_id": "VB_c0",
+        "scan_id": "VB",
+        "origin": [
+          400,
+          300,
+          100
+        ],
+        "variant": "base",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.824096,
+        "solid_fraction": 0.027092,
+        "pore_fraction": 0.148812,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.121714,
+        "mean_matrix_distance_to_pore_um": 83.49728298705485,
+        "matrix_voxels": 824096,
+        "matrix_interface_faces": 121714,
+        "om_per_matrix_voxel": {
+          "A": 1.2134508600939697,
+          "B": 1.99197048387941
+        }
+      },
+      "VB_c1": {
+        "crop_id": "VB_c1",
+        "scan_id": "VB",
+        "origin": [
+          500,
+          0,
+          0
+        ],
+        "variant": "base",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.686029,
+        "solid_fraction": 0.014707,
+        "pore_fraction": 0.299264,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.103209,
+        "mean_matrix_distance_to_pore_um": 91.30638804673944,
+        "matrix_voxels": 686029,
+        "matrix_interface_faces": 103209,
+        "om_per_matrix_voxel": {
+          "A": 1.457664326143647,
+          "B": 2.3928651819137183
+        }
+      },
+      "VB_c2": {
+        "crop_id": "VB_c2",
+        "scan_id": "VB",
+        "origin": [
+          0,
+          500,
+          500
+        ],
+        "variant": "base",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.825552,
+        "solid_fraction": 0.017395,
+        "pore_fraction": 0.157053,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.120151,
+        "mean_matrix_distance_to_pore_um": 67.31115191504463,
+        "matrix_voxels": 825552,
+        "matrix_interface_faces": 120151,
+        "om_per_matrix_voxel": {
+          "A": 1.211310735120259,
+          "B": 1.9884573084228325
+        }
+      },
+      "VB_c3": {
+        "crop_id": "VB_c3",
+        "scan_id": "VB",
+        "origin": [
+          300,
+          100,
+          400
+        ],
+        "variant": "base",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.804616,
+        "solid_fraction": 0.013394,
+        "pore_fraction": 0.18199,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.115057,
+        "mean_matrix_distance_to_pore_um": 70.64962777343395,
+        "matrix_voxels": 804616,
+        "matrix_interface_faces": 115057,
+        "om_per_matrix_voxel": {
+          "A": 1.2428288773775316,
+          "B": 2.040196699895461
+        }
+      },
+      "SA_c0": {
+        "crop_id": "SA_c0",
+        "scan_id": "SA",
+        "origin": [
+          400,
+          300,
+          100
+        ],
+        "variant": "base",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.082111,
+        "solid_fraction": 0.663165,
+        "pore_fraction": 0.254724,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.077577,
+        "mean_matrix_distance_to_pore_um": 23.189691725771098,
+        "matrix_voxels": 82111,
+        "matrix_interface_faces": 77577,
+        "om_per_matrix_voxel": {
+          "A": 12.178636236314258,
+          "B": 7.1165691830390845
+        }
+      },
+      "SA_c1": {
+        "crop_id": "SA_c1",
+        "scan_id": "SA",
+        "origin": [
+          500,
+          0,
+          0
+        ],
+        "variant": "base",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.082111,
+        "solid_fraction": 0.712721,
+        "pore_fraction": 0.205168,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.06764,
+        "mean_matrix_distance_to_pore_um": 24.805500414625765,
+        "matrix_voxels": 82111,
+        "matrix_interface_faces": 67640,
+        "om_per_matrix_voxel": {
+          "A": 12.178636236314258,
+          "B": 7.1165691830390845
+        }
+      },
+      "SA_c2": {
+        "crop_id": "SA_c2",
+        "scan_id": "SA",
+        "origin": [
+          0,
+          500,
+          500
+        ],
+        "variant": "base",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.082111,
+        "solid_fraction": 0.663074,
+        "pore_fraction": 0.254815,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.077858,
+        "mean_matrix_distance_to_pore_um": 23.508773032061367,
+        "matrix_voxels": 82111,
+        "matrix_interface_faces": 77858,
+        "om_per_matrix_voxel": {
+          "A": 12.178636236314258,
+          "B": 7.1165691830390845
+        }
+      },
+      "SA_c3": {
+        "crop_id": "SA_c3",
+        "scan_id": "SA",
+        "origin": [
+          300,
+          100,
+          400
+        ],
+        "variant": "base",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.082111,
+        "solid_fraction": 0.643246,
+        "pore_fraction": 0.274643,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.078278,
+        "mean_matrix_distance_to_pore_um": 23.208981456538478,
+        "matrix_voxels": 82111,
+        "matrix_interface_faces": 78278,
+        "om_per_matrix_voxel": {
+          "A": 12.178636236314258,
+          "B": 7.1165691830390845
+        }
+      },
+      "SB_c0": {
+        "crop_id": "SB_c0",
+        "scan_id": "SB",
+        "origin": [
+          400,
+          300,
+          100
+        ],
+        "variant": "base",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.082111,
+        "solid_fraction": 0.514088,
+        "pore_fraction": 0.403801,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.092213,
+        "mean_matrix_distance_to_pore_um": 21.567838249148423,
+        "matrix_voxels": 82111,
+        "matrix_interface_faces": 92213,
+        "om_per_matrix_voxel": {
+          "A": 12.178636236314258,
+          "B": 7.1165691830390845
+        }
+      },
+      "SB_c1": {
+        "crop_id": "SB_c1",
+        "scan_id": "SB",
+        "origin": [
+          500,
+          0,
+          0
+        ],
+        "variant": "base",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.082111,
+        "solid_fraction": 0.581614,
+        "pore_fraction": 0.336275,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.084872,
+        "mean_matrix_distance_to_pore_um": 22.245745783164338,
+        "matrix_voxels": 82111,
+        "matrix_interface_faces": 84872,
+        "om_per_matrix_voxel": {
+          "A": 12.178636236314258,
+          "B": 7.1165691830390845
+        }
+      },
+      "SB_c2": {
+        "crop_id": "SB_c2",
+        "scan_id": "SB",
+        "origin": [
+          0,
+          500,
+          500
+        ],
+        "variant": "base",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.082111,
+        "solid_fraction": 0.545875,
+        "pore_fraction": 0.372014,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.090644,
+        "mean_matrix_distance_to_pore_um": 21.323407655599407,
+        "matrix_voxels": 82111,
+        "matrix_interface_faces": 90644,
+        "om_per_matrix_voxel": {
+          "A": 12.178636236314258,
+          "B": 7.1165691830390845
+        }
+      },
+      "SB_c3": {
+        "crop_id": "SB_c3",
+        "scan_id": "SB",
+        "origin": [
+          300,
+          100,
+          400
+        ],
+        "variant": "base",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.082111,
+        "solid_fraction": 0.460999,
+        "pore_fraction": 0.45689,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.117904,
+        "mean_matrix_distance_to_pore_um": 18.428562976215787,
+        "matrix_voxels": 82111,
+        "matrix_interface_faces": 117904,
+        "om_per_matrix_voxel": {
+          "A": 12.178636236314258,
+          "B": 7.1165691830390845
+        }
+      },
+      "LA_c0": {
+        "crop_id": "LA_c0",
+        "scan_id": "LA",
+        "origin": [
+          300,
+          300,
+          300
+        ],
+        "variant": "base",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.816184,
+        "solid_fraction": 0.005515,
+        "pore_fraction": 0.178301,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.268225,
+        "mean_matrix_distance_to_pore_um": 35.24478041264047,
+        "matrix_voxels": 816184,
+        "matrix_interface_faces": 268225,
+        "om_per_matrix_voxel": {
+          "A": 1.2252139223508425,
+          "B": 0.9484092801725978
+        }
+      },
+      "LA_c1": {
+        "crop_id": "LA_c1",
+        "scan_id": "LA",
+        "origin": [
+          100,
+          300,
+          200
+        ],
+        "variant": "base",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.718428,
+        "solid_fraction": 0.008958,
+        "pore_fraction": 0.272614,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.363746,
+        "mean_matrix_distance_to_pore_um": 32.36791890792555,
+        "matrix_voxels": 718428,
+        "matrix_interface_faces": 363746,
+        "om_per_matrix_voxel": {
+          "A": 1.3919279315394166,
+          "B": 1.0774586735600389
+        }
+      },
+      "LA_c2": {
+        "crop_id": "LA_c2",
+        "scan_id": "LA",
+        "origin": [
+          200,
+          300,
+          300
+        ],
+        "variant": "base",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.713646,
+        "solid_fraction": 0.028247,
+        "pore_fraction": 0.258107,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.39401,
+        "mean_matrix_distance_to_pore_um": 30.717878349636276,
+        "matrix_voxels": 713646,
+        "matrix_interface_faces": 394010,
+        "om_per_matrix_voxel": {
+          "A": 1.4012549639457097,
+          "B": 1.0846785099732803
+        }
+      },
+      "LA_c3": {
+        "crop_id": "LA_c3",
+        "scan_id": "LA",
+        "origin": [
+          300,
+          300,
+          100
+        ],
+        "variant": "base",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.749997,
+        "solid_fraction": 0.011999,
+        "pore_fraction": 0.238004,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.226004,
+        "mean_matrix_distance_to_pore_um": 42.67834550172167,
+        "matrix_voxels": 749997,
+        "matrix_interface_faces": 226004,
+        "om_per_matrix_voxel": {
+          "A": 1.333338666688,
+          "B": 1.0321061016622621
+        }
+      },
+      "LB_c0": {
+        "crop_id": "LB_c0",
+        "scan_id": "LB",
+        "origin": [
+          423,
+          523,
+          323
+        ],
+        "variant": "base",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.783923,
+        "solid_fraction": 0.000741,
+        "pore_fraction": 0.215336,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.240244,
+        "mean_matrix_distance_to_pore_um": 46.43838420186529,
+        "matrix_voxels": 783923,
+        "matrix_interface_faces": 240244,
+        "om_per_matrix_voxel": {
+          "A": 1.2756354897100863,
+          "B": 0.9874394295465136
+        }
+      },
+      "LB_c1": {
+        "crop_id": "LB_c1",
+        "scan_id": "LB",
+        "origin": [
+          623,
+          623,
+          323
+        ],
+        "variant": "base",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.751497,
+        "solid_fraction": 0.003275,
+        "pore_fraction": 0.245228,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.177937,
+        "mean_matrix_distance_to_pore_um": 55.90947216157872,
+        "matrix_voxels": 751497,
+        "matrix_interface_faces": 177937,
+        "om_per_matrix_voxel": {
+          "A": 1.3306773014396598,
+          "B": 1.0300460014190231
+        }
+      },
+      "LB_c2": {
+        "crop_id": "LB_c2",
+        "scan_id": "LB",
+        "origin": [
+          223,
+          423,
+          123
+        ],
+        "variant": "base",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.663327,
+        "solid_fraction": 0.006048,
+        "pore_fraction": 0.330625,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.257931,
+        "mean_matrix_distance_to_pore_um": 51.51993205389204,
+        "matrix_voxels": 663327,
+        "matrix_interface_faces": 257931,
+        "om_per_matrix_voxel": {
+          "A": 1.5075520821555584,
+          "B": 1.166960609063692
+        }
+      },
+      "LB_c3": {
+        "crop_id": "LB_c3",
+        "scan_id": "LB",
+        "origin": [
+          723,
+          323,
+          623
+        ],
+        "variant": "base",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.890273,
+        "solid_fraction": 0.004249,
+        "pore_fraction": 0.105478,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.128279,
+        "mean_matrix_distance_to_pore_um": 70.86528485044306,
+        "matrix_voxels": 890273,
+        "matrix_interface_faces": 128279,
+        "om_per_matrix_voxel": {
+          "A": 1.1232509578522543,
+          "B": 0.8694821475304673
+        }
+      },
+      "LC_c0": {
+        "crop_id": "LC_c0",
+        "scan_id": "LC",
+        "origin": [
+          500,
+          300,
+          500
+        ],
+        "variant": "base",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.669532,
+        "solid_fraction": 0.00261,
+        "pore_fraction": 0.327858,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.125245,
+        "mean_matrix_distance_to_pore_um": 89.9900100777525,
+        "matrix_voxels": 669532,
+        "matrix_interface_faces": 125245,
+        "om_per_matrix_voxel": {
+          "A": 1.4935805906215087,
+          "B": 1.1561456060776656
+        }
+      },
+      "LC_c1": {
+        "crop_id": "LC_c1",
+        "scan_id": "LC",
+        "origin": [
+          300,
+          0,
+          700
+        ],
+        "variant": "base",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.655096,
+        "solid_fraction": 0.002978,
+        "pore_fraction": 0.341926,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.149689,
+        "mean_matrix_distance_to_pore_um": 75.66255931928053,
+        "matrix_voxels": 655096,
+        "matrix_interface_faces": 149689,
+        "om_per_matrix_voxel": {
+          "A": 1.5264938268589643,
+          "B": 1.1816229681274066
+        }
+      },
+      "LC_c2": {
+        "crop_id": "LC_c2",
+        "scan_id": "LC",
+        "origin": [
+          200,
+          300,
+          300
+        ],
+        "variant": "base",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.72395,
+        "solid_fraction": 0.001063,
+        "pore_fraction": 0.274987,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.159204,
+        "mean_matrix_distance_to_pore_um": 66.86945263184111,
+        "matrix_voxels": 723950,
+        "matrix_interface_faces": 159204,
+        "om_per_matrix_voxel": {
+          "A": 1.3813108640099454,
+          "B": 1.069240251299664
+        }
+      },
+      "LC_c3": {
+        "crop_id": "LC_c3",
+        "scan_id": "LC",
+        "origin": [
+          100,
+          500,
+          700
+        ],
+        "variant": "base",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.837396,
+        "solid_fraction": 0.000894,
+        "pore_fraction": 0.16171,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.09029,
+        "mean_matrix_distance_to_pore_um": 83.22194083345208,
+        "matrix_voxels": 837396,
+        "matrix_interface_faces": 90290,
+        "om_per_matrix_voxel": {
+          "A": 1.1941781427186182,
+          "B": 0.9243852131230524
+        }
+      }
+    },
+    "S04": {
+      "VA_c0": {
+        "crop_id": "VA_c0",
+        "scan_id": "VA",
+        "origin": [
+          400,
+          300,
+          100
+        ],
+        "variant": "S04",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.862345,
+        "solid_fraction": 0.011451,
+        "pore_fraction": 0.126204,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.116791,
+        "mean_matrix_distance_to_pore_um": 68.15016359262337,
+        "matrix_voxels": 862345,
+        "matrix_interface_faces": 116791,
+        "om_per_matrix_voxel": {
+          "A": 1.1596286868944563,
+          "B": 1.9036173548673516
+        }
+      },
+      "VA_c1": {
+        "crop_id": "VA_c1",
+        "scan_id": "VA",
+        "origin": [
+          500,
+          0,
+          0
+        ],
+        "variant": "S04",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.821397,
+        "solid_fraction": 0.011825,
+        "pore_fraction": 0.166778,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.123061,
+        "mean_matrix_distance_to_pore_um": 75.8047387182769,
+        "matrix_voxels": 821397,
+        "matrix_interface_faces": 123061,
+        "om_per_matrix_voxel": {
+          "A": 1.2174380963163975,
+          "B": 1.9985158308139501
+        }
+      },
+      "VA_c2": {
+        "crop_id": "VA_c2",
+        "scan_id": "VA",
+        "origin": [
+          0,
+          500,
+          500
+        ],
+        "variant": "S04",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.86078,
+        "solid_fraction": 0.023631,
+        "pore_fraction": 0.115589,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.096716,
+        "mean_matrix_distance_to_pore_um": 81.1380095859204,
+        "matrix_voxels": 860780,
+        "matrix_interface_faces": 96716,
+        "om_per_matrix_voxel": {
+          "A": 1.161737029206069,
+          "B": 1.907078356703323
+        }
+      },
+      "VA_c3": {
+        "crop_id": "VA_c3",
+        "scan_id": "VA",
+        "origin": [
+          300,
+          100,
+          400
+        ],
+        "variant": "S04",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.869962,
+        "solid_fraction": 0.015624,
+        "pore_fraction": 0.114414,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.127002,
+        "mean_matrix_distance_to_pore_um": 62.84980228066412,
+        "matrix_voxels": 869962,
+        "matrix_interface_faces": 127002,
+        "om_per_matrix_voxel": {
+          "A": 1.1494754943319363,
+          "B": 1.8869501287218133
+        }
+      },
+      "VB_c0": {
+        "crop_id": "VB_c0",
+        "scan_id": "VB",
+        "origin": [
+          400,
+          300,
+          100
+        ],
+        "variant": "S04",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.824096,
+        "solid_fraction": 0.027092,
+        "pore_fraction": 0.148812,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.121714,
+        "mean_matrix_distance_to_pore_um": 83.49728298705485,
+        "matrix_voxels": 824096,
+        "matrix_interface_faces": 121714,
+        "om_per_matrix_voxel": {
+          "A": 1.2134508600939697,
+          "B": 1.99197048387941
+        }
+      },
+      "VB_c1": {
+        "crop_id": "VB_c1",
+        "scan_id": "VB",
+        "origin": [
+          500,
+          0,
+          0
+        ],
+        "variant": "S04",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.686029,
+        "solid_fraction": 0.014707,
+        "pore_fraction": 0.299264,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.103209,
+        "mean_matrix_distance_to_pore_um": 91.30638804673944,
+        "matrix_voxels": 686029,
+        "matrix_interface_faces": 103209,
+        "om_per_matrix_voxel": {
+          "A": 1.457664326143647,
+          "B": 2.3928651819137183
+        }
+      },
+      "VB_c2": {
+        "crop_id": "VB_c2",
+        "scan_id": "VB",
+        "origin": [
+          0,
+          500,
+          500
+        ],
+        "variant": "S04",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.825552,
+        "solid_fraction": 0.017395,
+        "pore_fraction": 0.157053,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.120151,
+        "mean_matrix_distance_to_pore_um": 67.31115191504463,
+        "matrix_voxels": 825552,
+        "matrix_interface_faces": 120151,
+        "om_per_matrix_voxel": {
+          "A": 1.211310735120259,
+          "B": 1.9884573084228325
+        }
+      },
+      "VB_c3": {
+        "crop_id": "VB_c3",
+        "scan_id": "VB",
+        "origin": [
+          300,
+          100,
+          400
+        ],
+        "variant": "S04",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.804616,
+        "solid_fraction": 0.013394,
+        "pore_fraction": 0.18199,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.115057,
+        "mean_matrix_distance_to_pore_um": 70.64962777343395,
+        "matrix_voxels": 804616,
+        "matrix_interface_faces": 115057,
+        "om_per_matrix_voxel": {
+          "A": 1.2428288773775316,
+          "B": 2.040196699895461
+        }
+      },
+      "SA_c0": {
+        "crop_id": "SA_c0",
+        "scan_id": "SA",
+        "origin": [
+          400,
+          300,
+          100
+        ],
+        "variant": "S04",
+        "split": {
+          "matrix_target_fraction_of_crop": 0.04,
+          "matrix_target_voxels_requested": 40000,
+          "matrix_target_voxels_selected": 40000,
+          "solid_voxels_available": 745276,
+          "target_clamped_to_available_solid": false
+        },
+        "matrix_fraction": 0.04,
+        "solid_fraction": 0.705276,
+        "pore_fraction": 0.254724,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.053628,
+        "mean_matrix_distance_to_pore_um": 18.39375948174105,
+        "matrix_voxels": 40000,
+        "matrix_interface_faces": 53628,
+        "om_per_matrix_voxel": {
+          "A": 25.0,
+          "B": 14.608715304713057
+        }
+      },
+      "SA_c1": {
+        "crop_id": "SA_c1",
+        "scan_id": "SA",
+        "origin": [
+          500,
+          0,
+          0
+        ],
+        "variant": "S04",
+        "split": {
+          "matrix_target_fraction_of_crop": 0.04,
+          "matrix_target_voxels_requested": 40000,
+          "matrix_target_voxels_selected": 40000,
+          "solid_voxels_available": 794832,
+          "target_clamped_to_available_solid": false
+        },
+        "matrix_fraction": 0.04,
+        "solid_fraction": 0.754832,
+        "pore_fraction": 0.205168,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.03995,
+        "mean_matrix_distance_to_pore_um": 22.171695545561732,
+        "matrix_voxels": 40000,
+        "matrix_interface_faces": 39950,
+        "om_per_matrix_voxel": {
+          "A": 25.0,
+          "B": 14.608715304713057
+        }
+      },
+      "SA_c2": {
+        "crop_id": "SA_c2",
+        "scan_id": "SA",
+        "origin": [
+          0,
+          500,
+          500
+        ],
+        "variant": "S04",
+        "split": {
+          "matrix_target_fraction_of_crop": 0.04,
+          "matrix_target_voxels_requested": 40000,
+          "matrix_target_voxels_selected": 40000,
+          "solid_voxels_available": 745185,
+          "target_clamped_to_available_solid": false
+        },
+        "matrix_fraction": 0.04,
+        "solid_fraction": 0.705185,
+        "pore_fraction": 0.254815,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.0537,
+        "mean_matrix_distance_to_pore_um": 18.619437810137722,
+        "matrix_voxels": 40000,
+        "matrix_interface_faces": 53700,
+        "om_per_matrix_voxel": {
+          "A": 25.0,
+          "B": 14.608715304713057
+        }
+      },
+      "SA_c3": {
+        "crop_id": "SA_c3",
+        "scan_id": "SA",
+        "origin": [
+          300,
+          100,
+          400
+        ],
+        "variant": "S04",
+        "split": {
+          "matrix_target_fraction_of_crop": 0.04,
+          "matrix_target_voxels_requested": 40000,
+          "matrix_target_voxels_selected": 40000,
+          "solid_voxels_available": 725357,
+          "target_clamped_to_available_solid": false
+        },
+        "matrix_fraction": 0.04,
+        "solid_fraction": 0.685357,
+        "pore_fraction": 0.274643,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.053532,
+        "mean_matrix_distance_to_pore_um": 18.379888457598916,
+        "matrix_voxels": 40000,
+        "matrix_interface_faces": 53532,
+        "om_per_matrix_voxel": {
+          "A": 25.0,
+          "B": 14.608715304713057
+        }
+      },
+      "SB_c0": {
+        "crop_id": "SB_c0",
+        "scan_id": "SB",
+        "origin": [
+          400,
+          300,
+          100
+        ],
+        "variant": "S04",
+        "split": {
+          "matrix_target_fraction_of_crop": 0.04,
+          "matrix_target_voxels_requested": 40000,
+          "matrix_target_voxels_selected": 40000,
+          "solid_voxels_available": 596199,
+          "target_clamped_to_available_solid": false
+        },
+        "matrix_fraction": 0.04,
+        "solid_fraction": 0.556199,
+        "pore_fraction": 0.403801,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.063418,
+        "mean_matrix_distance_to_pore_um": 17.807421641925696,
+        "matrix_voxels": 40000,
+        "matrix_interface_faces": 63418,
+        "om_per_matrix_voxel": {
+          "A": 25.0,
+          "B": 14.608715304713057
+        }
+      },
+      "SB_c1": {
+        "crop_id": "SB_c1",
+        "scan_id": "SB",
+        "origin": [
+          500,
+          0,
+          0
+        ],
+        "variant": "S04",
+        "split": {
+          "matrix_target_fraction_of_crop": 0.04,
+          "matrix_target_voxels_requested": 40000,
+          "matrix_target_voxels_selected": 40000,
+          "solid_voxels_available": 663725,
+          "target_clamped_to_available_solid": false
+        },
+        "matrix_fraction": 0.04,
+        "solid_fraction": 0.623725,
+        "pore_fraction": 0.336275,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.059334,
+        "mean_matrix_distance_to_pore_um": 18.36261341750139,
+        "matrix_voxels": 40000,
+        "matrix_interface_faces": 59334,
+        "om_per_matrix_voxel": {
+          "A": 25.0,
+          "B": 14.608715304713057
+        }
+      },
+      "SB_c2": {
+        "crop_id": "SB_c2",
+        "scan_id": "SB",
+        "origin": [
+          0,
+          500,
+          500
+        ],
+        "variant": "S04",
+        "split": {
+          "matrix_target_fraction_of_crop": 0.04,
+          "matrix_target_voxels_requested": 40000,
+          "matrix_target_voxels_selected": 40000,
+          "solid_voxels_available": 627986,
+          "target_clamped_to_available_solid": false
+        },
+        "matrix_fraction": 0.04,
+        "solid_fraction": 0.587986,
+        "pore_fraction": 0.372014,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.062608,
+        "mean_matrix_distance_to_pore_um": 17.87077997761851,
+        "matrix_voxels": 40000,
+        "matrix_interface_faces": 62608,
+        "om_per_matrix_voxel": {
+          "A": 25.0,
+          "B": 14.608715304713057
+        }
+      },
+      "SB_c3": {
+        "crop_id": "SB_c3",
+        "scan_id": "SB",
+        "origin": [
+          300,
+          100,
+          400
+        ],
+        "variant": "S04",
+        "split": {
+          "matrix_target_fraction_of_crop": 0.04,
+          "matrix_target_voxels_requested": 40000,
+          "matrix_target_voxels_selected": 40000,
+          "solid_voxels_available": 543110,
+          "target_clamped_to_available_solid": false
+        },
+        "matrix_fraction": 0.04,
+        "solid_fraction": 0.50311,
+        "pore_fraction": 0.45689,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.069417,
+        "mean_matrix_distance_to_pore_um": 17.099679170461208,
+        "matrix_voxels": 40000,
+        "matrix_interface_faces": 69417,
+        "om_per_matrix_voxel": {
+          "A": 25.0,
+          "B": 14.608715304713057
+        }
+      },
+      "LA_c0": {
+        "crop_id": "LA_c0",
+        "scan_id": "LA",
+        "origin": [
+          300,
+          300,
+          300
+        ],
+        "variant": "S04",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.816184,
+        "solid_fraction": 0.005515,
+        "pore_fraction": 0.178301,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.268225,
+        "mean_matrix_distance_to_pore_um": 35.24478041264047,
+        "matrix_voxels": 816184,
+        "matrix_interface_faces": 268225,
+        "om_per_matrix_voxel": {
+          "A": 1.2252139223508425,
+          "B": 0.9484092801725978
+        }
+      },
+      "LA_c1": {
+        "crop_id": "LA_c1",
+        "scan_id": "LA",
+        "origin": [
+          100,
+          300,
+          200
+        ],
+        "variant": "S04",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.718428,
+        "solid_fraction": 0.008958,
+        "pore_fraction": 0.272614,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.363746,
+        "mean_matrix_distance_to_pore_um": 32.36791890792555,
+        "matrix_voxels": 718428,
+        "matrix_interface_faces": 363746,
+        "om_per_matrix_voxel": {
+          "A": 1.3919279315394166,
+          "B": 1.0774586735600389
+        }
+      },
+      "LA_c2": {
+        "crop_id": "LA_c2",
+        "scan_id": "LA",
+        "origin": [
+          200,
+          300,
+          300
+        ],
+        "variant": "S04",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.713646,
+        "solid_fraction": 0.028247,
+        "pore_fraction": 0.258107,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.39401,
+        "mean_matrix_distance_to_pore_um": 30.717878349636276,
+        "matrix_voxels": 713646,
+        "matrix_interface_faces": 394010,
+        "om_per_matrix_voxel": {
+          "A": 1.4012549639457097,
+          "B": 1.0846785099732803
+        }
+      },
+      "LA_c3": {
+        "crop_id": "LA_c3",
+        "scan_id": "LA",
+        "origin": [
+          300,
+          300,
+          100
+        ],
+        "variant": "S04",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.749997,
+        "solid_fraction": 0.011999,
+        "pore_fraction": 0.238004,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.226004,
+        "mean_matrix_distance_to_pore_um": 42.67834550172167,
+        "matrix_voxels": 749997,
+        "matrix_interface_faces": 226004,
+        "om_per_matrix_voxel": {
+          "A": 1.333338666688,
+          "B": 1.0321061016622621
+        }
+      },
+      "LB_c0": {
+        "crop_id": "LB_c0",
+        "scan_id": "LB",
+        "origin": [
+          423,
+          523,
+          323
+        ],
+        "variant": "S04",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.783923,
+        "solid_fraction": 0.000741,
+        "pore_fraction": 0.215336,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.240244,
+        "mean_matrix_distance_to_pore_um": 46.43838420186529,
+        "matrix_voxels": 783923,
+        "matrix_interface_faces": 240244,
+        "om_per_matrix_voxel": {
+          "A": 1.2756354897100863,
+          "B": 0.9874394295465136
+        }
+      },
+      "LB_c1": {
+        "crop_id": "LB_c1",
+        "scan_id": "LB",
+        "origin": [
+          623,
+          623,
+          323
+        ],
+        "variant": "S04",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.751497,
+        "solid_fraction": 0.003275,
+        "pore_fraction": 0.245228,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.177937,
+        "mean_matrix_distance_to_pore_um": 55.90947216157872,
+        "matrix_voxels": 751497,
+        "matrix_interface_faces": 177937,
+        "om_per_matrix_voxel": {
+          "A": 1.3306773014396598,
+          "B": 1.0300460014190231
+        }
+      },
+      "LB_c2": {
+        "crop_id": "LB_c2",
+        "scan_id": "LB",
+        "origin": [
+          223,
+          423,
+          123
+        ],
+        "variant": "S04",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.663327,
+        "solid_fraction": 0.006048,
+        "pore_fraction": 0.330625,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.257931,
+        "mean_matrix_distance_to_pore_um": 51.51993205389204,
+        "matrix_voxels": 663327,
+        "matrix_interface_faces": 257931,
+        "om_per_matrix_voxel": {
+          "A": 1.5075520821555584,
+          "B": 1.166960609063692
+        }
+      },
+      "LB_c3": {
+        "crop_id": "LB_c3",
+        "scan_id": "LB",
+        "origin": [
+          723,
+          323,
+          623
+        ],
+        "variant": "S04",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.890273,
+        "solid_fraction": 0.004249,
+        "pore_fraction": 0.105478,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.128279,
+        "mean_matrix_distance_to_pore_um": 70.86528485044306,
+        "matrix_voxels": 890273,
+        "matrix_interface_faces": 128279,
+        "om_per_matrix_voxel": {
+          "A": 1.1232509578522543,
+          "B": 0.8694821475304673
+        }
+      },
+      "LC_c0": {
+        "crop_id": "LC_c0",
+        "scan_id": "LC",
+        "origin": [
+          500,
+          300,
+          500
+        ],
+        "variant": "S04",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.669532,
+        "solid_fraction": 0.00261,
+        "pore_fraction": 0.327858,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.125245,
+        "mean_matrix_distance_to_pore_um": 89.9900100777525,
+        "matrix_voxels": 669532,
+        "matrix_interface_faces": 125245,
+        "om_per_matrix_voxel": {
+          "A": 1.4935805906215087,
+          "B": 1.1561456060776656
+        }
+      },
+      "LC_c1": {
+        "crop_id": "LC_c1",
+        "scan_id": "LC",
+        "origin": [
+          300,
+          0,
+          700
+        ],
+        "variant": "S04",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.655096,
+        "solid_fraction": 0.002978,
+        "pore_fraction": 0.341926,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.149689,
+        "mean_matrix_distance_to_pore_um": 75.66255931928053,
+        "matrix_voxels": 655096,
+        "matrix_interface_faces": 149689,
+        "om_per_matrix_voxel": {
+          "A": 1.5264938268589643,
+          "B": 1.1816229681274066
+        }
+      },
+      "LC_c2": {
+        "crop_id": "LC_c2",
+        "scan_id": "LC",
+        "origin": [
+          200,
+          300,
+          300
+        ],
+        "variant": "S04",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.72395,
+        "solid_fraction": 0.001063,
+        "pore_fraction": 0.274987,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.159204,
+        "mean_matrix_distance_to_pore_um": 66.86945263184111,
+        "matrix_voxels": 723950,
+        "matrix_interface_faces": 159204,
+        "om_per_matrix_voxel": {
+          "A": 1.3813108640099454,
+          "B": 1.069240251299664
+        }
+      },
+      "LC_c3": {
+        "crop_id": "LC_c3",
+        "scan_id": "LC",
+        "origin": [
+          100,
+          500,
+          700
+        ],
+        "variant": "S04",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.837396,
+        "solid_fraction": 0.000894,
+        "pore_fraction": 0.16171,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.09029,
+        "mean_matrix_distance_to_pore_um": 83.22194083345208,
+        "matrix_voxels": 837396,
+        "matrix_interface_faces": 90290,
+        "om_per_matrix_voxel": {
+          "A": 1.1941781427186182,
+          "B": 0.9243852131230524
+        }
+      }
+    },
+    "S16": {
+      "VA_c0": {
+        "crop_id": "VA_c0",
+        "scan_id": "VA",
+        "origin": [
+          400,
+          300,
+          100
+        ],
+        "variant": "S16",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.862345,
+        "solid_fraction": 0.011451,
+        "pore_fraction": 0.126204,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.116791,
+        "mean_matrix_distance_to_pore_um": 68.15016359262337,
+        "matrix_voxels": 862345,
+        "matrix_interface_faces": 116791,
+        "om_per_matrix_voxel": {
+          "A": 1.1596286868944563,
+          "B": 1.9036173548673516
+        }
+      },
+      "VA_c1": {
+        "crop_id": "VA_c1",
+        "scan_id": "VA",
+        "origin": [
+          500,
+          0,
+          0
+        ],
+        "variant": "S16",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.821397,
+        "solid_fraction": 0.011825,
+        "pore_fraction": 0.166778,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.123061,
+        "mean_matrix_distance_to_pore_um": 75.8047387182769,
+        "matrix_voxels": 821397,
+        "matrix_interface_faces": 123061,
+        "om_per_matrix_voxel": {
+          "A": 1.2174380963163975,
+          "B": 1.9985158308139501
+        }
+      },
+      "VA_c2": {
+        "crop_id": "VA_c2",
+        "scan_id": "VA",
+        "origin": [
+          0,
+          500,
+          500
+        ],
+        "variant": "S16",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.86078,
+        "solid_fraction": 0.023631,
+        "pore_fraction": 0.115589,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.096716,
+        "mean_matrix_distance_to_pore_um": 81.1380095859204,
+        "matrix_voxels": 860780,
+        "matrix_interface_faces": 96716,
+        "om_per_matrix_voxel": {
+          "A": 1.161737029206069,
+          "B": 1.907078356703323
+        }
+      },
+      "VA_c3": {
+        "crop_id": "VA_c3",
+        "scan_id": "VA",
+        "origin": [
+          300,
+          100,
+          400
+        ],
+        "variant": "S16",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.869962,
+        "solid_fraction": 0.015624,
+        "pore_fraction": 0.114414,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.127002,
+        "mean_matrix_distance_to_pore_um": 62.84980228066412,
+        "matrix_voxels": 869962,
+        "matrix_interface_faces": 127002,
+        "om_per_matrix_voxel": {
+          "A": 1.1494754943319363,
+          "B": 1.8869501287218133
+        }
+      },
+      "VB_c0": {
+        "crop_id": "VB_c0",
+        "scan_id": "VB",
+        "origin": [
+          400,
+          300,
+          100
+        ],
+        "variant": "S16",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.824096,
+        "solid_fraction": 0.027092,
+        "pore_fraction": 0.148812,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.121714,
+        "mean_matrix_distance_to_pore_um": 83.49728298705485,
+        "matrix_voxels": 824096,
+        "matrix_interface_faces": 121714,
+        "om_per_matrix_voxel": {
+          "A": 1.2134508600939697,
+          "B": 1.99197048387941
+        }
+      },
+      "VB_c1": {
+        "crop_id": "VB_c1",
+        "scan_id": "VB",
+        "origin": [
+          500,
+          0,
+          0
+        ],
+        "variant": "S16",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.686029,
+        "solid_fraction": 0.014707,
+        "pore_fraction": 0.299264,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.103209,
+        "mean_matrix_distance_to_pore_um": 91.30638804673944,
+        "matrix_voxels": 686029,
+        "matrix_interface_faces": 103209,
+        "om_per_matrix_voxel": {
+          "A": 1.457664326143647,
+          "B": 2.3928651819137183
+        }
+      },
+      "VB_c2": {
+        "crop_id": "VB_c2",
+        "scan_id": "VB",
+        "origin": [
+          0,
+          500,
+          500
+        ],
+        "variant": "S16",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.825552,
+        "solid_fraction": 0.017395,
+        "pore_fraction": 0.157053,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.120151,
+        "mean_matrix_distance_to_pore_um": 67.31115191504463,
+        "matrix_voxels": 825552,
+        "matrix_interface_faces": 120151,
+        "om_per_matrix_voxel": {
+          "A": 1.211310735120259,
+          "B": 1.9884573084228325
+        }
+      },
+      "VB_c3": {
+        "crop_id": "VB_c3",
+        "scan_id": "VB",
+        "origin": [
+          300,
+          100,
+          400
+        ],
+        "variant": "S16",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.804616,
+        "solid_fraction": 0.013394,
+        "pore_fraction": 0.18199,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.115057,
+        "mean_matrix_distance_to_pore_um": 70.64962777343395,
+        "matrix_voxels": 804616,
+        "matrix_interface_faces": 115057,
+        "om_per_matrix_voxel": {
+          "A": 1.2428288773775316,
+          "B": 2.040196699895461
+        }
+      },
+      "SA_c0": {
+        "crop_id": "SA_c0",
+        "scan_id": "SA",
+        "origin": [
+          400,
+          300,
+          100
+        ],
+        "variant": "S16",
+        "split": {
+          "matrix_target_fraction_of_crop": 0.16,
+          "matrix_target_voxels_requested": 160000,
+          "matrix_target_voxels_selected": 160000,
+          "solid_voxels_available": 745276,
+          "target_clamped_to_available_solid": false
+        },
+        "matrix_fraction": 0.16,
+        "solid_fraction": 0.585276,
+        "pore_fraction": 0.254724,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.107412,
+        "mean_matrix_distance_to_pore_um": 28.01048106385802,
+        "matrix_voxels": 160000,
+        "matrix_interface_faces": 107412,
+        "om_per_matrix_voxel": {
+          "A": 6.25,
+          "B": 3.652178826178264
+        }
+      },
+      "SA_c1": {
+        "crop_id": "SA_c1",
+        "scan_id": "SA",
+        "origin": [
+          500,
+          0,
+          0
+        ],
+        "variant": "S16",
+        "split": {
+          "matrix_target_fraction_of_crop": 0.16,
+          "matrix_target_voxels_requested": 160000,
+          "matrix_target_voxels_selected": 160000,
+          "solid_voxels_available": 794832,
+          "target_clamped_to_available_solid": false
+        },
+        "matrix_fraction": 0.16,
+        "solid_fraction": 0.634832,
+        "pore_fraction": 0.205168,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.088618,
+        "mean_matrix_distance_to_pore_um": 30.961991792059003,
+        "matrix_voxels": 160000,
+        "matrix_interface_faces": 88618,
+        "om_per_matrix_voxel": {
+          "A": 6.25,
+          "B": 3.652178826178264
+        }
+      },
+      "SA_c2": {
+        "crop_id": "SA_c2",
+        "scan_id": "SA",
+        "origin": [
+          0,
+          500,
+          500
+        ],
+        "variant": "S16",
+        "split": {
+          "matrix_target_fraction_of_crop": 0.16,
+          "matrix_target_voxels_requested": 160000,
+          "matrix_target_voxels_selected": 160000,
+          "solid_voxels_available": 745185,
+          "target_clamped_to_available_solid": false
+        },
+        "matrix_fraction": 0.16,
+        "solid_fraction": 0.585185,
+        "pore_fraction": 0.254815,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.107358,
+        "mean_matrix_distance_to_pore_um": 27.444960128868512,
+        "matrix_voxels": 160000,
+        "matrix_interface_faces": 107358,
+        "om_per_matrix_voxel": {
+          "A": 6.25,
+          "B": 3.652178826178264
+        }
+      },
+      "SA_c3": {
+        "crop_id": "SA_c3",
+        "scan_id": "SA",
+        "origin": [
+          300,
+          100,
+          400
+        ],
+        "variant": "S16",
+        "split": {
+          "matrix_target_fraction_of_crop": 0.16,
+          "matrix_target_voxels_requested": 160000,
+          "matrix_target_voxels_selected": 160000,
+          "solid_voxels_available": 725357,
+          "target_clamped_to_available_solid": false
+        },
+        "matrix_fraction": 0.16,
+        "solid_fraction": 0.565357,
+        "pore_fraction": 0.274643,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.11268,
+        "mean_matrix_distance_to_pore_um": 27.057048660337692,
+        "matrix_voxels": 160000,
+        "matrix_interface_faces": 112680,
+        "om_per_matrix_voxel": {
+          "A": 6.25,
+          "B": 3.652178826178264
+        }
+      },
+      "SB_c0": {
+        "crop_id": "SB_c0",
+        "scan_id": "SB",
+        "origin": [
+          400,
+          300,
+          100
+        ],
+        "variant": "S16",
+        "split": {
+          "matrix_target_fraction_of_crop": 0.16,
+          "matrix_target_voxels_requested": 160000,
+          "matrix_target_voxels_selected": 160000,
+          "solid_voxels_available": 596199,
+          "target_clamped_to_available_solid": false
+        },
+        "matrix_fraction": 0.16,
+        "solid_fraction": 0.436199,
+        "pore_fraction": 0.403801,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.134152,
+        "mean_matrix_distance_to_pore_um": 24.899685939233635,
+        "matrix_voxels": 160000,
+        "matrix_interface_faces": 134152,
+        "om_per_matrix_voxel": {
+          "A": 6.25,
+          "B": 3.652178826178264
+        }
+      },
+      "SB_c1": {
+        "crop_id": "SB_c1",
+        "scan_id": "SB",
+        "origin": [
+          500,
+          0,
+          0
+        ],
+        "variant": "S16",
+        "split": {
+          "matrix_target_fraction_of_crop": 0.16,
+          "matrix_target_voxels_requested": 160000,
+          "matrix_target_voxels_selected": 160000,
+          "solid_voxels_available": 663725,
+          "target_clamped_to_available_solid": false
+        },
+        "matrix_fraction": 0.16,
+        "solid_fraction": 0.503725,
+        "pore_fraction": 0.336275,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.122271,
+        "mean_matrix_distance_to_pore_um": 26.80519012103876,
+        "matrix_voxels": 160000,
+        "matrix_interface_faces": 122271,
+        "om_per_matrix_voxel": {
+          "A": 6.25,
+          "B": 3.652178826178264
+        }
+      },
+      "SB_c2": {
+        "crop_id": "SB_c2",
+        "scan_id": "SB",
+        "origin": [
+          0,
+          500,
+          500
+        ],
+        "variant": "S16",
+        "split": {
+          "matrix_target_fraction_of_crop": 0.16,
+          "matrix_target_voxels_requested": 160000,
+          "matrix_target_voxels_selected": 160000,
+          "solid_voxels_available": 627986,
+          "target_clamped_to_available_solid": false
+        },
+        "matrix_fraction": 0.16,
+        "solid_fraction": 0.467986,
+        "pore_fraction": 0.372014,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.142441,
+        "mean_matrix_distance_to_pore_um": 23.504058185069486,
+        "matrix_voxels": 160000,
+        "matrix_interface_faces": 142441,
+        "om_per_matrix_voxel": {
+          "A": 6.25,
+          "B": 3.652178826178264
+        }
+      },
+      "SB_c3": {
+        "crop_id": "SB_c3",
+        "scan_id": "SB",
+        "origin": [
+          300,
+          100,
+          400
+        ],
+        "variant": "S16",
+        "split": {
+          "matrix_target_fraction_of_crop": 0.16,
+          "matrix_target_voxels_requested": 160000,
+          "matrix_target_voxels_selected": 160000,
+          "solid_voxels_available": 543110,
+          "target_clamped_to_available_solid": false
+        },
+        "matrix_fraction": 0.16,
+        "solid_fraction": 0.38311,
+        "pore_fraction": 0.45689,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.149912,
+        "mean_matrix_distance_to_pore_um": 23.33549125655746,
+        "matrix_voxels": 160000,
+        "matrix_interface_faces": 149912,
+        "om_per_matrix_voxel": {
+          "A": 6.25,
+          "B": 3.652178826178264
+        }
+      },
+      "LA_c0": {
+        "crop_id": "LA_c0",
+        "scan_id": "LA",
+        "origin": [
+          300,
+          300,
+          300
+        ],
+        "variant": "S16",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.816184,
+        "solid_fraction": 0.005515,
+        "pore_fraction": 0.178301,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.268225,
+        "mean_matrix_distance_to_pore_um": 35.24478041264047,
+        "matrix_voxels": 816184,
+        "matrix_interface_faces": 268225,
+        "om_per_matrix_voxel": {
+          "A": 1.2252139223508425,
+          "B": 0.9484092801725978
+        }
+      },
+      "LA_c1": {
+        "crop_id": "LA_c1",
+        "scan_id": "LA",
+        "origin": [
+          100,
+          300,
+          200
+        ],
+        "variant": "S16",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.718428,
+        "solid_fraction": 0.008958,
+        "pore_fraction": 0.272614,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.363746,
+        "mean_matrix_distance_to_pore_um": 32.36791890792555,
+        "matrix_voxels": 718428,
+        "matrix_interface_faces": 363746,
+        "om_per_matrix_voxel": {
+          "A": 1.3919279315394166,
+          "B": 1.0774586735600389
+        }
+      },
+      "LA_c2": {
+        "crop_id": "LA_c2",
+        "scan_id": "LA",
+        "origin": [
+          200,
+          300,
+          300
+        ],
+        "variant": "S16",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.713646,
+        "solid_fraction": 0.028247,
+        "pore_fraction": 0.258107,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.39401,
+        "mean_matrix_distance_to_pore_um": 30.717878349636276,
+        "matrix_voxels": 713646,
+        "matrix_interface_faces": 394010,
+        "om_per_matrix_voxel": {
+          "A": 1.4012549639457097,
+          "B": 1.0846785099732803
+        }
+      },
+      "LA_c3": {
+        "crop_id": "LA_c3",
+        "scan_id": "LA",
+        "origin": [
+          300,
+          300,
+          100
+        ],
+        "variant": "S16",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.749997,
+        "solid_fraction": 0.011999,
+        "pore_fraction": 0.238004,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.226004,
+        "mean_matrix_distance_to_pore_um": 42.67834550172167,
+        "matrix_voxels": 749997,
+        "matrix_interface_faces": 226004,
+        "om_per_matrix_voxel": {
+          "A": 1.333338666688,
+          "B": 1.0321061016622621
+        }
+      },
+      "LB_c0": {
+        "crop_id": "LB_c0",
+        "scan_id": "LB",
+        "origin": [
+          423,
+          523,
+          323
+        ],
+        "variant": "S16",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.783923,
+        "solid_fraction": 0.000741,
+        "pore_fraction": 0.215336,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.240244,
+        "mean_matrix_distance_to_pore_um": 46.43838420186529,
+        "matrix_voxels": 783923,
+        "matrix_interface_faces": 240244,
+        "om_per_matrix_voxel": {
+          "A": 1.2756354897100863,
+          "B": 0.9874394295465136
+        }
+      },
+      "LB_c1": {
+        "crop_id": "LB_c1",
+        "scan_id": "LB",
+        "origin": [
+          623,
+          623,
+          323
+        ],
+        "variant": "S16",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.751497,
+        "solid_fraction": 0.003275,
+        "pore_fraction": 0.245228,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.177937,
+        "mean_matrix_distance_to_pore_um": 55.90947216157872,
+        "matrix_voxels": 751497,
+        "matrix_interface_faces": 177937,
+        "om_per_matrix_voxel": {
+          "A": 1.3306773014396598,
+          "B": 1.0300460014190231
+        }
+      },
+      "LB_c2": {
+        "crop_id": "LB_c2",
+        "scan_id": "LB",
+        "origin": [
+          223,
+          423,
+          123
+        ],
+        "variant": "S16",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.663327,
+        "solid_fraction": 0.006048,
+        "pore_fraction": 0.330625,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.257931,
+        "mean_matrix_distance_to_pore_um": 51.51993205389204,
+        "matrix_voxels": 663327,
+        "matrix_interface_faces": 257931,
+        "om_per_matrix_voxel": {
+          "A": 1.5075520821555584,
+          "B": 1.166960609063692
+        }
+      },
+      "LB_c3": {
+        "crop_id": "LB_c3",
+        "scan_id": "LB",
+        "origin": [
+          723,
+          323,
+          623
+        ],
+        "variant": "S16",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.890273,
+        "solid_fraction": 0.004249,
+        "pore_fraction": 0.105478,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.128279,
+        "mean_matrix_distance_to_pore_um": 70.86528485044306,
+        "matrix_voxels": 890273,
+        "matrix_interface_faces": 128279,
+        "om_per_matrix_voxel": {
+          "A": 1.1232509578522543,
+          "B": 0.8694821475304673
+        }
+      },
+      "LC_c0": {
+        "crop_id": "LC_c0",
+        "scan_id": "LC",
+        "origin": [
+          500,
+          300,
+          500
+        ],
+        "variant": "S16",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.669532,
+        "solid_fraction": 0.00261,
+        "pore_fraction": 0.327858,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.125245,
+        "mean_matrix_distance_to_pore_um": 89.9900100777525,
+        "matrix_voxels": 669532,
+        "matrix_interface_faces": 125245,
+        "om_per_matrix_voxel": {
+          "A": 1.4935805906215087,
+          "B": 1.1561456060776656
+        }
+      },
+      "LC_c1": {
+        "crop_id": "LC_c1",
+        "scan_id": "LC",
+        "origin": [
+          300,
+          0,
+          700
+        ],
+        "variant": "S16",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.655096,
+        "solid_fraction": 0.002978,
+        "pore_fraction": 0.341926,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.149689,
+        "mean_matrix_distance_to_pore_um": 75.66255931928053,
+        "matrix_voxels": 655096,
+        "matrix_interface_faces": 149689,
+        "om_per_matrix_voxel": {
+          "A": 1.5264938268589643,
+          "B": 1.1816229681274066
+        }
+      },
+      "LC_c2": {
+        "crop_id": "LC_c2",
+        "scan_id": "LC",
+        "origin": [
+          200,
+          300,
+          300
+        ],
+        "variant": "S16",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.72395,
+        "solid_fraction": 0.001063,
+        "pore_fraction": 0.274987,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.159204,
+        "mean_matrix_distance_to_pore_um": 66.86945263184111,
+        "matrix_voxels": 723950,
+        "matrix_interface_faces": 159204,
+        "om_per_matrix_voxel": {
+          "A": 1.3813108640099454,
+          "B": 1.069240251299664
+        }
+      },
+      "LC_c3": {
+        "crop_id": "LC_c3",
+        "scan_id": "LC",
+        "origin": [
+          100,
+          500,
+          700
+        ],
+        "variant": "S16",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.837396,
+        "solid_fraction": 0.000894,
+        "pore_fraction": 0.16171,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.09029,
+        "mean_matrix_distance_to_pore_um": 83.22194083345208,
+        "matrix_voxels": 837396,
+        "matrix_interface_faces": 90290,
+        "om_per_matrix_voxel": {
+          "A": 1.1941781427186182,
+          "B": 0.9243852131230524
+        }
+      }
+    },
+    "S30": {
+      "VA_c0": {
+        "crop_id": "VA_c0",
+        "scan_id": "VA",
+        "origin": [
+          400,
+          300,
+          100
+        ],
+        "variant": "S30",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.862345,
+        "solid_fraction": 0.011451,
+        "pore_fraction": 0.126204,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.116791,
+        "mean_matrix_distance_to_pore_um": 68.15016359262337,
+        "matrix_voxels": 862345,
+        "matrix_interface_faces": 116791,
+        "om_per_matrix_voxel": {
+          "A": 1.1596286868944563,
+          "B": 1.9036173548673516
+        }
+      },
+      "VA_c1": {
+        "crop_id": "VA_c1",
+        "scan_id": "VA",
+        "origin": [
+          500,
+          0,
+          0
+        ],
+        "variant": "S30",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.821397,
+        "solid_fraction": 0.011825,
+        "pore_fraction": 0.166778,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.123061,
+        "mean_matrix_distance_to_pore_um": 75.8047387182769,
+        "matrix_voxels": 821397,
+        "matrix_interface_faces": 123061,
+        "om_per_matrix_voxel": {
+          "A": 1.2174380963163975,
+          "B": 1.9985158308139501
+        }
+      },
+      "VA_c2": {
+        "crop_id": "VA_c2",
+        "scan_id": "VA",
+        "origin": [
+          0,
+          500,
+          500
+        ],
+        "variant": "S30",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.86078,
+        "solid_fraction": 0.023631,
+        "pore_fraction": 0.115589,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.096716,
+        "mean_matrix_distance_to_pore_um": 81.1380095859204,
+        "matrix_voxels": 860780,
+        "matrix_interface_faces": 96716,
+        "om_per_matrix_voxel": {
+          "A": 1.161737029206069,
+          "B": 1.907078356703323
+        }
+      },
+      "VA_c3": {
+        "crop_id": "VA_c3",
+        "scan_id": "VA",
+        "origin": [
+          300,
+          100,
+          400
+        ],
+        "variant": "S30",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.869962,
+        "solid_fraction": 0.015624,
+        "pore_fraction": 0.114414,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.127002,
+        "mean_matrix_distance_to_pore_um": 62.84980228066412,
+        "matrix_voxels": 869962,
+        "matrix_interface_faces": 127002,
+        "om_per_matrix_voxel": {
+          "A": 1.1494754943319363,
+          "B": 1.8869501287218133
+        }
+      },
+      "VB_c0": {
+        "crop_id": "VB_c0",
+        "scan_id": "VB",
+        "origin": [
+          400,
+          300,
+          100
+        ],
+        "variant": "S30",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.824096,
+        "solid_fraction": 0.027092,
+        "pore_fraction": 0.148812,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.121714,
+        "mean_matrix_distance_to_pore_um": 83.49728298705485,
+        "matrix_voxels": 824096,
+        "matrix_interface_faces": 121714,
+        "om_per_matrix_voxel": {
+          "A": 1.2134508600939697,
+          "B": 1.99197048387941
+        }
+      },
+      "VB_c1": {
+        "crop_id": "VB_c1",
+        "scan_id": "VB",
+        "origin": [
+          500,
+          0,
+          0
+        ],
+        "variant": "S30",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.686029,
+        "solid_fraction": 0.014707,
+        "pore_fraction": 0.299264,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.103209,
+        "mean_matrix_distance_to_pore_um": 91.30638804673944,
+        "matrix_voxels": 686029,
+        "matrix_interface_faces": 103209,
+        "om_per_matrix_voxel": {
+          "A": 1.457664326143647,
+          "B": 2.3928651819137183
+        }
+      },
+      "VB_c2": {
+        "crop_id": "VB_c2",
+        "scan_id": "VB",
+        "origin": [
+          0,
+          500,
+          500
+        ],
+        "variant": "S30",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.825552,
+        "solid_fraction": 0.017395,
+        "pore_fraction": 0.157053,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.120151,
+        "mean_matrix_distance_to_pore_um": 67.31115191504463,
+        "matrix_voxels": 825552,
+        "matrix_interface_faces": 120151,
+        "om_per_matrix_voxel": {
+          "A": 1.211310735120259,
+          "B": 1.9884573084228325
+        }
+      },
+      "VB_c3": {
+        "crop_id": "VB_c3",
+        "scan_id": "VB",
+        "origin": [
+          300,
+          100,
+          400
+        ],
+        "variant": "S30",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.804616,
+        "solid_fraction": 0.013394,
+        "pore_fraction": 0.18199,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.115057,
+        "mean_matrix_distance_to_pore_um": 70.64962777343395,
+        "matrix_voxels": 804616,
+        "matrix_interface_faces": 115057,
+        "om_per_matrix_voxel": {
+          "A": 1.2428288773775316,
+          "B": 2.040196699895461
+        }
+      },
+      "SA_c0": {
+        "crop_id": "SA_c0",
+        "scan_id": "SA",
+        "origin": [
+          400,
+          300,
+          100
+        ],
+        "variant": "S30",
+        "split": {
+          "matrix_target_fraction_of_crop": 0.3,
+          "matrix_target_voxels_requested": 300000,
+          "matrix_target_voxels_selected": 300000,
+          "solid_voxels_available": 745276,
+          "target_clamped_to_available_solid": false
+        },
+        "matrix_fraction": 0.3,
+        "solid_fraction": 0.445276,
+        "pore_fraction": 0.254724,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.140488,
+        "mean_matrix_distance_to_pore_um": 33.044711640964614,
+        "matrix_voxels": 300000,
+        "matrix_interface_faces": 140488,
+        "om_per_matrix_voxel": {
+          "A": 3.3333333333333335,
+          "B": 1.9478287072950742
+        }
+      },
+      "SA_c1": {
+        "crop_id": "SA_c1",
+        "scan_id": "SA",
+        "origin": [
+          500,
+          0,
+          0
+        ],
+        "variant": "S30",
+        "split": {
+          "matrix_target_fraction_of_crop": 0.3,
+          "matrix_target_voxels_requested": 300000,
+          "matrix_target_voxels_selected": 300000,
+          "solid_voxels_available": 794832,
+          "target_clamped_to_available_solid": false
+        },
+        "matrix_fraction": 0.3,
+        "solid_fraction": 0.494832,
+        "pore_fraction": 0.205168,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.115274,
+        "mean_matrix_distance_to_pore_um": 37.035168197310036,
+        "matrix_voxels": 300000,
+        "matrix_interface_faces": 115274,
+        "om_per_matrix_voxel": {
+          "A": 3.3333333333333335,
+          "B": 1.9478287072950742
+        }
+      },
+      "SA_c2": {
+        "crop_id": "SA_c2",
+        "scan_id": "SA",
+        "origin": [
+          0,
+          500,
+          500
+        ],
+        "variant": "S30",
+        "split": {
+          "matrix_target_fraction_of_crop": 0.3,
+          "matrix_target_voxels_requested": 300000,
+          "matrix_target_voxels_selected": 300000,
+          "solid_voxels_available": 745185,
+          "target_clamped_to_available_solid": false
+        },
+        "matrix_fraction": 0.3,
+        "solid_fraction": 0.445185,
+        "pore_fraction": 0.254815,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.135615,
+        "mean_matrix_distance_to_pore_um": 34.322799160234304,
+        "matrix_voxels": 300000,
+        "matrix_interface_faces": 135615,
+        "om_per_matrix_voxel": {
+          "A": 3.3333333333333335,
+          "B": 1.9478287072950742
+        }
+      },
+      "SA_c3": {
+        "crop_id": "SA_c3",
+        "scan_id": "SA",
+        "origin": [
+          300,
+          100,
+          400
+        ],
+        "variant": "S30",
+        "split": {
+          "matrix_target_fraction_of_crop": 0.3,
+          "matrix_target_voxels_requested": 300000,
+          "matrix_target_voxels_selected": 300000,
+          "solid_voxels_available": 725357,
+          "target_clamped_to_available_solid": false
+        },
+        "matrix_fraction": 0.3,
+        "solid_fraction": 0.425357,
+        "pore_fraction": 0.274643,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.143179,
+        "mean_matrix_distance_to_pore_um": 32.95032814973375,
+        "matrix_voxels": 300000,
+        "matrix_interface_faces": 143179,
+        "om_per_matrix_voxel": {
+          "A": 3.3333333333333335,
+          "B": 1.9478287072950742
+        }
+      },
+      "SB_c0": {
+        "crop_id": "SB_c0",
+        "scan_id": "SB",
+        "origin": [
+          400,
+          300,
+          100
+        ],
+        "variant": "S30",
+        "split": {
+          "matrix_target_fraction_of_crop": 0.3,
+          "matrix_target_voxels_requested": 300000,
+          "matrix_target_voxels_selected": 300000,
+          "solid_voxels_available": 596199,
+          "target_clamped_to_available_solid": false
+        },
+        "matrix_fraction": 0.3,
+        "solid_fraction": 0.296199,
+        "pore_fraction": 0.403801,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.164302,
+        "mean_matrix_distance_to_pore_um": 31.93956447617391,
+        "matrix_voxels": 300000,
+        "matrix_interface_faces": 164302,
+        "om_per_matrix_voxel": {
+          "A": 3.3333333333333335,
+          "B": 1.9478287072950742
+        }
+      },
+      "SB_c1": {
+        "crop_id": "SB_c1",
+        "scan_id": "SB",
+        "origin": [
+          500,
+          0,
+          0
+        ],
+        "variant": "S30",
+        "split": {
+          "matrix_target_fraction_of_crop": 0.3,
+          "matrix_target_voxels_requested": 300000,
+          "matrix_target_voxels_selected": 300000,
+          "solid_voxels_available": 663725,
+          "target_clamped_to_available_solid": false
+        },
+        "matrix_fraction": 0.3,
+        "solid_fraction": 0.363725,
+        "pore_fraction": 0.336275,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.154814,
+        "mean_matrix_distance_to_pore_um": 32.38740222754155,
+        "matrix_voxels": 300000,
+        "matrix_interface_faces": 154814,
+        "om_per_matrix_voxel": {
+          "A": 3.3333333333333335,
+          "B": 1.9478287072950742
+        }
+      },
+      "SB_c2": {
+        "crop_id": "SB_c2",
+        "scan_id": "SB",
+        "origin": [
+          0,
+          500,
+          500
+        ],
+        "variant": "S30",
+        "split": {
+          "matrix_target_fraction_of_crop": 0.3,
+          "matrix_target_voxels_requested": 300000,
+          "matrix_target_voxels_selected": 300000,
+          "solid_voxels_available": 627986,
+          "target_clamped_to_available_solid": false
+        },
+        "matrix_fraction": 0.3,
+        "solid_fraction": 0.327986,
+        "pore_fraction": 0.372014,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.182705,
+        "mean_matrix_distance_to_pore_um": 29.32480117575752,
+        "matrix_voxels": 300000,
+        "matrix_interface_faces": 182705,
+        "om_per_matrix_voxel": {
+          "A": 3.3333333333333335,
+          "B": 1.9478287072950742
+        }
+      },
+      "SB_c3": {
+        "crop_id": "SB_c3",
+        "scan_id": "SB",
+        "origin": [
+          300,
+          100,
+          400
+        ],
+        "variant": "S30",
+        "split": {
+          "matrix_target_fraction_of_crop": 0.3,
+          "matrix_target_voxels_requested": 300000,
+          "matrix_target_voxels_selected": 300000,
+          "solid_voxels_available": 543110,
+          "target_clamped_to_available_solid": false
+        },
+        "matrix_fraction": 0.3,
+        "solid_fraction": 0.24311,
+        "pore_fraction": 0.45689,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.198166,
+        "mean_matrix_distance_to_pore_um": 28.534722783141106,
+        "matrix_voxels": 300000,
+        "matrix_interface_faces": 198166,
+        "om_per_matrix_voxel": {
+          "A": 3.3333333333333335,
+          "B": 1.9478287072950742
+        }
+      },
+      "LA_c0": {
+        "crop_id": "LA_c0",
+        "scan_id": "LA",
+        "origin": [
+          300,
+          300,
+          300
+        ],
+        "variant": "S30",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.816184,
+        "solid_fraction": 0.005515,
+        "pore_fraction": 0.178301,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.268225,
+        "mean_matrix_distance_to_pore_um": 35.24478041264047,
+        "matrix_voxels": 816184,
+        "matrix_interface_faces": 268225,
+        "om_per_matrix_voxel": {
+          "A": 1.2252139223508425,
+          "B": 0.9484092801725978
+        }
+      },
+      "LA_c1": {
+        "crop_id": "LA_c1",
+        "scan_id": "LA",
+        "origin": [
+          100,
+          300,
+          200
+        ],
+        "variant": "S30",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.718428,
+        "solid_fraction": 0.008958,
+        "pore_fraction": 0.272614,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.363746,
+        "mean_matrix_distance_to_pore_um": 32.36791890792555,
+        "matrix_voxels": 718428,
+        "matrix_interface_faces": 363746,
+        "om_per_matrix_voxel": {
+          "A": 1.3919279315394166,
+          "B": 1.0774586735600389
+        }
+      },
+      "LA_c2": {
+        "crop_id": "LA_c2",
+        "scan_id": "LA",
+        "origin": [
+          200,
+          300,
+          300
+        ],
+        "variant": "S30",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.713646,
+        "solid_fraction": 0.028247,
+        "pore_fraction": 0.258107,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.39401,
+        "mean_matrix_distance_to_pore_um": 30.717878349636276,
+        "matrix_voxels": 713646,
+        "matrix_interface_faces": 394010,
+        "om_per_matrix_voxel": {
+          "A": 1.4012549639457097,
+          "B": 1.0846785099732803
+        }
+      },
+      "LA_c3": {
+        "crop_id": "LA_c3",
+        "scan_id": "LA",
+        "origin": [
+          300,
+          300,
+          100
+        ],
+        "variant": "S30",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.749997,
+        "solid_fraction": 0.011999,
+        "pore_fraction": 0.238004,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.226004,
+        "mean_matrix_distance_to_pore_um": 42.67834550172167,
+        "matrix_voxels": 749997,
+        "matrix_interface_faces": 226004,
+        "om_per_matrix_voxel": {
+          "A": 1.333338666688,
+          "B": 1.0321061016622621
+        }
+      },
+      "LB_c0": {
+        "crop_id": "LB_c0",
+        "scan_id": "LB",
+        "origin": [
+          423,
+          523,
+          323
+        ],
+        "variant": "S30",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.783923,
+        "solid_fraction": 0.000741,
+        "pore_fraction": 0.215336,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.240244,
+        "mean_matrix_distance_to_pore_um": 46.43838420186529,
+        "matrix_voxels": 783923,
+        "matrix_interface_faces": 240244,
+        "om_per_matrix_voxel": {
+          "A": 1.2756354897100863,
+          "B": 0.9874394295465136
+        }
+      },
+      "LB_c1": {
+        "crop_id": "LB_c1",
+        "scan_id": "LB",
+        "origin": [
+          623,
+          623,
+          323
+        ],
+        "variant": "S30",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.751497,
+        "solid_fraction": 0.003275,
+        "pore_fraction": 0.245228,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.177937,
+        "mean_matrix_distance_to_pore_um": 55.90947216157872,
+        "matrix_voxels": 751497,
+        "matrix_interface_faces": 177937,
+        "om_per_matrix_voxel": {
+          "A": 1.3306773014396598,
+          "B": 1.0300460014190231
+        }
+      },
+      "LB_c2": {
+        "crop_id": "LB_c2",
+        "scan_id": "LB",
+        "origin": [
+          223,
+          423,
+          123
+        ],
+        "variant": "S30",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.663327,
+        "solid_fraction": 0.006048,
+        "pore_fraction": 0.330625,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.257931,
+        "mean_matrix_distance_to_pore_um": 51.51993205389204,
+        "matrix_voxels": 663327,
+        "matrix_interface_faces": 257931,
+        "om_per_matrix_voxel": {
+          "A": 1.5075520821555584,
+          "B": 1.166960609063692
+        }
+      },
+      "LB_c3": {
+        "crop_id": "LB_c3",
+        "scan_id": "LB",
+        "origin": [
+          723,
+          323,
+          623
+        ],
+        "variant": "S30",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.890273,
+        "solid_fraction": 0.004249,
+        "pore_fraction": 0.105478,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.128279,
+        "mean_matrix_distance_to_pore_um": 70.86528485044306,
+        "matrix_voxels": 890273,
+        "matrix_interface_faces": 128279,
+        "om_per_matrix_voxel": {
+          "A": 1.1232509578522543,
+          "B": 0.8694821475304673
+        }
+      },
+      "LC_c0": {
+        "crop_id": "LC_c0",
+        "scan_id": "LC",
+        "origin": [
+          500,
+          300,
+          500
+        ],
+        "variant": "S30",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.669532,
+        "solid_fraction": 0.00261,
+        "pore_fraction": 0.327858,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.125245,
+        "mean_matrix_distance_to_pore_um": 89.9900100777525,
+        "matrix_voxels": 669532,
+        "matrix_interface_faces": 125245,
+        "om_per_matrix_voxel": {
+          "A": 1.4935805906215087,
+          "B": 1.1561456060776656
+        }
+      },
+      "LC_c1": {
+        "crop_id": "LC_c1",
+        "scan_id": "LC",
+        "origin": [
+          300,
+          0,
+          700
+        ],
+        "variant": "S30",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.655096,
+        "solid_fraction": 0.002978,
+        "pore_fraction": 0.341926,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.149689,
+        "mean_matrix_distance_to_pore_um": 75.66255931928053,
+        "matrix_voxels": 655096,
+        "matrix_interface_faces": 149689,
+        "om_per_matrix_voxel": {
+          "A": 1.5264938268589643,
+          "B": 1.1816229681274066
+        }
+      },
+      "LC_c2": {
+        "crop_id": "LC_c2",
+        "scan_id": "LC",
+        "origin": [
+          200,
+          300,
+          300
+        ],
+        "variant": "S30",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.72395,
+        "solid_fraction": 0.001063,
+        "pore_fraction": 0.274987,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.159204,
+        "mean_matrix_distance_to_pore_um": 66.86945263184111,
+        "matrix_voxels": 723950,
+        "matrix_interface_faces": 159204,
+        "om_per_matrix_voxel": {
+          "A": 1.3813108640099454,
+          "B": 1.069240251299664
+        }
+      },
+      "LC_c3": {
+        "crop_id": "LC_c3",
+        "scan_id": "LC",
+        "origin": [
+          100,
+          500,
+          700
+        ],
+        "variant": "S30",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.837396,
+        "solid_fraction": 0.000894,
+        "pore_fraction": 0.16171,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.09029,
+        "mean_matrix_distance_to_pore_um": 83.22194083345208,
+        "matrix_voxels": 837396,
+        "matrix_interface_faces": 90290,
+        "om_per_matrix_voxel": {
+          "A": 1.1941781427186182,
+          "B": 0.9243852131230524
+        }
+      }
+    },
+    "VL25": {
+      "VA_c0": {
+        "crop_id": "VA_c0",
+        "scan_id": "VA",
+        "origin": [
+          400,
+          300,
+          100
+        ],
+        "variant": "VL25",
+        "split": {
+          "original_matrix_voxels": 862345,
+          "fine_soil_inert_share_target": 0.25,
+          "matrix_voxels_converted_to_inert": 215586
+        },
+        "matrix_fraction": 0.646759,
+        "solid_fraction": 0.227037,
+        "pore_fraction": 0.126204,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.11463,
+        "mean_matrix_distance_to_pore_um": 56.2758562090621,
+        "matrix_voxels": 646759,
+        "matrix_interface_faces": 114630,
+        "om_per_matrix_voxel": {
+          "A": 1.5461709848645322,
+          "B": 2.538155492050495
+        }
+      },
+      "VA_c1": {
+        "crop_id": "VA_c1",
+        "scan_id": "VA",
+        "origin": [
+          500,
+          0,
+          0
+        ],
+        "variant": "VL25",
+        "split": {
+          "original_matrix_voxels": 821397,
+          "fine_soil_inert_share_target": 0.25,
+          "matrix_voxels_converted_to_inert": 205349
+        },
+        "matrix_fraction": 0.616048,
+        "solid_fraction": 0.217174,
+        "pore_fraction": 0.166778,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.120822,
+        "mean_matrix_distance_to_pore_um": 60.51465489505642,
+        "matrix_voxels": 616048,
+        "matrix_interface_faces": 120822,
+        "om_per_matrix_voxel": {
+          "A": 1.6232501363530114,
+          "B": 2.664686693054902
+        }
+      },
+      "VA_c2": {
+        "crop_id": "VA_c2",
+        "scan_id": "VA",
+        "origin": [
+          0,
+          500,
+          500
+        ],
+        "variant": "VL25",
+        "split": {
+          "original_matrix_voxels": 860780,
+          "fine_soil_inert_share_target": 0.25,
+          "matrix_voxels_converted_to_inert": 215195
+        },
+        "matrix_fraction": 0.645585,
+        "solid_fraction": 0.238826,
+        "pore_fraction": 0.115589,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.095248,
+        "mean_matrix_distance_to_pore_um": 64.57507194237432,
+        "matrix_voxels": 645585,
+        "matrix_interface_faces": 95248,
+        "om_per_matrix_voxel": {
+          "A": 1.5489827056080918,
+          "B": 2.5427711422710972
+        }
+      },
+      "VA_c3": {
+        "crop_id": "VA_c3",
+        "scan_id": "VA",
+        "origin": [
+          300,
+          100,
+          400
+        ],
+        "variant": "VL25",
+        "split": {
+          "original_matrix_voxels": 869962,
+          "fine_soil_inert_share_target": 0.25,
+          "matrix_voxels_converted_to_inert": 217490
+        },
+        "matrix_fraction": 0.652472,
+        "solid_fraction": 0.233114,
+        "pore_fraction": 0.114414,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.12396,
+        "mean_matrix_distance_to_pore_um": 50.63527969105033,
+        "matrix_voxels": 652472,
+        "matrix_interface_faces": 123960,
+        "om_per_matrix_voxel": {
+          "A": 1.5326328179600044,
+          "B": 2.515931576961289
+        }
+      },
+      "VB_c0": {
+        "crop_id": "VB_c0",
+        "scan_id": "VB",
+        "origin": [
+          400,
+          300,
+          100
+        ],
+        "variant": "VL25",
+        "split": {
+          "original_matrix_voxels": 824096,
+          "fine_soil_inert_share_target": 0.25,
+          "matrix_voxels_converted_to_inert": 206024
+        },
+        "matrix_fraction": 0.618072,
+        "solid_fraction": 0.233116,
+        "pore_fraction": 0.148812,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.120692,
+        "mean_matrix_distance_to_pore_um": 61.56949335441267,
+        "matrix_voxels": 618072,
+        "matrix_interface_faces": 120692,
+        "om_per_matrix_voxel": {
+          "A": 1.6179344801252928,
+          "B": 2.655960645172547
+        }
+      },
+      "VB_c1": {
+        "crop_id": "VB_c1",
+        "scan_id": "VB",
+        "origin": [
+          500,
+          0,
+          0
+        ],
+        "variant": "VL25",
+        "split": {
+          "original_matrix_voxels": 686029,
+          "fine_soil_inert_share_target": 0.25,
+          "matrix_voxels_converted_to_inert": 171507
+        },
+        "matrix_fraction": 0.514522,
+        "solid_fraction": 0.186214,
+        "pore_fraction": 0.299264,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.102268,
+        "mean_matrix_distance_to_pore_um": 70.18457363920723,
+        "matrix_voxels": 514522,
+        "matrix_interface_faces": 102268,
+        "om_per_matrix_voxel": {
+          "A": 1.943551490509638,
+          "B": 3.190485358999394
+        }
+      },
+      "VB_c2": {
+        "crop_id": "VB_c2",
+        "scan_id": "VB",
+        "origin": [
+          0,
+          500,
+          500
+        ],
+        "variant": "VL25",
+        "split": {
+          "original_matrix_voxels": 825552,
+          "fine_soil_inert_share_target": 0.25,
+          "matrix_voxels_converted_to_inert": 206388
+        },
+        "matrix_fraction": 0.619164,
+        "solid_fraction": 0.223783,
+        "pore_fraction": 0.157053,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.116544,
+        "mean_matrix_distance_to_pore_um": 55.09864211322442,
+        "matrix_voxels": 619164,
+        "matrix_interface_faces": 116544,
+        "om_per_matrix_voxel": {
+          "A": 1.6150809801603452,
+          "B": 2.651276411230443
+        }
+      },
+      "VB_c3": {
+        "crop_id": "VB_c3",
+        "scan_id": "VB",
+        "origin": [
+          300,
+          100,
+          400
+        ],
+        "variant": "VL25",
+        "split": {
+          "original_matrix_voxels": 804616,
+          "fine_soil_inert_share_target": 0.25,
+          "matrix_voxels_converted_to_inert": 201154
+        },
+        "matrix_fraction": 0.603462,
+        "solid_fraction": 0.214548,
+        "pore_fraction": 0.18199,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.112437,
+        "mean_matrix_distance_to_pore_um": 57.26186959899842,
+        "matrix_voxels": 603462,
+        "matrix_interface_faces": 112437,
+        "om_per_matrix_voxel": {
+          "A": 1.6571051698367087,
+          "B": 2.7202622665272815
+        }
+      },
+      "SA_c0": {
+        "crop_id": "SA_c0",
+        "scan_id": "SA",
+        "origin": [
+          400,
+          300,
+          100
+        ],
+        "variant": "VL25",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.082111,
+        "solid_fraction": 0.663165,
+        "pore_fraction": 0.254724,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.077577,
+        "mean_matrix_distance_to_pore_um": 23.189691725771098,
+        "matrix_voxels": 82111,
+        "matrix_interface_faces": 77577,
+        "om_per_matrix_voxel": {
+          "A": 12.178636236314258,
+          "B": 7.1165691830390845
+        }
+      },
+      "SA_c1": {
+        "crop_id": "SA_c1",
+        "scan_id": "SA",
+        "origin": [
+          500,
+          0,
+          0
+        ],
+        "variant": "VL25",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.082111,
+        "solid_fraction": 0.712721,
+        "pore_fraction": 0.205168,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.06764,
+        "mean_matrix_distance_to_pore_um": 24.805500414625765,
+        "matrix_voxels": 82111,
+        "matrix_interface_faces": 67640,
+        "om_per_matrix_voxel": {
+          "A": 12.178636236314258,
+          "B": 7.1165691830390845
+        }
+      },
+      "SA_c2": {
+        "crop_id": "SA_c2",
+        "scan_id": "SA",
+        "origin": [
+          0,
+          500,
+          500
+        ],
+        "variant": "VL25",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.082111,
+        "solid_fraction": 0.663074,
+        "pore_fraction": 0.254815,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.077858,
+        "mean_matrix_distance_to_pore_um": 23.508773032061367,
+        "matrix_voxels": 82111,
+        "matrix_interface_faces": 77858,
+        "om_per_matrix_voxel": {
+          "A": 12.178636236314258,
+          "B": 7.1165691830390845
+        }
+      },
+      "SA_c3": {
+        "crop_id": "SA_c3",
+        "scan_id": "SA",
+        "origin": [
+          300,
+          100,
+          400
+        ],
+        "variant": "VL25",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.082111,
+        "solid_fraction": 0.643246,
+        "pore_fraction": 0.274643,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.078278,
+        "mean_matrix_distance_to_pore_um": 23.208981456538478,
+        "matrix_voxels": 82111,
+        "matrix_interface_faces": 78278,
+        "om_per_matrix_voxel": {
+          "A": 12.178636236314258,
+          "B": 7.1165691830390845
+        }
+      },
+      "SB_c0": {
+        "crop_id": "SB_c0",
+        "scan_id": "SB",
+        "origin": [
+          400,
+          300,
+          100
+        ],
+        "variant": "VL25",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.082111,
+        "solid_fraction": 0.514088,
+        "pore_fraction": 0.403801,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.092213,
+        "mean_matrix_distance_to_pore_um": 21.567838249148423,
+        "matrix_voxels": 82111,
+        "matrix_interface_faces": 92213,
+        "om_per_matrix_voxel": {
+          "A": 12.178636236314258,
+          "B": 7.1165691830390845
+        }
+      },
+      "SB_c1": {
+        "crop_id": "SB_c1",
+        "scan_id": "SB",
+        "origin": [
+          500,
+          0,
+          0
+        ],
+        "variant": "VL25",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.082111,
+        "solid_fraction": 0.581614,
+        "pore_fraction": 0.336275,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.084872,
+        "mean_matrix_distance_to_pore_um": 22.245745783164338,
+        "matrix_voxels": 82111,
+        "matrix_interface_faces": 84872,
+        "om_per_matrix_voxel": {
+          "A": 12.178636236314258,
+          "B": 7.1165691830390845
+        }
+      },
+      "SB_c2": {
+        "crop_id": "SB_c2",
+        "scan_id": "SB",
+        "origin": [
+          0,
+          500,
+          500
+        ],
+        "variant": "VL25",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.082111,
+        "solid_fraction": 0.545875,
+        "pore_fraction": 0.372014,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.090644,
+        "mean_matrix_distance_to_pore_um": 21.323407655599407,
+        "matrix_voxels": 82111,
+        "matrix_interface_faces": 90644,
+        "om_per_matrix_voxel": {
+          "A": 12.178636236314258,
+          "B": 7.1165691830390845
+        }
+      },
+      "SB_c3": {
+        "crop_id": "SB_c3",
+        "scan_id": "SB",
+        "origin": [
+          300,
+          100,
+          400
+        ],
+        "variant": "VL25",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.082111,
+        "solid_fraction": 0.460999,
+        "pore_fraction": 0.45689,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.117904,
+        "mean_matrix_distance_to_pore_um": 18.428562976215787,
+        "matrix_voxels": 82111,
+        "matrix_interface_faces": 117904,
+        "om_per_matrix_voxel": {
+          "A": 12.178636236314258,
+          "B": 7.1165691830390845
+        }
+      },
+      "LA_c0": {
+        "crop_id": "LA_c0",
+        "scan_id": "LA",
+        "origin": [
+          300,
+          300,
+          300
+        ],
+        "variant": "VL25",
+        "split": {
+          "original_matrix_voxels": 816184,
+          "fine_soil_inert_share_target": 0.25,
+          "matrix_voxels_converted_to_inert": 204046
+        },
+        "matrix_fraction": 0.612138,
+        "solid_fraction": 0.209561,
+        "pore_fraction": 0.178301,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.25994,
+        "mean_matrix_distance_to_pore_um": 29.552195802438153,
+        "matrix_voxels": 612138,
+        "matrix_interface_faces": 259940,
+        "om_per_matrix_voxel": {
+          "A": 1.6336185631344566,
+          "B": 1.2645457068967971
+        }
+      },
+      "LA_c1": {
+        "crop_id": "LA_c1",
+        "scan_id": "LA",
+        "origin": [
+          100,
+          300,
+          200
+        ],
+        "variant": "VL25",
+        "split": {
+          "original_matrix_voxels": 718428,
+          "fine_soil_inert_share_target": 0.25,
+          "matrix_voxels_converted_to_inert": 179607
+        },
+        "matrix_fraction": 0.538821,
+        "solid_fraction": 0.188565,
+        "pore_fraction": 0.272614,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.350909,
+        "mean_matrix_distance_to_pore_um": 26.072784696337493,
+        "matrix_voxels": 538821,
+        "matrix_interface_faces": 350909,
+        "om_per_matrix_voxel": {
+          "A": 1.8559039087192222,
+          "B": 1.4366115647467186
+        }
+      },
+      "LA_c2": {
+        "crop_id": "LA_c2",
+        "scan_id": "LA",
+        "origin": [
+          200,
+          300,
+          300
+        ],
+        "variant": "VL25",
+        "split": {
+          "original_matrix_voxels": 713646,
+          "fine_soil_inert_share_target": 0.25,
+          "matrix_voxels_converted_to_inert": 178412
+        },
+        "matrix_fraction": 0.535234,
+        "solid_fraction": 0.206659,
+        "pore_fraction": 0.258107,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.37945,
+        "mean_matrix_distance_to_pore_um": 24.45149652717501,
+        "matrix_voxels": 535234,
+        "matrix_interface_faces": 379450,
+        "om_per_matrix_voxel": {
+          "A": 1.8683416972763314,
+          "B": 1.4462393643310993
+        }
+      },
+      "LA_c3": {
+        "crop_id": "LA_c3",
+        "scan_id": "LA",
+        "origin": [
+          300,
+          300,
+          100
+        ],
+        "variant": "VL25",
+        "split": {
+          "original_matrix_voxels": 749997,
+          "fine_soil_inert_share_target": 0.25,
+          "matrix_voxels_converted_to_inert": 187499
+        },
+        "matrix_fraction": 0.562498,
+        "solid_fraction": 0.199498,
+        "pore_fraction": 0.238004,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.2202,
+        "mean_matrix_distance_to_pore_um": 33.76998055400638,
+        "matrix_voxels": 562498,
+        "matrix_interface_faces": 220200,
+        "om_per_matrix_voxel": {
+          "A": 1.7777840987879068,
+          "B": 1.376140857262411
+        }
+      },
+      "LB_c0": {
+        "crop_id": "LB_c0",
+        "scan_id": "LB",
+        "origin": [
+          423,
+          523,
+          323
+        ],
+        "variant": "VL25",
+        "split": {
+          "original_matrix_voxels": 783923,
+          "fine_soil_inert_share_target": 0.25,
+          "matrix_voxels_converted_to_inert": 195981
+        },
+        "matrix_fraction": 0.587942,
+        "solid_fraction": 0.196722,
+        "pore_fraction": 0.215336,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.234895,
+        "mean_matrix_distance_to_pore_um": 35.99300637869919,
+        "matrix_voxels": 587942,
+        "matrix_interface_faces": 234895,
+        "om_per_matrix_voxel": {
+          "A": 1.700848042834157,
+          "B": 1.3165864658901587
+        }
+      },
+      "LB_c1": {
+        "crop_id": "LB_c1",
+        "scan_id": "LB",
+        "origin": [
+          623,
+          623,
+          323
+        ],
+        "variant": "VL25",
+        "split": {
+          "original_matrix_voxels": 751497,
+          "fine_soil_inert_share_target": 0.25,
+          "matrix_voxels_converted_to_inert": 187874
+        },
+        "matrix_fraction": 0.563623,
+        "solid_fraction": 0.191149,
+        "pore_fraction": 0.245228,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.174366,
+        "mean_matrix_distance_to_pore_um": 44.73483109046534,
+        "matrix_voxels": 563623,
+        "matrix_interface_faces": 174366,
+        "om_per_matrix_voxel": {
+          "A": 1.7742356149411929,
+          "B": 1.373394059377264
+        }
+      },
+      "LB_c2": {
+        "crop_id": "LB_c2",
+        "scan_id": "LB",
+        "origin": [
+          223,
+          423,
+          123
+        ],
+        "variant": "VL25",
+        "split": {
+          "original_matrix_voxels": 663327,
+          "fine_soil_inert_share_target": 0.25,
+          "matrix_voxels_converted_to_inert": 165832
+        },
+        "matrix_fraction": 0.497495,
+        "solid_fraction": 0.17188,
+        "pore_fraction": 0.330625,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.25471,
+        "mean_matrix_distance_to_pore_um": 37.079028409276305,
+        "matrix_voxels": 497495,
+        "matrix_interface_faces": 254710,
+        "om_per_matrix_voxel": {
+          "A": 2.0100704529693765,
+          "B": 1.5559482606426027
+        }
+      },
+      "LB_c3": {
+        "crop_id": "LB_c3",
+        "scan_id": "LB",
+        "origin": [
+          723,
+          323,
+          623
+        ],
+        "variant": "VL25",
+        "split": {
+          "original_matrix_voxels": 890273,
+          "fine_soil_inert_share_target": 0.25,
+          "matrix_voxels_converted_to_inert": 222568
+        },
+        "matrix_fraction": 0.667705,
+        "solid_fraction": 0.226817,
+        "pore_fraction": 0.105478,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.126208,
+        "mean_matrix_distance_to_pore_um": 54.44265152751139,
+        "matrix_voxels": 667705,
+        "matrix_interface_faces": 126208,
+        "om_per_matrix_voxel": {
+          "A": 1.4976673830508982,
+          "B": 1.1593090959756054
+        }
+      },
+      "LC_c0": {
+        "crop_id": "LC_c0",
+        "scan_id": "LC",
+        "origin": [
+          500,
+          300,
+          500
+        ],
+        "variant": "VL25",
+        "split": {
+          "original_matrix_voxels": 669532,
+          "fine_soil_inert_share_target": 0.25,
+          "matrix_voxels_converted_to_inert": 167383
+        },
+        "matrix_fraction": 0.502149,
+        "solid_fraction": 0.169993,
+        "pore_fraction": 0.327858,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.124297,
+        "mean_matrix_distance_to_pore_um": 67.24941259043784,
+        "matrix_voxels": 502149,
+        "matrix_interface_faces": 124297,
+        "om_per_matrix_voxel": {
+          "A": 1.991440787495345,
+          "B": 1.5415274747702208
+        }
+      },
+      "LC_c1": {
+        "crop_id": "LC_c1",
+        "scan_id": "LC",
+        "origin": [
+          300,
+          0,
+          700
+        ],
+        "variant": "VL25",
+        "split": {
+          "original_matrix_voxels": 655096,
+          "fine_soil_inert_share_target": 0.25,
+          "matrix_voxels_converted_to_inert": 163774
+        },
+        "matrix_fraction": 0.491322,
+        "solid_fraction": 0.166752,
+        "pore_fraction": 0.341926,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.148333,
+        "mean_matrix_distance_to_pore_um": 54.86171753030477,
+        "matrix_voxels": 491322,
+        "matrix_interface_faces": 148333,
+        "om_per_matrix_voxel": {
+          "A": 2.0353251024786188,
+          "B": 1.5754972908365423
+        }
+      },
+      "LC_c2": {
+        "crop_id": "LC_c2",
+        "scan_id": "LC",
+        "origin": [
+          200,
+          300,
+          300
+        ],
+        "variant": "VL25",
+        "split": {
+          "original_matrix_voxels": 723950,
+          "fine_soil_inert_share_target": 0.25,
+          "matrix_voxels_converted_to_inert": 180988
+        },
+        "matrix_fraction": 0.542962,
+        "solid_fraction": 0.182051,
+        "pore_fraction": 0.274987,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.156714,
+        "mean_matrix_distance_to_pore_um": 52.48376504909467,
+        "matrix_voxels": 542962,
+        "matrix_interface_faces": 156714,
+        "om_per_matrix_voxel": {
+          "A": 1.8417495146990028,
+          "B": 1.4256549812480277
+        }
+      },
+      "LC_c3": {
+        "crop_id": "LC_c3",
+        "scan_id": "LC",
+        "origin": [
+          100,
+          500,
+          700
+        ],
+        "variant": "VL25",
+        "split": {
+          "original_matrix_voxels": 837396,
+          "fine_soil_inert_share_target": 0.25,
+          "matrix_voxels_converted_to_inert": 209349
+        },
+        "matrix_fraction": 0.628047,
+        "solid_fraction": 0.210243,
+        "pore_fraction": 0.16171,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.088745,
+        "mean_matrix_distance_to_pore_um": 69.10452611945787,
+        "matrix_voxels": 628047,
+        "matrix_interface_faces": 88745,
+        "om_per_matrix_voxel": {
+          "A": 1.5922375236248243,
+          "B": 1.2325136174974032
+        }
+      }
+    },
+    "VL50": {
+      "VA_c0": {
+        "crop_id": "VA_c0",
+        "scan_id": "VA",
+        "origin": [
+          400,
+          300,
+          100
+        ],
+        "variant": "VL50",
+        "split": {
+          "original_matrix_voxels": 862345,
+          "fine_soil_inert_share_target": 0.5,
+          "matrix_voxels_converted_to_inert": 431172
+        },
+        "matrix_fraction": 0.431173,
+        "solid_fraction": 0.442623,
+        "pore_fraction": 0.126204,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.108838,
+        "mean_matrix_distance_to_pore_um": 45.59857632969618,
+        "matrix_voxels": 431173,
+        "matrix_interface_faces": 108838,
+        "om_per_matrix_voxel": {
+          "A": 2.3192546843146484,
+          "B": 3.8072302947612355
+        }
+      },
+      "VA_c1": {
+        "crop_id": "VA_c1",
+        "scan_id": "VA",
+        "origin": [
+          500,
+          0,
+          0
+        ],
+        "variant": "VL50",
+        "split": {
+          "original_matrix_voxels": 821397,
+          "fine_soil_inert_share_target": 0.5,
+          "matrix_voxels_converted_to_inert": 410698
+        },
+        "matrix_fraction": 0.410699,
+        "solid_fraction": 0.422523,
+        "pore_fraction": 0.166778,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.115261,
+        "mean_matrix_distance_to_pore_um": 46.833965551144004,
+        "matrix_voxels": 410699,
+        "matrix_interface_faces": 115261,
+        "om_per_matrix_voxel": {
+          "A": 2.434873228325367,
+          "B": 3.9970267954952075
+        }
+      },
+      "VA_c2": {
+        "crop_id": "VA_c2",
+        "scan_id": "VA",
+        "origin": [
+          0,
+          500,
+          500
+        ],
+        "variant": "VL50",
+        "split": {
+          "original_matrix_voxels": 860780,
+          "fine_soil_inert_share_target": 0.5,
+          "matrix_voxels_converted_to_inert": 430390
+        },
+        "matrix_fraction": 0.43039,
+        "solid_fraction": 0.454021,
+        "pore_fraction": 0.115589,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.09117,
+        "mean_matrix_distance_to_pore_um": 52.03431025076893,
+        "matrix_voxels": 430390,
+        "matrix_interface_faces": 91170,
+        "om_per_matrix_voxel": {
+          "A": 2.323474058412138,
+          "B": 3.814156713406646
+        }
+      },
+      "VA_c3": {
+        "crop_id": "VA_c3",
+        "scan_id": "VA",
+        "origin": [
+          300,
+          100,
+          400
+        ],
+        "variant": "VL50",
+        "split": {
+          "original_matrix_voxels": 869962,
+          "fine_soil_inert_share_target": 0.5,
+          "matrix_voxels_converted_to_inert": 434981
+        },
+        "matrix_fraction": 0.434981,
+        "solid_fraction": 0.450605,
+        "pore_fraction": 0.114414,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.114966,
+        "mean_matrix_distance_to_pore_um": 42.135495086193245,
+        "matrix_voxels": 434981,
+        "matrix_interface_faces": 114966,
+        "om_per_matrix_voxel": {
+          "A": 2.2989509886638726,
+          "B": 3.7739002574436267
+        }
+      },
+      "VB_c0": {
+        "crop_id": "VB_c0",
+        "scan_id": "VB",
+        "origin": [
+          400,
+          300,
+          100
+        ],
+        "variant": "VL50",
+        "split": {
+          "original_matrix_voxels": 824096,
+          "fine_soil_inert_share_target": 0.5,
+          "matrix_voxels_converted_to_inert": 412048
+        },
+        "matrix_fraction": 0.412048,
+        "solid_fraction": 0.43914,
+        "pore_fraction": 0.148812,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.114115,
+        "mean_matrix_distance_to_pore_um": 46.68182891395038,
+        "matrix_voxels": 412048,
+        "matrix_interface_faces": 114115,
+        "om_per_matrix_voxel": {
+          "A": 2.4269017201879395,
+          "B": 3.98394096775882
+        }
+      },
+      "VB_c1": {
+        "crop_id": "VB_c1",
+        "scan_id": "VB",
+        "origin": [
+          500,
+          0,
+          0
+        ],
+        "variant": "VL50",
+        "split": {
+          "original_matrix_voxels": 686029,
+          "fine_soil_inert_share_target": 0.5,
+          "matrix_voxels_converted_to_inert": 343014
+        },
+        "matrix_fraction": 0.343015,
+        "solid_fraction": 0.357721,
+        "pore_fraction": 0.299264,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.096786,
+        "mean_matrix_distance_to_pore_um": 53.93424356358018,
+        "matrix_voxels": 343015,
+        "matrix_interface_faces": 96786,
+        "om_per_matrix_voxel": {
+          "A": 2.915324402722913,
+          "B": 4.785723387849179
+        }
+      },
+      "VB_c2": {
+        "crop_id": "VB_c2",
+        "scan_id": "VB",
+        "origin": [
+          0,
+          500,
+          500
+        ],
+        "variant": "VL50",
+        "split": {
+          "original_matrix_voxels": 825552,
+          "fine_soil_inert_share_target": 0.5,
+          "matrix_voxels_converted_to_inert": 412776
+        },
+        "matrix_fraction": 0.412776,
+        "solid_fraction": 0.430171,
+        "pore_fraction": 0.157053,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.10869,
+        "mean_matrix_distance_to_pore_um": 45.70316725865234,
+        "matrix_voxels": 412776,
+        "matrix_interface_faces": 108690,
+        "om_per_matrix_voxel": {
+          "A": 2.422621470240518,
+          "B": 3.976914616845665
+        }
+      },
+      "VB_c3": {
+        "crop_id": "VB_c3",
+        "scan_id": "VB",
+        "origin": [
+          300,
+          100,
+          400
+        ],
+        "variant": "VL50",
+        "split": {
+          "original_matrix_voxels": 804616,
+          "fine_soil_inert_share_target": 0.5,
+          "matrix_voxels_converted_to_inert": 402308
+        },
+        "matrix_fraction": 0.402308,
+        "solid_fraction": 0.415702,
+        "pore_fraction": 0.18199,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.10308,
+        "mean_matrix_distance_to_pore_um": 48.48193256366362,
+        "matrix_voxels": 402308,
+        "matrix_interface_faces": 103080,
+        "om_per_matrix_voxel": {
+          "A": 2.485657754755063,
+          "B": 4.080393399790922
+        }
+      },
+      "SA_c0": {
+        "crop_id": "SA_c0",
+        "scan_id": "SA",
+        "origin": [
+          400,
+          300,
+          100
+        ],
+        "variant": "VL50",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.082111,
+        "solid_fraction": 0.663165,
+        "pore_fraction": 0.254724,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.077577,
+        "mean_matrix_distance_to_pore_um": 23.189691725771098,
+        "matrix_voxels": 82111,
+        "matrix_interface_faces": 77577,
+        "om_per_matrix_voxel": {
+          "A": 12.178636236314258,
+          "B": 7.1165691830390845
+        }
+      },
+      "SA_c1": {
+        "crop_id": "SA_c1",
+        "scan_id": "SA",
+        "origin": [
+          500,
+          0,
+          0
+        ],
+        "variant": "VL50",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.082111,
+        "solid_fraction": 0.712721,
+        "pore_fraction": 0.205168,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.06764,
+        "mean_matrix_distance_to_pore_um": 24.805500414625765,
+        "matrix_voxels": 82111,
+        "matrix_interface_faces": 67640,
+        "om_per_matrix_voxel": {
+          "A": 12.178636236314258,
+          "B": 7.1165691830390845
+        }
+      },
+      "SA_c2": {
+        "crop_id": "SA_c2",
+        "scan_id": "SA",
+        "origin": [
+          0,
+          500,
+          500
+        ],
+        "variant": "VL50",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.082111,
+        "solid_fraction": 0.663074,
+        "pore_fraction": 0.254815,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.077858,
+        "mean_matrix_distance_to_pore_um": 23.508773032061367,
+        "matrix_voxels": 82111,
+        "matrix_interface_faces": 77858,
+        "om_per_matrix_voxel": {
+          "A": 12.178636236314258,
+          "B": 7.1165691830390845
+        }
+      },
+      "SA_c3": {
+        "crop_id": "SA_c3",
+        "scan_id": "SA",
+        "origin": [
+          300,
+          100,
+          400
+        ],
+        "variant": "VL50",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.082111,
+        "solid_fraction": 0.643246,
+        "pore_fraction": 0.274643,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.078278,
+        "mean_matrix_distance_to_pore_um": 23.208981456538478,
+        "matrix_voxels": 82111,
+        "matrix_interface_faces": 78278,
+        "om_per_matrix_voxel": {
+          "A": 12.178636236314258,
+          "B": 7.1165691830390845
+        }
+      },
+      "SB_c0": {
+        "crop_id": "SB_c0",
+        "scan_id": "SB",
+        "origin": [
+          400,
+          300,
+          100
+        ],
+        "variant": "VL50",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.082111,
+        "solid_fraction": 0.514088,
+        "pore_fraction": 0.403801,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.092213,
+        "mean_matrix_distance_to_pore_um": 21.567838249148423,
+        "matrix_voxels": 82111,
+        "matrix_interface_faces": 92213,
+        "om_per_matrix_voxel": {
+          "A": 12.178636236314258,
+          "B": 7.1165691830390845
+        }
+      },
+      "SB_c1": {
+        "crop_id": "SB_c1",
+        "scan_id": "SB",
+        "origin": [
+          500,
+          0,
+          0
+        ],
+        "variant": "VL50",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.082111,
+        "solid_fraction": 0.581614,
+        "pore_fraction": 0.336275,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.084872,
+        "mean_matrix_distance_to_pore_um": 22.245745783164338,
+        "matrix_voxels": 82111,
+        "matrix_interface_faces": 84872,
+        "om_per_matrix_voxel": {
+          "A": 12.178636236314258,
+          "B": 7.1165691830390845
+        }
+      },
+      "SB_c2": {
+        "crop_id": "SB_c2",
+        "scan_id": "SB",
+        "origin": [
+          0,
+          500,
+          500
+        ],
+        "variant": "VL50",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.082111,
+        "solid_fraction": 0.545875,
+        "pore_fraction": 0.372014,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.090644,
+        "mean_matrix_distance_to_pore_um": 21.323407655599407,
+        "matrix_voxels": 82111,
+        "matrix_interface_faces": 90644,
+        "om_per_matrix_voxel": {
+          "A": 12.178636236314258,
+          "B": 7.1165691830390845
+        }
+      },
+      "SB_c3": {
+        "crop_id": "SB_c3",
+        "scan_id": "SB",
+        "origin": [
+          300,
+          100,
+          400
+        ],
+        "variant": "VL50",
+        "split": {
+          "unchanged_from_stage23": true
+        },
+        "matrix_fraction": 0.082111,
+        "solid_fraction": 0.460999,
+        "pore_fraction": 0.45689,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.117904,
+        "mean_matrix_distance_to_pore_um": 18.428562976215787,
+        "matrix_voxels": 82111,
+        "matrix_interface_faces": 117904,
+        "om_per_matrix_voxel": {
+          "A": 12.178636236314258,
+          "B": 7.1165691830390845
+        }
+      },
+      "LA_c0": {
+        "crop_id": "LA_c0",
+        "scan_id": "LA",
+        "origin": [
+          300,
+          300,
+          300
+        ],
+        "variant": "VL50",
+        "split": {
+          "original_matrix_voxels": 816184,
+          "fine_soil_inert_share_target": 0.5,
+          "matrix_voxels_converted_to_inert": 408092
+        },
+        "matrix_fraction": 0.408092,
+        "solid_fraction": 0.413607,
+        "pore_fraction": 0.178301,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.236685,
+        "mean_matrix_distance_to_pore_um": 24.93524930067558,
+        "matrix_voxels": 408092,
+        "matrix_interface_faces": 236685,
+        "om_per_matrix_voxel": {
+          "A": 2.450427844701685,
+          "B": 1.8968185603451957
+        }
+      },
+      "LA_c1": {
+        "crop_id": "LA_c1",
+        "scan_id": "LA",
+        "origin": [
+          100,
+          300,
+          200
+        ],
+        "variant": "VL50",
+        "split": {
+          "original_matrix_voxels": 718428,
+          "fine_soil_inert_share_target": 0.5,
+          "matrix_voxels_converted_to_inert": 359214
+        },
+        "matrix_fraction": 0.359214,
+        "solid_fraction": 0.368172,
+        "pore_fraction": 0.272614,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.323961,
+        "mean_matrix_distance_to_pore_um": 21.115588501154672,
+        "matrix_voxels": 359214,
+        "matrix_interface_faces": 323961,
+        "om_per_matrix_voxel": {
+          "A": 2.7838558630788333,
+          "B": 2.1549173471200778
+        }
+      },
+      "LA_c2": {
+        "crop_id": "LA_c2",
+        "scan_id": "LA",
+        "origin": [
+          200,
+          300,
+          300
+        ],
+        "variant": "VL50",
+        "split": {
+          "original_matrix_voxels": 713646,
+          "fine_soil_inert_share_target": 0.5,
+          "matrix_voxels_converted_to_inert": 356823
+        },
+        "matrix_fraction": 0.356823,
+        "solid_fraction": 0.38507,
+        "pore_fraction": 0.258107,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.345999,
+        "mean_matrix_distance_to_pore_um": 20.075325196918463,
+        "matrix_voxels": 356823,
+        "matrix_interface_faces": 345999,
+        "om_per_matrix_voxel": {
+          "A": 2.8025099278914194,
+          "B": 2.1693570199465606
+        }
+      },
+      "LA_c3": {
+        "crop_id": "LA_c3",
+        "scan_id": "LA",
+        "origin": [
+          300,
+          300,
+          100
+        ],
+        "variant": "VL50",
+        "split": {
+          "original_matrix_voxels": 749997,
+          "fine_soil_inert_share_target": 0.5,
+          "matrix_voxels_converted_to_inert": 374998
+        },
+        "matrix_fraction": 0.374999,
+        "solid_fraction": 0.386997,
+        "pore_fraction": 0.238004,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.203682,
+        "mean_matrix_distance_to_pore_um": 27.359857793000025,
+        "matrix_voxels": 374999,
+        "matrix_interface_faces": 203682,
+        "om_per_matrix_voxel": {
+          "A": 2.6666737777967406,
+          "B": 2.0642094510342472
+        }
+      },
+      "LB_c0": {
+        "crop_id": "LB_c0",
+        "scan_id": "LB",
+        "origin": [
+          423,
+          523,
+          323
+        ],
+        "variant": "VL50",
+        "split": {
+          "original_matrix_voxels": 783923,
+          "fine_soil_inert_share_target": 0.5,
+          "matrix_voxels_converted_to_inert": 391962
+        },
+        "matrix_fraction": 0.391961,
+        "solid_fraction": 0.392703,
+        "pore_fraction": 0.215336,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.215356,
+        "mean_matrix_distance_to_pore_um": 28.943834810070285,
+        "matrix_voxels": 391961,
+        "matrix_interface_faces": 215356,
+        "om_per_matrix_voxel": {
+          "A": 2.5512742339161294,
+          "B": 1.9748813783218016
+        }
+      },
+      "LB_c1": {
+        "crop_id": "LB_c1",
+        "scan_id": "LB",
+        "origin": [
+          623,
+          623,
+          323
+        ],
+        "variant": "VL50",
+        "split": {
+          "original_matrix_voxels": 751497,
+          "fine_soil_inert_share_target": 0.5,
+          "matrix_voxels_converted_to_inert": 375748
+        },
+        "matrix_fraction": 0.375749,
+        "solid_fraction": 0.379023,
+        "pore_fraction": 0.245228,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.162636,
+        "mean_matrix_distance_to_pore_um": 35.86765065531583,
+        "matrix_voxels": 375749,
+        "matrix_interface_faces": 162636,
+        "om_per_matrix_voxel": {
+          "A": 2.6613510614798708,
+          "B": 2.060089261524027
+        }
+      },
+      "LB_c2": {
+        "crop_id": "LB_c2",
+        "scan_id": "LB",
+        "origin": [
+          223,
+          423,
+          123
+        ],
+        "variant": "VL50",
+        "split": {
+          "original_matrix_voxels": 663327,
+          "fine_soil_inert_share_target": 0.5,
+          "matrix_voxels_converted_to_inert": 331664
+        },
+        "matrix_fraction": 0.331663,
+        "solid_fraction": 0.337712,
+        "pore_fraction": 0.330625,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.24004,
+        "mean_matrix_distance_to_pore_um": 27.556194883654946,
+        "matrix_voxels": 331663,
+        "matrix_interface_faces": 240040,
+        "om_per_matrix_voxel": {
+          "A": 3.01510870974453,
+          "B": 2.3339247366404803
+        }
+      },
+      "LB_c3": {
+        "crop_id": "LB_c3",
+        "scan_id": "LB",
+        "origin": [
+          723,
+          323,
+          623
+        ],
+        "variant": "VL50",
+        "split": {
+          "original_matrix_voxels": 890273,
+          "fine_soil_inert_share_target": 0.5,
+          "matrix_voxels_converted_to_inert": 445136
+        },
+        "matrix_fraction": 0.445137,
+        "solid_fraction": 0.449385,
+        "pore_fraction": 0.105478,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.120504,
+        "mean_matrix_distance_to_pore_um": 42.86700238249098,
+        "matrix_voxels": 445137,
+        "matrix_interface_faces": 120504,
+        "om_per_matrix_voxel": {
+          "A": 2.2464993923219145,
+          "B": 1.7389623417698183
+        }
+      },
+      "LC_c0": {
+        "crop_id": "LC_c0",
+        "scan_id": "LC",
+        "origin": [
+          500,
+          300,
+          500
+        ],
+        "variant": "VL50",
+        "split": {
+          "original_matrix_voxels": 669532,
+          "fine_soil_inert_share_target": 0.5,
+          "matrix_voxels_converted_to_inert": 334766
+        },
+        "matrix_fraction": 0.334766,
+        "solid_fraction": 0.337376,
+        "pore_fraction": 0.327858,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.120624,
+        "mean_matrix_distance_to_pore_um": 47.77928159560719,
+        "matrix_voxels": 334766,
+        "matrix_interface_faces": 120624,
+        "om_per_matrix_voxel": {
+          "A": 2.9871611812430174,
+          "B": 2.312291212155331
+        }
+      },
+      "LC_c1": {
+        "crop_id": "LC_c1",
+        "scan_id": "LC",
+        "origin": [
+          300,
+          0,
+          700
+        ],
+        "variant": "VL50",
+        "split": {
+          "original_matrix_voxels": 655096,
+          "fine_soil_inert_share_target": 0.5,
+          "matrix_voxels_converted_to_inert": 327548
+        },
+        "matrix_fraction": 0.327548,
+        "solid_fraction": 0.330526,
+        "pore_fraction": 0.341926,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.141088,
+        "mean_matrix_distance_to_pore_um": 40.13723500458659,
+        "matrix_voxels": 327548,
+        "matrix_interface_faces": 141088,
+        "om_per_matrix_voxel": {
+          "A": 3.0529876537179286,
+          "B": 2.3632459362548133
+        }
+      },
+      "LC_c2": {
+        "crop_id": "LC_c2",
+        "scan_id": "LC",
+        "origin": [
+          200,
+          300,
+          300
+        ],
+        "variant": "VL50",
+        "split": {
+          "original_matrix_voxels": 723950,
+          "fine_soil_inert_share_target": 0.5,
+          "matrix_voxels_converted_to_inert": 361975
+        },
+        "matrix_fraction": 0.361975,
+        "solid_fraction": 0.363038,
+        "pore_fraction": 0.274987,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.148502,
+        "mean_matrix_distance_to_pore_um": 39.882653563252845,
+        "matrix_voxels": 361975,
+        "matrix_interface_faces": 148502,
+        "om_per_matrix_voxel": {
+          "A": 2.762621728019891,
+          "B": 2.138480502599328
+        }
+      },
+      "LC_c3": {
+        "crop_id": "LC_c3",
+        "scan_id": "LC",
+        "origin": [
+          100,
+          500,
+          700
+        ],
+        "variant": "VL50",
+        "split": {
+          "original_matrix_voxels": 837396,
+          "fine_soil_inert_share_target": 0.5,
+          "matrix_voxels_converted_to_inert": 418698
+        },
+        "matrix_fraction": 0.418698,
+        "solid_fraction": 0.419592,
+        "pore_fraction": 0.16171,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.084021,
+        "mean_matrix_distance_to_pore_um": 56.04178857704989,
+        "matrix_voxels": 418698,
+        "matrix_interface_faces": 84021,
+        "om_per_matrix_voxel": {
+          "A": 2.3883562854372364,
+          "B": 1.8487704262461049
+        }
+      }
+    },
+    "CONV": {
+      "VA_c0": {
+        "crop_id": "VA_c0",
+        "scan_id": "VA",
+        "origin": [
+          400,
+          300,
+          100
+        ],
+        "variant": "CONV",
+        "split": {
+          "original_matrix_voxels": 862345,
+          "fine_soil_inert_share_target": 0.5,
+          "matrix_voxels_converted_to_inert": 431172
+        },
+        "matrix_fraction": 0.431173,
+        "solid_fraction": 0.442623,
+        "pore_fraction": 0.126204,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.108838,
+        "mean_matrix_distance_to_pore_um": 45.59857632969618,
+        "matrix_voxels": 431173,
+        "matrix_interface_faces": 108838,
+        "om_per_matrix_voxel": {
+          "A": 2.3192546843146484,
+          "B": 3.8072302947612355
+        }
+      },
+      "VA_c1": {
+        "crop_id": "VA_c1",
+        "scan_id": "VA",
+        "origin": [
+          500,
+          0,
+          0
+        ],
+        "variant": "CONV",
+        "split": {
+          "original_matrix_voxels": 821397,
+          "fine_soil_inert_share_target": 0.5,
+          "matrix_voxels_converted_to_inert": 410698
+        },
+        "matrix_fraction": 0.410699,
+        "solid_fraction": 0.422523,
+        "pore_fraction": 0.166778,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.115261,
+        "mean_matrix_distance_to_pore_um": 46.833965551144004,
+        "matrix_voxels": 410699,
+        "matrix_interface_faces": 115261,
+        "om_per_matrix_voxel": {
+          "A": 2.434873228325367,
+          "B": 3.9970267954952075
+        }
+      },
+      "VA_c2": {
+        "crop_id": "VA_c2",
+        "scan_id": "VA",
+        "origin": [
+          0,
+          500,
+          500
+        ],
+        "variant": "CONV",
+        "split": {
+          "original_matrix_voxels": 860780,
+          "fine_soil_inert_share_target": 0.5,
+          "matrix_voxels_converted_to_inert": 430390
+        },
+        "matrix_fraction": 0.43039,
+        "solid_fraction": 0.454021,
+        "pore_fraction": 0.115589,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.09117,
+        "mean_matrix_distance_to_pore_um": 52.03431025076893,
+        "matrix_voxels": 430390,
+        "matrix_interface_faces": 91170,
+        "om_per_matrix_voxel": {
+          "A": 2.323474058412138,
+          "B": 3.814156713406646
+        }
+      },
+      "VA_c3": {
+        "crop_id": "VA_c3",
+        "scan_id": "VA",
+        "origin": [
+          300,
+          100,
+          400
+        ],
+        "variant": "CONV",
+        "split": {
+          "original_matrix_voxels": 869962,
+          "fine_soil_inert_share_target": 0.5,
+          "matrix_voxels_converted_to_inert": 434981
+        },
+        "matrix_fraction": 0.434981,
+        "solid_fraction": 0.450605,
+        "pore_fraction": 0.114414,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.114966,
+        "mean_matrix_distance_to_pore_um": 42.135495086193245,
+        "matrix_voxels": 434981,
+        "matrix_interface_faces": 114966,
+        "om_per_matrix_voxel": {
+          "A": 2.2989509886638726,
+          "B": 3.7739002574436267
+        }
+      },
+      "VB_c0": {
+        "crop_id": "VB_c0",
+        "scan_id": "VB",
+        "origin": [
+          400,
+          300,
+          100
+        ],
+        "variant": "CONV",
+        "split": {
+          "original_matrix_voxels": 824096,
+          "fine_soil_inert_share_target": 0.5,
+          "matrix_voxels_converted_to_inert": 412048
+        },
+        "matrix_fraction": 0.412048,
+        "solid_fraction": 0.43914,
+        "pore_fraction": 0.148812,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.114115,
+        "mean_matrix_distance_to_pore_um": 46.68182891395038,
+        "matrix_voxels": 412048,
+        "matrix_interface_faces": 114115,
+        "om_per_matrix_voxel": {
+          "A": 2.4269017201879395,
+          "B": 3.98394096775882
+        }
+      },
+      "VB_c1": {
+        "crop_id": "VB_c1",
+        "scan_id": "VB",
+        "origin": [
+          500,
+          0,
+          0
+        ],
+        "variant": "CONV",
+        "split": {
+          "original_matrix_voxels": 686029,
+          "fine_soil_inert_share_target": 0.5,
+          "matrix_voxels_converted_to_inert": 343014
+        },
+        "matrix_fraction": 0.343015,
+        "solid_fraction": 0.357721,
+        "pore_fraction": 0.299264,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.096786,
+        "mean_matrix_distance_to_pore_um": 53.93424356358018,
+        "matrix_voxels": 343015,
+        "matrix_interface_faces": 96786,
+        "om_per_matrix_voxel": {
+          "A": 2.915324402722913,
+          "B": 4.785723387849179
+        }
+      },
+      "VB_c2": {
+        "crop_id": "VB_c2",
+        "scan_id": "VB",
+        "origin": [
+          0,
+          500,
+          500
+        ],
+        "variant": "CONV",
+        "split": {
+          "original_matrix_voxels": 825552,
+          "fine_soil_inert_share_target": 0.5,
+          "matrix_voxels_converted_to_inert": 412776
+        },
+        "matrix_fraction": 0.412776,
+        "solid_fraction": 0.430171,
+        "pore_fraction": 0.157053,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.10869,
+        "mean_matrix_distance_to_pore_um": 45.70316725865234,
+        "matrix_voxels": 412776,
+        "matrix_interface_faces": 108690,
+        "om_per_matrix_voxel": {
+          "A": 2.422621470240518,
+          "B": 3.976914616845665
+        }
+      },
+      "VB_c3": {
+        "crop_id": "VB_c3",
+        "scan_id": "VB",
+        "origin": [
+          300,
+          100,
+          400
+        ],
+        "variant": "CONV",
+        "split": {
+          "original_matrix_voxels": 804616,
+          "fine_soil_inert_share_target": 0.5,
+          "matrix_voxels_converted_to_inert": 402308
+        },
+        "matrix_fraction": 0.402308,
+        "solid_fraction": 0.415702,
+        "pore_fraction": 0.18199,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.10308,
+        "mean_matrix_distance_to_pore_um": 48.48193256366362,
+        "matrix_voxels": 402308,
+        "matrix_interface_faces": 103080,
+        "om_per_matrix_voxel": {
+          "A": 2.485657754755063,
+          "B": 4.080393399790922
+        }
+      },
+      "SA_c0": {
+        "crop_id": "SA_c0",
+        "scan_id": "SA",
+        "origin": [
+          400,
+          300,
+          100
+        ],
+        "variant": "CONV",
+        "split": {
+          "matrix_target_fraction_of_crop": 0.3,
+          "matrix_target_voxels_requested": 300000,
+          "matrix_target_voxels_selected": 300000,
+          "solid_voxels_available": 745276,
+          "target_clamped_to_available_solid": false
+        },
+        "matrix_fraction": 0.3,
+        "solid_fraction": 0.445276,
+        "pore_fraction": 0.254724,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.140488,
+        "mean_matrix_distance_to_pore_um": 33.044711640964614,
+        "matrix_voxels": 300000,
+        "matrix_interface_faces": 140488,
+        "om_per_matrix_voxel": {
+          "A": 3.3333333333333335,
+          "B": 1.9478287072950742
+        }
+      },
+      "SA_c1": {
+        "crop_id": "SA_c1",
+        "scan_id": "SA",
+        "origin": [
+          500,
+          0,
+          0
+        ],
+        "variant": "CONV",
+        "split": {
+          "matrix_target_fraction_of_crop": 0.3,
+          "matrix_target_voxels_requested": 300000,
+          "matrix_target_voxels_selected": 300000,
+          "solid_voxels_available": 794832,
+          "target_clamped_to_available_solid": false
+        },
+        "matrix_fraction": 0.3,
+        "solid_fraction": 0.494832,
+        "pore_fraction": 0.205168,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.115274,
+        "mean_matrix_distance_to_pore_um": 37.035168197310036,
+        "matrix_voxels": 300000,
+        "matrix_interface_faces": 115274,
+        "om_per_matrix_voxel": {
+          "A": 3.3333333333333335,
+          "B": 1.9478287072950742
+        }
+      },
+      "SA_c2": {
+        "crop_id": "SA_c2",
+        "scan_id": "SA",
+        "origin": [
+          0,
+          500,
+          500
+        ],
+        "variant": "CONV",
+        "split": {
+          "matrix_target_fraction_of_crop": 0.3,
+          "matrix_target_voxels_requested": 300000,
+          "matrix_target_voxels_selected": 300000,
+          "solid_voxels_available": 745185,
+          "target_clamped_to_available_solid": false
+        },
+        "matrix_fraction": 0.3,
+        "solid_fraction": 0.445185,
+        "pore_fraction": 0.254815,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.135615,
+        "mean_matrix_distance_to_pore_um": 34.322799160234304,
+        "matrix_voxels": 300000,
+        "matrix_interface_faces": 135615,
+        "om_per_matrix_voxel": {
+          "A": 3.3333333333333335,
+          "B": 1.9478287072950742
+        }
+      },
+      "SA_c3": {
+        "crop_id": "SA_c3",
+        "scan_id": "SA",
+        "origin": [
+          300,
+          100,
+          400
+        ],
+        "variant": "CONV",
+        "split": {
+          "matrix_target_fraction_of_crop": 0.3,
+          "matrix_target_voxels_requested": 300000,
+          "matrix_target_voxels_selected": 300000,
+          "solid_voxels_available": 725357,
+          "target_clamped_to_available_solid": false
+        },
+        "matrix_fraction": 0.3,
+        "solid_fraction": 0.425357,
+        "pore_fraction": 0.274643,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.143179,
+        "mean_matrix_distance_to_pore_um": 32.95032814973375,
+        "matrix_voxels": 300000,
+        "matrix_interface_faces": 143179,
+        "om_per_matrix_voxel": {
+          "A": 3.3333333333333335,
+          "B": 1.9478287072950742
+        }
+      },
+      "SB_c0": {
+        "crop_id": "SB_c0",
+        "scan_id": "SB",
+        "origin": [
+          400,
+          300,
+          100
+        ],
+        "variant": "CONV",
+        "split": {
+          "matrix_target_fraction_of_crop": 0.3,
+          "matrix_target_voxels_requested": 300000,
+          "matrix_target_voxels_selected": 300000,
+          "solid_voxels_available": 596199,
+          "target_clamped_to_available_solid": false
+        },
+        "matrix_fraction": 0.3,
+        "solid_fraction": 0.296199,
+        "pore_fraction": 0.403801,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.164302,
+        "mean_matrix_distance_to_pore_um": 31.93956447617391,
+        "matrix_voxels": 300000,
+        "matrix_interface_faces": 164302,
+        "om_per_matrix_voxel": {
+          "A": 3.3333333333333335,
+          "B": 1.9478287072950742
+        }
+      },
+      "SB_c1": {
+        "crop_id": "SB_c1",
+        "scan_id": "SB",
+        "origin": [
+          500,
+          0,
+          0
+        ],
+        "variant": "CONV",
+        "split": {
+          "matrix_target_fraction_of_crop": 0.3,
+          "matrix_target_voxels_requested": 300000,
+          "matrix_target_voxels_selected": 300000,
+          "solid_voxels_available": 663725,
+          "target_clamped_to_available_solid": false
+        },
+        "matrix_fraction": 0.3,
+        "solid_fraction": 0.363725,
+        "pore_fraction": 0.336275,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.154814,
+        "mean_matrix_distance_to_pore_um": 32.38740222754155,
+        "matrix_voxels": 300000,
+        "matrix_interface_faces": 154814,
+        "om_per_matrix_voxel": {
+          "A": 3.3333333333333335,
+          "B": 1.9478287072950742
+        }
+      },
+      "SB_c2": {
+        "crop_id": "SB_c2",
+        "scan_id": "SB",
+        "origin": [
+          0,
+          500,
+          500
+        ],
+        "variant": "CONV",
+        "split": {
+          "matrix_target_fraction_of_crop": 0.3,
+          "matrix_target_voxels_requested": 300000,
+          "matrix_target_voxels_selected": 300000,
+          "solid_voxels_available": 627986,
+          "target_clamped_to_available_solid": false
+        },
+        "matrix_fraction": 0.3,
+        "solid_fraction": 0.327986,
+        "pore_fraction": 0.372014,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.182705,
+        "mean_matrix_distance_to_pore_um": 29.32480117575752,
+        "matrix_voxels": 300000,
+        "matrix_interface_faces": 182705,
+        "om_per_matrix_voxel": {
+          "A": 3.3333333333333335,
+          "B": 1.9478287072950742
+        }
+      },
+      "SB_c3": {
+        "crop_id": "SB_c3",
+        "scan_id": "SB",
+        "origin": [
+          300,
+          100,
+          400
+        ],
+        "variant": "CONV",
+        "split": {
+          "matrix_target_fraction_of_crop": 0.3,
+          "matrix_target_voxels_requested": 300000,
+          "matrix_target_voxels_selected": 300000,
+          "solid_voxels_available": 543110,
+          "target_clamped_to_available_solid": false
+        },
+        "matrix_fraction": 0.3,
+        "solid_fraction": 0.24311,
+        "pore_fraction": 0.45689,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.198166,
+        "mean_matrix_distance_to_pore_um": 28.534722783141106,
+        "matrix_voxels": 300000,
+        "matrix_interface_faces": 198166,
+        "om_per_matrix_voxel": {
+          "A": 3.3333333333333335,
+          "B": 1.9478287072950742
+        }
+      },
+      "LA_c0": {
+        "crop_id": "LA_c0",
+        "scan_id": "LA",
+        "origin": [
+          300,
+          300,
+          300
+        ],
+        "variant": "CONV",
+        "split": {
+          "original_matrix_voxels": 816184,
+          "fine_soil_inert_share_target": 0.5,
+          "matrix_voxels_converted_to_inert": 408092
+        },
+        "matrix_fraction": 0.408092,
+        "solid_fraction": 0.413607,
+        "pore_fraction": 0.178301,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.236685,
+        "mean_matrix_distance_to_pore_um": 24.93524930067558,
+        "matrix_voxels": 408092,
+        "matrix_interface_faces": 236685,
+        "om_per_matrix_voxel": {
+          "A": 2.450427844701685,
+          "B": 1.8968185603451957
+        }
+      },
+      "LA_c1": {
+        "crop_id": "LA_c1",
+        "scan_id": "LA",
+        "origin": [
+          100,
+          300,
+          200
+        ],
+        "variant": "CONV",
+        "split": {
+          "original_matrix_voxels": 718428,
+          "fine_soil_inert_share_target": 0.5,
+          "matrix_voxels_converted_to_inert": 359214
+        },
+        "matrix_fraction": 0.359214,
+        "solid_fraction": 0.368172,
+        "pore_fraction": 0.272614,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.323961,
+        "mean_matrix_distance_to_pore_um": 21.115588501154672,
+        "matrix_voxels": 359214,
+        "matrix_interface_faces": 323961,
+        "om_per_matrix_voxel": {
+          "A": 2.7838558630788333,
+          "B": 2.1549173471200778
+        }
+      },
+      "LA_c2": {
+        "crop_id": "LA_c2",
+        "scan_id": "LA",
+        "origin": [
+          200,
+          300,
+          300
+        ],
+        "variant": "CONV",
+        "split": {
+          "original_matrix_voxels": 713646,
+          "fine_soil_inert_share_target": 0.5,
+          "matrix_voxels_converted_to_inert": 356823
+        },
+        "matrix_fraction": 0.356823,
+        "solid_fraction": 0.38507,
+        "pore_fraction": 0.258107,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.345999,
+        "mean_matrix_distance_to_pore_um": 20.075325196918463,
+        "matrix_voxels": 356823,
+        "matrix_interface_faces": 345999,
+        "om_per_matrix_voxel": {
+          "A": 2.8025099278914194,
+          "B": 2.1693570199465606
+        }
+      },
+      "LA_c3": {
+        "crop_id": "LA_c3",
+        "scan_id": "LA",
+        "origin": [
+          300,
+          300,
+          100
+        ],
+        "variant": "CONV",
+        "split": {
+          "original_matrix_voxels": 749997,
+          "fine_soil_inert_share_target": 0.5,
+          "matrix_voxels_converted_to_inert": 374998
+        },
+        "matrix_fraction": 0.374999,
+        "solid_fraction": 0.386997,
+        "pore_fraction": 0.238004,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.203682,
+        "mean_matrix_distance_to_pore_um": 27.359857793000025,
+        "matrix_voxels": 374999,
+        "matrix_interface_faces": 203682,
+        "om_per_matrix_voxel": {
+          "A": 2.6666737777967406,
+          "B": 2.0642094510342472
+        }
+      },
+      "LB_c0": {
+        "crop_id": "LB_c0",
+        "scan_id": "LB",
+        "origin": [
+          423,
+          523,
+          323
+        ],
+        "variant": "CONV",
+        "split": {
+          "original_matrix_voxels": 783923,
+          "fine_soil_inert_share_target": 0.5,
+          "matrix_voxels_converted_to_inert": 391962
+        },
+        "matrix_fraction": 0.391961,
+        "solid_fraction": 0.392703,
+        "pore_fraction": 0.215336,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.215356,
+        "mean_matrix_distance_to_pore_um": 28.943834810070285,
+        "matrix_voxels": 391961,
+        "matrix_interface_faces": 215356,
+        "om_per_matrix_voxel": {
+          "A": 2.5512742339161294,
+          "B": 1.9748813783218016
+        }
+      },
+      "LB_c1": {
+        "crop_id": "LB_c1",
+        "scan_id": "LB",
+        "origin": [
+          623,
+          623,
+          323
+        ],
+        "variant": "CONV",
+        "split": {
+          "original_matrix_voxels": 751497,
+          "fine_soil_inert_share_target": 0.5,
+          "matrix_voxels_converted_to_inert": 375748
+        },
+        "matrix_fraction": 0.375749,
+        "solid_fraction": 0.379023,
+        "pore_fraction": 0.245228,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.162636,
+        "mean_matrix_distance_to_pore_um": 35.86765065531583,
+        "matrix_voxels": 375749,
+        "matrix_interface_faces": 162636,
+        "om_per_matrix_voxel": {
+          "A": 2.6613510614798708,
+          "B": 2.060089261524027
+        }
+      },
+      "LB_c2": {
+        "crop_id": "LB_c2",
+        "scan_id": "LB",
+        "origin": [
+          223,
+          423,
+          123
+        ],
+        "variant": "CONV",
+        "split": {
+          "original_matrix_voxels": 663327,
+          "fine_soil_inert_share_target": 0.5,
+          "matrix_voxels_converted_to_inert": 331664
+        },
+        "matrix_fraction": 0.331663,
+        "solid_fraction": 0.337712,
+        "pore_fraction": 0.330625,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.24004,
+        "mean_matrix_distance_to_pore_um": 27.556194883654946,
+        "matrix_voxels": 331663,
+        "matrix_interface_faces": 240040,
+        "om_per_matrix_voxel": {
+          "A": 3.01510870974453,
+          "B": 2.3339247366404803
+        }
+      },
+      "LB_c3": {
+        "crop_id": "LB_c3",
+        "scan_id": "LB",
+        "origin": [
+          723,
+          323,
+          623
+        ],
+        "variant": "CONV",
+        "split": {
+          "original_matrix_voxels": 890273,
+          "fine_soil_inert_share_target": 0.5,
+          "matrix_voxels_converted_to_inert": 445136
+        },
+        "matrix_fraction": 0.445137,
+        "solid_fraction": 0.449385,
+        "pore_fraction": 0.105478,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.120504,
+        "mean_matrix_distance_to_pore_um": 42.86700238249098,
+        "matrix_voxels": 445137,
+        "matrix_interface_faces": 120504,
+        "om_per_matrix_voxel": {
+          "A": 2.2464993923219145,
+          "B": 1.7389623417698183
+        }
+      },
+      "LC_c0": {
+        "crop_id": "LC_c0",
+        "scan_id": "LC",
+        "origin": [
+          500,
+          300,
+          500
+        ],
+        "variant": "CONV",
+        "split": {
+          "original_matrix_voxels": 669532,
+          "fine_soil_inert_share_target": 0.5,
+          "matrix_voxels_converted_to_inert": 334766
+        },
+        "matrix_fraction": 0.334766,
+        "solid_fraction": 0.337376,
+        "pore_fraction": 0.327858,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.120624,
+        "mean_matrix_distance_to_pore_um": 47.77928159560719,
+        "matrix_voxels": 334766,
+        "matrix_interface_faces": 120624,
+        "om_per_matrix_voxel": {
+          "A": 2.9871611812430174,
+          "B": 2.312291212155331
+        }
+      },
+      "LC_c1": {
+        "crop_id": "LC_c1",
+        "scan_id": "LC",
+        "origin": [
+          300,
+          0,
+          700
+        ],
+        "variant": "CONV",
+        "split": {
+          "original_matrix_voxels": 655096,
+          "fine_soil_inert_share_target": 0.5,
+          "matrix_voxels_converted_to_inert": 327548
+        },
+        "matrix_fraction": 0.327548,
+        "solid_fraction": 0.330526,
+        "pore_fraction": 0.341926,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.141088,
+        "mean_matrix_distance_to_pore_um": 40.13723500458659,
+        "matrix_voxels": 327548,
+        "matrix_interface_faces": 141088,
+        "om_per_matrix_voxel": {
+          "A": 3.0529876537179286,
+          "B": 2.3632459362548133
+        }
+      },
+      "LC_c2": {
+        "crop_id": "LC_c2",
+        "scan_id": "LC",
+        "origin": [
+          200,
+          300,
+          300
+        ],
+        "variant": "CONV",
+        "split": {
+          "original_matrix_voxels": 723950,
+          "fine_soil_inert_share_target": 0.5,
+          "matrix_voxels_converted_to_inert": 361975
+        },
+        "matrix_fraction": 0.361975,
+        "solid_fraction": 0.363038,
+        "pore_fraction": 0.274987,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.148502,
+        "mean_matrix_distance_to_pore_um": 39.882653563252845,
+        "matrix_voxels": 361975,
+        "matrix_interface_faces": 148502,
+        "om_per_matrix_voxel": {
+          "A": 2.762621728019891,
+          "B": 2.138480502599328
+        }
+      },
+      "LC_c3": {
+        "crop_id": "LC_c3",
+        "scan_id": "LC",
+        "origin": [
+          100,
+          500,
+          700
+        ],
+        "variant": "CONV",
+        "split": {
+          "original_matrix_voxels": 837396,
+          "fine_soil_inert_share_target": 0.5,
+          "matrix_voxels_converted_to_inert": 418698
+        },
+        "matrix_fraction": 0.418698,
+        "solid_fraction": 0.419592,
+        "pore_fraction": 0.16171,
+        "matrix_pore_interface_faces_per_crop_voxel": 0.084021,
+        "mean_matrix_distance_to_pore_um": 56.04178857704989,
+        "matrix_voxels": 418698,
+        "matrix_interface_faces": 84021,
+        "om_per_matrix_voxel": {
+          "A": 2.3883562854372364,
+          "B": 1.8487704262461049
+        }
+      }
+    }
+  },
+  "aggregates": {
+    "base": {
+      "S": {
+        "n": 8,
+        "matrix_fraction": {
+          "mean": 0.082111,
+          "sd": 0.0
+        },
+        "solid_fraction": {
+          "mean": 0.59809775,
+          "sd": 0.08659029060012612
+        },
+        "pore_fraction": {
+          "mean": 0.31979124999999997,
+          "sd": 0.0865902906001261
+        },
+        "matrix_pore_interface_faces_per_crop_voxel": {
+          "mean": 0.08587325,
+          "sd": 0.015180509861096798
+        },
+        "mean_matrix_distance_to_pore_um": {
+          "mean": 22.284812661640586,
+          "sd": 1.9211372959680881
+        },
+        "om_per_matrix_voxel_A": {
+          "mean": 12.178636236314258,
+          "sd": 0.0
+        },
+        "om_per_matrix_voxel_B": {
+          "mean": 7.1165691830390845,
+          "sd": 0.0
+        }
+      },
+      "V": {
+        "n": 8,
+        "matrix_fraction": {
+          "mean": 0.819347125,
+          "sd": 0.05877724137899805
+        },
+        "solid_fraction": {
+          "mean": 0.016889875,
+          "sd": 0.005651853259582838
+        },
+        "pore_fraction": {
+          "mean": 0.163763,
+          "sd": 0.059925105416201455
+        },
+        "matrix_pore_interface_faces_per_crop_voxel": {
+          "mean": 0.115462625,
+          "sd": 0.010388657371486603
+        },
+        "mean_matrix_distance_to_pore_um": {
+          "mean": 75.0883956124697,
+          "sd": 9.628484912042634
+        },
+        "om_per_matrix_voxel_A": {
+          "mean": 1.2266917631855332,
+          "sd": 0.09912847725990466
+        },
+        "om_per_matrix_voxel_B": {
+          "mean": 2.0137064181522324,
+          "sd": 0.16272682092651858
+        }
+      },
+      "L": {
+        "n": 12,
+        "matrix_fraction": {
+          "mean": 0.74777075,
+          "sd": 0.07309978090394352
+        },
+        "solid_fraction": {
+          "mean": 0.006381416666666667,
+          "sd": 0.007671535670117085
+        },
+        "pore_fraction": {
+          "mean": 0.2458478333333333,
+          "sd": 0.07210975038324106
+        },
+        "matrix_pore_interface_faces_per_crop_voxel": {
+          "mean": 0.215067,
+          "sd": 0.09510075038323593
+        },
+        "mean_matrix_distance_to_pore_um": {
+          "mean": 56.790496608502444,
+          "sd": 20.29779301413985
+        },
+        "om_per_matrix_voxel_A": {
+          "mean": 1.3487012283242137,
+          "sd": 0.12770045148053302
+        },
+        "om_per_matrix_voxel_B": {
+          "mean": 1.0439978992963053,
+          "sd": 0.09884991596731732
+        }
+      }
+    },
+    "S04": {
+      "S": {
+        "n": 8,
+        "matrix_fraction": {
+          "mean": 0.04,
+          "sd": 0.0
+        },
+        "solid_fraction": {
+          "mean": 0.64020875,
+          "sd": 0.0865902906001261
+        },
+        "pore_fraction": {
+          "mean": 0.31979124999999997,
+          "sd": 0.0865902906001261
+        },
+        "matrix_pore_interface_faces_per_crop_voxel": {
+          "mean": 0.056948375,
+          "sd": 0.008922190793385415
+        },
+        "mean_matrix_distance_to_pore_um": {
+          "mean": 18.588159437818277,
+          "sd": 1.5266446319412057
+        },
+        "om_per_matrix_voxel_A": {
+          "mean": 25.0,
+          "sd": 0.0
+        },
+        "om_per_matrix_voxel_B": {
+          "mean": 14.608715304713057,
+          "sd": 0.0
+        }
+      },
+      "V": {
+        "n": 8,
+        "matrix_fraction": {
+          "mean": 0.819347125,
+          "sd": 0.05877724137899805
+        },
+        "solid_fraction": {
+          "mean": 0.016889875,
+          "sd": 0.005651853259582838
+        },
+        "pore_fraction": {
+          "mean": 0.163763,
+          "sd": 0.059925105416201455
+        },
+        "matrix_pore_interface_faces_per_crop_voxel": {
+          "mean": 0.115462625,
+          "sd": 0.010388657371486603
+        },
+        "mean_matrix_distance_to_pore_um": {
+          "mean": 75.0883956124697,
+          "sd": 9.628484912042634
+        },
+        "om_per_matrix_voxel_A": {
+          "mean": 1.2266917631855332,
+          "sd": 0.09912847725990466
+        },
+        "om_per_matrix_voxel_B": {
+          "mean": 2.0137064181522324,
+          "sd": 0.16272682092651858
+        }
+      },
+      "L": {
+        "n": 12,
+        "matrix_fraction": {
+          "mean": 0.74777075,
+          "sd": 0.07309978090394352
+        },
+        "solid_fraction": {
+          "mean": 0.006381416666666667,
+          "sd": 0.007671535670117085
+        },
+        "pore_fraction": {
+          "mean": 0.2458478333333333,
+          "sd": 0.07210975038324106
+        },
+        "matrix_pore_interface_faces_per_crop_voxel": {
+          "mean": 0.215067,
+          "sd": 0.09510075038323593
+        },
+        "mean_matrix_distance_to_pore_um": {
+          "mean": 56.790496608502444,
+          "sd": 20.29779301413985
+        },
+        "om_per_matrix_voxel_A": {
+          "mean": 1.3487012283242137,
+          "sd": 0.12770045148053302
+        },
+        "om_per_matrix_voxel_B": {
+          "mean": 1.0439978992963053,
+          "sd": 0.09884991596731732
+        }
+      }
+    },
+    "S16": {
+      "S": {
+        "n": 8,
+        "matrix_fraction": {
+          "mean": 0.16,
+          "sd": 0.0
+        },
+        "solid_fraction": {
+          "mean": 0.52020875,
+          "sd": 0.08659029060012609
+        },
+        "pore_fraction": {
+          "mean": 0.31979124999999997,
+          "sd": 0.0865902906001261
+        },
+        "matrix_pore_interface_faces_per_crop_voxel": {
+          "mean": 0.12060549999999999,
+          "sd": 0.020554874152584137
+        },
+        "mean_matrix_distance_to_pore_um": {
+          "mean": 26.50236339337782,
+          "sd": 2.5365347851976643
+        },
+        "om_per_matrix_voxel_A": {
+          "mean": 6.25,
+          "sd": 0.0
+        },
+        "om_per_matrix_voxel_B": {
+          "mean": 3.652178826178264,
+          "sd": 0.0
+        }
+      },
+      "V": {
+        "n": 8,
+        "matrix_fraction": {
+          "mean": 0.819347125,
+          "sd": 0.05877724137899805
+        },
+        "solid_fraction": {
+          "mean": 0.016889875,
+          "sd": 0.005651853259582838
+        },
+        "pore_fraction": {
+          "mean": 0.163763,
+          "sd": 0.059925105416201455
+        },
+        "matrix_pore_interface_faces_per_crop_voxel": {
+          "mean": 0.115462625,
+          "sd": 0.010388657371486603
+        },
+        "mean_matrix_distance_to_pore_um": {
+          "mean": 75.0883956124697,
+          "sd": 9.628484912042634
+        },
+        "om_per_matrix_voxel_A": {
+          "mean": 1.2266917631855332,
+          "sd": 0.09912847725990466
+        },
+        "om_per_matrix_voxel_B": {
+          "mean": 2.0137064181522324,
+          "sd": 0.16272682092651858
+        }
+      },
+      "L": {
+        "n": 12,
+        "matrix_fraction": {
+          "mean": 0.74777075,
+          "sd": 0.07309978090394352
+        },
+        "solid_fraction": {
+          "mean": 0.006381416666666667,
+          "sd": 0.007671535670117085
+        },
+        "pore_fraction": {
+          "mean": 0.2458478333333333,
+          "sd": 0.07210975038324106
+        },
+        "matrix_pore_interface_faces_per_crop_voxel": {
+          "mean": 0.215067,
+          "sd": 0.09510075038323593
+        },
+        "mean_matrix_distance_to_pore_um": {
+          "mean": 56.790496608502444,
+          "sd": 20.29779301413985
+        },
+        "om_per_matrix_voxel_A": {
+          "mean": 1.3487012283242137,
+          "sd": 0.12770045148053302
+        },
+        "om_per_matrix_voxel_B": {
+          "mean": 1.0439978992963053,
+          "sd": 0.09884991596731732
+        }
+      }
+    },
+    "S30": {
+      "S": {
+        "n": 8,
+        "matrix_fraction": {
+          "mean": 0.3,
+          "sd": 0.0
+        },
+        "solid_fraction": {
+          "mean": 0.38020875,
+          "sd": 0.0865902906001261
+        },
+        "pore_fraction": {
+          "mean": 0.31979124999999997,
+          "sd": 0.0865902906001261
+        },
+        "matrix_pore_interface_faces_per_crop_voxel": {
+          "mean": 0.154317875,
+          "sd": 0.026774127999339214
+        },
+        "mean_matrix_distance_to_pore_um": {
+          "mean": 32.4424372263571,
+          "sd": 2.685820518472956
+        },
+        "om_per_matrix_voxel_A": {
+          "mean": 3.3333333333333335,
+          "sd": 0.0
+        },
+        "om_per_matrix_voxel_B": {
+          "mean": 1.9478287072950742,
+          "sd": 0.0
+        }
+      },
+      "V": {
+        "n": 8,
+        "matrix_fraction": {
+          "mean": 0.819347125,
+          "sd": 0.05877724137899805
+        },
+        "solid_fraction": {
+          "mean": 0.016889875,
+          "sd": 0.005651853259582838
+        },
+        "pore_fraction": {
+          "mean": 0.163763,
+          "sd": 0.059925105416201455
+        },
+        "matrix_pore_interface_faces_per_crop_voxel": {
+          "mean": 0.115462625,
+          "sd": 0.010388657371486603
+        },
+        "mean_matrix_distance_to_pore_um": {
+          "mean": 75.0883956124697,
+          "sd": 9.628484912042634
+        },
+        "om_per_matrix_voxel_A": {
+          "mean": 1.2266917631855332,
+          "sd": 0.09912847725990466
+        },
+        "om_per_matrix_voxel_B": {
+          "mean": 2.0137064181522324,
+          "sd": 0.16272682092651858
+        }
+      },
+      "L": {
+        "n": 12,
+        "matrix_fraction": {
+          "mean": 0.74777075,
+          "sd": 0.07309978090394352
+        },
+        "solid_fraction": {
+          "mean": 0.006381416666666667,
+          "sd": 0.007671535670117085
+        },
+        "pore_fraction": {
+          "mean": 0.2458478333333333,
+          "sd": 0.07210975038324106
+        },
+        "matrix_pore_interface_faces_per_crop_voxel": {
+          "mean": 0.215067,
+          "sd": 0.09510075038323593
+        },
+        "mean_matrix_distance_to_pore_um": {
+          "mean": 56.790496608502444,
+          "sd": 20.29779301413985
+        },
+        "om_per_matrix_voxel_A": {
+          "mean": 1.3487012283242137,
+          "sd": 0.12770045148053302
+        },
+        "om_per_matrix_voxel_B": {
+          "mean": 1.0439978992963053,
+          "sd": 0.09884991596731732
+        }
+      }
+    },
+    "VL25": {
+      "S": {
+        "n": 8,
+        "matrix_fraction": {
+          "mean": 0.082111,
+          "sd": 0.0
+        },
+        "solid_fraction": {
+          "mean": 0.59809775,
+          "sd": 0.08659029060012612
+        },
+        "pore_fraction": {
+          "mean": 0.31979124999999997,
+          "sd": 0.0865902906001261
+        },
+        "matrix_pore_interface_faces_per_crop_voxel": {
+          "mean": 0.08587325,
+          "sd": 0.015180509861096798
+        },
+        "mean_matrix_distance_to_pore_um": {
+          "mean": 22.284812661640586,
+          "sd": 1.9211372959680881
+        },
+        "om_per_matrix_voxel_A": {
+          "mean": 12.178636236314258,
+          "sd": 0.0
+        },
+        "om_per_matrix_voxel_B": {
+          "mean": 7.1165691830390845,
+          "sd": 0.0
+        }
+      },
+      "V": {
+        "n": 8,
+        "matrix_fraction": {
+          "mean": 0.6145105,
+          "sd": 0.044082938909028535
+        },
+        "solid_fraction": {
+          "mean": 0.2217265,
+          "sd": 0.016551275928373105
+        },
+        "pore_fraction": {
+          "mean": 0.163763,
+          "sd": 0.059925105416201455
+        },
+        "matrix_pore_interface_faces_per_crop_voxel": {
+          "mean": 0.113325125,
+          "sd": 0.009895667384372963
+        },
+        "mean_matrix_distance_to_pore_um": {
+          "mean": 59.51443018042324,
+          "sd": 6.077907050610175
+        },
+        "om_per_matrix_voxel_A": {
+          "mean": 1.635588595677203,
+          "sd": 0.13217118591821939
+        },
+        "om_per_matrix_voxel_B": {
+          "mean": 2.684941198283431,
+          "sd": 0.21696890234849922
+        }
+      },
+      "L": {
+        "n": 12,
+        "matrix_fraction": {
+          "mean": 0.560828,
+          "sd": 0.05482493287978315
+        },
+        "solid_fraction": {
+          "mean": 0.19332416666666666,
+          "sd": 0.01849784213377497
+        },
+        "pore_fraction": {
+          "mean": 0.2458478333333333,
+          "sd": 0.07210975038324106
+        },
+        "matrix_pore_interface_faces_per_crop_voxel": {
+          "mean": 0.20989724999999995,
+          "sd": 0.09083761133035449
+        },
+        "mean_matrix_distance_to_pore_um": {
+          "mean": 44.14961635626704,
+          "sd": 15.371097721449036
+        },
+        "om_per_matrix_voxel_A": {
+          "mean": 1.7982685575009445,
+          "sd": 0.17026755865913445
+        },
+        "om_per_matrix_voxel_B": {
+          "mean": 1.3919973949562376,
+          "sd": 0.13180011245286374
+        }
+      }
+    },
+    "VL50": {
+      "S": {
+        "n": 8,
+        "matrix_fraction": {
+          "mean": 0.082111,
+          "sd": 0.0
+        },
+        "solid_fraction": {
+          "mean": 0.59809775,
+          "sd": 0.08659029060012612
+        },
+        "pore_fraction": {
+          "mean": 0.31979124999999997,
+          "sd": 0.0865902906001261
+        },
+        "matrix_pore_interface_faces_per_crop_voxel": {
+          "mean": 0.08587325,
+          "sd": 0.015180509861096798
+        },
+        "mean_matrix_distance_to_pore_um": {
+          "mean": 22.284812661640586,
+          "sd": 1.9211372959680881
+        },
+        "om_per_matrix_voxel_A": {
+          "mean": 12.178636236314258,
+          "sd": 0.0
+        },
+        "om_per_matrix_voxel_B": {
+          "mean": 7.1165691830390845,
+          "sd": 0.0
+        }
+      },
+      "V": {
+        "n": 8,
+        "matrix_fraction": {
+          "mean": 0.40967375,
+          "sd": 0.02938851342057689
+        },
+        "solid_fraction": {
+          "mean": 0.42656325,
+          "sd": 0.030786327219122073
+        },
+        "pore_fraction": {
+          "mean": 0.163763,
+          "sd": 0.059925105416201455
+        },
+        "matrix_pore_interface_faces_per_crop_voxel": {
+          "mean": 0.10661324999999999,
+          "sd": 0.008925431862300638
+        },
+        "mean_matrix_distance_to_pore_um": {
+          "mean": 47.67543993970611,
+          "sd": 3.768522949066185
+        },
+        "om_per_matrix_voxel_A": {
+          "mean": 2.4533822884528074,
+          "sd": 0.19825583946706202
+        },
+        "om_per_matrix_voxel_B": {
+          "mean": 4.0274108041689125,
+          "sd": 0.3254518114104264
+        }
+      },
+      "L": {
+        "n": 12,
+        "matrix_fraction": {
+          "mean": 0.3738854166666667,
+          "sd": 0.03655001279307906
+        },
+        "solid_fraction": {
+          "mean": 0.38026674999999993,
+          "sd": 0.035964291560897914
+        },
+        "pore_fraction": {
+          "mean": 0.2458478333333333,
+          "sd": 0.07210975038324106
+        },
+        "matrix_pore_interface_faces_per_crop_voxel": {
+          "mean": 0.19525816666666665,
+          "sd": 0.081575731954851
+        },
+        "mean_matrix_distance_to_pore_um": {
+          "mean": 34.38013852198144,
+          "sd": 11.207186617614369
+        },
+        "om_per_matrix_voxel_A": {
+          "mean": 2.6974023049457663,
+          "sd": 0.25540173702771585
+        },
+        "om_per_matrix_voxel_B": {
+          "mean": 2.087995681163149,
+          "sd": 0.197700477566011
+        }
+      }
+    },
+    "CONV": {
+      "S": {
+        "n": 8,
+        "matrix_fraction": {
+          "mean": 0.3,
+          "sd": 0.0
+        },
+        "solid_fraction": {
+          "mean": 0.38020875,
+          "sd": 0.0865902906001261
+        },
+        "pore_fraction": {
+          "mean": 0.31979124999999997,
+          "sd": 0.0865902906001261
+        },
+        "matrix_pore_interface_faces_per_crop_voxel": {
+          "mean": 0.154317875,
+          "sd": 0.026774127999339214
+        },
+        "mean_matrix_distance_to_pore_um": {
+          "mean": 32.4424372263571,
+          "sd": 2.685820518472956
+        },
+        "om_per_matrix_voxel_A": {
+          "mean": 3.3333333333333335,
+          "sd": 0.0
+        },
+        "om_per_matrix_voxel_B": {
+          "mean": 1.9478287072950742,
+          "sd": 0.0
+        }
+      },
+      "V": {
+        "n": 8,
+        "matrix_fraction": {
+          "mean": 0.40967375,
+          "sd": 0.02938851342057689
+        },
+        "solid_fraction": {
+          "mean": 0.42656325,
+          "sd": 0.030786327219122073
+        },
+        "pore_fraction": {
+          "mean": 0.163763,
+          "sd": 0.059925105416201455
+        },
+        "matrix_pore_interface_faces_per_crop_voxel": {
+          "mean": 0.10661324999999999,
+          "sd": 0.008925431862300638
+        },
+        "mean_matrix_distance_to_pore_um": {
+          "mean": 47.67543993970611,
+          "sd": 3.768522949066185
+        },
+        "om_per_matrix_voxel_A": {
+          "mean": 2.4533822884528074,
+          "sd": 0.19825583946706202
+        },
+        "om_per_matrix_voxel_B": {
+          "mean": 4.0274108041689125,
+          "sd": 0.3254518114104264
+        }
+      },
+      "L": {
+        "n": 12,
+        "matrix_fraction": {
+          "mean": 0.3738854166666667,
+          "sd": 0.03655001279307906
+        },
+        "solid_fraction": {
+          "mean": 0.38026674999999993,
+          "sd": 0.035964291560897914
+        },
+        "pore_fraction": {
+          "mean": 0.2458478333333333,
+          "sd": 0.07210975038324106
+        },
+        "matrix_pore_interface_faces_per_crop_voxel": {
+          "mean": 0.19525816666666665,
+          "sd": 0.081575731954851
+        },
+        "mean_matrix_distance_to_pore_um": {
+          "mean": 34.38013852198144,
+          "sd": 11.207186617614369
+        },
+        "om_per_matrix_voxel_A": {
+          "mean": 2.6974023049457663,
+          "sd": 0.25540173702771585
+        },
+        "om_per_matrix_voxel_B": {
+          "mean": 2.087995681163149,
+          "sd": 0.197700477566011
+        }
+      }
+    }
+  },
+  "respiration_runs_started": false
+}

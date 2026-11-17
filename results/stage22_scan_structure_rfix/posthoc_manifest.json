@@ -1,0 +1,7 @@
+{
+  "source": "results\\stage22_scan_structure",
+  "corrected_formula": "R = growth_R_legacy / Y + maint_R",
+  "stage22_traces_posthoc_corrected": 58,
+  "fresh_stage22_runs": 0,
+  "yield_overrides_read_from_job_configs": true
+}
