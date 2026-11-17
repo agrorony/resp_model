@@ -14,7 +14,7 @@ pore-distribution params, never through K/D directly.
     uptake  = (1/Y) * r_max * f(S) * B * (1 - B/K_ij)
 
 Respiration:
-    R_ij(t) = (1 - Y) * [substrate used for growth in cell ij] + m0 * B_ij
+    R_ij(t) = (1 - Y) * uptake_ij + m0 * B_ij, with uptake = growth / Y
     R(t)    = sum_ij R_ij(t)
 
 D is a spatial field, so substrate transport is conservative-flux finite
@@ -189,7 +189,7 @@ def build_grids(structure_cfg, mapping_cfg):
     }
 
 
-def simulate(biology_cfg, structure_cfg, mapping_cfg):
+def simulate(biology_cfg, structure_cfg, mapping_cfg, *, legacy_growth_resp=False):
     """Integrate the model for one soil. Returns time series and final fields."""
     grids = build_grids(structure_cfg, mapping_cfg)
     dx = grids["dx"]
@@ -231,7 +231,8 @@ def simulate(biology_cfg, structure_cfg, mapping_cfg):
         growth = r_max * f_S * B * logistic
         uptake = (1.0 / Y) * growth
 
-        R_field = (1.0 - Y) * growth + m0 * B
+        growth_resp = (1.0 - Y) * (growth if legacy_growth_resp else uptake)
+        R_field = growth_resp + m0 * B
         R_t[t] = R_field.sum()
         running += R_t[t] * dt
         cum_co2[t] = running

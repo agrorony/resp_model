@@ -191,6 +191,7 @@ def _reproduce_stage22_sa_c0() -> dict:
     current, summary = M.run_structure(
         structure, hp, bio, xp, stage22_k_density,
         chem23.MODEL_REFERENCE_OM_DENSITY, T=T_STEPS,
+        legacy_growth_resp=True,
     )
     if summary["mass_balance_rel"] > 1e-10:
         raise RuntimeError(

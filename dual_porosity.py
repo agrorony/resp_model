@@ -1231,9 +1231,12 @@ def count_active_habitats(growth, region_labels, growth_threshold=1e-9):
 
 
 def simulate_dual_porosity(biology_cfg, structure_cfg, mapping_cfg, wicking_enabled=False,
-                            debug_growth_distribution=False, track_region_biomass=False):
+                            debug_growth_distribution=False, track_region_biomass=False,
+                            *, legacy_growth_resp=False):
     """Integrate the dual-porosity model for one soil. Same per-cell biology
-    and respiration observable as model.simulate.
+    as model.simulate. Respiration is R = (1 - Y) * uptake + m0 * B,
+    with uptake = growth / Y. Set legacy_growth_resp=True to reproduce the
+    historical (1 - Y) * growth output without changing model states.
 
     Stage 6 (soil_respiration_prompt_stage6_portback.md) replaces the
     explicit conservative-flux substrate transport with the sandbox-ported
@@ -1465,7 +1468,8 @@ def simulate_dual_porosity(biology_cfg, structure_cfg, mapping_cfg, wicking_enab
         growth = r_max * f_S * B * logistic
         uptake = (1.0 / Y) * growth
 
-        R_field = (1.0 - Y) * growth + m0 * B
+        growth_resp = (1.0 - Y) * (growth if legacy_growth_resp else uptake)
+        R_field = growth_resp + m0 * B
         R_t[t] = R_field.sum()
         running += R_t[t] * dt
         cum_co2[t] = running
@@ -1474,7 +1478,7 @@ def simulate_dual_porosity(biology_cfg, structure_cfg, mapping_cfg, wicking_enab
         # respiration the MAJORITY of R at the peak) can be told apart from
         # pure decay of the seeded biomass (R pinned at m0*B0).
         B_total_t[t] = float(B.sum())
-        growth_term_t[t] = float(((1.0 - Y) * growth).sum())
+        growth_term_t[t] = float(growth_resp.sum())
         maintenance_term_t[t] = float((m0 * B).sum())
         S_habitat_mean_t[t] = float(S[habitable].mean()) if habitable.any() else 0.0
         habitats_recruited_t[t] = count_active_habitats(growth, region_labels)
