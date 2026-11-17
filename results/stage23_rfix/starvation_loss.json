@@ -1,0 +1,72 @@
+{
+  "m_s": 0.1,
+  "method": "Stored-trace loss is reconstructed from biomass change, Y*uptake, and maintenance for steps 0..T-2; the final-step loss is bounded by m_s*B[T-1]*dt. The six fresh gate runs include B_final, enabling exact full-window Arm A c0 estimates.",
+  "biology_changed": false,
+  "decision_owner": "Rony",
+  "soils": {
+    "S": {
+      "stored_run_count": 8,
+      "stored_trace_starvation_lower_bound": 1550288.7847577548,
+      "stored_trace_final_step_upper_bound": 970.3782278136723,
+      "fraction_of_cumulative_uptake_range": [
+        0.23230846471799568,
+        0.23245387444972795
+      ],
+      "fraction_of_corrected_cumulative_R_range": [
+        0.3082814273547232,
+        0.3084743911354623
+      ],
+      "fresh_c0_run": {
+        "key": "A-SA_c0-chem_eq-stage22_solid_lt-T3000",
+        "starvation_loss": 206239.92656559686,
+        "fraction_of_cumulative_uptake": 0.23857230179061023,
+        "fraction_of_corrected_cumulative_R": 0.31780549473048547,
+        "last_step_loss": 44.31546041482943,
+        "last_step_upper_bound": 109.01314328888982
+      }
+    },
+    "V": {
+      "stored_run_count": 8,
+      "stored_trace_starvation_lower_bound": 1333810.8990587976,
+      "stored_trace_final_step_upper_bound": 271.13136244846964,
+      "fraction_of_cumulative_uptake_range": [
+        0.33325849653083656,
+        0.33332623988956583
+      ],
+      "fraction_of_corrected_cumulative_R_range": [
+        0.49144168031182567,
+        0.4915415784701335
+      ],
+      "fresh_c0_run": {
+        "key": "A-VA_c0-chem_eq-not_applicable-T3000",
+        "starvation_loss": 171459.88316939838,
+        "fraction_of_cumulative_uptake": 0.3321953929529679,
+        "fraction_of_corrected_cumulative_R": 0.48999211853381214,
+        "last_step_loss": 31.46008425593027,
+        "last_step_upper_bound": 36.30271863533393
+      }
+    },
+    "L": {
+      "stored_run_count": 12,
+      "stored_trace_starvation_lower_bound": 2545069.2599330842,
+      "stored_trace_final_step_upper_bound": 400.19221220351386,
+      "fraction_of_cumulative_uptake_range": [
+        0.3255474179677242,
+        0.32559860775003174
+      ],
+      "fraction_of_corrected_cumulative_R_range": [
+        0.4763890543090239,
+        0.47646396275749514
+      ],
+      "fresh_c0_run": {
+        "key": "A-LC_c0-chem_eq-not_applicable-T3000",
+        "starvation_loss": 155504.20961233752,
+        "fraction_of_cumulative_uptake": 0.33450677323886385,
+        "fraction_of_corrected_cumulative_R": 0.4912447992808097,
+        "last_step_loss": 22.40213897867943,
+        "last_step_upper_bound": 26.61303797546873
+      }
+    }
+  },
+  "interpretation": "Starved biomass is removed from dB but its carbon is neither emitted as CO2 nor returned to S."
+}
