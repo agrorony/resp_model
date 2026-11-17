@@ -1114,3 +1114,46 @@ No laboratory respiration data were used.
 | **Total** | **131** | — | — | **7,387** |
 
 Full results: `docs/stage_results/STAGE23_RESULTS.md`.
+
+## Stage 24 — matrix/inert-solid sensitivity and raw grey levels
+
+Completed the preregistered matrix-fraction variants with Stage 23 crops,
+chemistry and fixed model settings. The 14-run reproduction gate matched the
+stored R(t) curves exactly (maximum relative difference 0.0); all 184
+sensitivity runs completed with maximum mass-balance error `1.06e-14`.
+
+**Headline:** Arm A Sand–Vertisol distinctness fails in S16, S30 and CONV;
+peak-time order is unchanged, while peak-height order flips in VL50 and CONV.
+Arm B primary shape classes change in S04, S30 and CONV; cumulative-R/mass
+rank changes only in S16. Sand’s drained-exchange share declines from 44.4%
+in base to 25.2% in S30. None of the five aligned raw scans meets the fixed
+two-population GMM rule, so no grey-level matrix fraction is adopted. A bright
+tail occurs in both Sand solids but is not specific evidence of Fe-oxide
+coatings.
+
+The initial biology diff and status were empty; the named stash command found
+no local changes to save. Normalized biology SHA-256 matched the expected
+value, and no biology/config changes were used.
+
+| Run group | Runs | Mean seconds | Maximum seconds | Sum seconds |
+|---|---:|---:|---:|---:|
+| Base reproduction | 14 | 34.8 | 43.8 | 486.5 |
+| S04 | 16 | 28.9 | 32.9 | 462.2 |
+| S16 | 16 | 28.9 | 32.4 | 462.6 |
+| S30 | 16 | 28.9 | 33.0 | 462.2 |
+| VL25 | 40 | 36.5 | 44.8 | 1,461.3 |
+| VL50 | 40 | 34.4 | 42.2 | 1,377.3 |
+| CONV | 56 | 32.9 | 43.0 | 1,842.3 |
+| **Total** | **198** | — | **44.8** | **6,554.4** |
+
+Validation: `python -m py_compile stage24_run.py matrix_split.py` passed;
+`python -m pytest -q test_stage22_scan_structure.py test_stage23.py` passed
+(8 tests). Full results: `docs/stage_results/STAGE24_RESULTS.md`.
+
+Commits: `aa5fdb5`, `25eaffb`, `1ef6608`, `19efa07`, `fee4c81`, `714ca4f`.
+Pushed to `origin/agents/stage24-matrix-sensitivity`.
+
+Pull request creation is pending GitHub authentication: `gh pr create`
+returned “please run: gh auth login”, and the browser session is signed out.
+The branch comparison / PR creation page is
+https://github.com/agrorony/resp_model/compare/main...agents/stage24-matrix-sensitivity?expand=1.

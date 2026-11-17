@@ -1,0 +1,611 @@
+{
+  "stage": 24,
+  "step": "B_grey_levels",
+  "scans": {
+    "SA": {
+      "alignment": {
+        "method": "make_fig7.py permutation search, maximize absolute pore/low-grey slice correlation",
+        "axis_permutation": [
+          2,
+          1,
+          0
+        ],
+        "reference_slice_axis2": 325,
+        "slice_correlation_pore_low_grey": 0.8457469667304472,
+        "raw_shape": [
+          650,
+          650,
+          650
+        ],
+        "segmentation_shape": [
+          650,
+          650,
+          650
+        ],
+        "correlation_pore_low_grey": 0.8462032621328168,
+        "gate_pass": true
+      },
+      "analysis_stopped": false,
+      "core_shape_after_10_voxel_border": [
+        630,
+        630,
+        630
+      ],
+      "histograms": {
+        "whole_volume": {
+          "n": 274625000,
+          "summary_sample_n": 500000,
+          "mean": 0.6109167127355821,
+          "std": 0.20019854034203655,
+          "quantiles_sampled": true,
+          "q01": 0.07540131531655787,
+          "q25": 0.48999741673469543,
+          "median": 0.6639244556427002,
+          "q75": 0.765401765704155,
+          "q95": 0.8510139286518097,
+          "q99": 0.903653205037117
+        },
+        "phase_raw": {
+          "n": 172971646,
+          "summary_sample_n": 500000,
+          "mean": 0.7221692079715729,
+          "std": 0.09228337240565879,
+          "quantiles_sampled": true,
+          "q01": 0.5432424437999726,
+          "q25": 0.6517665833234787,
+          "median": 0.7293775379657745,
+          "q75": 0.7916382402181625,
+          "q95": 0.8620884567499161,
+          "q99": 0.918050940036774
+        },
+        "phase_eroded_2vox": {
+          "n": 116680633,
+          "summary_sample_n": 500000,
+          "mean": 0.7659405460551977,
+          "std": 0.06854726317571605,
+          "quantiles_sampled": true,
+          "q01": 0.6083702909946441,
+          "q25": 0.7196652889251709,
+          "median": 0.7673262655735016,
+          "q75": 0.812561109662056,
+          "q95": 0.8727997303009033,
+          "q99": 0.9368883430957795
+        },
+        "label1_raw": null,
+        "label1_eroded_2vox": null
+      },
+      "GMM": {
+        "sample_n": 500000,
+        "sample_limit": 500000,
+        "BIC_1_component": 1418964.7779314276,
+        "BIC_2_component": 1419082.9505346895,
+        "delta_BIC_1_minus_2": -118.17260326188989,
+        "Ashman_D": 0.6685699525199269,
+        "means_grey": [
+          0.7468345848977967,
+          0.7903297249985282
+        ],
+        "variances_grey": [
+          0.004235195492180276,
+          0.0042296250504507945
+        ],
+        "weights_dark_to_bright": [
+          0.5607334264666658,
+          0.4392665735333341
+        ],
+        "minor_component_weight": 0.4392665735333341,
+        "two_populations": false,
+        "rule": "delta_BIC > 10, Ashman_D > 2, minor weight >= 0.05"
+      },
+      "multiotsu_3class": {
+        "thresholds": [
+          0.4040278196334839,
+          0.6571933031082153
+        ],
+        "histogram_bins_used": 4096,
+        "nonpore_middle_class_fraction_before_erosion": 0.26487216292085236,
+        "nonpore_middle_class_fraction_after_2vox_erosion": 0.05990162909040783
+      },
+      "sand_bright_tail": {
+        "solid_q50": 0.7293775379657745,
+        "solid_q90": 0.8376680254936218,
+        "solid_q99": 0.918050940036774,
+        "solid_q99_9": 0.9916151197552681,
+        "top_0_1_percent_range": [
+          0.9916151197552681,
+          0.9999911189079285
+        ],
+        "interpretation": "A high-grey tail is descriptive only; it is not specific evidence of Fe-oxide coatings."
+      }
+    },
+    "SB": {
+      "alignment": {
+        "method": "make_fig7.py permutation search, maximize absolute pore/low-grey slice correlation",
+        "axis_permutation": [
+          2,
+          1,
+          0
+        ],
+        "reference_slice_axis2": 325,
+        "slice_correlation_pore_low_grey": 0.9049854357102539,
+        "raw_shape": [
+          650,
+          650,
+          650
+        ],
+        "segmentation_shape": [
+          650,
+          650,
+          650
+        ],
+        "correlation_pore_low_grey": 0.9021696715406526,
+        "gate_pass": true
+      },
+      "analysis_stopped": false,
+      "core_shape_after_10_voxel_border": [
+        630,
+        630,
+        630
+      ],
+      "histograms": {
+        "whole_volume": {
+          "n": 274625000,
+          "summary_sample_n": 500000,
+          "mean": 0.4801420015217675,
+          "std": 0.2862804061861839,
+          "quantiles_sampled": true,
+          "q01": 0.0075946487532928585,
+          "q25": 0.19755038246512413,
+          "median": 0.5507031083106995,
+          "q75": 0.7390796840190887,
+          "q95": 0.8326060384511947,
+          "q99": 0.9272135758399973
+        },
+        "phase_raw": {
+          "n": 146706691,
+          "summary_sample_n": 500000,
+          "mean": 0.6944571299951077,
+          "std": 0.11867202201529393,
+          "quantiles_sampled": true,
+          "q01": 0.4402660331130028,
+          "q25": 0.6114119738340378,
+          "median": 0.71637824177742,
+          "q75": 0.7822690308094025,
+          "q95": 0.8489545017480851,
+          "q99": 0.9855112439393997
+        },
+        "phase_eroded_2vox": {
+          "n": 89808211,
+          "summary_sample_n": 500000,
+          "mean": 0.7599449665634036,
+          "std": 0.07652621599711054,
+          "quantiles_sampled": true,
+          "q01": 0.5642058664560318,
+          "q25": 0.715592697262764,
+          "median": 0.7642013430595398,
+          "q75": 0.8056743294000626,
+          "q95": 0.8667800039052963,
+          "q99": 0.9988948398828507
+        },
+        "label1_raw": null,
+        "label1_eroded_2vox": null
+      },
+      "GMM": {
+        "sample_n": 500000,
+        "sample_limit": 500000,
+        "BIC_1_component": 1418964.7779314276,
+        "BIC_2_component": 1387015.8888765958,
+        "delta_BIC_1_minus_2": 31948.889054831816,
+        "Ashman_D": 0.25081836329801543,
+        "means_grey": [
+          0.7487610704198703,
+          0.7686229481486905
+        ],
+        "variances_grey": [
+          0.010325548282140239,
+          0.0022160228180717095
+        ],
+        "weights_dark_to_bright": [
+          0.43691647404994466,
+          0.5630835259500553
+        ],
+        "minor_component_weight": 0.43691647404994466,
+        "two_populations": false,
+        "rule": "delta_BIC > 10, Ashman_D > 2, minor weight >= 0.05"
+      },
+      "multiotsu_3class": {
+        "thresholds": [
+          0.2767798900604248,
+          0.5963394641876221
+        ],
+        "histogram_bins_used": 4096,
+        "nonpore_middle_class_fraction_before_erosion": 0.22360381640671045,
+        "nonpore_middle_class_fraction_after_2vox_erosion": 0.023151290698798132
+      },
+      "sand_bright_tail": {
+        "solid_q50": 0.71637824177742,
+        "solid_q90": 0.8246549844741822,
+        "solid_q99": 0.9855112439393997,
+        "solid_q99_9": 1.0,
+        "top_0_1_percent_range": [
+          1.0,
+          1.0
+        ],
+        "interpretation": "A high-grey tail is descriptive only; it is not specific evidence of Fe-oxide coatings."
+      }
+    },
+    "VA": {
+      "alignment": {
+        "method": "make_fig7.py y-flip of nnU-Net segmentation",
+        "axis_flip": 1,
+        "raw_shape": [
+          650,
+          650,
+          650
+        ],
+        "segmentation_shape": [
+          650,
+          650,
+          650
+        ],
+        "correlation_pore_low_grey": 0.7818654098807365,
+        "gate_pass": true
+      },
+      "analysis_stopped": false,
+      "core_shape_after_10_voxel_border": [
+        630,
+        630,
+        630
+      ],
+      "histograms": {
+        "whole_volume": {
+          "n": 274625000,
+          "summary_sample_n": 500000,
+          "mean": -0.00013673152164229486,
+          "std": 0.9994802105139603,
+          "quantiles_sampled": true,
+          "q01": -3.8394895148277284,
+          "q25": -0.06942398101091385,
+          "median": 0.2824546545743942,
+          "q75": 0.538248598575592,
+          "q95": 0.8708378076553344,
+          "q99": 1.1158215796947484
+        },
+        "phase_raw": {
+          "n": 212450293,
+          "summary_sample_n": 500000,
+          "mean": 0.3250734781874509,
+          "std": 0.3829959601291455,
+          "quantiles_sampled": true,
+          "q01": -0.8147102624177933,
+          "q25": 0.11714408919215202,
+          "median": 0.3514294773340225,
+          "q75": 0.5711631774902344,
+          "q95": 0.8783604681491851,
+          "q99": 1.1181968712806716
+        },
+        "phase_eroded_2vox": {
+          "n": 168280459,
+          "summary_sample_n": 500000,
+          "mean": 0.4080674859930577,
+          "std": 0.31007522430225426,
+          "quantiles_sampled": true,
+          "q01": -0.3197570583224297,
+          "q25": 0.20779909566044807,
+          "median": 0.40810832381248474,
+          "q75": 0.610332190990448,
+          "q95": 0.9018513470888138,
+          "q99": 1.1404012036323548
+        },
+        "label1_raw": {
+          "n": 5089109,
+          "summary_sample_n": 500000,
+          "mean": 0.9848330250608441,
+          "std": 0.30412591307294967,
+          "quantiles_sampled": true,
+          "q01": -0.019932286553084853,
+          "q25": 0.8263408988714218,
+          "median": 0.9865869879722595,
+          "q75": 1.175430417060852,
+          "q95": 1.453136682510376,
+          "q99": 1.502180699110031
+        },
+        "label1_eroded_2vox": {
+          "n": 2408264,
+          "summary_sample_n": 500000,
+          "mean": 1.1045362146261428,
+          "std": 0.243580798205392,
+          "quantiles_sampled": true,
+          "q01": 0.5663107460737229,
+          "q25": 0.9233585149049759,
+          "median": 1.0851213932037354,
+          "q75": 1.3147477805614471,
+          "q95": 1.4861840546131133,
+          "q99": 1.5056183338165283
+        }
+      },
+      "GMM": {
+        "sample_n": 500000,
+        "sample_limit": 500000,
+        "BIC_1_component": 1418964.7779314276,
+        "BIC_2_component": 1408768.219499579,
+        "delta_BIC_1_minus_2": 10196.55843184865,
+        "Ashman_D": 0.027630374968315816,
+        "means_grey": [
+          0.39954534127379293,
+          0.40982018069973863
+        ],
+        "variances_grey": [
+          0.20226748086098856,
+          0.0743034460627622
+        ],
+        "weights_dark_to_bright": [
+          0.1705812260437918,
+          0.8294187739562082
+        ],
+        "minor_component_weight": 0.1705812260437918,
+        "two_populations": false,
+        "rule": "delta_BIC > 10, Ashman_D > 2, minor weight >= 0.05"
+      },
+      "multiotsu_3class": {
+        "thresholds": [
+          -1.7743184566497803,
+          -0.043608278036117554
+        ],
+        "histogram_bins_used": 4096,
+        "nonpore_middle_class_fraction_before_erosion": 0.13750578823630993,
+        "nonpore_middle_class_fraction_after_2vox_erosion": 0.06565056968379199
+      }
+    },
+    "VB": {
+      "alignment": {
+        "method": "make_fig7.py y-flip of nnU-Net segmentation",
+        "axis_flip": 1,
+        "raw_shape": [
+          650,
+          650,
+          650
+        ],
+        "segmentation_shape": [
+          650,
+          650,
+          650
+        ],
+        "correlation_pore_low_grey": 0.8590962032460101,
+        "gate_pass": true
+      },
+      "analysis_stopped": false,
+      "core_shape_after_10_voxel_border": [
+        630,
+        630,
+        630
+      ],
+      "histograms": {
+        "whole_volume": {
+          "n": 274625000,
+          "summary_sample_n": 500000,
+          "mean": 0.000635254449999648,
+          "std": 0.9978200439345367,
+          "quantiles_sampled": true,
+          "q01": -2.538731677532196,
+          "q25": -0.11961158365011215,
+          "median": 0.4183703511953354,
+          "q75": 0.6154431253671646,
+          "q95": 0.8507349491119385,
+          "q99": 1.0957044708728796
+        },
+        "phase_raw": {
+          "n": 194498675,
+          "summary_sample_n": 500000,
+          "mean": 0.44631702648646276,
+          "std": 0.3651655164952192,
+          "quantiles_sampled": true,
+          "q01": -0.8448989468812943,
+          "q25": 0.313693068921566,
+          "median": 0.5018960535526276,
+          "q75": 0.6534017473459244,
+          "q95": 0.8767299592494965,
+          "q99": 1.1712948191165937
+        },
+        "phase_eroded_2vox": {
+          "n": 160993562,
+          "summary_sample_n": 500000,
+          "mean": 0.5179379090619489,
+          "std": 0.2958941521067906,
+          "quantiles_sampled": true,
+          "q01": -0.3636288470029831,
+          "q25": 0.390143521130085,
+          "median": 0.5396081507205963,
+          "q75": 0.6774350106716156,
+          "q95": 0.8922938525676727,
+          "q99": 1.2272407710552227
+        },
+        "label1_raw": {
+          "n": 5180697,
+          "summary_sample_n": 500000,
+          "mean": 1.0516875222043023,
+          "std": 0.28225183875749005,
+          "quantiles_sampled": true,
+          "q01": 0.19444504499435425,
+          "q25": 0.8775648027658463,
+          "median": 1.0044058561325073,
+          "q75": 1.3272388279438019,
+          "q95": 1.4434967160224914,
+          "q99": 1.446762204170227
+        },
+        "label1_eroded_2vox": {
+          "n": 2973868,
+          "summary_sample_n": 500000,
+          "mean": 1.1616379985227883,
+          "std": 0.2351752984254947,
+          "quantiles_sampled": true,
+          "q01": 0.7097240352630615,
+          "q25": 0.9467477202415466,
+          "median": 1.1841835379600525,
+          "q75": 1.3993213176727295,
+          "q95": 1.445595622062683,
+          "q99": 1.446762204170227
+        }
+      },
+      "GMM": {
+        "sample_n": 500000,
+        "sample_limit": 500000,
+        "BIC_1_component": 1418964.7779314274,
+        "BIC_2_component": 1249394.9498449042,
+        "delta_BIC_1_minus_2": 169569.8280865231,
+        "Ashman_D": 0.481334815909657,
+        "means_grey": [
+          0.254101764450527,
+          0.536679276126807
+        ],
+        "variances_grey": [
+          0.6467697219833658,
+          0.04253402019181912
+        ],
+        "weights_dark_to_bright": [
+          0.06632292482753578,
+          0.9336770751724643
+        ],
+        "minor_component_weight": 0.06632292482753578,
+        "two_populations": false,
+        "rule": "delta_BIC > 10, Ashman_D > 2, minor weight >= 0.05"
+      },
+      "multiotsu_3class": {
+        "thresholds": [
+          -1.3728981018066406,
+          -0.017582494765520096
+        ],
+        "histogram_bins_used": 4096,
+        "nonpore_middle_class_fraction_before_erosion": 0.07624998987782307,
+        "nonpore_middle_class_fraction_after_2vox_erosion": 0.02476540645768183
+      }
+    },
+    "LC": {
+      "alignment": {
+        "method": "make_fig7.py y-flip of nnU-Net segmentation",
+        "axis_flip": 1,
+        "raw_shape": [
+          650,
+          650,
+          822
+        ],
+        "segmentation_shape": [
+          650,
+          650,
+          822
+        ],
+        "correlation_pore_low_grey": 0.8635718112199756,
+        "gate_pass": true
+      },
+      "analysis_stopped": false,
+      "core_shape_after_10_voxel_border": [
+        630,
+        630,
+        802
+      ],
+      "histograms": {
+        "whole_volume": {
+          "n": 347295000,
+          "summary_sample_n": 500000,
+          "mean": 0.0005349940332419464,
+          "std": 1.0000367577296572,
+          "quantiles_sampled": true,
+          "q01": -2.2738371777534483,
+          "q25": -0.4725925549864769,
+          "median": 0.3997272253036499,
+          "q75": 0.7216301560401917,
+          "q95": 1.0039069294929504,
+          "q99": 1.3874823737144477
+        },
+        "phase_raw": {
+          "n": 233872565,
+          "summary_sample_n": 500000,
+          "mean": 0.5115811998617483,
+          "std": 0.4301190224255901,
+          "quantiles_sampled": true,
+          "q01": -0.641361250281334,
+          "q25": 0.29378151148557663,
+          "median": 0.5807309448719025,
+          "q75": 0.7899181246757507,
+          "q95": 1.0425990223884583,
+          "q99": 1.4884766471385957
+        },
+        "phase_eroded_2vox": {
+          "n": 184121873,
+          "summary_sample_n": 500000,
+          "mean": 0.6239400390657326,
+          "std": 0.35083498518568673,
+          "quantiles_sampled": true,
+          "q01": -0.24058355391025546,
+          "q25": 0.44796570390462875,
+          "median": 0.6559834182262421,
+          "q75": 0.8301600813865662,
+          "q95": 1.0711393892765044,
+          "q99": 1.517795367240906
+        },
+        "label1_raw": {
+          "n": 2756933,
+          "summary_sample_n": 500000,
+          "mean": 1.412681904177229,
+          "std": 0.2770935422094406,
+          "quantiles_sampled": true,
+          "q01": 0.1197093167155981,
+          "q25": 1.4190729260444641,
+          "median": 1.5231722593307495,
+          "q75": 1.5579830408096313,
+          "q95": 1.5601468086242676,
+          "q99": 1.5601468086242676
+        },
+        "label1_eroded_2vox": {
+          "n": 1791910,
+          "summary_sample_n": 500000,
+          "mean": 1.4991276660299533,
+          "std": 0.11904738116708082,
+          "quantiles_sampled": true,
+          "q01": 0.9744137609004975,
+          "q25": 1.496038556098938,
+          "median": 1.5442951917648315,
+          "q75": 1.5600584745407104,
+          "q95": 1.5601468086242676,
+          "q99": 1.5601468086242676
+        }
+      },
+      "GMM": {
+        "sample_n": 500000,
+        "sample_limit": 500000,
+        "BIC_1_component": 1418964.7779314274,
+        "BIC_2_component": 1318431.7347311147,
+        "delta_BIC_1_minus_2": 100533.04320031265,
+        "Ashman_D": 1.4764101399341352,
+        "means_grey": [
+          -0.6899462841348314,
+          0.6367959414369755
+        ],
+        "variances_grey": [
+          1.5227277613246653,
+          0.09233372203884391
+        ],
+        "weights_dark_to_bright": [
+          0.00968982679789371,
+          0.9903101732021063
+        ],
+        "minor_component_weight": 0.00968982679789371,
+        "two_populations": false,
+        "rule": "delta_BIC > 10, Ashman_D > 2, minor weight >= 0.05"
+      },
+      "multiotsu_3class": {
+        "thresholds": [
+          -1.0637869834899902,
+          0.190662682056427
+        ],
+        "histogram_bins_used": 4096,
+        "nonpore_middle_class_fraction_before_erosion": 0.18655741429098363,
+        "nonpore_middle_class_fraction_after_2vox_erosion": 0.08140083932341922
+      }
+    }
+  },
+  "alignment_helper": "E:\\PROJECTS\\Yael_Mishael\\Rony\\remote_computer backup\\nnUNet4SoilXrayCT\\06_reporting\\missing_data_20261004\\figure7\\make_fig7.py",
+  "figure": "results\\stage24\\grey_histograms.png",
+  "two_population_rule": "delta BIC > 10, Ashman D > 2, minor weight >= 0.05",
+  "GMM_implementation": "Deterministic 1-D NumPy EM (installed scikit-learn binary is incompatible with NumPy in this environment)."
+}

@@ -1,0 +1,13 @@
+{
+  "key": "CONV-B-VA_c3-chem_V-T3000",
+  "variant": "CONV",
+  "arm": "B",
+  "crop_id": "VA_c3",
+  "soil_code": "V",
+  "chemistry": "chem_V",
+  "T": 3000,
+  "K_density": 0.16445,
+  "OM_density": 1.6415749078830861,
+  "B0_density": 0.017357602959088933,
+  "gate": false
+}

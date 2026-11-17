@@ -1,0 +1,13 @@
+{
+  "key": "CONV-B-SB_c2-chem_S-T3000",
+  "variant": "CONV",
+  "arm": "B",
+  "crop_id": "SB_c2",
+  "soil_code": "S",
+  "chemistry": "chem_S",
+  "T": 3000,
+  "K_density": 0.16445,
+  "OM_density": 0.5843486121885222,
+  "B0_density": 0.008807455109562084,
+  "gate": false
+}
