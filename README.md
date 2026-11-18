@@ -6,6 +6,8 @@ spatial structure (diffusion rate, carrying-capacity layout, organic-matter
 placement). This produces three visually distinct respiration curves:
 Soil A rises, Soil B falls, Soil C stays flat/bumpy. See `MODEL_SPEC.md` for
 the full equations and reasoning.
+Growth-associated respiration uses the substrate consumed for growth:
+`R = (1 - Y) * uptake + m0 * B`, with `uptake = growth / Y`.
 
 ## Setup
 

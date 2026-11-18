@@ -1,0 +1,41 @@
+{
+  "runs": 80,
+  "fresh_runs": true,
+  "elapsed_seconds": 1701.25,
+  "source_script": "results/appendix_figure/plot_fig_A1.py",
+  "source_script_changed_only_for_paths": true,
+  "lab_files_read": false,
+  "normalization": "The Figure A1 curves are resampled in time but not divided by their initial R; the factor does not cancel. R(0) remains the maintenance floor.",
+  "panel_changes": {
+    "sand": {
+      "legacy_peak": 32.374701267183795,
+      "corrected_peak": 76.0995442138458,
+      "legacy_peak_fraction": 0.16432865731462926,
+      "corrected_peak_fraction": 0.15030060120240482,
+      "max_absolute_mean_curve_change": 44.3897943137074,
+      "max_change_fraction_of_legacy_peak": 1.3711259896227228,
+      "visible_change": true
+    },
+    "vertisol": {
+      "legacy_peak": 2.4645745469752622,
+      "corrected_peak": 7.641900834278699,
+      "legacy_peak_fraction": 1.0,
+      "corrected_peak_fraction": 1.0,
+      "max_absolute_mean_curve_change": 5.459335625186969,
+      "max_change_fraction_of_legacy_peak": 2.2151229435876205,
+      "visible_change": true
+    }
+  },
+  "corrected_peak_frac_significance": {
+    "metric": "peak_frac",
+    "n_sand": 40,
+    "n_vertisol": 40,
+    "mean_sand": 0.15963654551517173,
+    "mean_vertisol": 0.9854402935290192,
+    "U_sand": 0.0,
+    "z": -7.904515902019645,
+    "p_two_sided": 2.6645352591003757e-15,
+    "cohens_d": -30.00158380039281,
+    "rank_biserial_r": -1.0
+  }
+}

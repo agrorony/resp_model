@@ -84,7 +84,10 @@ def job(key):
     st = S21.get_structure(kind, seed, S21.N_FULL, S21.VOX_FULL, xp)
     wetting = {"eq": "equal50", "off": "matric"}[rule]
     t0 = time.time()
-    out, res = M.run_structure(st, hp, bio, xp, K_density, OM, wetting=wetting)
+    out, res = M.run_structure(
+        st, hp, bio, xp, K_density, OM, wetting=wetting,
+        legacy_growth_resp=(rule == "off"),
+    )
     res.update({"key": key, "seconds": time.time() - t0, "K_density": K_density, "wetting": wetting})
     os.makedirs(os.path.join(OUT, "runs"), exist_ok=True)
     np.savez_compressed(os.path.join(OUT, "runs", key + ".npz"), **{k: out[k] for k in M.STAT_NAMES})

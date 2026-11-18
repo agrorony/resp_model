@@ -104,11 +104,12 @@ def shared_mapping(mapping_cfg, om_keys, D_keys, om_mode=dual_porosity.OM_MODE_S
 
 
 def run_soil(soil, grid_n, T, biology_cfg, mapping_cfg, track_region_biomass=True,
-             debug_growth_distribution=False):
+             debug_growth_distribution=False, legacy_growth_resp=False):
     return dual_porosity.simulate_dual_porosity(
         biology_cfg, structure_cfg(soil, grid_n, T), mapping_cfg,
         wicking_enabled=False, track_region_biomass=track_region_biomass,
-        debug_growth_distribution=debug_growth_distribution)
+        debug_growth_distribution=debug_growth_distribution,
+        legacy_growth_resp=legacy_growth_resp)
 
 
 def per_region_half_max(out):
@@ -725,7 +726,7 @@ def main():
     legacy_rows = []
     for soil, r_ref, b_ref in (("sand", 15.790, 10.7007), ("vertisol", 3.756, 2.337)):
         out = run_soil(soil, 128, mapping_cfg[f"stage10_T_{soil}"], biology_cfg, legacy,
-                       track_region_biomass=False)
+                       track_region_biomass=False, legacy_growth_resp=True)
         rp = float(out["R_t"].max())
         bp = float(out["B_total_t"].max() / out["grids"]["B0"].sum())
         legacy_rows.append({"soil": LABEL[soil], "R_peak": rp, "R_peak_stage11_ref": r_ref,

@@ -1,0 +1,55 @@
+{
+  "distances": {
+    "1500": {
+      "S_scan_vs_S15": 0.18791617353520415,
+      "V_scan_vs_V15": 0.21894654887152032,
+      "S15_vs_V15": 1.0112897285505393,
+      "S_scan_vs_V_scan": 0.7063099652362279,
+      "S15_vs_S5": 0.6221121292353801,
+      "V15_vs_V5": 0.08174833392314318
+    },
+    "3000": {
+      "S_scan_vs_S15": 0.3384514483777862,
+      "V_scan_vs_V15": 0.16756233203465,
+      "S15_vs_V15": 0.8708594088507432,
+      "S_scan_vs_V_scan": 0.2820054025208515
+    }
+  },
+  "control_seed_noise_03000": {
+    "S": [
+      0.008623446065793669,
+      0.006085647738746326,
+      0.0036693259060034357
+    ],
+    "V": [
+      0.0014513704601430684,
+      0.0019198644185154645,
+      0.0005262175069808008
+    ]
+  },
+  "domain_size_comparisons": {
+    "VA": {
+      "distance_to_100cube_specimen_mean_03000": 0.0046700116785970075
+    },
+    "VB": {
+      "distance_to_100cube_specimen_mean_03000": 0.003866483206754669
+    },
+    "SA": {
+      "distance_to_100cube_specimen_mean_03000": 0.04277255093356419
+    },
+    "SB": {
+      "distance_to_100cube_specimen_mean_03000": 0.03975433644400199
+    }
+  },
+  "factorial_2x2": {
+    "effect_comparison_interval_steps": 1500,
+    "synthetic_5um_S_vs_V": 1.2274376344903275,
+    "synthetic_15um_S_vs_V": 1.0112897285505393,
+    "scan_15um_S_vs_V": 0.7063099652362279,
+    "mean_structure_source_effect_at_15um": 0.20343136120336225,
+    "mean_resolution_effect_in_synthetic": 0.3519302315792616,
+    "larger_mean_curve_shift": "resolution"
+  },
+  "active_step2": "step2.json",
+  "K_density": 0.16445337235927582
+}
