@@ -251,7 +251,7 @@ def plot_growth_vs_maintenance(data, results_dir):
     t = np.arange(len(out["R_t"])) * out["dt"]
     fig, ax = plt.subplots(figsize=(8.5, 5.2))
     ax.stackplot(t, out["growth_term_t"], out["maintenance_term_t"],
-                 labels=["growth-associated ((1-Y)*growth)", "maintenance (m0*B)"],
+                 labels=["growth-associated ((1-Y)*uptake)", "maintenance (m0*B)"],
                  colors=["#d62728", "#f4a582"])
     ax.plot(t, out["R_t"], color="black", lw=1.2, ls="--", label="R(t) total")
     ax.axhline(MAINTENANCE_FLOOR, color="gray", ls=":", lw=1, label=f"maintenance floor ({MAINTENANCE_FLOOR})")

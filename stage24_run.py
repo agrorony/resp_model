@@ -458,6 +458,7 @@ def _worker(key: str) -> dict:
     output, summary = M.run_structure(
         structure, hp, bio, xp, float(config["K_density"]),
         float(config["OM_density"]), T=int(config["T"]),
+        legacy_growth_resp=bool(config["gate"]),
     )
     elapsed = time.time() - start
     if summary["mass_balance_rel"] > 1e-10:

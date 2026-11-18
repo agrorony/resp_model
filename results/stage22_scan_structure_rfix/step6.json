@@ -1,0 +1,1383 @@
+{
+  "r_lit_d-1": {
+    "low": 0.36,
+    "primary": 2.6,
+    "high": 9.2
+  },
+  "periods_days": [
+    [
+      0.0,
+      3.0
+    ],
+    [
+      3.0,
+      7.0
+    ],
+    [
+      7.0,
+      10.0
+    ],
+    [
+      10.0,
+      15.0
+    ]
+  ],
+  "step2_T": 3000,
+  "OM_density": 1.0,
+  "soil_results": {
+    "low": {
+      "sand": {
+        "n_crops": 8,
+        "period_means_normalized_to_R0": [
+          {
+            "mean": 2.5544195718587988,
+            "sd": 0.2079889308557743
+          },
+          {
+            "mean": 8.630208420294524,
+            "sd": 0.8255908249851925
+          },
+          {
+            "mean": 16.92482805253488,
+            "sd": 1.443616660444623
+          },
+          {
+            "mean": 28.33051231888901,
+            "sd": 1.8650292158769606
+          }
+        ],
+        "shape": "rise",
+        "cumulative_respiration_model_units": {
+          "mean": 21022.413841908397,
+          "sd": 1562.4064598279099
+        },
+        "cumulative_respiration_fraction_initial_OM": {
+          "mean": 0.0210224138419084,
+          "sd": 0.0015624064598279096
+        },
+        "qCO2_per_day": {
+          "mean": 0.16289205815721824,
+          "sd": 0.004033725347725723
+        },
+        "CUE": {
+          "mean": 0.357099988797166,
+          "sd": 0.002365446970278304
+        }
+      },
+      "vertisol": {
+        "n_crops": 8,
+        "period_means_normalized_to_R0": [
+          {
+            "mean": 1.6087243629535228,
+            "sd": 0.06897111532288797
+          },
+          {
+            "mean": 3.658347538295398,
+            "sd": 0.25556777304056066
+          },
+          {
+            "mean": 5.476479601082788,
+            "sd": 0.4021687383135201
+          },
+          {
+            "mean": 7.29400214186019,
+            "sd": 0.5521544319731642
+          }
+        ],
+        "shape": "rise",
+        "cumulative_respiration_model_units": {
+          "mean": 6488.427041565619,
+          "sd": 458.78524121646075
+        },
+        "cumulative_respiration_fraction_initial_OM": {
+          "mean": 0.006488427041565619,
+          "sd": 0.0004587852412164607
+        },
+        "qCO2_per_day": {
+          "mean": 0.06788992688141418,
+          "sd": 0.003789421067583898
+        },
+        "CUE": {
+          "mean": 0.27446397029539904,
+          "sd": 0.0095913988124456
+        }
+      },
+      "sand_to_vertisol_ratio_by_period": [
+        1.5878540977455178,
+        2.3590455335240668,
+        3.0904576087873257,
+        3.88408335614553
+      ],
+      "qCO2_vertisol_over_sand": 0.4167786179967656
+    },
+    "primary": {
+      "sand": {
+        "n_crops": 8,
+        "period_means_normalized_to_R0": [
+          {
+            "mean": 21.65676734765828,
+            "sd": 1.3380666911062564
+          },
+          {
+            "mean": 23.504276133907787,
+            "sd": 2.360475193523274
+          },
+          {
+            "mean": 21.77682866504484,
+            "sd": 2.187633722574121
+          },
+          {
+            "mean": 21.350021836036934,
+            "sd": 1.8594596102591654
+          }
+        ],
+        "shape": "flat",
+        "cumulative_respiration_model_units": {
+          "mean": 215215.7942334122,
+          "sd": 18755.63321390529
+        },
+        "cumulative_respiration_fraction_initial_OM": {
+          "mean": 0.21521579423341217,
+          "sd": 0.01875563321390529
+        },
+        "qCO2_per_day": {
+          "mean": 0.2614486496672332,
+          "sd": 0.0037016767329936242
+        },
+        "CUE": {
+          "mean": 0.29660373227413295,
+          "sd": 0.002611221757007426
+        }
+      },
+      "vertisol": {
+        "n_crops": 8,
+        "period_means_normalized_to_R0": [
+          {
+            "mean": 6.319204609000339,
+            "sd": 0.4683359927489776
+          },
+          {
+            "mean": 13.94479463511461,
+            "sd": 1.2311555154119962
+          },
+          {
+            "mean": 15.184346808430575,
+            "sd": 1.3760072159436192
+          },
+          {
+            "mean": 14.171557599096737,
+            "sd": 1.329868662675329
+          }
+        ],
+        "shape": "flat",
+        "cumulative_respiration_model_units": {
+          "mean": 124230.45911018623,
+          "sd": 10997.684341934968
+        },
+        "cumulative_respiration_fraction_initial_OM": {
+          "mean": 0.12423045911018625,
+          "sd": 0.010997684341934967
+        },
+        "qCO2_per_day": {
+          "mean": 0.4557377427697975,
+          "sd": 0.005836579933512383
+        },
+        "CUE": {
+          "mean": 0.33086526440607134,
+          "sd": 0.0011712673484961878
+        }
+      },
+      "sand_to_vertisol_ratio_by_period": [
+        3.427135009493585,
+        1.6855232901545423,
+        1.434163019311046,
+        1.506540243494317
+      ],
+      "qCO2_vertisol_over_sand": 1.743125249833387
+    },
+    "high": {
+      "sand": {
+        "n_crops": 8,
+        "period_means_normalized_to_R0": [
+          {
+            "mean": 22.39113037301917,
+            "sd": 1.9592659993894936
+          },
+          {
+            "mean": 20.345682060333488,
+            "sd": 1.547117551815926
+          },
+          {
+            "mean": 17.032186149485003,
+            "sd": 0.716498811324154
+          },
+          {
+            "mean": 12.393216314556236,
+            "sd": 0.5237192941232159
+          }
+        ],
+        "shape": "fall",
+        "cumulative_respiration_model_units": {
+          "mean": 601723.1465777437,
+          "sd": 29733.186743981438
+        },
+        "cumulative_respiration_fraction_initial_OM": {
+          "mean": 0.6017231465777437,
+          "sd": 0.02973318674398143
+        },
+        "qCO2_per_day": {
+          "mean": 0.7700382973037354,
+          "sd": 0.006260077175253307
+        },
+        "CUE": {
+          "mean": 0.24764149592883986,
+          "sd": 0.0026520229840216055
+        }
+      },
+      "vertisol": {
+        "n_crops": 8,
+        "period_means_normalized_to_R0": [
+          {
+            "mean": 12.191647139285216,
+            "sd": 1.0551200578066133
+          },
+          {
+            "mean": 12.29388885538809,
+            "sd": 1.1974469303041153
+          },
+          {
+            "mean": 8.478229567421131,
+            "sd": 0.9055062356620258
+          },
+          {
+            "mean": 6.013858545087259,
+            "sd": 0.6578986063546743
+          }
+        ],
+        "shape": "rise-then-fall",
+        "cumulative_respiration_model_units": {
+          "mean": 324885.30001434777,
+          "sd": 30779.363075230227
+        },
+        "cumulative_respiration_fraction_initial_OM": {
+          "mean": 0.32488530001434773,
+          "sd": 0.030779363075230232
+        },
+        "qCO2_per_day": {
+          "mean": 1.528079997183803,
+          "sd": 0.006566392057821154
+        },
+        "CUE": {
+          "mean": 0.3219390789828488,
+          "sd": 0.0005838909846425827
+        }
+      },
+      "sand_to_vertisol_ratio_by_period": [
+        1.836596000294997,
+        1.654942736155981,
+        2.008931937268334,
+        2.0607761592065206
+      ],
+      "qCO2_vertisol_over_sand": 1.9844207782058718
+    }
+  },
+  "specimen_results": {
+    "low": {
+      "SA": {
+        "n_crops": 4,
+        "period_means_normalized_to_R0": [
+          {
+            "mean": 2.7153544593465226,
+            "sd": 0.1354071713661533
+          },
+          {
+            "mean": 9.258714012622793,
+            "sd": 0.5171425562605682
+          },
+          {
+            "mean": 17.99152017360631,
+            "sd": 0.8715116983368218
+          },
+          {
+            "mean": 29.581554754150048,
+            "sd": 1.0352348584568056
+          }
+        ],
+        "shape": "rise",
+        "cumulative_respiration_model_units": {
+          "mean": 22137.47999083524,
+          "sd": 915.0466916099359
+        },
+        "cumulative_respiration_fraction_initial_OM": {
+          "mean": 0.022137479990835242,
+          "sd": 0.0009150466916099369
+        },
+        "qCO2_per_day": {
+          "mean": 0.16498375314324043,
+          "sd": 0.001755586992534823
+        },
+        "CUE": {
+          "mean": 0.3586970266790046,
+          "sd": 0.0011458246732837752
+        }
+      },
+      "SB": {
+        "n_crops": 4,
+        "period_means_normalized_to_R0": [
+          {
+            "mean": 2.393484684371076,
+            "sd": 0.11634740686418199
+          },
+          {
+            "mean": 8.001702827966255,
+            "sd": 0.5192102865274353
+          },
+          {
+            "mean": 15.858135931463451,
+            "sd": 1.0339163192980139
+          },
+          {
+            "mean": 27.079469883627972,
+            "sd": 1.6943382973341146
+          }
+        ],
+        "shape": "rise",
+        "cumulative_respiration_model_units": {
+          "mean": 19907.34769298156,
+          "sd": 1242.1602345168324
+        },
+        "cumulative_respiration_fraction_initial_OM": {
+          "mean": 0.01990734769298156,
+          "sd": 0.001242160234516832
+        },
+        "qCO2_per_day": {
+          "mean": 0.16080036317119603,
+          "sd": 0.004818326849461306
+        },
+        "CUE": {
+          "mean": 0.35550295091532735,
+          "sd": 0.0022229404753204385
+        }
+      },
+      "VA": {
+        "n_crops": 4,
+        "period_means_normalized_to_R0": [
+          {
+            "mean": 1.6447395816727952,
+            "sd": 0.060701891895016916
+          },
+          {
+            "mean": 3.7548323124629235,
+            "sd": 0.2619479679469718
+          },
+          {
+            "mean": 5.57793341224975,
+            "sd": 0.46025468100824807
+          },
+          {
+            "mean": 7.362736693007952,
+            "sd": 0.692235965842683
+          }
+        ],
+        "shape": "rise",
+        "cumulative_respiration_model_units": {
+          "mean": 6590.8691307969675,
+          "sd": 540.3611414879905
+        },
+        "cumulative_respiration_fraction_initial_OM": {
+          "mean": 0.006590869130796967,
+          "sd": 0.0005403611414879904
+        },
+        "qCO2_per_day": {
+          "mean": 0.0681519921773009,
+          "sd": 0.004850976366298959
+        },
+        "CUE": {
+          "mean": 0.2762823950304434,
+          "sd": 0.01108316353929483
+        }
+      },
+      "VB": {
+        "n_crops": 4,
+        "period_means_normalized_to_R0": [
+          {
+            "mean": 1.5727091442342507,
+            "sd": 0.06289720812061164
+          },
+          {
+            "mean": 3.5618627641278726,
+            "sd": 0.2428164597760145
+          },
+          {
+            "mean": 5.375025789915826,
+            "sd": 0.37163231738031766
+          },
+          {
+            "mean": 7.225267590712429,
+            "sd": 0.4685986953470679
+          }
+        ],
+        "shape": "rise",
+        "cumulative_respiration_model_units": {
+          "mean": 6385.984952334272,
+          "sd": 413.707521504038
+        },
+        "cumulative_respiration_fraction_initial_OM": {
+          "mean": 0.006385984952334271,
+          "sd": 0.00041370752150403806
+        },
+        "qCO2_per_day": {
+          "mean": 0.06762786158552742,
+          "sd": 0.0031290383676406603
+        },
+        "CUE": {
+          "mean": 0.2726455455603547,
+          "sd": 0.009110463361857602
+        }
+      }
+    },
+    "primary": {
+      "SA": {
+        "n_crops": 4,
+        "period_means_normalized_to_R0": [
+          {
+            "mean": 22.528379515484026,
+            "sd": 0.7478179072830476
+          },
+          {
+            "mean": 25.19049460459709,
+            "sd": 1.3637327010852447
+          },
+          {
+            "mean": 23.292465204107813,
+            "sd": 1.2510013938204694
+          },
+          {
+            "mean": 22.645618227661142,
+            "sd": 1.0864375010772969
+          }
+        ],
+        "shape": "rise-then-fall",
+        "cumulative_respiration_model_units": {
+          "mean": 228467.9177825614,
+          "sd": 10830.483661995695
+        },
+        "cumulative_respiration_fraction_initial_OM": {
+          "mean": 0.22846791778256137,
+          "sd": 0.010830483661995696
+        },
+        "qCO2_per_day": {
+          "mean": 0.2635067766677963,
+          "sd": 0.002436514142042518
+        },
+        "CUE": {
+          "mean": 0.2984187471654226,
+          "sd": 0.001143065142041105
+        }
+      },
+      "SB": {
+        "n_crops": 4,
+        "period_means_normalized_to_R0": [
+          {
+            "mean": 20.785155179832536,
+            "sd": 1.26195618687306
+          },
+          {
+            "mean": 21.818057663218482,
+            "sd": 1.8865258623099714
+          },
+          {
+            "mean": 20.26119212598186,
+            "sd": 1.8643982692046535
+          },
+          {
+            "mean": 20.05442544441273,
+            "sd": 1.552796497091363
+          }
+        ],
+        "shape": "flat",
+        "cumulative_respiration_model_units": {
+          "mean": 201963.670684263,
+          "sd": 15335.884750352085
+        },
+        "cumulative_respiration_fraction_initial_OM": {
+          "mean": 0.20196367068426296,
+          "sd": 0.01533588475035209
+        },
+        "qCO2_per_day": {
+          "mean": 0.25939052266667006,
+          "sd": 0.0038392697635708946
+        },
+        "CUE": {
+          "mean": 0.2947887173828433,
+          "sd": 0.0024121447751056344
+        }
+      },
+      "VA": {
+        "n_crops": 4,
+        "period_means_normalized_to_R0": [
+          {
+            "mean": 6.365931787542156,
+            "sd": 0.5974509645004584
+          },
+          {
+            "mean": 13.747033002137606,
+            "sd": 1.6964875136776714
+          },
+          {
+            "mean": 15.032679015883954,
+            "sd": 1.8764368699263683
+          },
+          {
+            "mean": 14.101792810651887,
+            "sd": 1.77306762560403
+          }
+        ],
+        "shape": "flat",
+        "cumulative_respiration_model_units": {
+          "mean": 123284.33293168554,
+          "sd": 14920.933339309357
+        },
+        "cumulative_respiration_fraction_initial_OM": {
+          "mean": 0.12328433293168553,
+          "sd": 0.014920933339309352
+        },
+        "qCO2_per_day": {
+          "mean": 0.4586217448736467,
+          "sd": 0.005291642279839989
+        },
+        "CUE": {
+          "mean": 0.3309292078562451,
+          "sd": 0.001431184698727079
+        }
+      },
+      "VB": {
+        "n_crops": 4,
+        "period_means_normalized_to_R0": [
+          {
+            "mean": 6.272477430458522,
+            "sd": 0.38603100741856544
+          },
+          {
+            "mean": 14.142556268091615,
+            "sd": 0.7445625923746676
+          },
+          {
+            "mean": 15.336014600977197,
+            "sd": 0.9140933711383921
+          },
+          {
+            "mean": 14.241322387541587,
+            "sd": 0.9848199834168851
+          }
+        ],
+        "shape": "flat",
+        "cumulative_respiration_model_units": {
+          "mean": 125176.58528868694,
+          "sd": 7562.614915499266
+        },
+        "cumulative_respiration_fraction_initial_OM": {
+          "mean": 0.12517658528868697,
+          "sd": 0.007562614915499265
+        },
+        "qCO2_per_day": {
+          "mean": 0.4528537406659483,
+          "sd": 0.005413423996835124
+        },
+        "CUE": {
+          "mean": 0.33080132095589754,
+          "sd": 0.0010685646708553309
+        }
+      }
+    },
+    "high": {
+      "SA": {
+        "n_crops": 4,
+        "period_means_normalized_to_R0": [
+          {
+            "mean": 23.780893431942694,
+            "sd": 1.1295412132090334
+          },
+          {
+            "mean": 21.394517594730438,
+            "sd": 0.8606367736131074
+          },
+          {
+            "mean": 17.382008980661134,
+            "sd": 0.3160705536362451
+          },
+          {
+            "mean": 12.069956068439534,
+            "sd": 0.29812516905498415
+          }
+        ],
+        "shape": "fall",
+        "cumulative_respiration_model_units": {
+          "mean": 619658.0833055412,
+          "sd": 14778.90402979862
+        },
+        "cumulative_respiration_fraction_initial_OM": {
+          "mean": 0.6196580833055412,
+          "sd": 0.01477890402979859
+        },
+        "qCO2_per_day": {
+          "mean": 0.771981167840029,
+          "sd": 0.007940015333223518
+        },
+        "CUE": {
+          "mean": 0.24943343069095167,
+          "sd": 0.0017404497670922196
+        }
+      },
+      "SB": {
+        "n_crops": 4,
+        "period_means_normalized_to_R0": [
+          {
+            "mean": 21.001367314095646,
+            "sd": 1.590800831651045
+          },
+          {
+            "mean": 19.296846525936537,
+            "sd": 1.3823258467721395
+          },
+          {
+            "mean": 16.68236331830887,
+            "sd": 0.8784235758975721
+          },
+          {
+            "mean": 12.716476560672938,
+            "sd": 0.5219706090802442
+          }
+        ],
+        "shape": "fall",
+        "cumulative_respiration_model_units": {
+          "mean": 583788.2098499462,
+          "sd": 31410.683433403832
+        },
+        "cumulative_respiration_fraction_initial_OM": {
+          "mean": 0.5837882098499462,
+          "sd": 0.031410683433403815
+        },
+        "qCO2_per_day": {
+          "mean": 0.7680954267674418,
+          "sd": 0.004281373060091639
+        },
+        "CUE": {
+          "mean": 0.24584956116672804,
+          "sd": 0.002195210213610546
+        }
+      },
+      "VA": {
+        "n_crops": 4,
+        "period_means_normalized_to_R0": [
+          {
+            "mean": 12.081220446997655,
+            "sd": 1.4421639286367904
+          },
+          {
+            "mean": 12.28100788652295,
+            "sd": 1.5459645971746168
+          },
+          {
+            "mean": 8.545083363898861,
+            "sd": 1.0507489042397034
+          },
+          {
+            "mean": 6.100212751835388,
+            "sd": 0.6708236252334283
+          }
+        ],
+        "shape": "rise-then-fall",
+        "cumulative_respiration_model_units": {
+          "mean": 325459.2154973041,
+          "sd": 38094.58260631726
+        },
+        "cumulative_respiration_fraction_initial_OM": {
+          "mean": 0.3254592154973041,
+          "sd": 0.03809458260631726
+        },
+        "qCO2_per_day": {
+          "mean": 1.5302087639420148,
+          "sd": 0.008500705090949747
+        },
+        "CUE": {
+          "mean": 0.32212523767533624,
+          "sd": 0.00047146302362777957
+        }
+      },
+      "VB": {
+        "n_crops": 4,
+        "period_means_normalized_to_R0": [
+          {
+            "mean": 12.302073831572777,
+            "sd": 0.6966313057758602
+          },
+          {
+            "mean": 12.306769824253228,
+            "sd": 0.9773786530374976
+          },
+          {
+            "mean": 8.411375770943401,
+            "sd": 0.8928634796072292
+          },
+          {
+            "mean": 5.92750433833913,
+            "sd": 0.7348797255345515
+          }
+        ],
+        "shape": "rise-then-fall",
+        "cumulative_respiration_model_units": {
+          "mean": 324311.3845313914,
+          "sd": 27540.01715998448
+        },
+        "cumulative_respiration_fraction_initial_OM": {
+          "mean": 0.32431138453139136,
+          "sd": 0.027540017159984477
+        },
+        "qCO2_per_day": {
+          "mean": 1.5259512304255916,
+          "sd": 0.004032509069313508
+        },
+        "CUE": {
+          "mean": 0.3217529202903613,
+          "sd": 0.0006934042003945064
+        }
+      }
+    }
+  },
+  "crop_results": {
+    "low": {
+      "SA_c0": {
+        "period_means_normalized_to_R0": [
+          2.7132819198278666,
+          9.289534358373045,
+          18.101173764070246,
+          29.88341238939776
+        ],
+        "shape": "rise",
+        "cumulative_respiration_model_units": 22312.70242116034,
+        "cumulative_respiration_fraction_initial_OM": 0.02231270242116034,
+        "qCO2_per_day": 0.1660455528370631,
+        "CUE": 0.35900016862417183
+      },
+      "SA_c1": {
+        "period_means_normalized_to_R0": [
+          2.902395718036096,
+          9.95533025187265,
+          19.130885213996358,
+          30.80401506911377
+        ],
+        "shape": "rise",
+        "cumulative_respiration_model_units": 23290.63018853901,
+        "cumulative_respiration_fraction_initial_OM": 0.02329063018853901,
+        "qCO2_per_day": 0.16645929253118555,
+        "CUE": 0.36007210382906174
+      },
+      "SA_c2": {
+        "period_means_normalized_to_R0": [
+          2.661013675655617,
+          9.055468769869497,
+          17.673929044133644,
+          29.30304532996179
+        ],
+        "shape": "rise",
+        "cumulative_respiration_model_units": 21840.16296245087,
+        "cumulative_respiration_fraction_initial_OM": 0.021840162962450872,
+        "qCO2_per_day": 0.1648818263293448,
+        "CUE": 0.35838127201691516
+      },
+      "SA_c3": {
+        "period_means_normalized_to_R0": [
+          2.5847265238665105,
+          8.734522670375977,
+          17.060092672225004,
+          28.335746228126876
+        ],
+        "shape": "rise",
+        "cumulative_respiration_model_units": 21106.42439119074,
+        "cumulative_respiration_fraction_initial_OM": 0.021106424391190738,
+        "qCO2_per_day": 0.1625483408753683,
+        "CUE": 0.3573345622458698
+      },
+      "SB_c0": {
+        "period_means_normalized_to_R0": [
+          2.226933229337268,
+          7.239644251137329,
+          14.331982403675037,
+          24.636816456249512
+        ],
+        "shape": "rise",
+        "cumulative_respiration_model_units": 18085.490465382005,
+        "cumulative_respiration_fraction_initial_OM": 0.018085490465382006,
+        "qCO2_per_day": 0.15415014066756202,
+        "CUE": 0.35224094163774633
+      },
+      "SB_c1": {
+        "period_means_normalized_to_R0": [
+          2.4973673964091048,
+          8.404911585430797,
+          16.54518085059144,
+          27.862559596217064
+        ],
+        "shape": "rise",
+        "cumulative_respiration_model_units": 20614.818275309106,
+        "cumulative_respiration_fraction_initial_OM": 0.020614818275309105,
+        "qCO2_per_day": 0.1621824560767721,
+        "CUE": 0.35667262785337683
+      },
+      "SB_c2": {
+        "period_means_normalized_to_R0": [
+          2.4324172972269547,
+          8.158315549413302,
+          16.113797090592843,
+          27.336763456657874
+        ],
+        "shape": "rise",
+        "cumulative_respiration_model_units": 20157.719435176405,
+        "cumulative_respiration_fraction_initial_OM": 0.020157719435176406,
+        "qCO2_per_day": 0.161239366922524,
+        "CUE": 0.35598937737125347
+      },
+      "SB_c3": {
+        "period_means_normalized_to_R0": [
+          2.4172208145109755,
+          8.203939925883589,
+          16.441583380994484,
+          28.481740025387435
+        ],
+        "shape": "rise",
+        "cumulative_respiration_model_units": 20771.362596058723,
+        "cumulative_respiration_fraction_initial_OM": 0.020771362596058725,
+        "qCO2_per_day": 0.16562948901792598,
+        "CUE": 0.357108856798933
+      },
+      "VA_c0": {
+        "period_means_normalized_to_R0": [
+          1.6427854015984638,
+          3.751210585893759,
+          5.571625065599691,
+          7.353348598175084
+        ],
+        "shape": "rise",
+        "cumulative_respiration_model_units": 6583.138271724773,
+        "cumulative_respiration_fraction_initial_OM": 0.006583138271724773,
+        "qCO2_per_day": 0.06817377036866179,
+        "CUE": 0.27693258235077245
+      },
+      "VA_c1": {
+        "period_means_normalized_to_R0": [
+          1.621139159083691,
+          3.7445865313476445,
+          5.6498140630411084,
+          7.5671913520268
+        ],
+        "shape": "rise",
+        "cumulative_respiration_model_units": 6691.53818632189,
+        "cumulative_respiration_fraction_initial_OM": 0.00669153818632189,
+        "qCO2_per_day": 0.06988107961342345,
+        "CUE": 0.279179993892136
+      },
+      "VA_c2": {
+        "period_means_normalized_to_R0": [
+          1.5862187714793379,
+          3.4411136322617164,
+          4.984724817980732,
+          6.435547888704783
+        ],
+        "shape": "rise",
+        "cumulative_respiration_model_units": 5888.100668488786,
+        "cumulative_respiration_fraction_initial_OM": 0.005888100668488786,
+        "qCO2_per_day": 0.061528823624807556,
+        "CUE": 0.26121569700584546
+      },
+      "VA_c3": {
+        "period_means_normalized_to_R0": [
+          1.7288149945296887,
+          4.082418500348573,
+          6.105569702377468,
+          8.094858933125142
+        ],
+        "shape": "rise",
+        "cumulative_respiration_model_units": 7200.699396652421,
+        "cumulative_respiration_fraction_initial_OM": 0.007200699396652421,
+        "qCO2_per_day": 0.07302429510231086,
+        "CUE": 0.2878013068730195
+      },
+      "VB_c0": {
+        "period_means_normalized_to_R0": [
+          1.6276806421302483,
+          3.7724804696689587,
+          5.692842554714308,
+          7.615687593271161
+        ],
+        "shape": "rise",
+        "cumulative_respiration_model_units": 6736.566934425345,
+        "cumulative_respiration_fraction_initial_OM": 0.006736566934425345,
+        "qCO2_per_day": 0.07018147969351786,
+        "CUE": 0.28000941430562964
+      },
+      "VB_c1": {
+        "period_means_normalized_to_R0": [
+          1.4861827299614534,
+          3.226078550314974,
+          4.859474452687223,
+          6.573313600830136
+        ],
+        "shape": "rise",
+        "cumulative_respiration_model_units": 5811.756889432536,
+        "cumulative_respiration_fraction_initial_OM": 0.005811756889432536,
+        "qCO2_per_day": 0.06325137924143012,
+        "CUE": 0.2597872033671219
+      },
+      "VB_c2": {
+        "period_means_normalized_to_R0": [
+          1.6092427346068001,
+          3.701696636010997,
+          5.592175746231287,
+          7.509466027140743
+        ],
+        "shape": "rise",
+        "cumulative_respiration_model_units": 6631.612628169905,
+        "cumulative_respiration_fraction_initial_OM": 0.006631612628169905,
+        "qCO2_per_day": 0.06954841786769823,
+        "CUE": 0.278070792918385
+      },
+      "VB_c3": {
+        "period_means_normalized_to_R0": [
+          1.5677304702385007,
+          3.5471954005165616,
+          5.355610406030488,
+          7.202603141607676
+        ],
+        "shape": "rise",
+        "cumulative_respiration_model_units": 6364.003357309299,
+        "cumulative_respiration_fraction_initial_OM": 0.0063640033573092985,
+        "qCO2_per_day": 0.06753016953946347,
+        "CUE": 0.27271477165028235
+      }
+    },
+    "primary": {
+      "SA_c0": {
+        "period_means_normalized_to_R0": [
+          22.784025030988442,
+          25.600648844768113,
+          23.746107375040253,
+          23.01805748443461
+        ],
+        "shape": "rise-then-fall",
+        "cumulative_respiration_model_units": 232127.31378093726,
+        "cumulative_respiration_fraction_initial_OM": 0.23212731378093726,
+        "qCO2_per_day": 0.2647176318712414,
+        "CUE": 0.29893919303644145
+      },
+      "SA_c1": {
+        "period_means_normalized_to_R0": [
+          23.377796391000658,
+          26.93433388905302,
+          24.854473148753716,
+          24.013399177564995
+        ],
+        "shape": "rise-then-fall",
+        "cumulative_respiration_model_units": 242151.7393003989,
+        "cumulative_respiration_fraction_initial_OM": 0.2421517393003989,
+        "qCO2_per_day": 0.26400725148644727,
+        "CUE": 0.2995688648480187
+      },
+      "SA_c2": {
+        "period_means_normalized_to_R0": [
+          22.35018090292952,
+          24.272013830780587,
+          22.189954536478606,
+          21.68244787375504
+        ],
+        "shape": "rise-then-fall",
+        "cumulative_respiration_model_units": 220454.481397758,
+        "cumulative_respiration_fraction_initial_OM": 0.220454481397758,
+        "qCO2_per_day": 0.25994659387135266,
+        "CUE": 0.2969012748452058
+      },
+      "SA_c3": {
+        "period_means_normalized_to_R0": [
+          21.60151573701748,
+          23.954981853786652,
+          22.379325756158675,
+          21.868568374889918
+        ],
+        "shape": "flat",
+        "cumulative_respiration_model_units": 219138.1366511514,
+        "cumulative_respiration_fraction_initial_OM": 0.2191381366511514,
+        "qCO2_per_day": 0.2653556294421438,
+        "CUE": 0.2982656559320245
+      },
+      "SB_c0": {
+        "period_means_normalized_to_R0": [
+          18.97687821624708,
+          19.334642165461013,
+          17.987639256247224,
+          18.036150085196788
+        ],
+        "shape": "flat",
+        "cumulative_respiration_model_units": 180985.20401481725,
+        "cumulative_respiration_fraction_initial_OM": 0.18098520401481724,
+        "qCO2_per_day": 0.25946194239442044,
+        "CUE": 0.2933563894832758
+      },
+      "SB_c1": {
+        "period_means_normalized_to_R0": [
+          21.29652337902311,
+          23.268690141586955,
+          21.677929429441306,
+          21.22984723642259
+        ],
+        "shape": "flat",
+        "cumulative_respiration_model_units": 213315.66537190694,
+        "cumulative_respiration_fraction_initial_OM": 0.21331566537190694,
+        "qCO2_per_day": 0.2605909971931139,
+        "CUE": 0.2963443968349433
+      },
+      "SB_c2": {
+        "period_means_normalized_to_R0": [
+          20.98347010086144,
+          23.301902526601047,
+          21.890576391579053,
+          21.319439212716134
+        ],
+        "shape": "flat",
+        "cumulative_respiration_model_units": 213495.15624743697,
+        "cumulative_respiration_fraction_initial_OM": 0.21349515624743698,
+        "qCO2_per_day": 0.26333523485834626,
+        "CUE": 0.2972741986174311
+      },
+      "SB_c3": {
+        "period_means_normalized_to_R0": [
+          21.883749023198515,
+          21.366995819224908,
+          19.488623426659867,
+          19.632265243315405
+        ],
+        "shape": "fall",
+        "cumulative_respiration_model_units": 200058.65710289078,
+        "cumulative_respiration_fraction_initial_OM": 0.20005865710289078,
+        "qCO2_per_day": 0.25417391622079955,
+        "CUE": 0.29217988459572286
+      },
+      "VA_c0": {
+        "period_means_normalized_to_R0": [
+          6.35857738498667,
+          13.789886772183225,
+          15.195781577441666,
+          14.351598488873178
+        ],
+        "shape": "flat",
+        "cumulative_respiration_model_units": 124509.82698818376,
+        "cumulative_respiration_fraction_initial_OM": 0.12450982698818376,
+        "qCO2_per_day": 0.46024021188367076,
+        "CUE": 0.3312507504265485
+      },
+      "VA_c1": {
+        "period_means_normalized_to_R0": [
+          6.551766216568866,
+          14.512928756795691,
+          15.564763943708025,
+          14.2806875863474
+        ],
+        "shape": "flat",
+        "cumulative_respiration_model_units": 127259.93529600144,
+        "cumulative_respiration_fraction_initial_OM": 0.12725993529600144,
+        "qCO2_per_day": 0.45079534771972585,
+        "CUE": 0.33095038551300093
+      },
+      "VA_c2": {
+        "period_means_normalized_to_R0": [
+          5.56243450875919,
+          11.378130433577846,
+          12.447711102467984,
+          11.73744163512877
+        ],
+        "shape": "flat",
+        "cumulative_respiration_model_units": 102836.23862500278,
+        "cumulative_respiration_fraction_initial_OM": 0.10283623862500278,
+        "qCO2_per_day": 0.46106870619972257,
+        "CUE": 0.3290283532745354
+      },
+      "VA_c3": {
+        "period_means_normalized_to_R0": [
+          6.990949039853899,
+          15.30718604599366,
+          16.922459439918146,
+          16.0374435322582
+        ],
+        "shape": "flat",
+        "cumulative_respiration_model_units": 138531.33081755415,
+        "cumulative_respiration_fraction_initial_OM": 0.13853133081755414,
+        "qCO2_per_day": 0.46238271369146783,
+        "CUE": 0.3324873422108955
+      },
+      "VB_c0": {
+        "period_means_normalized_to_R0": [
+          6.589191494304653,
+          14.561780094031729,
+          15.61109677689636,
+          14.355926238460157
+        ],
+        "shape": "flat",
+        "cumulative_respiration_model_units": 127794.8341897842,
+        "cumulative_respiration_fraction_initial_OM": 0.1277948341897842,
+        "qCO2_per_day": 0.4523080167358945,
+        "CUE": 0.3311035773672798
+      },
+      "VB_c1": {
+        "period_means_normalized_to_R0": [
+          5.734921239105065,
+          13.086402984069723,
+          14.044231435791112,
+          12.882984616821508
+        ],
+        "shape": "flat",
+        "cumulative_respiration_model_units": 114451.72262365225,
+        "cumulative_respiration_fraction_initial_OM": 0.11445172262365226,
+        "qCO2_per_day": 0.445533421921627,
+        "CUE": 0.329261450805606
+      },
+      "VB_c2": {
+        "period_means_normalized_to_R0": [
+          6.512126463948675,
+          14.751772109786256,
+          16.19471183337389,
+          15.235988640339427
+        ],
+        "shape": "flat",
+        "cumulative_respiration_model_units": 132131.86849978156,
+        "cumulative_respiration_fraction_initial_OM": 0.13213186849978156,
+        "qCO2_per_day": 0.45803040248669424,
+        "CUE": 0.3317340453830415
+      },
+      "VB_c3": {
+        "period_means_normalized_to_R0": [
+          6.253670524475694,
+          14.170269884478747,
+          15.494018357847427,
+          14.490390054545248
+        ],
+        "shape": "flat",
+        "cumulative_respiration_model_units": 126327.91584152976,
+        "cumulative_respiration_fraction_initial_OM": 0.12632791584152975,
+        "qCO2_per_day": 0.45554312151957743,
+        "CUE": 0.33110621026766296
+      }
+    },
+    "high": {
+      "SA_c0": {
+        "period_means_normalized_to_R0": [
+          24.159946492699785,
+          21.632377034274402,
+          17.35838936216438,
+          12.052944452727154
+        ],
+        "shape": "fall",
+        "cumulative_respiration_model_units": 624103.2473202497,
+        "cumulative_respiration_fraction_initial_OM": 0.6241032473202497,
+        "qCO2_per_day": 0.7743225610227511,
+        "CUE": 0.25044969064711264
+      },
+      "SA_c1": {
+        "period_means_normalized_to_R0": [
+          25.203775423539817,
+          22.509319041772592,
+          17.834675735606243,
+          11.696201450062748
+        ],
+        "shape": "fall",
+        "cumulative_respiration_model_units": 638557.3648581374,
+        "cumulative_respiration_fraction_initial_OM": 0.6385573648581374,
+        "qCO2_per_day": 0.7763802201829219,
+        "CUE": 0.2506635229058345
+      },
+      "SA_c2": {
+        "period_means_normalized_to_R0": [
+          23.01377415132956,
+          20.655410356647813,
+          17.13434944579922,
+          12.106744080589687
+        ],
+        "shape": "fall",
+        "cumulative_respiration_model_units": 606279.3850281298,
+        "cumulative_respiration_fraction_initial_OM": 0.6062793850281298,
+        "qCO2_per_day": 0.760197237690404,
+        "CUE": 0.24689276810081573
+      },
+      "SA_c3": {
+        "period_means_normalized_to_R0": [
+          22.746077660201617,
+          20.780963946226933,
+          17.200621379074697,
+          12.423934290378549
+        ],
+        "shape": "fall",
+        "cumulative_respiration_model_units": 609692.3360156477,
+        "cumulative_respiration_fraction_initial_OM": 0.6096923360156478,
+        "qCO2_per_day": 0.777024652464039,
+        "CUE": 0.2497277411100438
+      },
+      "SB_c0": {
+        "period_means_normalized_to_R0": [
+          18.78939693054879,
+          17.44600438072728,
+          15.387348839131965,
+          12.277419674148947
+        ],
+        "shape": "fall",
+        "cumulative_respiration_model_units": 537513.1123662011,
+        "cumulative_respiration_fraction_initial_OM": 0.5375131123662011,
+        "qCO2_per_day": 0.7637814051958431,
+        "CUE": 0.24419799955680443
+      },
+      "SB_c1": {
+        "period_means_normalized_to_R0": [
+          22.163886136704388,
+          20.377354354164034,
+          17.322265818959544,
+          12.588836950622373
+        ],
+        "shape": "fall",
+        "cumulative_respiration_model_units": 604697.7334845476,
+        "cumulative_respiration_fraction_initial_OM": 0.6046977334845476,
+        "qCO2_per_day": 0.7654602640235653,
+        "CUE": 0.24669455520883787
+      },
+      "SB_c2": {
+        "period_means_normalized_to_R0": [
+          22.157363471645397,
+          20.331110343893233,
+          17.092866194966692,
+          12.526683883358835
+        ],
+        "shape": "fall",
+        "cumulative_respiration_model_units": 601929.664522068,
+        "cumulative_respiration_fraction_initial_OM": 0.601929664522068,
+        "qCO2_per_day": 0.7731963675512248,
+        "CUE": 0.24856475945408452
+      },
+      "SB_c3": {
+        "period_means_normalized_to_R0": [
+          20.894822717483997,
+          19.03291702496161,
+          16.92697242017728,
+          13.472965734561598
+        ],
+        "shape": "fall",
+        "cumulative_respiration_model_units": 591012.3290269681,
+        "cumulative_respiration_fraction_initial_OM": 0.5910123290269681,
+        "qCO2_per_day": 0.7699436702991338,
+        "CUE": 0.24394093044718534
+      },
+      "VA_c0": {
+        "period_means_normalized_to_R0": [
+          12.15330526806046,
+          12.587693212249988,
+          8.890605892071429,
+          6.3947255172626685
+        ],
+        "shape": "rise-then-fall",
+        "cumulative_respiration_model_units": 334549.1080061307,
+        "cumulative_respiration_fraction_initial_OM": 0.3345491080061307,
+        "qCO2_per_day": 1.5283363808364012,
+        "CUE": 0.3221554093686989
+      },
+      "VA_c1": {
+        "period_means_normalized_to_R0": [
+          12.593671521849004,
+          12.187033301191283,
+          8.142051730362361,
+          5.703600401338306
+        ],
+        "shape": "fall",
+        "cumulative_respiration_model_units": 320788.60142660886,
+        "cumulative_respiration_fraction_initial_OM": 0.32078860142660887,
+        "qCO2_per_day": 1.5214566188885525,
+        "CUE": 0.3217317484489397
+      },
+      "VA_c2": {
+        "period_means_normalized_to_R0": [
+          10.085886593264577,
+          10.297885406917771,
+          7.3432393192353995,
+          5.409385964233202
+        ],
+        "shape": "rise-then-fall",
+        "cumulative_respiration_model_units": 277209.4531285752,
+        "cumulative_respiration_fraction_initial_OM": 0.27720945312857515,
+        "qCO2_per_day": 1.5418550551882677,
+        "CUE": 0.3218351506254068
+      },
+      "VA_c3": {
+        "period_means_normalized_to_R0": [
+          13.49201840481658,
+          14.051419625732752,
+          9.804436513926255,
+          6.8931391245073765
+        ],
+        "shape": "rise-then-fall",
+        "cumulative_respiration_model_units": 369289.69942790177,
+        "cumulative_respiration_fraction_initial_OM": 0.36928969942790174,
+        "qCO2_per_day": 1.5291870008548372,
+        "CUE": 0.32277864225829955
+      },
+      "VB_c0": {
+        "period_means_normalized_to_R0": [
+          12.639281703633777,
+          12.246914912044355,
+          8.08406018054897,
+          5.517765658566255
+        ],
+        "shape": "fall",
+        "cumulative_respiration_model_units": 319116.98126518104,
+        "cumulative_respiration_fraction_initial_OM": 0.319116981265181,
+        "qCO2_per_day": 1.5247215672666048,
+        "CUE": 0.32202652202514126
+      },
+      "VB_c1": {
+        "period_means_normalized_to_R0": [
+          11.309328094457758,
+          11.006894532701224,
+          7.3343801114242915,
+          5.119140495545059
+        ],
+        "shape": "fall",
+        "cumulative_respiration_model_units": 288775.1320202056,
+        "cumulative_respiration_fraction_initial_OM": 0.2887751320202056,
+        "qCO2_per_day": 1.5209229242144564,
+        "CUE": 0.3207287761604376
+      },
+      "VB_c2": {
+        "period_means_normalized_to_R0": [
+          12.896082632227381,
+          13.338853321896467,
+          9.376699963546336,
+          6.705256321648945
+        ],
+        "shape": "rise-then-fall",
+        "cumulative_respiration_model_units": 353510.0981712491,
+        "cumulative_respiration_fraction_initial_OM": 0.35351009817124907,
+        "qCO2_per_day": 1.5279833188014948,
+        "CUE": 0.3222642835593196
+      },
+      "VB_c3": {
+        "period_means_normalized_to_R0": [
+          12.363602895972196,
+          12.634416530370869,
+          8.850362828254003,
+          6.367854877596261
+        ],
+        "shape": "rise-then-fall",
+        "cumulative_respiration_model_units": 335843.3266689297,
+        "cumulative_respiration_fraction_initial_OM": 0.33584332666892974,
+        "qCO2_per_day": 1.53017711141981,
+        "CUE": 0.3219920994165466
+      }
+    }
+  },
+  "maintenance_note": "R includes maintenance respiration; whole-community CUE can therefore be low or negative when uptake is small.",
+  "figure": "results\\stage22_scan_structure_rfix\\step6_periods.png",
+  "active_step2": "step2.json"
+}

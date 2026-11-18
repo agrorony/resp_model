@@ -101,10 +101,10 @@ f(S)    = S / (S + Ks)
 uptake  = (1/Y) * r_max * f(S) * B * (1 - B/K_ij)
 ```
 
-Respiration observable (unchanged):
+Respiration observable:
 
 ```
-R_ij(t) = (1 - Y) * [substrate used for growth in cell ij] + m0 * B_ij
+R_ij(t) = (1 - Y) * uptake_ij + m0 * B_ij, with uptake_ij = growth_ij / Y
 R(t)    = sum over all cells of R_ij(t)
 ```
 

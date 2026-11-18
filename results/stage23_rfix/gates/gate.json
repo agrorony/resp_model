@@ -1,0 +1,323 @@
+{
+  "stage": 23,
+  "step": "growth_respiration_reproduction_gate",
+  "started_utc": "2026-11-17T11:36:54.961674+00:00",
+  "completed_utc": "2026-11-17T11:44:02.630574+00:00",
+  "fresh_gpu_runs": true,
+  "run_count": 6,
+  "passed": true,
+  "runs": {
+    "A-SA_c0-chem_eq-stage22_solid_lt-T3000": {
+      "arm": "A",
+      "crop_id": "SA_c0",
+      "chemistry": "chem_eq",
+      "stored_trace": "results\\stage23\\runs\\A-SA_c0-chem_eq-stage22_solid_lt-T3000.npz",
+      "fresh_trace_mtime_utc": "2026-11-17T11:37:55.323379+00:00",
+      "legacy_max_relative_difference_by_array": {
+        "R": 4.2624937233749686e-16,
+        "B": 0.0,
+        "growth_R": 4.894302402205026e-16,
+        "maint_R": 0.0,
+        "fuel": 0.0,
+        "diff_wet": 0.0,
+        "diff_dry": 0.0,
+        "ex_wet": 0.0,
+        "ex_dry": 0.0,
+        "S_total": 0.0,
+        "clip_added": 0.0,
+        "uptake_dt": 0.0,
+        "source_dt": 0.0,
+        "iters": 0.0
+      },
+      "legacy_max_relative_difference": 4.894302402205026e-16,
+      "corrected_vs_legacy_state_max_relative_difference_by_array": {
+        "B": 0.0,
+        "S_total": 0.0,
+        "uptake_dt": 0.0,
+        "fuel": 0.0,
+        "maint_R": 0.0,
+        "diff_wet": 0.0,
+        "diff_dry": 0.0,
+        "ex_wet": 0.0,
+        "ex_dry": 0.0,
+        "clip_added": 0.0,
+        "source_dt": 0.0,
+        "iters": 0.0,
+        "S_final": 0.0,
+        "B_final": 0.0
+      },
+      "corrected_formula_max_relative_difference": 4.372329026158373e-16,
+      "legacy": {
+        "mass_balance_rel": 5.940436266458431e-15,
+        "closure_growth": 311211.20518332213,
+        "closure_growth_rel": 0.3600000000000009
+      },
+      "corrected": {
+        "mass_balance_rel": 5.940436266458431e-15,
+        "closure_growth": 7.566995918750763e-10,
+        "closure_growth_rel": 8.753279076650249e-16
+      },
+      "pass": true
+    },
+    "A-VA_c0-chem_eq-not_applicable-T3000": {
+      "arm": "A",
+      "crop_id": "VA_c0",
+      "chemistry": "chem_eq",
+      "stored_trace": "results\\stage23\\runs\\A-VA_c0-chem_eq-not_applicable-T3000.npz",
+      "fresh_trace_mtime_utc": "2026-11-17T11:39:16.414778+00:00",
+      "legacy_max_relative_difference_by_array": {
+        "R": 4.4047644103814885e-16,
+        "B": 0.0,
+        "growth_R": 5.182631108705293e-16,
+        "maint_R": 0.0,
+        "fuel": 0.0,
+        "diff_wet": 0.0,
+        "diff_dry": 0.0,
+        "ex_wet": 0.0,
+        "ex_dry": 0.0,
+        "S_total": 0.0,
+        "clip_added": 0.0,
+        "uptake_dt": 0.0,
+        "source_dt": 0.0,
+        "iters": 0.0
+      },
+      "legacy_max_relative_difference": 5.182631108705293e-16,
+      "corrected_vs_legacy_state_max_relative_difference_by_array": {
+        "B": 0.0,
+        "S_total": 0.0,
+        "uptake_dt": 0.0,
+        "fuel": 0.0,
+        "maint_R": 0.0,
+        "diff_wet": 0.0,
+        "diff_dry": 0.0,
+        "ex_wet": 0.0,
+        "ex_dry": 0.0,
+        "clip_added": 0.0,
+        "source_dt": 0.0,
+        "iters": 0.0,
+        "S_final": 0.0,
+        "B_final": 0.0
+      },
+      "corrected_formula_max_relative_difference": 5.357379010966801e-16,
+      "legacy": {
+        "mass_balance_rel": 3.494374274387312e-16,
+        "closure_growth": 185810.99934074795,
+        "closure_growth_rel": 0.36000000000000004
+      },
+      "corrected": {
+        "mass_balance_rel": 3.494374274387312e-16,
+        "closure_growth": 5.820766091346741e-11,
+        "closure_growth_rel": 1.1277458279216595e-16
+      },
+      "pass": true
+    },
+    "A-LC_c0-chem_eq-not_applicable-T3000": {
+      "arm": "A",
+      "crop_id": "LC_c0",
+      "chemistry": "chem_eq",
+      "stored_trace": "results\\stage23\\runs\\A-LC_c0-chem_eq-not_applicable-T3000.npz",
+      "fresh_trace_mtime_utc": "2026-11-17T11:40:29.607974+00:00",
+      "legacy_max_relative_difference_by_array": {
+        "R": 4.4369495821174e-16,
+        "B": 0.0,
+        "growth_R": 5.300641324387618e-16,
+        "maint_R": 0.0,
+        "fuel": 0.0,
+        "diff_wet": 0.0,
+        "diff_dry": 0.0,
+        "ex_wet": 0.0,
+        "ex_dry": 0.0,
+        "S_total": 0.0,
+        "clip_added": 0.0,
+        "uptake_dt": 0.0,
+        "source_dt": 0.0,
+        "iters": 0.0
+      },
+      "legacy_max_relative_difference": 5.300641324387618e-16,
+      "corrected_vs_legacy_state_max_relative_difference_by_array": {
+        "B": 0.0,
+        "S_total": 0.0,
+        "uptake_dt": 0.0,
+        "fuel": 0.0,
+        "maint_R": 0.0,
+        "diff_wet": 0.0,
+        "diff_dry": 0.0,
+        "ex_wet": 0.0,
+        "ex_dry": 0.0,
+        "clip_added": 0.0,
+        "source_dt": 0.0,
+        "iters": 0.0,
+        "S_final": 0.0,
+        "B_final": 0.0
+      },
+      "corrected_formula_max_relative_difference": 4.46851894201912e-16,
+      "legacy": {
+        "mass_balance_rel": 8.037060831090818e-15,
+        "closure_growth": 167355.40186047717,
+        "closure_growth_rel": 0.3600000000000004
+      },
+      "corrected": {
+        "mass_balance_rel": 8.037060831090818e-15,
+        "closure_growth": 1.7462298274040222e-10,
+        "closure_growth_rel": 3.756333711830485e-16
+      },
+      "pass": true
+    },
+    "B-SA_c0-chem_S-stage22_solid_lt-T3000": {
+      "arm": "B",
+      "crop_id": "SA_c0",
+      "chemistry": "chem_S",
+      "stored_trace": "results\\stage23\\runs\\B-SA_c0-chem_S-stage22_solid_lt-T3000.npz",
+      "fresh_trace_mtime_utc": "2026-11-17T11:41:28.358681+00:00",
+      "legacy_max_relative_difference_by_array": {
+        "R": 4.419540831957929e-16,
+        "B": 0.0,
+        "growth_R": 5.337108015491578e-16,
+        "maint_R": 0.0,
+        "fuel": 0.0,
+        "diff_wet": 0.0,
+        "diff_dry": 0.0,
+        "ex_wet": 0.0,
+        "ex_dry": 0.0,
+        "S_total": 0.0,
+        "clip_added": 0.0,
+        "uptake_dt": 0.0,
+        "source_dt": 0.0,
+        "iters": 0.0
+      },
+      "legacy_max_relative_difference": 5.337108015491578e-16,
+      "corrected_vs_legacy_state_max_relative_difference_by_array": {
+        "B": 0.0,
+        "S_total": 0.0,
+        "uptake_dt": 0.0,
+        "fuel": 0.0,
+        "maint_R": 0.0,
+        "diff_wet": 0.0,
+        "diff_dry": 0.0,
+        "ex_wet": 0.0,
+        "ex_dry": 0.0,
+        "clip_added": 0.0,
+        "source_dt": 0.0,
+        "iters": 0.0,
+        "S_final": 0.0,
+        "B_final": 0.0
+      },
+      "corrected_formula_max_relative_difference": 4.699520685984911e-16,
+      "legacy": {
+        "mass_balance_rel": 1.5012160951557155e-15,
+        "closure_growth": 200629.05242426708,
+        "closure_growth_rel": 0.3599999999999989
+      },
+      "corrected": {
+        "mass_balance_rel": 1.5012160951557155e-15,
+        "closure_growth": -5.820766091346741e-10,
+        "closure_growth_rel": 1.044452818554688e-15
+      },
+      "pass": true
+    },
+    "B-VA_c0-chem_V-not_applicable-T3000": {
+      "arm": "B",
+      "crop_id": "VA_c0",
+      "chemistry": "chem_V",
+      "stored_trace": "results\\stage23\\runs\\B-VA_c0-chem_V-not_applicable-T3000.npz",
+      "fresh_trace_mtime_utc": "2026-11-17T11:42:47.919169+00:00",
+      "legacy_max_relative_difference_by_array": {
+        "R": 4.420303651341121e-16,
+        "B": 0.0,
+        "growth_R": 4.451615830169484e-16,
+        "maint_R": 0.0,
+        "fuel": 0.0,
+        "diff_wet": 0.0,
+        "diff_dry": 0.0,
+        "ex_wet": 0.0,
+        "ex_dry": 0.0,
+        "S_total": 0.0,
+        "clip_added": 0.0,
+        "uptake_dt": 0.0,
+        "source_dt": 0.0,
+        "iters": 0.0
+      },
+      "legacy_max_relative_difference": 4.451615830169484e-16,
+      "corrected_vs_legacy_state_max_relative_difference_by_array": {
+        "B": 0.0,
+        "S_total": 0.0,
+        "uptake_dt": 0.0,
+        "fuel": 0.0,
+        "maint_R": 0.0,
+        "diff_wet": 0.0,
+        "diff_dry": 0.0,
+        "ex_wet": 0.0,
+        "ex_dry": 0.0,
+        "clip_added": 0.0,
+        "source_dt": 0.0,
+        "iters": 0.0,
+        "S_final": 0.0,
+        "B_final": 0.0
+      },
+      "corrected_formula_max_relative_difference": 4.785006285573553e-16,
+      "legacy": {
+        "mass_balance_rel": 8.514687347148902e-16,
+        "closure_growth": 301391.46816338436,
+        "closure_growth_rel": 0.3599999999999997
+      },
+      "corrected": {
+        "mass_balance_rel": 8.514687347148902e-16,
+        "closure_growth": -2.9103830456733704e-10,
+        "closure_growth_rel": 3.4763356203382427e-16
+      },
+      "pass": true
+    },
+    "B-LC_c0-chem_L-not_applicable-T3000": {
+      "arm": "B",
+      "crop_id": "LC_c0",
+      "chemistry": "chem_L",
+      "stored_trace": "results\\stage23\\runs\\B-LC_c0-chem_L-not_applicable-T3000.npz",
+      "fresh_trace_mtime_utc": "2026-11-17T11:44:02.485698+00:00",
+      "legacy_max_relative_difference_by_array": {
+        "R": 4.3392297031243227e-16,
+        "B": 0.0,
+        "growth_R": 5.046781910725723e-16,
+        "maint_R": 0.0,
+        "fuel": 0.0,
+        "diff_wet": 0.0,
+        "diff_dry": 0.0,
+        "ex_wet": 0.0,
+        "ex_dry": 0.0,
+        "S_total": 0.0,
+        "clip_added": 0.0,
+        "uptake_dt": 0.0,
+        "source_dt": 0.0,
+        "iters": 0.0
+      },
+      "legacy_max_relative_difference": 5.046781910725723e-16,
+      "corrected_vs_legacy_state_max_relative_difference_by_array": {
+        "B": 0.0,
+        "S_total": 0.0,
+        "uptake_dt": 0.0,
+        "fuel": 0.0,
+        "maint_R": 0.0,
+        "diff_wet": 0.0,
+        "diff_dry": 0.0,
+        "ex_wet": 0.0,
+        "ex_dry": 0.0,
+        "clip_added": 0.0,
+        "source_dt": 0.0,
+        "iters": 0.0,
+        "S_final": 0.0,
+        "B_final": 0.0
+      },
+      "corrected_formula_max_relative_difference": 4.780683740451594e-16,
+      "legacy": {
+        "mass_balance_rel": 3.0094995907988903e-15,
+        "closure_growth": 129241.75301330973,
+        "closure_growth_rel": 0.3600000000000003
+      },
+      "corrected": {
+        "mass_balance_rel": 3.0094995907988903e-15,
+        "closure_growth": 1.4551915228366852e-10,
+        "closure_growth_rel": 4.0534033004586175e-16
+      },
+      "pass": true
+    }
+  }
+}

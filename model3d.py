@@ -5,7 +5,7 @@ Same biology as every earlier stage (configs/biology.yaml, unchanged):
     dB/dt = r_max f(S) B (1 - B/K) - m0 B - m_s (1 - f(S)) B
     dS/dt = div(D grad S) + k_dis OM - uptake (+ matrix<->pore exchange)
     dOM/dt = -k_dis OM,    f(S) = S/(S+Ks),  uptake = growth / Y
-    R = (1 - Y) growth + m0 B
+    R = (1 - Y) uptake + m0 B, with uptake = growth / Y
 
 `simulate3d` is a generic engine on explicit fields. It has two modes so the
 2D code can be reproduced exactly (Step 0 extrusion test) and the new physics
@@ -320,7 +320,8 @@ STAT_NAMES = ["R", "B", "growth_R", "maint_R", "fuel", "diff_wet", "diff_dry",
 
 
 def simulate3d(F, bio, T, dt, dx, xp, solver="cg", exchange="twoway", z_diffusion=True,
-               iterations=90, relaxation=0.85, jacobi_tol=None, cg_rtol=1e-9):
+               iterations=90, relaxation=0.85, jacobi_tol=None, cg_rtol=1e-9,
+               *, legacy_growth_resp=False):
     """F: dict of fields (xp arrays, shape (nx, ny, nz)):
          D        per-voxel diffusivity (pore + matrix, already scaled)
          K        habitat capacity (0 = not habitat)
@@ -346,11 +347,13 @@ def simulate3d(F, bio, T, dt, dx, xp, solver="cg", exchange="twoway", z_diffusio
     hw, hd = F["hab_wet"].astype(xp.float64), F["hab_dry"].astype(xp.float64)
     hwr, hdr = hw.ravel(), hd.ravel()
     stats = xp.zeros((T, len(STAT_NAMES)))
+    growth_dt_total = xp.asarray(0.0, dtype=xp.float64)
     fast = xp is not np and solver == "cg" and OM_b is None
     for t in range(T):
         if fast:
             growth, uptake, dB = _gpu_kernels()["growth"](S, B, K, r_max, Ks, Y, m0, m_s)
-            gR = (1.0 - Y) * growth.sum()
+            growth_resp = (1.0 - Y) * (growth if legacy_growth_resp else uptake)
+            gR = growth_resp.sum()
             mR = m0 * B.sum()
             omsum = OM_a.sum()
             pre = S + dt * (k_dis * OM_a)
@@ -363,6 +366,7 @@ def simulate3d(F, bio, T, dt, dx, xp, solver="cg", exchange="twoway", z_diffusio
                    xp.dot(ex.ravel(), hwr), xp.dot(ex.ravel(), hdr), S_cl.sum(),
                    S_cl.sum() - S_new.sum(), dt * uptake.sum(), dt * k_dis * omsum,
                    float(dif.last_iters)]
+            growth_dt_total += dt * growth.sum()
             for j, v in enumerate(row):
                 stats[t, j] = v
             B = xp.clip(B + dt * dB, 0.0, None)
@@ -373,7 +377,8 @@ def simulate3d(F, bio, T, dt, dx, xp, solver="cg", exchange="twoway", z_diffusio
         logistic = xp.where(habitable, 1.0 - B / K_safe, 0.0)
         growth = r_max * f_S * B * logistic
         uptake = growth / Y
-        gR = ((1.0 - Y) * growth).sum()
+        growth_resp = (1.0 - Y) * (growth if legacy_growth_resp else uptake)
+        gR = growth_resp.sum()
         mR = (m0 * B).sum()
         dB = growth - m0 * B - m_s * (1.0 - f_S) * B
         src = k_dis * OM_a + (k_b * OM_b if OM_b is not None else 0.0)
@@ -386,6 +391,7 @@ def simulate3d(F, bio, T, dt, dx, xp, solver="cg", exchange="twoway", z_diffusio
                ((S_dif - pre) * hw).sum(), ((S_dif - pre) * hd).sum(), (ex * hw).sum(), (ex * hd).sum(),
                S_cl.sum(), (S_cl - S_new).sum(), dt * uptake.sum(), dt * src.sum(),
                float(dif.last_iters)]
+        growth_dt_total += dt * growth.sum()
         for j, v in enumerate(row):
             stats[t, j] = v
         B = xp.clip(B + dt * dB, 0.0, None)
@@ -397,6 +403,12 @@ def simulate3d(F, bio, T, dt, dx, xp, solver="cg", exchange="twoway", z_diffusio
     out = {n: st[:, i] for i, n in enumerate(STAT_NAMES)}
     out["S_final"], out["B_final"] = S, B
     out["B0_sum"] = float(F["B0"].sum())
+    out["closure_growth"] = float(
+        out["uptake_dt"].sum() - float(P.to_np(growth_dt_total)) - out["growth_R"].sum() * dt
+    )
+    out["closure_growth_rel"] = abs(out["closure_growth"]) / max(
+        float(out["uptake_dt"].sum()), 1e-300
+    )
     # mass balance: S_total(T-1) = sum(source) - sum(uptake) + sum(clip added)
     bal = out["S_total"][-1] - (out["source_dt"].sum() - out["uptake_dt"].sum() + out["clip_added"].sum())
     out["mass_balance_rel"] = float(abs(bal) / max(out["source_dt"].sum(), 1e-300))
@@ -491,7 +503,8 @@ def build_fields(st, hp, xp, K_density, OM_density, D_scale=None, wetting="matri
     return F, meta
 
 
-def run_structure(st, hp, bio, xp, K_density, OM_density, T=None, D_scale=None, solver="cg", wetting="matric"):
+def run_structure(st, hp, bio, xp, K_density, OM_density, T=None, D_scale=None, solver="cg", wetting="matric",
+                  *, legacy_growth_resp=False):
     F, meta = build_fields(st, hp, xp, K_density, OM_density, D_scale, wetting)
     N = meta["N"]
     # equal totals as per-voxel densities, asserted every run
@@ -499,7 +512,10 @@ def run_structure(st, hp, bio, xp, K_density, OM_density, T=None, D_scale=None, 
     assert abs(float(F["B0"].sum()) / (hp["B0_density"] * N) - 1) < 1e-9, "B0 total"
     assert abs(float(F["K"].sum()) / (K_density * N) - 1) < 1e-9, "K total"
     dx = st.vox_um / hp["voxel_ref_um"]
-    out = simulate3d(F, bio, T or hp["T"], bio["dt"], dx, xp, solver=solver, exchange="twoway")
+    out = simulate3d(
+        F, bio, T or hp["T"], bio["dt"], dx, xp, solver=solver,
+        exchange="twoway", legacy_growth_resp=legacy_growth_resp,
+    )
     res = summarize(out, bio)
     res.update(meta)
     return out, res

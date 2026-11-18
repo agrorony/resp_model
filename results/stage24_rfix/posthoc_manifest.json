@@ -1,0 +1,12 @@
+{
+  "source": "results\\stage24",
+  "corrected_formula": "R = growth_R_legacy / Y + maint_R",
+  "stage24_variant_runs_posthoc_corrected": 184,
+  "fresh_stage24_runs": 0,
+  "stage23_corrected_analysis": [
+    "results\\stage23_rfix\\step3.json",
+    "results\\stage23_rfix\\step4.json",
+    "results\\stage23_rfix\\step5.json",
+    "results\\stage23_rfix\\step6.json"
+  ]
+}

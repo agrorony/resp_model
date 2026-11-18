@@ -1157,3 +1157,41 @@ Pull request creation is pending GitHub authentication: `gh pr create`
 returned “please run: gh auth login”, and the browser session is signed out.
 The branch comparison / PR creation page is
 https://github.com/agrorony/resp_model/compare/main...agents/stage24-matrix-sensitivity?expand=1.
+
+## Growth-respiration correction — carbon-closure fix
+
+Corrected growth-associated respiration from `(1 - Y) * growth` to
+`(1 - Y) * uptake` (`uptake = growth / Y`) in all three engines. The
+historical expression remains available through `legacy_growth_resp=True`;
+state and uptake dynamics are unchanged. Stage 23 gates, post-hoc Stage 22,
+23, and 24 analyses, corrected Figure A1 curves, and the report-only
+starvation-loss measurement are documented in
+`docs/stage_results/RFIX_REPORT.md`.
+
+All six fresh Stage 23 GPU gates passed: maximum legacy-trace relative
+difference `5.34e-16`, corrected-formula difference `5.36e-16`, corrected
+closure error `1.05e-15`, mass-balance error `8.04e-15`, and zero
+state/delivery difference. The Stage 23 primary rankings and distinctness
+verdicts survive; CUE now falls below yield. The detailed reports list
+high-mapping rank/shape and pore-fill ordering changes.
+
+| Fresh run group | Runs | Elapsed seconds |
+|---|---:|---:|
+| Stage 23 reproduction gates | 6 | 427.7 |
+| Figure A1 corrected ensemble | 80 | 1,701.25 |
+
+No Stage 22, 23 post-hoc, or Stage 24 state simulations were rerun. No
+lab/measurement files were read; `configs/biology.yaml` and the existing
+Stage result archives remain unchanged. The starvation-loss measurements
+identify a second non-closed carbon flow; no biology change was made.
+
+Commits: `9c24081` (audit), `37106bb` (formula, tests, and docs), `bc6736b`
+(fresh gates), `1f2e39a` (Stage 23 post-hoc outputs), `cf57ab6` (Stage 22/24
+outputs), `e482ce6` (Figure A1), `4bd3633` (starvation-loss report), and
+`52add0c` (consolidated report). The branch was pushed to
+`origin/agents/fix-growth-respiration`.
+
+Pull request creation is blocked because `gh auth status` reports that no
+GitHub host is authenticated; `gh pr create` returned the `gh auth login`
+instruction. The ready-to-create comparison is
+https://github.com/agrorony/resp_model/compare/agents/stage24-matrix-sensitivity...agents/fix-growth-respiration?expand=1.
